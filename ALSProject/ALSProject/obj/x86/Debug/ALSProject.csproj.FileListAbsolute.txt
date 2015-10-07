@@ -1,0 +1,4 @@
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Debug\ALSProject.exe
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Debug\ALSProject.pdb
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.exe
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.pdb
