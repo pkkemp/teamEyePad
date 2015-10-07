@@ -1,0 +1,14 @@
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\bin\Debug\SystemsPOC.exe
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\bin\Debug\SystemsPOC.pdb
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.Form1.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.PowerConfirmation.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.Properties.Resources.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.csproj.GenerateResource.Cache
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.exe
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.pdb
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.csprojResolveAssemblyReference.cache
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.Callouts.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.frmSettings.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.frmNotepad.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.AddSpeech.resources
+C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.KeyboardV1.resources
