@@ -47,6 +47,7 @@
       <DependentUpon>ALSButton.cs</DependentUpon>
     </Compile>
     <Compile Include="ALS_App.cs" />
+    <Compile Include="CVInterface.cs" />
     <Compile Include="UI.cs">
       <SubType>Form</SubType>
     </Compile>

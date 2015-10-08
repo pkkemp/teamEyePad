@@ -16,3 +16,15 @@ C:\Users\daniel.griffin\Documents\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug
 C:\Users\daniel.griffin\Documents\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.pdb
 C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.exe
 C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.pdb
+C:\git\teamEyePad\AppPOC\SystemsPOC\bin\Debug\SystemsPOC.exe
+C:\git\teamEyePad\AppPOC\SystemsPOC\bin\Debug\SystemsPOC.pdb
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.csprojResolveAssemblyReference.cache
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.AddSpeech.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.Callouts.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.Form1.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.frmNotepad.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.frmSettings.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.KeyboardV1.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.PowerConfirmation.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.Properties.Resources.resources
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.csproj.GenerateResource.Cache

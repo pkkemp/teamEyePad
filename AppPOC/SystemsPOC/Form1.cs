@@ -25,10 +25,13 @@ namespace SystemsPOC
         System.Windows.Forms.Timer progressTimer;
         int progress;
         Button hoverButton;
+        System.Drawing.Graphics gr;
+
 
         public Form1()
         {
             InitializeComponent();
+            gr = this.CreateGraphics();
 
             hoverTimer = new System.Windows.Forms.Timer();
             hoverTimer.Interval = 3000; 
@@ -191,5 +194,10 @@ namespace SystemsPOC
             this.HandleMouseLeave();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            gr.FillRectangle(Brushes.Red, new Rectangle(10, 10, 400, 500));
+            gr.Dispose();
+        }
     }
 }
