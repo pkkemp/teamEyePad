@@ -14,3 +14,5 @@ C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86
 C:\Users\daniel.griffin\Documents\Programming\Labs\SystemsPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.KeyboardV1.resources
 C:\Users\daniel.griffin\Documents\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.exe
 C:\Users\daniel.griffin\Documents\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.pdb
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.exe
+C:\git\teamEyePad\AppPOC\SystemsPOC\obj\x86\Debug\SystemsPOC.pdb

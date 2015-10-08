@@ -1,0 +1,13 @@
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Release\ALSProject.exe.config
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Release\ALSProject.exe
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Release\ALSProject.pdb
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Release\OpenTK.dll
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Release\OpenTK.pdb
+C:\git\teamEyePad\ALSProject\ALSProject\bin\Release\OpenTK.xml
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.Properties.Resources.resources
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.csproj.GenerateResource.Cache
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.exe
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.pdb
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.csprojResolveAssemblyReference.cache
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.ALSButton.resources
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.UI.resources
