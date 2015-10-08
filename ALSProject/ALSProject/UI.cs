@@ -12,6 +12,9 @@ namespace ALSProject
 {
     public partial class UI : Form
     {
+
+        // main UI for our application
+        // maximize and quit buttons are temporary
         public UI()
         {
             InitializeComponent();
