@@ -38,6 +38,7 @@
             this.Name = "ALSButton";
             this.Size = new System.Drawing.Size(126, 94);
             this.Load += new System.EventHandler(this.ALSButton_Load);
+            this.Click += new System.EventHandler(this.ALSButton_Click);
             this.MouseEnter += new System.EventHandler(this.ALSButton_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ALSButton_MouseLeave);
             this.Resize += new System.EventHandler(this.ALSButton_Resize);

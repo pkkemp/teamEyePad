@@ -36,15 +36,16 @@ namespace ALSProject
 
         private void dwellTimeEvent(object sender, ElapsedEventArgs e)
         {
-            gr.FillRectangle(Brushes.Gray, new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / 10));
-
+            gr.FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / 10));
+            
             heightCounter += this.Height / 10;
 
             if (heightCounter > this.Height * 12 / 10)
             {
                 heightCounter = 0;
-                this.Click();
-                gr.Clear(baseColor);
+                this.ALSButton_Click(sender, e); // calls the click event programmatically rather than through an actual click
+
+               
             }
         }
 
@@ -59,18 +60,31 @@ namespace ALSProject
           
         }
 
-        private void Click()
-        {
-            MessageBox.Show("Click!");
-        }
+
+      
 
         private void ALSButton_MouseLeave(object sender, EventArgs e)
         {
             dwellTimer.Enabled = false;
-            gr.Clear(baseColor);
+            ClearRect();
+
+
+        }
+
+
+        //deletes rectangle, restores image if any
+        private void ClearRect()
+        {
+            try {
+                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy
+                gr.Clear(baseColor);
+                this.BackgroundImage = temp;
+                
+            }catch(NullReferenceException e) {//this just prevents the program from crashing if there is no Background Image set
+                gr.Clear(baseColor);//clears rectangle if there is no image
+            }
+
             heightCounter = 0;
-
-
         }
 
 
@@ -80,5 +94,12 @@ namespace ALSProject
             //this.Width = Screen.FromControl(this).Bounds.Width / 8;
         }
 
+        private void ALSButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Click!");
+            dwellTimer.Enabled = false;
+            ClearRect();
+            
+        }
     }
 }
