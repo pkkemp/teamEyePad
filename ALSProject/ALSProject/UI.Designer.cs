@@ -28,29 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.quitBut = new ALSProject.ALSButton();
+            this.setBut = new ALSProject.ALSButton();
+            this.alsButton9 = new ALSProject.ALSButton();
+            this.alsButton4 = new ALSProject.ALSButton();
+            this.alsButton5 = new ALSProject.ALSButton();
+            this.mailBut = new ALSProject.ALSButton();
+            this.noteBut = new ALSProject.ALSButton();
+            this.ttsBut = new ALSProject.ALSButton();
+            this.alarmBut = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
-            // button1
+            // quitBut
             // 
-            this.button1.Location = new System.Drawing.Point(902, 572);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Quit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.quitBut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.quitBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.quitBut.BackgroundImage = global::ALSProject.Properties.Resources.power;
+            this.quitBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.quitBut.Location = new System.Drawing.Point(700, 518);
+            this.quitBut.Name = "quitBut";
+            this.quitBut.Size = new System.Drawing.Size(312, 248);
+            this.quitBut.TabIndex = 10;
+            this.quitBut.Click += new System.EventHandler(this.quitBut_Click);
             // 
-            // button2
+            // setBut
             // 
-            this.button2.Location = new System.Drawing.Point(801, 572);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Maximize";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.setBut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.setBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.setBut.BackgroundImage = global::ALSProject.Properties.Resources.gear_b;
+            this.setBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.setBut.Location = new System.Drawing.Point(356, 518);
+            this.setBut.Name = "setBut";
+            this.setBut.Size = new System.Drawing.Size(312, 248);
+            this.setBut.TabIndex = 9;
+            this.setBut.Click += new System.EventHandler(this.setBut_Click);
+            // 
+            // alsButton9
+            // 
+            this.alsButton9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.alsButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton9.Location = new System.Drawing.Point(12, 518);
+            this.alsButton9.Name = "alsButton9";
+            this.alsButton9.Size = new System.Drawing.Size(312, 248);
+            this.alsButton9.TabIndex = 8;
+            // 
+            // alsButton4
+            // 
+            this.alsButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton4.Location = new System.Drawing.Point(700, 264);
+            this.alsButton4.Name = "alsButton4";
+            this.alsButton4.Size = new System.Drawing.Size(312, 248);
+            this.alsButton4.TabIndex = 7;
+            this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
+            // 
+            // alsButton5
+            // 
+            this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton5.Location = new System.Drawing.Point(356, 264);
+            this.alsButton5.Name = "alsButton5";
+            this.alsButton5.Size = new System.Drawing.Size(312, 248);
+            this.alsButton5.TabIndex = 6;
+            // 
+            // mailBut
+            // 
+            this.mailBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mailBut.Location = new System.Drawing.Point(12, 264);
+            this.mailBut.Name = "mailBut";
+            this.mailBut.Size = new System.Drawing.Size(312, 248);
+            this.mailBut.TabIndex = 5;
+            // 
+            // noteBut
+            // 
+            this.noteBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.noteBut.BackgroundImage = global::ALSProject.Properties.Resources.Notes;
+            this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noteBut.Location = new System.Drawing.Point(700, 10);
+            this.noteBut.Name = "noteBut";
+            this.noteBut.Size = new System.Drawing.Size(312, 248);
+            this.noteBut.TabIndex = 4;
+            // 
+            // ttsBut
+            // 
+            this.ttsBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ttsBut.BackgroundImage = global::ALSProject.Properties.Resources.chatbubbles;
+            this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ttsBut.Location = new System.Drawing.Point(356, 10);
+            this.ttsBut.Name = "ttsBut";
+            this.ttsBut.Size = new System.Drawing.Size(312, 248);
+            this.ttsBut.TabIndex = 3;
+            // 
+            // alarmBut
+            // 
+            this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alarmBut.Location = new System.Drawing.Point(12, 10);
+            this.alarmBut.Name = "alarmBut";
+            this.alarmBut.Size = new System.Drawing.Size(312, 248);
+            this.alarmBut.TabIndex = 2;
             // 
             // UI
             // 
@@ -58,11 +137,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.quitBut);
+            this.Controls.Add(this.setBut);
+            this.Controls.Add(this.alsButton9);
+            this.Controls.Add(this.alsButton4);
+            this.Controls.Add(this.alsButton5);
+            this.Controls.Add(this.mailBut);
+            this.Controls.Add(this.noteBut);
+            this.Controls.Add(this.ttsBut);
+            this.Controls.Add(this.alarmBut);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UI";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ALS App";
             this.Load += new System.EventHandler(this.User_Interface_Load);
             this.ResumeLayout(false);
@@ -70,8 +157,14 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private ALSButton alarmBut;
+        private ALSButton ttsBut;
+        private ALSButton noteBut;
+        private ALSButton alsButton4;
+        private ALSButton alsButton5;
+        private ALSButton mailBut;
+        private ALSButton setBut;
+        private ALSButton alsButton9;
+        private ALSButton quitBut;
     }
 }

@@ -34,6 +34,30 @@ namespace ALSProject
 
         private void User_Interface_Load(object sender, EventArgs e)
         {
+
+            drawButtons(sender, e);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void quit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void drawButtons(object sender, EventArgs e)
+        {
+            /*
             ALSButton[] buttons = new ALSButton[8];
 
             for (int i = 0; i < 8; i++)
@@ -47,27 +71,46 @@ namespace ALSProject
             }
 
 
-                //Properties.Resources
-                ResourceManager rm = Properties.Resources.ResourceManager;
+            buttons[2].Height = 64;
+            buttons[2].Width = 64;
+            buttons[3].Height = 228;
+            ALSButton quitBut = new ALSButton();
+            quitBut.Visible = true;
+            quitBut.Location = new System.Drawing.Point(128 * 7, 768 -112);
+            quitBut.Height = 112;
+            Controls.Add(quitBut);
 
-               buttons[0].BackgroundImage = (Image) rm.GetObject("chatbubbles");
-               buttons[0].BackgroundImageLayout = ImageLayout.Stretch;
+            //Properties.Resources
+            ResourceManager rm = Properties.Resources.ResourceManager;
 
-            
+            buttons[0].BackgroundImage = (Image)rm.GetObject("chatbubbles");
+            buttons[0].BackgroundImageLayout = ImageLayout.Stretch;
 
+            quitBut.BackgroundImage = (Image)rm.GetObject("power");
+            quitBut.BackgroundImageLayout = ImageLayout.Stretch;
+            quitBut.Name = "quit";
 
-
+    */
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void alsButton4_Click(object sender, EventArgs e)
         {
+           
             this.WindowState = FormWindowState.Maximized;
 
+        }
+
+        private void quitBut_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+
+        }
+
+        private void setBut_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

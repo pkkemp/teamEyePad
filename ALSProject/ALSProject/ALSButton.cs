@@ -41,7 +41,8 @@ namespace ALSProject
 
             if (heightCounter > this.Height * 12 / 10)
             {
-                this.ALSButton_Click(sender, e); // calls the click event programmatically rather than through an actual click
+                //this.ALSButton_Click(sender, e); // calls the click event programmatically rather than through an actual click
+                this.OnClick(e);
 
             }
             else
@@ -83,7 +84,7 @@ namespace ALSProject
                 gr.Clear(baseColor);
                 this.BackgroundImage = temp;
                 
-            }catch(NullReferenceException e) {//this just prevents the program from crashing if there is no Background Image set
+            }catch(Exception e) {//this just prevents the program from crashing if there is no Background Image set
                 gr.Clear(baseColor);//clears rectangle if there is no image
             }
 
@@ -91,17 +92,19 @@ namespace ALSProject
         }
 
 
-        //this doesn't work the way it should so I am disabling it
         private void ALSButton_Resize(object sender, EventArgs e)
         {
-            //this.Width = Screen.FromControl(this).Bounds.Width / 8;
+
+           // this is necessary because otherwise the graphics object won't let you draw things bigger than the original size
+           // it was also a huge pain in the butt to fix. It took me like 3 hours lol
+            gr = this.CreateGraphics(); 
         }
 
         private void ALSButton_Click(object sender, EventArgs e)
         {
             if (!clicked) { //prevents rapid clicks
                 clicked = true;
-                MessageBox.Show("Click!");
+                //MessageBox.Show("Click!");
                 dwellTimer.Enabled = false;
             }
 
