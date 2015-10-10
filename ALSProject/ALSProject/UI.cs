@@ -50,7 +50,8 @@ namespace ALSProject
                 //Properties.Resources
                 ResourceManager rm = Properties.Resources.ResourceManager;
 
-               buttons[0].BackgroundImage = (Image) rm.GetObject("btnSpeech");
+               buttons[0].BackgroundImage = (Image) rm.GetObject("chatbubbles");
+               buttons[0].BackgroundImageLayout = ImageLayout.Stretch;
 
             
 

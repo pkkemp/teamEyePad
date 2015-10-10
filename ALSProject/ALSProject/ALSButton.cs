@@ -17,8 +17,9 @@ namespace ALSProject
 
         int heightCounter;
         Graphics gr;
-        Color baseColor =Color.FromArgb(224, 224, 224);
+        Color baseColor = Color.FromArgb(224, 224, 224);
         Timer dwellTimer;
+        bool clicked = false; //prevents rapid clicks
 
         public ALSButton()
         {
@@ -37,15 +38,15 @@ namespace ALSProject
         private void dwellTimeEvent(object sender, ElapsedEventArgs e)
         {
             gr.FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / 10));
-            
-            heightCounter += this.Height / 10;
 
             if (heightCounter > this.Height * 12 / 10)
             {
-                heightCounter = 0;
                 this.ALSButton_Click(sender, e); // calls the click event programmatically rather than through an actual click
 
-               
+            }
+            else
+            {
+                heightCounter += this.Height / 10;
             }
         }
 
@@ -66,6 +67,7 @@ namespace ALSProject
         private void ALSButton_MouseLeave(object sender, EventArgs e)
         {
             dwellTimer.Enabled = false;
+            clicked = false;
             ClearRect();
 
 
@@ -76,6 +78,7 @@ namespace ALSProject
         private void ClearRect()
         {
             try {
+
                 Image temp = (Image)this.BackgroundImage.Clone(); //deep copy
                 gr.Clear(baseColor);
                 this.BackgroundImage = temp;
@@ -96,10 +99,12 @@ namespace ALSProject
 
         private void ALSButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Click!");
-            dwellTimer.Enabled = false;
-            ClearRect();
-            
+            if (!clicked) { //prevents rapid clicks
+                clicked = true;
+                MessageBox.Show("Click!");
+                dwellTimer.Enabled = false;
+            }
+
         }
     }
 }
