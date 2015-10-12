@@ -119,14 +119,10 @@ namespace ALSProject
 
         private void setBut_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("SETtings");
+
             this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;//this doesn't work with dwell timing and I don't know why
             Debug.WriteLine("btnSet called.");
-            //this.Size = new System.Drawing.Size(1000, 1000);
-            /* this.Invalidate();
-             this.Update();
-             this.Refresh();
-             Application.DoEvents();*/
+
 
         }
 
