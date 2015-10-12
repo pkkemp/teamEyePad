@@ -7,6 +7,8 @@ C:\git\teamEyePad\ALSProject\ALSProject\bin\Debug\OpenTK.pdb
 C:\git\teamEyePad\ALSProject\ALSProject\bin\Debug\OpenTK.xml
 C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.csprojResolveAssemblyReference.cache
 C:\git\teamEyePad\ALSProject\ALSProject\bin\Debug\ALSProject.exe.config
-C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.User_Interface.resources
 C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.Properties.Resources.resources
 C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.csproj.GenerateResource.Cache
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.ALSButton.resources
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.QuitForm.resources
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Debug\ALSProject.UI.resources

@@ -41,95 +41,115 @@
             // 
             // quitBut
             // 
-            this.quitBut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.quitBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.quitBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.quitBut.BackgroundImage = global::ALSProject.Properties.Resources.power;
             this.quitBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.quitBut.elapseDivide = 10;
             this.quitBut.Location = new System.Drawing.Point(700, 518);
             this.quitBut.Name = "quitBut";
             this.quitBut.Size = new System.Drawing.Size(312, 248);
             this.quitBut.TabIndex = 10;
+            this.quitBut.UseVisualStyleBackColor = false;
             this.quitBut.Click += new System.EventHandler(this.quitBut_Click);
             // 
             // setBut
             // 
-            this.setBut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.setBut.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.setBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.setBut.BackgroundImage = global::ALSProject.Properties.Resources.gear_b;
             this.setBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.setBut.elapseDivide = 10;
             this.setBut.Location = new System.Drawing.Point(356, 518);
             this.setBut.Name = "setBut";
             this.setBut.Size = new System.Drawing.Size(312, 248);
             this.setBut.TabIndex = 9;
+            this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
+            this.setBut.MouseEnter += new System.EventHandler(this.setBut_MouseEnter);
             // 
             // alsButton9
             // 
-            this.alsButton9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.alsButton9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.alsButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton9.elapseDivide = 10;
             this.alsButton9.Location = new System.Drawing.Point(12, 518);
             this.alsButton9.Name = "alsButton9";
             this.alsButton9.Size = new System.Drawing.Size(312, 248);
             this.alsButton9.TabIndex = 8;
+            this.alsButton9.UseVisualStyleBackColor = false;
             // 
             // alsButton4
             // 
+            this.alsButton4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.alsButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton4.elapseDivide = 10;
             this.alsButton4.Location = new System.Drawing.Point(700, 264);
             this.alsButton4.Name = "alsButton4";
             this.alsButton4.Size = new System.Drawing.Size(312, 248);
             this.alsButton4.TabIndex = 7;
+            this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
             // 
             // alsButton5
             // 
+            this.alsButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton5.elapseDivide = 10;
             this.alsButton5.Location = new System.Drawing.Point(356, 264);
             this.alsButton5.Name = "alsButton5";
             this.alsButton5.Size = new System.Drawing.Size(312, 248);
             this.alsButton5.TabIndex = 6;
+            this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // mailBut
             // 
+            this.mailBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.mailBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mailBut.elapseDivide = 10;
             this.mailBut.Location = new System.Drawing.Point(12, 264);
             this.mailBut.Name = "mailBut";
             this.mailBut.Size = new System.Drawing.Size(312, 248);
             this.mailBut.TabIndex = 5;
+            this.mailBut.UseVisualStyleBackColor = false;
             // 
             // noteBut
             // 
+            this.noteBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.noteBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noteBut.BackgroundImage = global::ALSProject.Properties.Resources.Notes;
             this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noteBut.elapseDivide = 10;
             this.noteBut.Location = new System.Drawing.Point(700, 10);
             this.noteBut.Name = "noteBut";
             this.noteBut.Size = new System.Drawing.Size(312, 248);
             this.noteBut.TabIndex = 4;
+            this.noteBut.UseVisualStyleBackColor = false;
             // 
             // ttsBut
             // 
+            this.ttsBut.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ttsBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ttsBut.BackgroundImage = global::ALSProject.Properties.Resources.chatbubbles;
             this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ttsBut.elapseDivide = 10;
             this.ttsBut.Location = new System.Drawing.Point(356, 10);
             this.ttsBut.Name = "ttsBut";
             this.ttsBut.Size = new System.Drawing.Size(312, 248);
             this.ttsBut.TabIndex = 3;
+            this.ttsBut.UseVisualStyleBackColor = false;
             // 
             // alarmBut
             // 
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alarmBut.elapseDivide = 10;
             this.alarmBut.Location = new System.Drawing.Point(12, 10);
             this.alarmBut.Name = "alarmBut";
             this.alarmBut.Size = new System.Drawing.Size(312, 248);
             this.alarmBut.TabIndex = 2;
+            this.alarmBut.UseVisualStyleBackColor = false;
             // 
             // UI
             // 

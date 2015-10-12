@@ -11,3 +11,4 @@ C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.pdb
 C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.csprojResolveAssemblyReference.cache
 C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.ALSButton.resources
 C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.UI.resources
+C:\git\teamEyePad\ALSProject\ALSProject\obj\x86\Release\ALSProject.QuitForm.resources

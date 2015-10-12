@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Timer = System.Timers.Timer;
+using Timer = System.Windows.Forms.Timer;
 using System.Timers;
+using System.Diagnostics;
 
 namespace ALSProject
 {
-    public partial class ALSButton : UserControl
+    public partial class ALSButton : Button
     {
 
         int heightCounter;
@@ -20,34 +21,36 @@ namespace ALSProject
         Color baseColor = Color.FromArgb(224, 224, 224);
         Timer dwellTimer;
         bool clicked = false; //prevents rapid clicks
+        public int elapseDivide { get; set; }
 
         public ALSButton()
         {
             InitializeComponent();
-            gr = this.CreateGraphics();
+            //gr = this.CreateGraphics();
             heightCounter =  0;
 
             dwellTimer = new Timer();
             dwellTimer.Interval = 50; // interval in milliseconds
             dwellTimer.Enabled = false;
-            dwellTimer.Elapsed += dwellTimeEvent;
-            dwellTimer.AutoReset = true;
+            dwellTimer.Tick += new EventHandler(dwellTimeEvent);
+
+               
         }
 
 
-        private void dwellTimeEvent(object sender, ElapsedEventArgs e)
+        private void dwellTimeEvent(object sender, EventArgs e)
         {
-            gr.FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / 10));
-
+            gr.FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / elapseDivide));
+            
             if (heightCounter > this.Height * 12 / 10)
             {
-                //this.ALSButton_Click(sender, e); // calls the click event programmatically rather than through an actual click
-                this.OnClick(e);
-
+                // this.ALSButton_Click(sender, e); // calls the click event programmatically rather than through an actual click
+                //this.OnClick(e);
+                this.PerformClick();
             }
             else
             {
-                heightCounter += this.Height / 10;
+                heightCounter += this.Height / elapseDivide;
             }
         }
 
@@ -59,19 +62,14 @@ namespace ALSProject
         private void ALSButton_MouseEnter(object sender, EventArgs e)
         {
             dwellTimer.Enabled = true;
-          
         }
-
-
-      
 
         private void ALSButton_MouseLeave(object sender, EventArgs e)
         {
             dwellTimer.Enabled = false;
             clicked = false;
             ClearRect();
-
-
+            
         }
 
 

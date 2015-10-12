@@ -56,13 +56,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ALSButton.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ALSButton.Designer.cs">
       <DependentUpon>ALSButton.cs</DependentUpon>
     </Compile>
     <Compile Include="ALS_App.cs" />
     <Compile Include="CVInterface.cs" />
+    <Compile Include="QuitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuitForm.Designer.cs">
+      <DependentUpon>QuitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuitForm.resx">
+      <DependentUpon>QuitForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI.resx">
       <DependentUpon>UI.cs</DependentUpon>

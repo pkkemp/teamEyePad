@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Resources;
@@ -25,18 +26,21 @@ namespace ALSProject
 */
 
 
-        public UI() 
+
+
+        public Form self { get; set; }
+
+        public UI()
         {
             InitializeComponent();
+            this.self = this;
 
 
         }
 
         private void User_Interface_Load(object sender, EventArgs e)
         {
-
             drawButtons(sender, e);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -104,13 +108,32 @@ namespace ALSProject
 
         private void quitBut_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            
+            this.Visible = false;
+            Form quitScreen = new QuitForm(this);
+            quitScreen.ShowDialog(); 
+            
+           
 
         }
 
         private void setBut_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+            MessageBox.Show("SETtings");
+            this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;//this doesn't work with dwell timing and I don't know why
+            Debug.WriteLine("btnSet called.");
+            //this.Size = new System.Drawing.Size(1000, 1000);
+            /* this.Invalidate();
+             this.Update();
+             this.Refresh();
+             Application.DoEvents();*/
+
+        }
+
+        private void setBut_MouseEnter(object sender, EventArgs e)
+        {
+            //this.button1.PerformClick();
+            //this.setBut.PerformClick();
         }
     }
 }
