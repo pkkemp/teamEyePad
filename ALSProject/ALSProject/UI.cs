@@ -120,8 +120,7 @@ namespace ALSProject
         private void setBut_Click(object sender, EventArgs e)
         {
 
-            this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;//this doesn't work with dwell timing and I don't know why
-            Debug.WriteLine("btnSet called.");
+
 
 
         }
@@ -130,6 +129,20 @@ namespace ALSProject
         {
             //this.button1.PerformClick();
             //this.setBut.PerformClick();
+        }
+
+        private void btnMax_Click(object sender, EventArgs e)
+        {
+
+            this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+
+            Debug.WriteLine("btnMax called.");
+        }
+
+        private void mailBut_Click(object sender, EventArgs e)
+        {
+            this.self.WindowState = System.Windows.Forms.FormWindowState.Normal;
+
         }
     }
 }

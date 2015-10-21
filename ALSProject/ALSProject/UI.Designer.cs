@@ -30,7 +30,7 @@
         {
             this.quitBut = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
-            this.alsButton9 = new ALSProject.ALSButton();
+            this.btnMax = new ALSProject.ALSButton();
             this.alsButton4 = new ALSProject.ALSButton();
             this.alsButton5 = new ALSProject.ALSButton();
             this.mailBut = new ALSProject.ALSButton();
@@ -68,16 +68,19 @@
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
             this.setBut.MouseEnter += new System.EventHandler(this.setBut_MouseEnter);
             // 
-            // alsButton9
+            // btnMax
             // 
-            this.alsButton9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.alsButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.alsButton9.elapseDivide = 10;
-            this.alsButton9.Location = new System.Drawing.Point(12, 518);
-            this.alsButton9.Name = "alsButton9";
-            this.alsButton9.Size = new System.Drawing.Size(312, 248);
-            this.alsButton9.TabIndex = 8;
-            this.alsButton9.UseVisualStyleBackColor = false;
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMax.elapseDivide = 10;
+            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 150F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMax.Location = new System.Drawing.Point(12, 518);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(312, 248);
+            this.btnMax.TabIndex = 8;
+            this.btnMax.Text = "+";
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // alsButton4
             // 
@@ -109,11 +112,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.mailBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.mailBut.elapseDivide = 10;
+            this.mailBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 150F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mailBut.Location = new System.Drawing.Point(12, 264);
             this.mailBut.Name = "mailBut";
             this.mailBut.Size = new System.Drawing.Size(312, 248);
             this.mailBut.TabIndex = 5;
+            this.mailBut.Text = "-";
             this.mailBut.UseVisualStyleBackColor = false;
+            this.mailBut.Click += new System.EventHandler(this.mailBut_Click);
             // 
             // noteBut
             // 
@@ -159,7 +165,7 @@
             this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Controls.Add(this.quitBut);
             this.Controls.Add(this.setBut);
-            this.Controls.Add(this.alsButton9);
+            this.Controls.Add(this.btnMax);
             this.Controls.Add(this.alsButton4);
             this.Controls.Add(this.alsButton5);
             this.Controls.Add(this.mailBut);
@@ -184,7 +190,7 @@
         private ALSButton alsButton5;
         private ALSButton mailBut;
         private ALSButton setBut;
-        private ALSButton alsButton9;
+        private ALSButton btnMax;
         private ALSButton quitBut;
     }
 }
