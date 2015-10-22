@@ -20,9 +20,7 @@ namespace ALSProject
             InitializeComponent();
             parentForm = parent;
         }
-
-
-
+        
         private void noBut_Click(object sender, EventArgs e)
         {
             parentForm.Visible = true;
@@ -32,7 +30,6 @@ namespace ALSProject
         private void yesBut_Click(object sender, EventArgs e)
         {
             Application.Exit();
-            
         }
     }
 }

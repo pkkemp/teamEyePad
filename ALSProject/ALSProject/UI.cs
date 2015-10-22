@@ -4,8 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Resources;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,17 +28,20 @@ namespace ALSProject
         any of the elements are loaded. This isn't necessarily helpful now but may be useful in the future.
 */
 
+        private const int APPCOMMAND_VOLUME_UP = 0xA0000;
+        private const int WM_APPCOMMAND = 0x319;
 
-
-
+        private bool alarmOn;
+        private SoundPlayer player;
         public Form self { get; set; }
 
         public UI()
         {
             InitializeComponent();
             this.self = this;
-
-
+            alarmOn = false;
+            player = new SoundPlayer(Properties.Resources.buzz);
+            player.Load();
         }
 
         private void User_Interface_Load(object sender, EventArgs e)
@@ -61,40 +67,7 @@ namespace ALSProject
 
         private void drawButtons(object sender, EventArgs e)
         {
-            /*
-            ALSButton[] buttons = new ALSButton[8];
 
-            for (int i = 0; i < 8; i++)
-            {
-                buttons[i] = new ALSButton();
-                buttons[i].Visible = true;
-                buttons[i].Location = new System.Drawing.Point(i * 128 + 1, 1);
-                buttons[i].Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right); // well this kinda works...
-                //buttons[i].Dock = (DockStyle.Left | DockStyle.Right);
-                Controls.Add(buttons[i]);
-            }
-
-
-            buttons[2].Height = 64;
-            buttons[2].Width = 64;
-            buttons[3].Height = 228;
-            ALSButton quitBut = new ALSButton();
-            quitBut.Visible = true;
-            quitBut.Location = new System.Drawing.Point(128 * 7, 768 -112);
-            quitBut.Height = 112;
-            Controls.Add(quitBut);
-
-            //Properties.Resources
-            ResourceManager rm = Properties.Resources.ResourceManager;
-
-            buttons[0].BackgroundImage = (Image)rm.GetObject("chatbubbles");
-            buttons[0].BackgroundImageLayout = ImageLayout.Stretch;
-
-            quitBut.BackgroundImage = (Image)rm.GetObject("power");
-            quitBut.BackgroundImageLayout = ImageLayout.Stretch;
-            quitBut.Name = "quit";
-
-    */
         }
 
 
@@ -102,7 +75,7 @@ namespace ALSProject
         private void alsButton4_Click(object sender, EventArgs e)
         {
            
-            this.WindowState = FormWindowState.Maximized;
+            
 
         }
 
@@ -120,26 +93,58 @@ namespace ALSProject
         private void setBut_Click(object sender, EventArgs e)
         {
 
-
-
-
         }
 
         private void setBut_MouseEnter(object sender, EventArgs e)
         {
-            //this.button1.PerformClick();
-            //this.setBut.PerformClick();
         }
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-
             this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-
-            Debug.WriteLine("btnMax called.");
         }
 
-        private void mailBut_Click(object sender, EventArgs e)
+        
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg,
+            IntPtr wParam, IntPtr lParam);
+
+        private void VolUp()
+        {
+            SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle,
+                (IntPtr)APPCOMMAND_VOLUME_UP);
+        }
+
+        private void alarmBut_Click(object sender, EventArgs e)
+        {
+            if (alarmOn)
+            {
+                player.Stop();
+                alarmOn = false;
+                alarmBut.timeDivision = 10;
+                alarmBut.Image = Properties.Resources.speaker_icon;
+            } else
+            {
+                //Maximize volume
+                for (int i = 0; i < 64; i++)
+                { 
+                    //my ears... they bleed. Disable the following line for authentic testing environment
+                    //VolUp();
+                }
+                try
+                {
+                    player.PlayLooping();
+                }
+                catch (Exception) { }
+                alarmOn = true;
+                alarmBut.timeDivision = 50;
+                
+                alarmBut.Image = Properties.Resources.AlarmOff;
+            }
+        }
+
+        private void btnMin_Click(object sender, EventArgs e)
         {
             this.self.WindowState = System.Windows.Forms.FormWindowState.Normal;
 

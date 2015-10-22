@@ -63,6 +63,25 @@ namespace ALSProject.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AlarmOff {
+            get {
+                object obj = ResourceManager.GetObject("AlarmOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream buzz {
+            get {
+                return ResourceManager.GetStream("buzz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap chatbubbles {
             get {
                 object obj = ResourceManager.GetObject("chatbubbles", resourceCulture);
@@ -86,6 +105,16 @@ namespace ALSProject.Properties {
         internal static System.Drawing.Bitmap gear_b {
             get {
                 object obj = ResourceManager.GetObject("gear_b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mail {
+            get {
+                object obj = ResourceManager.GetObject("mail", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,6 +205,16 @@ namespace ALSProject.Properties {
         internal static System.Drawing.Bitmap Settings {
             get {
                 object obj = ResourceManager.GetObject("Settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap speaker_icon {
+            get {
+                object obj = ResourceManager.GetObject("speaker_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
