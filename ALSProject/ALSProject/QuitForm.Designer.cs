@@ -39,7 +39,7 @@
             this.yesBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.yesBut.BackgroundImage = global::ALSProject.Properties.Resources.checkmark;
             this.yesBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.yesBut.elapseDivide = 50;
+            this.yesBut.timeDivision = 50;
             this.yesBut.Location = new System.Drawing.Point(12, 143);
             this.yesBut.Name = "yesBut";
             this.yesBut.Size = new System.Drawing.Size(312, 248);
@@ -52,7 +52,7 @@
             this.noBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noBut.BackgroundImage = global::ALSProject.Properties.Resources.minus;
             this.noBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.noBut.elapseDivide = 10;
+            this.noBut.timeDivision = 10;
             this.noBut.Location = new System.Drawing.Point(330, 143);
             this.noBut.Name = "noBut";
             this.noBut.Size = new System.Drawing.Size(312, 248);
