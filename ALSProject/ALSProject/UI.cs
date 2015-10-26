@@ -31,19 +31,24 @@ namespace ALSProject
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
 
-        private bool alarmOn;
-        private SoundPlayer player;
+  
         public Form self { get; set; }
+        private BECM becm;
 
         public UI()
         {
             InitializeComponent();
             this.self = this;
-            alarmOn = false;
-            player = new SoundPlayer(Properties.Resources.buzz);
-            player.Load();
+            initBECM();
+
         }
 
+
+        public void initBECM()
+        {
+            becm = new BECM(new SoundPlayer(Properties.Resources.buzz));
+
+        }
         private void User_Interface_Load(object sender, EventArgs e)
         {
             drawButtons(sender, e);
@@ -74,17 +79,18 @@ namespace ALSProject
 
         private void alsButton4_Click(object sender, EventArgs e)
         {
-           
-            
+
 
         }
 
         private void quitBut_Click(object sender, EventArgs e)
         {
-            
-            this.Visible = false;
-            Form quitScreen = new QuitForm(this);
-            quitScreen.ShowDialog(); 
+            if (!becm.getAlarmState())
+            {
+                this.Visible = false;
+                Form quitScreen = new QuitForm(this);
+                quitScreen.ShowDialog();
+            }
             
            
 
@@ -106,42 +112,26 @@ namespace ALSProject
 
         
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg,
-            IntPtr wParam, IntPtr lParam);
 
-        private void VolUp()
-        {
-            SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle,
-                (IntPtr)APPCOMMAND_VOLUME_UP);
-        }
 
         private void alarmBut_Click(object sender, EventArgs e)
         {
-            if (alarmOn)
+            if (!becm.alarmAction())
             {
-                player.Stop();
-                alarmOn = false;
-                alarmBut.timeDivision = 10;
+                alarmBut.timeDivision = ALSButton.defaultTimeDivision;
                 alarmBut.Image = Properties.Resources.speaker_icon;
-            } else
-            {
-                //Maximize volume
-                for (int i = 0; i < 64; i++)
-                { 
-                    //my ears... they bleed. Disable the following line for authentic testing environment
-                    //VolUp();
-                }
-                try
-                {
-                    player.PlayLooping();
-                }
-                catch (Exception) { }
-                alarmOn = true;
-                alarmBut.timeDivision = 50;
-                
-                alarmBut.Image = Properties.Resources.AlarmOff;
+                quitBut.BackColor = ALSButton.baseColor;
+                quitBut.Enabled = true;
+
             }
+            else
+            {
+                alarmBut.timeDivision = 50;
+                alarmBut.Image = Properties.Resources.AlarmOff;
+                quitBut.BackColor = Color.Red;
+                quitBut.Enabled = false;
+            }
+
         }
 
         private void btnMin_Click(object sender, EventArgs e)

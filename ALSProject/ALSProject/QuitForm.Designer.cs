@@ -52,7 +52,6 @@
             this.noBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noBut.BackgroundImage = global::ALSProject.Properties.Resources.minus;
             this.noBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.noBut.timeDivision = 10;
             this.noBut.Location = new System.Drawing.Point(330, 143);
             this.noBut.Name = "noBut";
             this.noBut.Size = new System.Drawing.Size(312, 248);

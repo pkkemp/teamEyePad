@@ -18,10 +18,13 @@ namespace ALSProject
 
         int heightCounter;
         Graphics gr;
-        Color baseColor = Color.FromArgb(224, 224, 224);
         Timer dwellTimer;
         bool clicked = false; //prevents rapid clicks
         public int timeDivision { get; set; }
+
+        public static Color baseColor = Color.FromArgb(224, 224, 224);
+        public static int defaultTimeDivision = 15;
+
 
         public ALSButton()
         {
@@ -33,6 +36,7 @@ namespace ALSProject
             dwellTimer.Interval = 50; // interval in milliseconds
             dwellTimer.Enabled = false;
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
+            this.timeDivision = defaultTimeDivision;
 
                
         }

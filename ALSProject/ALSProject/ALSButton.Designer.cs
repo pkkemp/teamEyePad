@@ -32,12 +32,11 @@
             // 
             // ALSButton
             // 
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Name = "ALSButton";
+            this.FlatAppearance.BorderSize = 0;
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Size = new System.Drawing.Size(126, 94);
-            //this.Load += new System.EventHandler(this.ALSButton_Load);
+            this.UseVisualStyleBackColor = false;
             this.Click += new System.EventHandler(this.ALSButton_Click);
             this.MouseEnter += new System.EventHandler(this.ALSButton_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.ALSButton_MouseLeave);

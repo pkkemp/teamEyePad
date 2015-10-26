@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnMax = new ALSProject.ALSButton();
             this.quitBut = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
+            this.btnMax = new ALSProject.ALSButton();
             this.alsButton4 = new ALSProject.ALSButton();
             this.alsButton5 = new ALSProject.ALSButton();
             this.btnMin = new ALSProject.ALSButton();
@@ -39,31 +39,18 @@
             this.alarmBut = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
-            // btnMax
-            // 
-            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 150F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMax.Location = new System.Drawing.Point(12, 518);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(312, 248);
-            this.btnMax.TabIndex = 8;
-            this.btnMax.Text = "+";
-            this.btnMax.timeDivision = 10;
-            this.btnMax.UseVisualStyleBackColor = false;
-            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
-            // 
             // quitBut
             // 
             this.quitBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.quitBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.quitBut.BackgroundImage = global::ALSProject.Properties.Resources.power;
             this.quitBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.quitBut.FlatAppearance.BorderSize = 0;
+            this.quitBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quitBut.Location = new System.Drawing.Point(700, 518);
             this.quitBut.Name = "quitBut";
             this.quitBut.Size = new System.Drawing.Size(312, 248);
             this.quitBut.TabIndex = 10;
-            this.quitBut.timeDivision = 10;
             this.quitBut.UseVisualStyleBackColor = false;
             this.quitBut.Click += new System.EventHandler(this.quitBut_Click);
             // 
@@ -73,14 +60,31 @@
             this.setBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.setBut.BackgroundImage = global::ALSProject.Properties.Resources.gear_b;
             this.setBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.setBut.FlatAppearance.BorderSize = 0;
+            this.setBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setBut.Location = new System.Drawing.Point(356, 518);
             this.setBut.Name = "setBut";
             this.setBut.Size = new System.Drawing.Size(312, 248);
             this.setBut.TabIndex = 9;
-            this.setBut.timeDivision = 10;
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
             this.setBut.MouseEnter += new System.EventHandler(this.setBut_MouseEnter);
+            // 
+            // btnMax
+            // 
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMax.FlatAppearance.BorderSize = 0;
+            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 150F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMax.Location = new System.Drawing.Point(12, 518);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(312, 248);
+            this.btnMax.TabIndex = 8;
+            this.btnMax.Text = "+";
+
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // alsButton4
             // 
@@ -89,11 +93,12 @@
             this.alsButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alsButton4.BackgroundImage = global::ALSProject.Properties.Resources.mail;
             this.alsButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.alsButton4.FlatAppearance.BorderSize = 0;
+            this.alsButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton4.Location = new System.Drawing.Point(700, 264);
             this.alsButton4.Name = "alsButton4";
             this.alsButton4.Size = new System.Drawing.Size(312, 248);
             this.alsButton4.TabIndex = 7;
-            this.alsButton4.timeDivision = 10;
             this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
             // 
@@ -103,11 +108,12 @@
             this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alsButton5.BackgroundImage = global::ALSProject.Properties.Resources.Microphone;
             this.alsButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.alsButton5.FlatAppearance.BorderSize = 0;
+            this.alsButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton5.Location = new System.Drawing.Point(356, 264);
             this.alsButton5.Name = "alsButton5";
             this.alsButton5.Size = new System.Drawing.Size(312, 248);
             this.alsButton5.TabIndex = 6;
-            this.alsButton5.timeDivision = 10;
             this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // btnMin
@@ -115,13 +121,14 @@
             this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMin.FlatAppearance.BorderSize = 0;
+            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 150F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMin.Image = global::ALSProject.Properties.Resources.Minimize;
             this.btnMin.Location = new System.Drawing.Point(12, 264);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(312, 248);
             this.btnMin.TabIndex = 5;
-            this.btnMin.timeDivision = 10;
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
@@ -131,11 +138,12 @@
             this.noteBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noteBut.BackgroundImage = global::ALSProject.Properties.Resources.Notes;
             this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noteBut.FlatAppearance.BorderSize = 0;
+            this.noteBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.noteBut.Location = new System.Drawing.Point(700, 10);
             this.noteBut.Name = "noteBut";
             this.noteBut.Size = new System.Drawing.Size(312, 248);
             this.noteBut.TabIndex = 4;
-            this.noteBut.timeDivision = 10;
             this.noteBut.UseVisualStyleBackColor = false;
             // 
             // ttsBut
@@ -144,22 +152,24 @@
             this.ttsBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ttsBut.BackgroundImage = global::ALSProject.Properties.Resources.chatbubbles;
             this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ttsBut.FlatAppearance.BorderSize = 0;
+            this.ttsBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ttsBut.Location = new System.Drawing.Point(356, 10);
             this.ttsBut.Name = "ttsBut";
             this.ttsBut.Size = new System.Drawing.Size(312, 248);
             this.ttsBut.TabIndex = 3;
-            this.ttsBut.timeDivision = 10;
             this.ttsBut.UseVisualStyleBackColor = false;
             // 
             // alarmBut
             // 
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alarmBut.FlatAppearance.BorderSize = 0;
+            this.alarmBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alarmBut.Image = global::ALSProject.Properties.Resources.speaker_icon;
             this.alarmBut.Location = new System.Drawing.Point(12, 10);
             this.alarmBut.Name = "alarmBut";
             this.alarmBut.Size = new System.Drawing.Size(312, 248);
             this.alarmBut.TabIndex = 2;
-            this.alarmBut.timeDivision = 10;
             this.alarmBut.UseVisualStyleBackColor = false;
             this.alarmBut.Click += new System.EventHandler(this.alarmBut_Click);
             // 

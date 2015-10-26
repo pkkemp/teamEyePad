@@ -62,6 +62,7 @@
       <DependentUpon>ALSButton.cs</DependentUpon>
     </Compile>
     <Compile Include="ALS_App.cs" />
+    <Compile Include="BECM.cs" />
     <Compile Include="CVInterface.cs" />
     <Compile Include="QuitForm.cs">
       <SubType>Form</SubType>
