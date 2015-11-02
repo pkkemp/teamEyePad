@@ -40,14 +40,18 @@ namespace ALSProject
             InitializeComponent();
             this.self = this;
             initBECM();
+            alarmBut.Click += new System.EventHandler(alarmBut_Click);
+
+            //Temp code
+            
 
         }
 
 
         public void initBECM()
         {
-            becm = new BECM(new SoundPlayer(Properties.Resources.buzz));
-
+            //becm = new BECM(Properties.Resources.buzz);
+            becm = new BECM();
         }
         private void User_Interface_Load(object sender, EventArgs e)
         {
@@ -79,26 +83,28 @@ namespace ALSProject
 
         private void alsButton4_Click(object sender, EventArgs e)
         {
-
+            //this.Visible = false;
+            //Form keyBoard = new Keyboard(this);
+            //keyBoard.ShowDialog();
 
         }
 
         private void quitBut_Click(object sender, EventArgs e)
         {
-            if (!becm.getAlarmState())
+
+            if (!alarmBut.isAlarmOn())
             {
                 this.Visible = false;
                 Form quitScreen = new QuitForm(this);
                 quitScreen.ShowDialog();
             }
-            
-           
-
         }
 
         private void setBut_Click(object sender, EventArgs e)
         {
-
+            this.Visible = false;
+            Form settingsScreen = new SettingsForm(this);
+            settingsScreen.ShowDialog();
         }
 
         private void setBut_MouseEnter(object sender, EventArgs e)
@@ -110,24 +116,18 @@ namespace ALSProject
             this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;
         }
 
-        
-
-
-
         private void alarmBut_Click(object sender, EventArgs e)
         {
-            if (!becm.alarmAction())
+            //if(alarmBut.is)
+            //alarmBut.is
+            if (!alarmBut.isAlarmOn())
             {
-                alarmBut.timeDivision = ALSButton.defaultTimeDivision;
-                alarmBut.Image = Properties.Resources.speaker_icon;
                 quitBut.BackColor = ALSButton.baseColor;
                 quitBut.Enabled = true;
 
             }
             else
             {
-                alarmBut.timeDivision = 50;
-                alarmBut.Image = Properties.Resources.AlarmOff;
                 quitBut.BackColor = Color.Red;
                 quitBut.Enabled = false;
             }
@@ -138,6 +138,17 @@ namespace ALSProject
         {
             this.self.WindowState = System.Windows.Forms.FormWindowState.Normal;
 
+        }
+
+        private void noteBut_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void ttsBut_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            Form notebookScreen = new TextToSpeech(this);
+            notebookScreen.ShowDialog();
         }
     }
 }

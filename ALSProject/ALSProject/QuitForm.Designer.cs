@@ -39,11 +39,13 @@
             this.yesBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.yesBut.BackgroundImage = global::ALSProject.Properties.Resources.checkmark;
             this.yesBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.yesBut.timeDivision = 50;
+            this.yesBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.yesBut.Location = new System.Drawing.Point(12, 143);
             this.yesBut.Name = "yesBut";
             this.yesBut.Size = new System.Drawing.Size(312, 248);
             this.yesBut.TabIndex = 4;
+            this.yesBut.timeDivision = 50;
+            this.yesBut.UseVisualStyleBackColor = false;
             this.yesBut.Click += new System.EventHandler(this.yesBut_Click);
             // 
             // noBut
@@ -52,10 +54,13 @@
             this.noBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noBut.BackgroundImage = global::ALSProject.Properties.Resources.minus;
             this.noBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.noBut.Location = new System.Drawing.Point(330, 143);
             this.noBut.Name = "noBut";
             this.noBut.Size = new System.Drawing.Size(312, 248);
             this.noBut.TabIndex = 5;
+            this.noBut.timeDivision = 15;
+            this.noBut.UseVisualStyleBackColor = false;
             this.noBut.Click += new System.EventHandler(this.noBut_Click);
             // 
             // label1
@@ -80,6 +85,7 @@
             this.Controls.Add(this.yesBut);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "QuitForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "QuitForm";
             this.ResumeLayout(false);

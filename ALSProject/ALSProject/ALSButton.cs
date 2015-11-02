@@ -18,8 +18,8 @@ namespace ALSProject
 
         int heightCounter;
         Graphics gr;
-        Timer dwellTimer;
-        bool clicked = false; //prevents rapid clicks
+        protected Timer dwellTimer;
+        protected bool clicked = false; //prevents rapid clicks
         public int timeDivision { get; set; }
 
         public static Color baseColor = Color.FromArgb(224, 224, 224);
@@ -29,7 +29,7 @@ namespace ALSProject
         public ALSButton()
         {
             InitializeComponent();
-            //gr = this.CreateGraphics();
+            gr = this.CreateGraphics();
             heightCounter =  0;
 
             dwellTimer = new Timer();
@@ -42,7 +42,7 @@ namespace ALSProject
         }
 
 
-        private void dwellTimeEvent(object sender, EventArgs e)
+        protected void dwellTimeEvent(object sender, EventArgs e)
         {
             gr.FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / timeDivision));
             
@@ -70,7 +70,7 @@ namespace ALSProject
         }
 
         //deletes rectangle, restores image if any
-        private void ClearRect()
+        protected void ClearRect()
         {
             try
             {
@@ -89,8 +89,16 @@ namespace ALSProject
 
         private void ALSButton_Resize(object sender, EventArgs e)
         {
-          
             gr = this.CreateGraphics(); 
+
+            if(this.Text != null)
+            {
+                //Font f = new Font(this.Font.Name, this.Width*3/5);
+                float p = this.Font.SizeInPoints;
+                this.TextAlign =  System.Drawing.ContentAlignment.TopCenter;     
+                this.Font = new Font(this.Font.Name, this.Width * 11 / 20);
+            }
+            
         }
 
         private void ALSButton_Click(object sender, EventArgs e)

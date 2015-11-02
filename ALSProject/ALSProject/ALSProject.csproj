@@ -55,20 +55,50 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ALSAlarm.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ALSButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ALSButton.Designer.cs">
       <DependentUpon>ALSButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="ALSKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ALS_App.cs" />
     <Compile Include="BECM.cs" />
     <Compile Include="CVInterface.cs" />
+    <Compile Include="KeyboardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KeyboardControl.Designer.cs">
+      <DependentUpon>KeyboardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextToSpeech.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextToSpeech.Designer.cs">
+      <DependentUpon>TextToSpeech.cs</DependentUpon>
+    </Compile>
     <Compile Include="QuitForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="QuitForm.Designer.cs">
       <DependentUpon>QuitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Slider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Slider.Designer.cs">
+      <DependentUpon>Slider.cs</DependentUpon>
     </Compile>
     <Compile Include="UI.cs">
       <SubType>Form</SubType>
@@ -86,6 +116,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -93,11 +124,26 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ALSAlarm.resx">
+      <DependentUpon>ALSAlarm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KeyboardControl.resx">
+      <DependentUpon>KeyboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextToSpeech.resx">
+      <DependentUpon>TextToSpeech.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="QuitForm.resx">
       <DependentUpon>QuitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Slider.resx">
+      <DependentUpon>Slider.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
