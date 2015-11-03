@@ -1,0 +1,23 @@
+Todo:
+
+add blinker or cursor to text entry
+
+add backspace and delete word
+
+Move shift button
+
+Advanced keyboard setting
+
+Word prediction on bottom left keyboard
+
+Microsoft Sam speed in settings
+
+Bugs:
+
+Holding down button after rectangle starts drawing causes rectangle to delete fill under mouse height
+
+Alarm button should be an unchanging form - fixed
+
+Middle buttons too tall,.resize needs overhaul
+
+picture's disappeaR onrepeated dwell timing
