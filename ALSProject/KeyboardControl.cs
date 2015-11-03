@@ -12,6 +12,16 @@ namespace ALSProject
 {
     public partial class KeyboardControl : UserControl
     {
+        private new Form ParentForm;
+        private ALSKey[][] keyboard;    // [rows] [columns]
+        private Char[,][] keyboards;    // [keyboard#, row#] [column#]
+        private ALSButton btnShift;
+        private ALSButton keySpace;
+        private const int GAP = 10;
+        private int keyWidth;
+        private int keyboardNumber;
+        private TextBox txtEntry;
+
         public KeyboardControl()
         {
             InitializeComponent();
@@ -22,6 +32,7 @@ namespace ALSProject
             keyboard[0] = new ALSKey[10];
             keyboard[1] = new ALSKey[9];
             keyboard[2] = new ALSKey[7];
+            keySpace = new ALSButton();
 
             for (int i = 0; i < keyboard.Length; i++)
             {
@@ -31,16 +42,12 @@ namespace ALSProject
                     this.Controls.Add(keyboard[i][j]);
                 }
             }
+
+            this.Controls.Add(keySpace);
+            keySpace.Text = "Space";
+            
         }
         
-        private new Form ParentForm;
-        private ALSKey[][] keyboard;    // [rows] [columns]
-        private Char[,][] keyboards;    // [keyboard#, row#] [column#]
-        private ALSButton btnRight;
-        private const int GAP = 10;
-        private int keyWidth;
-        private int keyboardNumber;
-        private TextBox txtEntry;
 
         public KeyboardControl(Form parentForm) : this()
         {
@@ -53,6 +60,8 @@ namespace ALSProject
             int leftOffset = GAP;
             int midOffset = leftOffset + keyWidth / 2;
             int bottomOffset = midOffset + keyWidth + GAP;
+
+            //place the alphanumeric keys
 
             for (int i = 0; i < keyboard.Length; i++)
                 for (int j = 0; j < keyboard[i].Length; j++)
@@ -72,6 +81,11 @@ namespace ALSProject
                     keyboard[i][j].Height = keyHeight;
                     keyboard[i][j].Width = keyWidth;
                 }
+            //place space bar
+            keySpace.Location = new Point(keyboard[2][2].Location.X, GAP * 4 + 3 * keyHeight);
+            keySpace.Size = new Size((keyWidth) * 3 + GAP * 2, keySpace.Size.Height);
+            keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+
         }
 
         private void setupLetters()
@@ -116,13 +130,14 @@ namespace ALSProject
                     keyboard[i][j].Text = Convert.ToString(keyboards[keyboardNumber, i][j]);
         }
 
-        private void setupRight()
+
+        private void setupShift()
         {
-            btnRight = new ALSButton();
-            btnRight.Text = ">";
-            btnRight.Location = new Point(GAP, Height - GAP - keyWidth);
-            btnRight.Click += new System.EventHandler(this.btnRight_Click);
-            this.Controls.Add(btnRight);
+            btnShift = new ALSButton();
+            btnShift.Text = ">";
+            btnShift.Location = new Point(GAP, Height - GAP - keyWidth);
+            btnShift.Click += new System.EventHandler(this.btnRight_Click);
+            this.Controls.Add(btnShift);
         }
 
         private void setupTextBox()
@@ -150,13 +165,18 @@ namespace ALSProject
             return keyboard;
         }
 
+        public ALSButton getSpace()
+        {
+            return keySpace;
+        }
+
         public void  setRemainingVariables()
         {
             keyWidth = (this.Width - 10 * GAP) / 11;
          
             setupLayout();
             setupLetters();
-            setupRight();
+            setupShift();
         }
     }
 }

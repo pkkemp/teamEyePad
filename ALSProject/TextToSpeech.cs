@@ -27,9 +27,20 @@ namespace ALSProject
             speaker.SelectVoiceByHints(VoiceGender.Male);
 
             ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
+            ALSButton space = this.alsKeyboard.getSpace();
             foreach (ALSButton[] rows in keyboard)
                 foreach (ALSButton column in rows)
                     column.Click += new System.EventHandler(this.key_Click);
+
+            space.Click += new System.EventHandler(this.space_Click);
+            
+
+            
+        }
+
+        private void space_Click(object sender, EventArgs e)
+        {
+            textBox1.AppendText(" ");
         }
 
         private void alsButton1_Click(object sender, EventArgs e)
@@ -43,9 +54,13 @@ namespace ALSProject
             textBox1.Text += ((ALSButton)sender).Text;
         }
 
+
+
         private void TextToSpeech_Load(object sender, EventArgs e)
         {
         }
+
+        
 
         private void alsButton3_Click(object sender, EventArgs e)
         {
