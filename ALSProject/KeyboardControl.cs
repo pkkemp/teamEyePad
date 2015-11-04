@@ -178,5 +178,10 @@ namespace ALSProject
             setupLetters();
             setupShift();
         }
+
+        private void KeyboardControl_Resize(object sender, EventArgs e)
+        {
+            setRemainingVariables();
+        }
     }
 }

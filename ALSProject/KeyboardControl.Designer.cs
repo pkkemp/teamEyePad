@@ -38,6 +38,7 @@
             this.Name = "KeyboardControl";
             this.Size = new System.Drawing.Size(755, 369);
             this.Load += new System.EventHandler(this.KeyboardControl_Load);
+            this.Resize += new System.EventHandler(this.KeyboardControl_Resize);
             this.ResumeLayout(false);
 
         }
