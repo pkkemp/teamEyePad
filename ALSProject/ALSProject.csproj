@@ -113,12 +113,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="EyeXFramework">
+      <HintPath>..\..\..\EyeXSDK\lib\x64\EyeXFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tobii.EyeX.Client.Net20">
+      <HintPath>..\..\..\EyeXSDK_fixation\lib\x86\Tobii.EyeX.Client.Net20.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
