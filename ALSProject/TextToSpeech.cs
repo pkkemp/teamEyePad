@@ -33,9 +33,10 @@ namespace ALSProject
                     column.Click += new System.EventHandler(this.key_Click);
 
             space.Click += new System.EventHandler(this.space_Click);
-            
-
-            
+            initControlsRecursive(this.Controls);
+            this.MouseClick += (sender, e) => {
+                updateCursor();
+            };
         }
 
         private void space_Click(object sender, EventArgs e)
@@ -70,6 +71,30 @@ namespace ALSProject
         private void alsButton2_Click(object sender, EventArgs e)
         {
             speaker.SpeakAsync(textBox1.Text);
+        }
+
+        void initControlsRecursive(System.Windows.Forms.Control.ControlCollection coll)
+        {
+            foreach (Control c in coll)
+            {
+                c.MouseClick += (sender, e) => {
+                    updateCursor();
+                };
+                initControlsRecursive(c.Controls);
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            updateCursor();
+
+        }
+
+        private void updateCursor()
+        {
+            textBox1.Focus();
+            textBox1.SelectionStart = textBox1.TextLength;
+            textBox1.SelectionLength = 0;
         }
     }
 }

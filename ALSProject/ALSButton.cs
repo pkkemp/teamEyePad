@@ -24,8 +24,7 @@ namespace ALSProject
 
         public static Color baseColor = Color.FromArgb(224, 224, 224);
         public static int defaultTimeDivision = 15;
-
-
+        
         public ALSButton()
         {
             InitializeComponent();
@@ -37,10 +36,7 @@ namespace ALSProject
             dwellTimer.Enabled = false;
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
             this.timeDivision = defaultTimeDivision;
-
-               
         }
-
 
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
@@ -72,9 +68,10 @@ namespace ALSProject
         //deletes rectangle, restores image if any
         protected void ClearRect()
         {
+            String text = Text;
             try
             {
-                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy
+                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy)
                 gr.Clear(baseColor);
                 this.BackgroundImage = temp;
             }
@@ -82,6 +79,8 @@ namespace ALSProject
             {         //this just prevents the program from crashing if there is no Background Image set
                 gr.Clear(baseColor);    //clears rectangle if there is no image
             }
+            Text = text;
+
             heightCounter = 0;
             clicked = false;
         }
@@ -99,7 +98,6 @@ namespace ALSProject
                 if(this.Width * 11 / 20 == 110)
                     this.Font = new Font(this.Font.Name, 40);
             }
-            
         }
 
         private void ALSButton_Click(object sender, EventArgs e)
@@ -110,6 +108,11 @@ namespace ALSProject
                 clicked = true;
                 ClearRect();
                 dwellTimer.Enabled = true;
+
+                //reset
+                dwellTimer.Stop();
+                dwellTimer.Start();
+                this.Refresh();
             }
 
         }
