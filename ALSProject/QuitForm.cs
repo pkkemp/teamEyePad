@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Diagnostics;
 
 namespace ALSProject
 {
@@ -29,6 +31,7 @@ namespace ALSProject
 
         private void yesBut_Click(object sender, EventArgs e)
         {
+            CVInterface.PleaseStop();
             Application.Exit();
         }
     }
