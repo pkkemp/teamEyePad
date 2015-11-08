@@ -17,7 +17,7 @@ namespace ALSProject
     {
 
         int heightCounter;
-        Graphics gr;
+        protected Graphics gr;
         protected Timer dwellTimer;
         protected bool clicked = false; //prevents rapid clicks
         public int timeDivision { get; set; }
@@ -60,6 +60,7 @@ namespace ALSProject
         private void ALSButton_MouseEnter(object sender, EventArgs e)
         {
             dwellTimer.Enabled = true;
+            this.timeDivision = SettingsForm.btnSpeed;
         }
 
         private void ALSButton_MouseLeave(object sender, EventArgs e)
@@ -91,14 +92,17 @@ namespace ALSProject
         {
             gr = this.CreateGraphics(); 
 
-            if(this.Text != null)
+            //look in ALSKey
+
+            /*
+           if(this.Text != null)
             {
                 float p = this.Font.SizeInPoints;
                 this.TextAlign =  System.Drawing.ContentAlignment.TopCenter;     
                 this.Font = new Font(this.Font.Name, this.Width * 11 / 20);
                 if(this.Width * 11 / 20 == 110)
                     this.Font = new Font(this.Font.Name, 40);
-            }
+            }*/
             
         }
 

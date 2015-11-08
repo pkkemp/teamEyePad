@@ -130,6 +130,9 @@
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ALSKey.resx">
+      <DependentUpon>ALSKey.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KeyboardControl.resx">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
     </EmbeddedResource>

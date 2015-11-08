@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
             this.btnMax = new ALSProject.ALSButton();
             this.quitBut = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
@@ -186,6 +187,8 @@
             // alarmBut
             // 
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alarmBut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("alarmBut.BackgroundImage")));
+            this.alarmBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.alarmBut.FlatAppearance.BorderSize = 0;
             this.alarmBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alarmBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);

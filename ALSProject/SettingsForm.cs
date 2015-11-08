@@ -14,6 +14,8 @@ namespace ALSProject
     {
         Form parentForm;
 
+        public static int btnSpeed = 10;
+
         //TO DO: make a setting for keyboard button speed vs all ALSButton speed
 
 
@@ -21,6 +23,7 @@ namespace ALSProject
         {
             InitializeComponent();
             parentForm = pForm;
+           
         }
 
         private void alsButton1_Click(object sender, EventArgs e)
