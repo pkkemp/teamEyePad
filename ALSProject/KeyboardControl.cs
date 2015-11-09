@@ -24,8 +24,6 @@ namespace ALSProject
         private int keyboardNumber;
         private TextBox txtEntry;
 
-
-
         public KeyboardControl()
         {
             InitializeComponent();
@@ -36,17 +34,14 @@ namespace ALSProject
 
             keyboard = new ALSKey[3][];
             keyboard[0] = new ALSKey[11];
-            keyboard[1] = new ALSKey[9];
+            keyboard[1] = new ALSKey[10];
             keyboard[2] = new ALSKey[7];
             keySpace = new ALSButton();
 
             predictionKeyboard = new ALSButton[2][];
             predictionKeyboard[0] = new ALSButton[5];
             predictionKeyboard[1] = new ALSButton[5];
-
-
-
-
+            
             for (int i = 0; i < keyboard.Length; i++)
             {
                 for (int j = 0; j < keyboard[i].Length; j++)
@@ -111,9 +106,9 @@ namespace ALSProject
                 keyboards[i, 2] = new Char[keyboard[2].Length];
             }
 
-            String[] lowercaseKeyboard = { "qwertyuiop ", "asdfghjkl", "zxcvbnm" };
-            String[] uppercaseKeyboard = { "QWERTYUIOP ", "ASDFGHJKL", "ZXCVBNM" };
-            String[] symbolsKeyboard = { "1234567890 ", "!$()_+;:    ", "\",.?    " };
+            String[] lowercaseKeyboard = { "qwertyuiop ", "asdfghjkl ", "zxcvbnm" };
+            String[] uppercaseKeyboard = { "QWERTYUIOP ", "ASDFGHJKL ", "ZXCVBNM" };
+            String[] symbolsKeyboard = { "1234567890 ", "!$()_+;:     ", "\",.?    " };
 
             for (int i = 0; i < keyboard[0].Length; i++)
             {
@@ -144,6 +139,7 @@ namespace ALSProject
                     keyboard[i][j].Text = Convert.ToString(keyboards[keyboardNumber, i][j]);
             }
             keyboard[0][10].Text = "Backspace";
+            keyboard[1][9].Text = "Delete\nWord";
         }
 
 

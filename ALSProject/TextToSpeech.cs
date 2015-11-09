@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Speech.Synthesis;
+using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
@@ -30,8 +31,15 @@ namespace ALSProject
             ALSButton space = this.alsKeyboard.getSpace();
             foreach (ALSButton[] rows in keyboard)
                 foreach (ALSButton column in rows)
-                    column.Click += new System.EventHandler(this.key_Click);
-
+                {
+                    if (column.Text == "Backspace")
+                        column.Click += new System.EventHandler(this.key_Backspace);
+                    else if (column.Text == "Delete\nWord")
+                        column.Click += new System.EventHandler(this.key_DeleteWord);
+                    else
+                        column.Click += new System.EventHandler(this.key_Click);
+                }
+            
             space.Click += new System.EventHandler(this.space_Click);
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) => {
@@ -55,14 +63,30 @@ namespace ALSProject
             textBox1.Text += ((ALSButton)sender).Text;
         }
 
+        private void key_Backspace(object sender, EventArgs e)
+        {
+            if (textBox1.TextLength != 0)
+                textBox1.Text = textBox1.Text.Substring(0, textBox1.TextLength - 1);
+        }
 
+        private void key_DeleteWord(object sender, EventArgs e)
+        { 
+            var match = Regex.Match(textBox1.Text, @"\s+\w+\s*$");
+            if (match.Success)
+            {
+                textBox1.Text = textBox1.Text.Substring(0, match.Index) + " ";
+            }
+            else
+            {
+                textBox1.Text = "";
+
+            }
+        }
 
         private void TextToSpeech_Load(object sender, EventArgs e)
         {
         }
-
-
-
+        
         private void btnClear_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
