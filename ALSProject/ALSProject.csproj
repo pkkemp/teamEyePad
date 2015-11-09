@@ -69,6 +69,12 @@
     </Compile>
     <Compile Include="ALS_App.cs" />
     <Compile Include="BECM.cs" />
+    <Compile Include="Callout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Callout.Designer.cs">
+      <DependentUpon>Callout.cs</DependentUpon>
+    </Compile>
     <Compile Include="CVInterface.cs" />
     <Compile Include="KeyboardControl.cs">
       <SubType>UserControl</SubType>
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Callout.resx">
+      <DependentUpon>Callout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardControl.resx">
       <DependentUpon>KeyboardControl.cs</DependentUpon>

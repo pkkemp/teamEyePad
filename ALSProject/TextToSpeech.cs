@@ -79,7 +79,6 @@ namespace ALSProject
             else
             {
                 textBox1.Text = "";
-
             }
         }
 

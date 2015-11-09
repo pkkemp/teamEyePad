@@ -39,6 +39,7 @@ namespace ALSProject
         private BECM becm;
         private CVInterface tobiiInt;
         private Thread eyeTrackingThread;
+        public const int GAP = 10;
 
         public UI()
         {
@@ -90,10 +91,9 @@ namespace ALSProject
 
         private void alsButton4_Click(object sender, EventArgs e)
         {
-            //this.Visible = false;
-            //Form keyBoard = new Keyboard(this);
-            //keyBoard.ShowDialog();
-
+            this.Visible = false;
+            Form callout = new Callout(this);
+            callout.ShowDialog();
         }
 
         private void quitBut_Click(object sender, EventArgs e)
