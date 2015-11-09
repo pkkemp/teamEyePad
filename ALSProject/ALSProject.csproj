@@ -76,6 +76,12 @@
     <Compile Include="KeyboardControl.Designer.cs">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PredictionBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PredictionBoxControl.Designer.cs">
+      <DependentUpon>PredictionBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TextToSpeech.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardControl.resx">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredictionBoxControl.resx">
+      <DependentUpon>PredictionBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextToSpeech.resx">
       <DependentUpon>TextToSpeech.cs</DependentUpon>

@@ -19,10 +19,12 @@ namespace ALSProject
         private ALSButton[][] predictionKeyboard;
         private ALSButton btnShift;
         private ALSButton keySpace;
-        private const int GAP = 10;
+        public const int GAP = 10;
         private int keyWidth;
         private int keyboardNumber;
         private TextBox txtEntry;
+        public static Point spacebarLocation;
+        private PredictionBoxControl boxPredict;
 
 
 
@@ -33,6 +35,7 @@ namespace ALSProject
             keyboardNumber = 0;
 
 
+            boxPredict = new PredictionBoxControl(this);
 
             keyboard = new ALSKey[3][];
             keyboard[0] = new ALSKey[11];
@@ -67,6 +70,12 @@ namespace ALSProject
             this.ParentForm = parentForm;
         }
 
+        public void setupPreditionBox()
+        {
+            boxPredict.Location = new Point(keySpace.Location.X - GAP - boxPredict.Width, keySpace.Location.Y);
+            this.Controls.Add(boxPredict);
+        }
+
         private void setupLayout()
         {
             int keyHeight = keyWidth;
@@ -98,6 +107,7 @@ namespace ALSProject
             keySpace.Location = new Point(keyboard[2][2].Location.X, GAP * 4 + 3 * keyHeight);
             keySpace.Size = new Size((keyWidth) * 3 + GAP * 2, keySpace.Size.Height);
             keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            spacebarLocation = keySpace.Location;
 
         }
 
@@ -206,8 +216,9 @@ namespace ALSProject
 
             setupLayout();
             setupLetters();
-            setupShift();
-            setupKeypad();
+            //setupShift();
+            //setupKeypad();
+            setupPreditionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
