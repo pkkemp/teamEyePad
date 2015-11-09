@@ -43,7 +43,7 @@ namespace ALSProject
             textBox1.AppendText(" ");
         }
 
-        private void btnMenu_Click(object sender, EventArgs e)
+        private void alsButton1_Click(object sender, EventArgs e)
         {
             Parent.Visible = true;
             this.Close();
@@ -62,12 +62,12 @@ namespace ALSProject
 
         
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void alsButton3_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
         }
 
-        private void btnSpeak_Click(object sender, EventArgs e)
+        private void alsButton2_Click(object sender, EventArgs e)
         {
             speaker.SpeakAsync(textBox1.Text);
         }

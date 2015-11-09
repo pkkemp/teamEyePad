@@ -32,7 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnAlarm = new ALSProject.ALSButton();
             this.btnBack = new ALSProject.ALSButton();
-            this.slider1 = new ALSProject.Slider();
+            this.slider1 = new ALSProject.Slider(.25,.25,3);
             this.alsButton2 = new ALSProject.ALSButton();
             this.alsButton1 = new ALSProject.ALSButton();
             this.SuspendLayout();
