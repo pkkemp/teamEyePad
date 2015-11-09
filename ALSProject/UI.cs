@@ -12,6 +12,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using EyeXFramework;
+using Tobii.EyeX.Framework;
 
 namespace ALSProject
 {
@@ -34,6 +37,8 @@ namespace ALSProject
   
         public Form self { get; set; }
         private BECM becm;
+        private CVInterface tobiiInt;
+        private Thread eyeTrackingThread;
 
         public UI()
         {
@@ -43,8 +48,10 @@ namespace ALSProject
             alarmBut.Click += new System.EventHandler(alarmBut_Click);
 
             //Temp code
-            
-
+            tobiiInt = new CVInterface();
+            eyeTrackingThread = new Thread(tobiiInt.StartEyeTracking);
+            eyeTrackingThread.Name = "Eye Tracking Thread";
+            eyeTrackingThread.Start();
         }
 
 
