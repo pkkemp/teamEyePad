@@ -133,6 +133,7 @@ namespace ALSProject
                 keyboards[1, 2][i] = uppercaseKeyboard[2][i];
                 keyboards[2, 2][i] = symbolsKeyboard[2][i];
             }
+
             fillKeyboard();
         }
 
@@ -141,6 +142,17 @@ namespace ALSProject
             for (int i = 0; i < keyboard.Length; i++)
                 for (int j = 0; j < keyboard[i].Length; j++)
                     keyboard[i][j].Text = Convert.ToString(keyboards[keyboardNumber, i][j]);
+        }
+
+        private void setupKeypad()
+        {
+            for(int j = 0; j <predictionKeyboard.Length; j++) { 
+                for(int i = 0; i < predictionKeyboard[0].Length; i++) {  
+                    predictionKeyboard[j][i] = new ALSButton();
+                    predictionKeyboard[j][i].Location = new Point(400 + (keyWidth+ GAP) * i+GAP, GAP * (5+ j) + (4+ j) * keyWidth);
+                    this.Controls.Add(predictionKeyboard[j][i]);
+                }
+            }
         }
 
 
@@ -190,6 +202,7 @@ namespace ALSProject
             setupLayout();
             setupLetters();
             setupShift();
+            setupKeypad();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
