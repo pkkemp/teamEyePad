@@ -24,7 +24,7 @@ namespace ALSProject
         private int keyboardNumber;
         private TextBox txtEntry;
 
-        
+
 
         public KeyboardControl()
         {
@@ -32,10 +32,10 @@ namespace ALSProject
 
             keyboardNumber = 0;
 
-            
+
 
             keyboard = new ALSKey[3][];
-            keyboard[0] = new ALSKey[10];
+            keyboard[0] = new ALSKey[11];
             keyboard[1] = new ALSKey[9];
             keyboard[2] = new ALSKey[7];
             keySpace = new ALSButton();
@@ -44,8 +44,8 @@ namespace ALSProject
             predictionKeyboard[0] = new ALSButton[5];
             predictionKeyboard[1] = new ALSButton[5];
 
-            
-            
+
+
 
             for (int i = 0; i < keyboard.Length; i++)
             {
@@ -111,9 +111,9 @@ namespace ALSProject
                 keyboards[i, 2] = new Char[keyboard[2].Length];
             }
 
-            String[] lowercaseKeyboard = { "qwertyuiop", "asdfghjkl", "zxcvbnm" };
-            String[] uppercaseKeyboard = { "QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM" };
-            String[] symbolsKeyboard = { "1234567890", "!$()_+;:    ", "\",.?    " };
+            String[] lowercaseKeyboard = { "qwertyuiop ", "asdfghjkl", "zxcvbnm" };
+            String[] uppercaseKeyboard = { "QWERTYUIOP ", "ASDFGHJKL", "ZXCVBNM" };
+            String[] symbolsKeyboard = { "1234567890 ", "!$()_+;:    ", "\",.?    " };
 
             for (int i = 0; i < keyboard[0].Length; i++)
             {
@@ -139,8 +139,11 @@ namespace ALSProject
         private void fillKeyboard()
         {
             for (int i = 0; i < keyboard.Length; i++)
+            {
                 for (int j = 0; j < keyboard[i].Length; j++)
                     keyboard[i][j].Text = Convert.ToString(keyboards[keyboardNumber, i][j]);
+            }
+            keyboard[0][10].Text = "Backspace";
         }
 
 
@@ -183,10 +186,10 @@ namespace ALSProject
             return keySpace;
         }
 
-        public void  setRemainingVariables()
+        public void setRemainingVariables()
         {
             keyWidth = (this.Width - 10 * GAP) / 11;
-         
+
             setupLayout();
             setupLetters();
             setupShift();

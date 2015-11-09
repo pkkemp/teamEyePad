@@ -5,16 +5,38 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALSProject", "ALSProject\ALSProject.csproj", "{277468A8-D1D2-452A-88E2-05ED7CD504BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "presage.net", "presage.net\presage.net.csproj", "{1B7C7FE2-761A-43DB-A220-5F334F3E6097}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Debug|x64.ActiveCfg = Debug|x86
 		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Debug|x86.ActiveCfg = Debug|x86
 		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Debug|x86.Build.0 = Debug|x86
+		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Release|Any CPU.ActiveCfg = Release|x86
+		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Release|x64.ActiveCfg = Release|x86
 		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Release|x86.ActiveCfg = Release|x86
 		{277468A8-D1D2-452A-88E2-05ED7CD504BE}.Release|x86.Build.0 = Release|x86
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Debug|x64.ActiveCfg = Debug|x64
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Debug|x64.Build.0 = Debug|x64
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Debug|x86.ActiveCfg = Debug|x86
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Debug|x86.Build.0 = Debug|x86
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Release|x64.ActiveCfg = Release|x64
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Release|x64.Build.0 = Release|x64
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Release|x86.ActiveCfg = Release|x86
+		{1B7C7FE2-761A-43DB-A220-5F334F3E6097}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
