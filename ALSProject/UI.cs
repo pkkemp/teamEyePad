@@ -146,9 +146,9 @@ namespace ALSProject
 
         private void ttsBut_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
             Form notebookScreen = new TextToSpeech(this);
             notebookScreen.ShowDialog();
+            this.Visible = false;
         }
     }
 }

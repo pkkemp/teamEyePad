@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnMax = new ALSProject.ALSButton();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
             this.quitBut = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
+            this.btnMax = new ALSProject.ALSButton();
             this.alsButton4 = new ALSProject.ALSButton();
             this.alsButton5 = new ALSProject.ALSButton();
             this.btnMin = new ALSProject.ALSButton();
@@ -38,23 +39,6 @@
             this.ttsBut = new ALSProject.ALSButton();
             this.alarmBut = new ALSProject.ALSAlarm();
             this.SuspendLayout();
-            // 
-            // btnMax
-            // 
-            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMax.FlatAppearance.BorderSize = 0;
-            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
-            this.btnMax.Location = new System.Drawing.Point(12, 518);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(312, 248);
-            this.btnMax.TabIndex = 8;
-            this.btnMax.Text = "+";
-            this.btnMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMax.timeDivision = 15;
-            this.btnMax.UseVisualStyleBackColor = false;
-            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // quitBut
             // 
@@ -92,6 +76,23 @@
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
             this.setBut.MouseEnter += new System.EventHandler(this.setBut_MouseEnter);
+            // 
+            // btnMax
+            // 
+            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMax.FlatAppearance.BorderSize = 0;
+            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
+            this.btnMax.Location = new System.Drawing.Point(12, 518);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(312, 248);
+            this.btnMax.TabIndex = 8;
+            this.btnMax.Text = "+";
+            this.btnMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnMax.timeDivision = 15;
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // alsButton4
             // 
@@ -134,10 +135,11 @@
             this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMin.BackgroundImage = global::ALSProject.Properties.Resources.Minimize;
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnMin.FlatAppearance.BorderSize = 0;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
-            this.btnMin.Image = global::ALSProject.Properties.Resources.Minimize;
             this.btnMin.Location = new System.Drawing.Point(12, 264);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(312, 248);
@@ -152,7 +154,7 @@
             this.noteBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.noteBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noteBut.BackgroundImage = global::ALSProject.Properties.Resources.Notes;
-            this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.noteBut.FlatAppearance.BorderSize = 0;
             this.noteBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.noteBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -170,7 +172,7 @@
             this.ttsBut.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ttsBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ttsBut.BackgroundImage = global::ALSProject.Properties.Resources.chatbubbles;
-            this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ttsBut.FlatAppearance.BorderSize = 0;
             this.ttsBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ttsBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -186,6 +188,8 @@
             // alarmBut
             // 
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alarmBut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("alarmBut.BackgroundImage")));
+            this.alarmBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.alarmBut.FlatAppearance.BorderSize = 0;
             this.alarmBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alarmBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
