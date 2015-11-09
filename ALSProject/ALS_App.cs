@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Windows.Forms;
-
+using System.Threading;
 namespace ALSProject
 {
     static class ALS_App
@@ -18,6 +18,10 @@ namespace ALSProject
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Thread eyeTrackingThread = new Thread(tobiiInt.StartEyeTracking);
+            eyeTrackingThread.Start();
+
             Application.Run(new UI());
         }
     }

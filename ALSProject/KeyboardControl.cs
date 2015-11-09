@@ -19,10 +19,12 @@ namespace ALSProject
         private ALSButton[][] predictionKeyboard;
         private ALSButton btnShift;
         private ALSButton keySpace;
-        private const int GAP = 10;
+        public const int GAP = 10;
         private int keyWidth;
         private int keyboardNumber;
         private TextBox txtEntry;
+        public static Point spacebarLocation;
+        private PredictionBoxControl boxPredict;
 
         public KeyboardControl()
         {
@@ -31,6 +33,7 @@ namespace ALSProject
             keyboardNumber = 0;
 
 
+            boxPredict = new PredictionBoxControl(this);
 
             keyboard = new ALSKey[3][];
             keyboard[0] = new ALSKey[11];
@@ -60,6 +63,12 @@ namespace ALSProject
         public KeyboardControl(Form parentForm) : this()
         {
             this.ParentForm = parentForm;
+        }
+
+        public void setupPreditionBox()
+        {
+            boxPredict.Location = new Point(keySpace.Location.X - GAP - boxPredict.Width, keySpace.Location.Y);
+            this.Controls.Add(boxPredict);
         }
 
         private void setupLayout()
@@ -93,6 +102,7 @@ namespace ALSProject
             keySpace.Location = new Point(keyboard[2][2].Location.X, GAP * 4 + 3 * keyHeight);
             keySpace.Size = new Size((keyWidth) * 3 + GAP * 2, keySpace.Size.Height);
             keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            spacebarLocation = keySpace.Location;
 
         }
 
@@ -128,6 +138,7 @@ namespace ALSProject
                 keyboards[1, 2][i] = uppercaseKeyboard[2][i];
                 keyboards[2, 2][i] = symbolsKeyboard[2][i];
             }
+
             fillKeyboard();
         }
 
@@ -138,8 +149,23 @@ namespace ALSProject
                 for (int j = 0; j < keyboard[i].Length; j++)
                     keyboard[i][j].Text = Convert.ToString(keyboards[keyboardNumber, i][j]);
             }
+
+            keyboard[0][10].Text = "Backspace";
+        }
+
+        private void setupKeypad()
+        {
+            for(int j = 0; j <predictionKeyboard.Length; j++) { 
+                for(int i = 0; i < predictionKeyboard[0].Length; i++) {  
+                    predictionKeyboard[j][i] = new ALSButton();
+                    predictionKeyboard[j][i].Location = new Point(400 + (keyWidth+ GAP) * i+GAP, GAP * (5+ j) + (4+ j) * keyWidth);
+                    this.Controls.Add(predictionKeyboard[j][i]);
+                }
+            }
+
             keyboard[0][10].Text = "Backspace";
             keyboard[1][9].Text = "Delete\nWord";
+
         }
 
 
@@ -188,7 +214,9 @@ namespace ALSProject
 
             setupLayout();
             setupLetters();
-            setupShift();
+            //setupShift();
+            //setupKeypad();
+            setupPreditionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
