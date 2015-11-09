@@ -90,6 +90,7 @@ namespace ALSProject
         {
             gr = this.CreateGraphics(); 
 
+            /*
             if(this.Text != null)
             {
                 float p = this.Font.SizeInPoints;
@@ -97,7 +98,7 @@ namespace ALSProject
                 this.Font = new Font(this.Font.Name, this.Width * 11 / 20);
                 if(this.Width * 11 / 20 == 110)
                     this.Font = new Font(this.Font.Name, 40);
-            }
+            }*/
         }
 
         private void ALSButton_Click(object sender, EventArgs e)

@@ -21,7 +21,7 @@ namespace ALSProject
             InitializeComponent();
             this.alsKeyboard.setRemainingVariables();
             speaker = new SpeechSynthesizer();
-   
+
             speaker.SetOutputToDefaultAudioDevice();
             speaker.Volume = 100;
             speaker.SelectVoiceByHints(VoiceGender.Male);
@@ -44,7 +44,7 @@ namespace ALSProject
             textBox1.AppendText(" ");
         }
 
-        private void alsButton1_Click(object sender, EventArgs e)
+        private void btnMenu_Click(object sender, EventArgs e)
         {
             Parent.Visible = true;
             this.Close();
@@ -61,14 +61,14 @@ namespace ALSProject
         {
         }
 
-        
 
-        private void alsButton3_Click(object sender, EventArgs e)
+
+        private void btnClear_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
         }
 
-        private void alsButton2_Click(object sender, EventArgs e)
+        private void btnSpeak_Click(object sender, EventArgs e)
         {
             speaker.SpeakAsync(textBox1.Text);
         }
@@ -95,6 +95,21 @@ namespace ALSProject
             textBox1.Focus();
             textBox1.SelectionStart = textBox1.TextLength;
             textBox1.SelectionLength = 0;
+        }
+
+        private void alsButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void alsButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void alsButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

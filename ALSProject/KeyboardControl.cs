@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using presage;
 
 namespace ALSProject
 {
@@ -15,6 +16,7 @@ namespace ALSProject
         private new Form ParentForm;
         private ALSKey[][] keyboard;    // [rows] [columns]
         private Char[,][] keyboards;    // [keyboard#, row#] [column#]
+        private ALSButton[][] predictionKeyboard;
         private ALSButton btnShift;
         private ALSButton keySpace;
         private const int GAP = 10;
@@ -22,17 +24,28 @@ namespace ALSProject
         private int keyboardNumber;
         private TextBox txtEntry;
 
+        
+
         public KeyboardControl()
         {
             InitializeComponent();
 
             keyboardNumber = 0;
 
+            
+
             keyboard = new ALSKey[3][];
             keyboard[0] = new ALSKey[10];
             keyboard[1] = new ALSKey[9];
             keyboard[2] = new ALSKey[7];
             keySpace = new ALSButton();
+
+            predictionKeyboard = new ALSButton[2][];
+            predictionKeyboard[0] = new ALSButton[5];
+            predictionKeyboard[1] = new ALSButton[5];
+
+            
+            
 
             for (int i = 0; i < keyboard.Length; i++)
             {
@@ -45,9 +58,9 @@ namespace ALSProject
 
             this.Controls.Add(keySpace);
             keySpace.Text = "Space";
-            
+
         }
-        
+
 
         public KeyboardControl(Form parentForm) : this()
         {
@@ -181,7 +194,7 @@ namespace ALSProject
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
         {
-            setRemainingVariables();
+            setRemainingVariables(); //this creates extra shift buttons
         }
     }
 }

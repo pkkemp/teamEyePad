@@ -1,0 +1,5 @@
+C:\git\Presage\bindings\csharp\presage.net\bin\x86\Debug\presage.net.dll
+C:\git\Presage\bindings\csharp\presage.net\bin\x86\Debug\presage.net.pdb
+C:\git\Presage\bindings\csharp\presage.net\obj\x86\Debug\presage.net.csprojResolveAssemblyReference.cache
+C:\git\Presage\bindings\csharp\presage.net\obj\x86\Debug\presage.net.dll
+C:\git\Presage\bindings\csharp\presage.net\obj\x86\Debug\presage.net.pdb
