@@ -58,7 +58,7 @@ namespace ALSProject
 
             texttospeech = new TextToSpeech(this);
             callout = new Callout(this);
-            texttospeech.btnCallouts.Click += new System.EventHandler(this.openCallouts);
+            texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
             
             foreach(ALSButton btn in callout.getMenuBtns())
             {
