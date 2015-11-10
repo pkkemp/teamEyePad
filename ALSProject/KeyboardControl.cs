@@ -195,6 +195,7 @@ namespace ALSProject
 
         public string wordPrediction(int num)
         {
+          
             return boxPredict.getTable()[1][num].Text;
         }
 
@@ -215,7 +216,8 @@ namespace ALSProject
 
         public void resetPredict()
         {
-            boxPredict.resetWord();
+                boxPredict.resetWord();
+            
         }
 
         private void btnRight_Click(object sender, EventArgs e)

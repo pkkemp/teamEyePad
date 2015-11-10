@@ -16,6 +16,8 @@ namespace ALSProject
     {
         private new Form Parent;
         SpeechSynthesizer speaker;
+        bool predictLock = false; //this prevents the textbox words from being overwritten constantly
+
         public TextToSpeech(Form parent)
         {
             this.Parent = parent;
@@ -62,10 +64,15 @@ namespace ALSProject
 
         private void keypad_Click(object sender, EventArgs e)
         {
-            
+
             String word = alsKeyboard.wordPrediction(Convert.ToInt16(((ALSButton)sender).Text));
 
-            if(textBox1.Text == "" || textBox1.Text[textBox1.Text.Length-1].ToString() == " ")
+            if (!predictLock) { 
+                key_DeleteWord(sender, e);
+                predictLock = true;
+            }
+
+            if (textBox1.Text == "" || textBox1.Text[textBox1.Text.Length-1].ToString() == " ")
             {
                 textBox1.Text += word + " ";
             }
@@ -97,6 +104,7 @@ namespace ALSProject
         {
             textBox1.Text += ((ALSButton)sender).Text;
             this.alsKeyboard.predictType(((ALSButton)sender).Text);
+            predictLock = false;
         }
 
         private void key_Backspace(object sender, EventArgs e)

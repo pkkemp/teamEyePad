@@ -17,18 +17,24 @@ namespace ALSProject
         Label[][] table;
         private int cellHeight;
         Presage presage;
-        string buffer;
+        public String lastWord { get; private set; } //sooo thissss is how you do this
 
         public PredictionBoxControl(UserControl parent)
         {
             InitializeComponent();
             this.Parent = parent;
             cellHeight = this.Height / 11+5;
-            //presage = new Presage(buffer, "");
-
+            lastWord = " ";
 
             setupTable();
-            drawTable();
+
+                presage = new Presage
+                (
+                    callback_get_past_stream,
+                    callback_get_future_stream,
+                    "presage_csharp_demo.xml"
+                );
+
         }
 
         public void setupTable()
@@ -56,7 +62,6 @@ namespace ALSProject
 
             for (int i = 0; i < table[1].Length; i++)
             {
-                table[1][i].Text = "Sample" + i;
                 table[1][i].Location = new Point(this.Width / 50 + 40, cellHeight * (i));
 
             }
@@ -79,15 +84,30 @@ namespace ALSProject
         public void predictType(string key)
         {
             table[0][0].Text += key;
-            for(int i = 0; i < table[1].Length; i++)
-            {
 
+            String[] predictions = presage.predict();
+
+            for(int i = 0; i < predictions.Length; i++)
+            {
+                table[1][i+1].Text = predictions[i];
             }
+
+
         }
 
         public void resetWord()
         {
+            lastWord = table[0][0].Text;
             table[0][0].Text = "";
+
+            String[] predictions = presage.predict();
+
+            for (int i = 0; i < predictions.Length; i++)
+            {
+                table[1][i + 1].Text = predictions[i];
+            }
+
+
         }
 
         public void updateSize()
@@ -97,7 +117,16 @@ namespace ALSProject
         }
 
 
+        private string callback_get_past_stream()
+        {
+                return table[0][0].Text;
 
+        }
+
+        private string callback_get_future_stream()
+        {
+            return "";
+        }
 
 
 
