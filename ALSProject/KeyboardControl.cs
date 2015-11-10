@@ -219,7 +219,6 @@ namespace ALSProject
             setupLetters();
             //setupShift();
             setupKeypad();
-            setupPreditionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)

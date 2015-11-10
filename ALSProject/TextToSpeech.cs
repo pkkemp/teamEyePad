@@ -21,6 +21,7 @@ namespace ALSProject
             this.Parent = parent;
             InitializeComponent();
             this.alsKeyboard.setRemainingVariables();
+            this.alsKeyboard.setupPreditionBox();
             speaker = new SpeechSynthesizer();
 
             speaker.SetOutputToDefaultAudioDevice();
