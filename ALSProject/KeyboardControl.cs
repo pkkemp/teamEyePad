@@ -54,6 +54,16 @@ namespace ALSProject
                 }
             }
 
+            for ( int i =0; i < predictionKeyboard.Length; i++)
+            {
+                for(int j=0; j < predictionKeyboard[i].Length; j++)
+                {
+                    predictionKeyboard[i][j] = new ALSButton();
+                    this.Controls.Add(predictionKeyboard[i][j]);
+                }
+            }
+
+            this.Controls.Add(boxPredict);
             this.Controls.Add(keySpace);
             keySpace.Text = "Space";
 
@@ -67,8 +77,10 @@ namespace ALSProject
 
         public void setupPreditionBox()
         {
+            //boxPredict.Location = new Point(500 , 300);
+            boxPredict.updateSize();
             boxPredict.Location = new Point(keySpace.Location.X - UI.GAP - boxPredict.Width, keySpace.Location.Y);
-            this.Controls.Add(boxPredict);
+
         }
 
         private void setupLayout()
@@ -163,13 +175,27 @@ namespace ALSProject
 
         private void setupKeypad()
         {
-            for (int j = 0; j < predictionKeyboard.Length; j++)
-            {
-                for (int i = 0; i < predictionKeyboard[j].Length; i++)
+            try { 
+                for (int j = 0; j < predictionKeyboard.Length; j++)
                 {
-                    //predictionKeyboard[j][i].Location; //= new Point(Parent.Width - (keyWidth + UI.GAP) * i + UI.GAP, UI.GAP * (5 + j) + (4 + j) * keyWidth);
+                    for (int i = 0; i < predictionKeyboard[j].Length; i++)
+                    {
+                        predictionKeyboard[j][i].Size = new Size(keyWidth, keyWidth);
+
+                        predictionKeyboard[j][i].Location = new Point(spacebarLocation.X + ((keyWidth + UI.GAP) * i) + UI.GAP, spacebarLocation.Y + 10 +  (keyWidth +UI.GAP) * (1+j));
+                        predictionKeyboard[j][i].Text = ((i+1) * (j + 1)).ToString();
+                    }
                 }
             }
+            catch(NullReferenceException e)
+            {
+                Console.WriteLine("Parent unknown\n======\n" + e + "======");
+            }
+        }
+
+        public string wordPrediction(int num)
+        {
+            return boxPredict.getTable()[1][num].Text;
         }
 
 
@@ -211,6 +237,11 @@ namespace ALSProject
             return btnClear;
         }
 
+        public ALSButton[][] getKeypad()
+        {
+            return predictionKeyboard;
+        }
+
         public void setRemainingVariables()
         {
             keyWidth = (this.Width - 10 * UI.GAP) / 11;
@@ -219,6 +250,7 @@ namespace ALSProject
             setupLetters();
             //setupShift();
             setupKeypad();
+            setupPreditionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)

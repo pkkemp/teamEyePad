@@ -34,7 +34,9 @@
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Name = "PredictionBoxControl";
+            this.Size = new System.Drawing.Size(345, 250);
             this.ResumeLayout(false);
+
         }
 
 

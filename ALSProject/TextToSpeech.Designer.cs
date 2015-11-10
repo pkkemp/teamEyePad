@@ -33,7 +33,7 @@
             this.btnCallouts = new ALSProject.ALSButton();
             this.btnSpeak = new ALSProject.ALSButton();
             this.alsAlarm1 = new ALSProject.ALSAlarm();
-            this.alsKeyboard = new ALSProject.KeyboardControl();
+            this.alsKeyboard = new ALSProject.KeyboardControl(this);
             this.btnMenu = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
@@ -56,7 +56,7 @@
             this.btnCallouts.FlatAppearance.BorderSize = 0;
             this.btnCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCallouts.Location = new System.Drawing.Point(869, 12);
+            this.btnCallouts.Location = new System.Drawing.Point(722, 12);
             this.btnCallouts.Name = "btnCallouts";
             this.btnCallouts.Size = new System.Drawing.Size(143, 140);
             this.btnCallouts.TabIndex = 8;
@@ -113,7 +113,7 @@
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenu.Location = new System.Drawing.Point(722, 12);
+            this.btnMenu.Location = new System.Drawing.Point(871, 12);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(141, 140);
             this.btnMenu.TabIndex = 1;
