@@ -175,12 +175,11 @@
             this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ttsBut.FlatAppearance.BorderSize = 0;
             this.ttsBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ttsBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
             this.ttsBut.Location = new System.Drawing.Point(356, 10);
             this.ttsBut.Name = "ttsBut";
             this.ttsBut.Size = new System.Drawing.Size(312, 248);
             this.ttsBut.TabIndex = 3;
-            this.ttsBut.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ttsBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttsBut.timeDivision = 15;
             this.ttsBut.UseVisualStyleBackColor = false;
             this.ttsBut.Click += new System.EventHandler(this.ttsBut_Click);

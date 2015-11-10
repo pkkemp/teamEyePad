@@ -94,8 +94,7 @@ namespace ALSProject
         public void openCallouts(object sender, EventArgs e)
         {
             callout.Show();
-            texttospeech.Hide();
-            
+            texttospeech.Hide(); 
         }
 
 

@@ -27,10 +27,11 @@ namespace ALSProject
             //this.Parent = parent;
             topRowButtons = new ALSButton[6];
 
-            for (int i = 0; i < topRowButtons.Length; i++)
+            topRowButtons[0] = new ALSAlarm();
+
+            for (int i = 1; i < topRowButtons.Length; i++)
                 topRowButtons[i] = new ALSButton();
 
-            topRowButtons[0].Text = "Speak";
             topRowButtons[1].Text = "Edit"; //add functionality should appear in edit mode
             topRowButtons[2].Text = "Page Left";
             topRowButtons[3].Text = "Page Right";
@@ -39,7 +40,7 @@ namespace ALSProject
 
 
 
-            topRowButtons[2].Click += new System.EventHandler(this.edit_Click);
+            topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
 
             foreach (ALSButton btn in topRowButtons)
                 Controls.Add(btn);
@@ -57,7 +58,7 @@ namespace ALSProject
                 callouts[1, i].BackgroundImageLayout = ImageLayout.Zoom;
                 callouts[1, i].Visible = false;
 
-                callouts[2, i].BackgroundImage = Properties.Resources.checkmark;
+                callouts[2, i].BackgroundImage = Properties.Resources.trashcan;
                 callouts[2, i].BackgroundImageLayout = ImageLayout.Zoom;
                 callouts[2, i].Visible = false;
             }
