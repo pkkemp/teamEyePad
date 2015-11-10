@@ -115,14 +115,15 @@ namespace ALSProject
 
         private void key_DeleteWord(object sender, EventArgs e)
         { 
-            var match = Regex.Match(textBox1.Text, @"\s+\w+\s*$");
+            var match = Regex.Match(textBox1.Text, @"\w+\s*$");
+            var match2 = Regex.Match(textBox1.Text, @"\w+\p{P}+\s*$");
             if (match.Success)
             {
-                textBox1.Text = textBox1.Text.Substring(0, match.Index) + " ";
+                textBox1.Text = textBox1.Text.Substring(0, match.Index);
             }
-            else
+            else if(match2.Success)
             {
-                textBox1.Text = "";
+                textBox1.Text = textBox1.Text.Substring(0, match2.Index);
             }
 
             predictReset();
