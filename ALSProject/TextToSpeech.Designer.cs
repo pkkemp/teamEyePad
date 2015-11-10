@@ -149,9 +149,6 @@
         private KeyboardControl alsKeyboard;
         private ALSAlarm alsAlarm1;
         private ALSButton btnSpeak;
-        public ALSButton btnCallouts
-        {
-            get; private set;
-        }
+        private ALSButton btnCallouts;
     }
 }

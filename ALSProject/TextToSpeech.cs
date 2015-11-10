@@ -63,6 +63,11 @@ namespace ALSProject
             };
         }
 
+        public ALSButton getCalloutBtn()
+        {
+            return btnCallouts;
+        }
+
         private void keypad_Click(object sender, EventArgs e)
         {
 
