@@ -32,7 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnAlarm = new ALSProject.ALSButton();
             this.btnBack = new ALSProject.ALSButton();
-            this.slider1 = new ALSProject.Slider(.25,.25,3);
+            this.slider1 = new ALSProject.Slider();
             this.alsButton2 = new ALSProject.ALSButton();
             this.alsButton1 = new ALSProject.ALSButton();
             this.SuspendLayout();
@@ -148,6 +148,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
+            this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

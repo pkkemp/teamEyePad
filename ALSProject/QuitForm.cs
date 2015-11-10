@@ -25,8 +25,8 @@ namespace ALSProject
         
         private void noBut_Click(object sender, EventArgs e)
         {
-            parentForm.Visible = true;
-            this.Close();
+            parentForm.Show();
+            this.Hide();
         }
 
         private void yesBut_Click(object sender, EventArgs e)

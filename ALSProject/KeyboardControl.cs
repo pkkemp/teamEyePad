@@ -182,7 +182,7 @@ namespace ALSProject
                     {
                         predictionKeyboard[j][i].Size = new Size(keyWidth, keyWidth);
 
-                        predictionKeyboard[j][i].Location = new Point(spacebarLocation.X + ((keyWidth + UI.GAP) * i) + UI.GAP, spacebarLocation.Y + 10 +  (keyWidth +UI.GAP) * (1+j));
+                        predictionKeyboard[j][i].Location = new Point(keySpace.Location.X + ((keyWidth + UI.GAP) * i) + UI.GAP, keySpace.Location.Y + keySpace.Height + UI.GAP + (keyWidth +UI.GAP) * (j));
                         predictionKeyboard[j][i].Text = ((i+1) + (j * 5)).ToString();
                     }
                 }

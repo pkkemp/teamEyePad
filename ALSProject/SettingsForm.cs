@@ -37,8 +37,8 @@ namespace ALSProject
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            parentForm.Visible = true;
-            this.Close();
+            parentForm.Show();
+            this.Hide();
         }
     }
 }

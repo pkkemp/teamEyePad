@@ -42,6 +42,8 @@ namespace ALSProject
         public const int GAP = 10;
         TextToSpeech texttospeech;
         Callout callout;
+        SettingsForm settingsScreen;
+        QuitForm quitScreen;
 
         public UI()
         {
@@ -58,6 +60,9 @@ namespace ALSProject
 
             texttospeech = new TextToSpeech(this);
             callout = new Callout(this);
+            settingsScreen = new SettingsForm(this);
+            quitScreen = new QuitForm(this);
+
             texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
             
             foreach(ALSButton btn in callout.getMenuBtns())
@@ -130,8 +135,8 @@ namespace ALSProject
 
         private void alsButton4_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
-            callout.ShowDialog();
+            callout.Show();
+            this.Hide();
         }
 
         private void quitBut_Click(object sender, EventArgs e)
@@ -139,17 +144,17 @@ namespace ALSProject
 
             if (!alarmBut.isAlarmOn())
             {
-                this.Visible = false;
-                Form quitScreen = new QuitForm(this);
-                quitScreen.ShowDialog();
+                quitScreen.Show();
+                this.Hide();
+
             }
         }
 
         private void setBut_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
-            Form settingsScreen = new SettingsForm(this);
-            settingsScreen.ShowDialog();
+            settingsScreen.Show();
+            this.Hide();
+
         }
 
         private void setBut_MouseEnter(object sender, EventArgs e)
@@ -191,10 +196,10 @@ namespace ALSProject
 
         private void ttsBut_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
+
             
             texttospeech.Show();
-
+            this.Hide();
         }
 
 
