@@ -40,7 +40,8 @@ namespace ALSProject
 
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
-            gr.FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / timeDivision));
+
+            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / timeDivision));
             
             if (heightCounter > this.Height * 12 / 10)
             {
@@ -77,7 +78,7 @@ namespace ALSProject
             }
             catch (Exception)
             {         //this just prevents the program from crashing if there is no Background Image set
-                gr.Clear(baseColor);    //clears rectangle if there is no image
+                this.CreateGraphics().Clear(baseColor);    //clears rectangle if there is no image
             }
             Text = text;
 

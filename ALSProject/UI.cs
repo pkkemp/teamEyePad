@@ -40,6 +40,8 @@ namespace ALSProject
         private CVInterface tobiiInt;
         private Thread eyeTrackingThread;
         public const int GAP = 10;
+        TextToSpeech texttospeech;
+        Callout callout;
 
         public UI()
         {
@@ -53,7 +55,44 @@ namespace ALSProject
             eyeTrackingThread = new Thread(tobiiInt.StartEyeTracking);
             eyeTrackingThread.Name = "Eye Tracking Thread";
             eyeTrackingThread.Start();
+
+            texttospeech = new TextToSpeech(this);
+            callout = new Callout(this);
+            texttospeech.btnCallouts.Click += new System.EventHandler(this.openCallouts);
+            
+            foreach(ALSButton btn in callout.getMenuBtns())
+            {
+                if (btn.Text == "Main Menu"|| btn.Text == "Text to Speech")
+                {
+                    btn.Click += new System.EventHandler(this.closeCallouts);
+                }
+            }
+            
+
         }
+
+        private void closeCallouts(object sender, EventArgs e)
+        {
+            if(((ALSButton)sender).Text=="Main Menu")
+            {
+                this.Show();
+                callout.Hide(); 
+            }
+            else if (((ALSButton)sender).Text == "Text to Speech")
+            {
+                texttospeech.Show();
+                callout.Hide();
+                
+            }
+        }
+
+        public void openCallouts(object sender, EventArgs e)
+        {
+            callout.Show();
+            texttospeech.Hide();
+            
+        }
+
 
 
         public void initBECM()
@@ -92,7 +131,6 @@ namespace ALSProject
         private void alsButton4_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            Form callout = new Callout(this);
             callout.ShowDialog();
         }
 
@@ -154,9 +192,11 @@ namespace ALSProject
         private void ttsBut_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            Form notebookScreen = new TextToSpeech(this);
-            notebookScreen.ShowDialog();
+            
+            texttospeech.Show();
 
         }
+
+
     }
 }

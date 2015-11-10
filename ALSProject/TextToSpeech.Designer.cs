@@ -33,13 +33,13 @@
             this.btnCallouts = new ALSProject.ALSButton();
             this.btnSpeak = new ALSProject.ALSButton();
             this.alsAlarm1 = new ALSProject.ALSAlarm();
-            this.alsKeyboard = new ALSProject.KeyboardControl(this);
+            this.alsKeyboard = new ALSProject.KeyboardControl();
             this.btnMenu = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(281, 12);
@@ -63,6 +63,7 @@
             this.btnCallouts.Text = "Callouts";
             this.btnCallouts.timeDivision = 15;
             this.btnCallouts.UseVisualStyleBackColor = false;
+            this.btnCallouts.Click += new System.EventHandler(this.btnCallouts_Click);
             // 
             // btnSpeak
             // 
@@ -97,8 +98,8 @@
             // 
             // alsKeyboard
             // 
-            this.alsKeyboard.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.alsKeyboard.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.alsKeyboard.BackColor = System.Drawing.Color.Black;
             this.alsKeyboard.Location = new System.Drawing.Point(12, 158);
@@ -148,6 +149,9 @@
         private KeyboardControl alsKeyboard;
         private ALSAlarm alsAlarm1;
         private ALSButton btnSpeak;
-        private ALSButton btnCallouts;
+        public ALSButton btnCallouts
+        {
+            get; private set;
+        }
     }
 }
