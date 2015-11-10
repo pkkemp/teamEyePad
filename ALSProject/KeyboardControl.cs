@@ -54,9 +54,9 @@ namespace ALSProject
                 }
             }
 
-            for ( int i =0; i < predictionKeyboard.Length; i++)
+            for (int i = 0; i < predictionKeyboard.Length; i++)
             {
-                for(int j=0; j < predictionKeyboard[i].Length; j++)
+                for (int j = 0; j < predictionKeyboard[i].Length; j++)
                 {
                     predictionKeyboard[i][j] = new ALSButton();
                     this.Controls.Add(predictionKeyboard[i][j]);

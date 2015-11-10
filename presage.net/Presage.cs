@@ -181,19 +181,31 @@ namespace presage
             set_presage_dll_directory();
 
             // call presage_new_with_config
-            int rc = presage_new_with_config(
+            try
+            {
+                int rc = presage_new_with_config(
                 get_past_stream_cb, System.IntPtr.Zero,
                 get_future_stream_cb, System.IntPtr.Zero,
                 config, out prsg);
-            if (rc != 0)
-            {
-                throw new PresageException(String.Format("presage_new_with_config() error code: {0}", rc));
+                if (rc != 0)
+                {
+                    throw new PresageException(String.Format("presage_new_with_config() error code: {0}", rc));
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+            
         }
 
         ~Presage()
         {
-            presage_free(prsg);
+            try
+            {
+                presage_free(prsg);
+            }
+            catch (Exception ex) { }
         }
 
         public unsafe string[] predict()
@@ -203,11 +215,12 @@ namespace presage
             IntPtr prediction;
 
             // call presage_predict
-            int rc = presage_predict(prsg, out prediction);
-            if (rc != 0)
-            {
-                throw new PresageException(String.Format("presage_predict() error code: {0}", rc));
-            }
+            try {
+                int rc = presage_predict(prsg, out prediction);
+                if (rc != 0)
+                {
+                    throw new PresageException(String.Format("presage_predict() error code: {0}", rc));
+                }
 
             if (prediction != null)
             {
@@ -227,6 +240,12 @@ namespace presage
             presage_free_string_array(prediction);
 
             return result.ToArray();
+
+            }
+            catch (Exception ex)
+            {
+                return new string[] { "" };
+            }
         }
 
         public string context()
@@ -356,6 +375,11 @@ namespace presage
             catch (System.IO.IOException ex)
             {
                 System.Console.WriteLine("Caught exception: {0}", ex.ToString()); 
+                result = string.Empty;
+            }
+            catch (NullReferenceException ex)
+            {
+                System.Console.WriteLine("Caught exception: {0}", ex.ToString());
                 result = string.Empty;
             }
 

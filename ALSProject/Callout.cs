@@ -44,23 +44,34 @@ namespace ALSProject
             foreach (ALSButton btn in topRowButtons)
                 Controls.Add(btn);
 
-            callouts = new ALSButton[3, NUM_CALLOUTS];
+            callouts = new ALSButton[5, NUM_CALLOUTS];
             for (int i = 0; i < callouts.GetLength(0); i++)
                 for (int j = 0; j < callouts.GetLength(1); j++)
                 {
                     callouts[i, j] = new ALSButton();
                     Controls.Add(callouts[i, j]);
                 }
-            for (int i = 0; i < callouts.GetLength(1); i++)
-            {
-                callouts[1, i].BackgroundImage = Properties.Resources.notepad;
-                callouts[1, i].BackgroundImageLayout = ImageLayout.Zoom;
-                callouts[1, i].Visible = false;
-
-                callouts[2, i].BackgroundImage = Properties.Resources.checkmark;
-                callouts[2, i].BackgroundImageLayout = ImageLayout.Zoom;
-                callouts[2, i].Visible = false;
-            }
+            for (int i = 1; i < callouts.GetLength(0); i++)
+                for (int j = 0; j < callouts.GetLength(1); j++)
+                {
+                    switch(i)
+                    {
+                        case 1:
+                            callouts[i, j].BackgroundImage = Properties.Resources.notepad;
+                            break;
+                        case 2:
+                            callouts[i, j].BackgroundImage = Properties.Resources.checkmark;
+                            break;
+                        case 3:
+                            callouts[i, j].Text = "Up";
+                            break;
+                        case 4:
+                            callouts[i, j].Text = "Down";
+                            break;
+                    }
+                    callouts[i, j].BackgroundImageLayout = ImageLayout.Zoom;
+                    callouts[i, j].Visible = false;
+                }
         }
 
         public ALSButton[] getMenuBtns()
@@ -99,18 +110,20 @@ namespace ALSProject
 
             if (isEditMode)
             {
-                for (int i = 0; i < callouts.GetLength(1); i++)
-                {
-                    callouts[2, i].Location = new Point(Width - EDIT_BUTTON_WIDTH - UI.GAP, callouts[0, i].Location.Y);
-                    callouts[2, i].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
-                    callouts[2, i].Visible = true;
 
-                    callouts[1, i].Location = new Point(Width - 2 * EDIT_BUTTON_WIDTH - 2 * UI.GAP, callouts[0, i].Location.Y);
-                    callouts[1, i].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
-                    callouts[1, i].Visible = true;
-
-                    callouts[0, i].Size = new Size(Width - UI.GAP * 4 - 2 * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
-                }
+                for (int i = 0; i < callouts.GetLength(0); i++)
+                    for (int j = 0; j < callouts.GetLength(1); j++)
+                    {
+                        if (i != 0)
+                        {
+                            callouts[i, j].Location = new Point(Width - (callouts.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + UI.GAP), callouts[0, j].Location.Y);
+                            callouts[i, j].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
+                            callouts[i, j].Visible = true;
+                        }
+                        else
+                            callouts[i, j].Size = new Size(Width - UI.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
+                    }
+                topRowButtons[4].Text = "Add";
             }
             else
             {
@@ -120,6 +133,11 @@ namespace ALSProject
                     callouts[0, i].Size = new Size(Width - UI.GAP * 2, calloutsButtonHeight);
                     callouts[0, i].Text = i + "";
                 }
+                for (int i = 1; i < callouts.GetLength(0); i++)
+                    for (int j = 0; j < callouts.GetLength(1); j++)
+                        callouts[i, j].Visible = false;
+
+                topRowButtons[4].Text = "Callouts";
             }
         }
 
