@@ -13,16 +13,15 @@ namespace ALSProject
 {
     public partial class KeyboardControl : UserControl
     {
-        private new Form ParentForm;
+       
         private ALSKey[][] keyboard;    // [rows] [columns]
         private Char[,][] keyboards;    // [keyboard#, row#] [column#]
         private ALSButton[][] predictionKeyboard;
         private ALSButton btnShift;
         private ALSButton keySpace;
-        public const int GAP = 10;
+        private ALSButton btnClear;
         private int keyWidth;
         private int keyboardNumber;
-        private TextBox txtEntry;
         public static Point spacebarLocation;
         private PredictionBoxControl boxPredict;
 
@@ -40,11 +39,12 @@ namespace ALSProject
             keyboard[1] = new ALSKey[10];
             keyboard[2] = new ALSKey[7];
             keySpace = new ALSButton();
+            btnClear = new ALSButton();
 
             predictionKeyboard = new ALSButton[2][];
             predictionKeyboard[0] = new ALSButton[5];
             predictionKeyboard[1] = new ALSButton[5];
-            
+
             for (int i = 0; i < keyboard.Length; i++)
             {
                 for (int j = 0; j < keyboard[i].Length; j++)
@@ -62,21 +62,21 @@ namespace ALSProject
 
         public KeyboardControl(Form parentForm) : this()
         {
-            this.ParentForm = parentForm;
+            this.Parent = parentForm;
         }
 
         public void setupPreditionBox()
         {
-            boxPredict.Location = new Point(keySpace.Location.X - GAP - boxPredict.Width, keySpace.Location.Y);
+            boxPredict.Location = new Point(keySpace.Location.X - UI.GAP - boxPredict.Width, keySpace.Location.Y);
             this.Controls.Add(boxPredict);
         }
 
         private void setupLayout()
         {
             int keyHeight = keyWidth;
-            int leftOffset = GAP;
+            int leftOffset = UI.GAP;
             int midOffset = leftOffset + keyWidth / 2;
-            int bottomOffset = midOffset + keyWidth + GAP;
+            int bottomOffset = midOffset + keyWidth + UI.GAP;
 
             //place the alphanumeric keys
 
@@ -86,23 +86,30 @@ namespace ALSProject
                     switch (i)
                     {
                         case 0:
-                            keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + GAP), GAP);
+                            keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + UI.GAP), UI.GAP);
                             break;
                         case 1:
-                            keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + GAP), GAP * 2 + keyHeight);
+                            keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + UI.GAP), UI.GAP * 2 + keyHeight);
                             break;
                         case 2:
-                            keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + GAP), GAP * 3 + 2 * keyHeight);
+                            keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + UI.GAP), UI.GAP * 3 + 2 * keyHeight);
                             break;
                     }
                     keyboard[i][j].Height = keyHeight;
                     keyboard[i][j].Width = keyWidth;
                 }
             //place space bar
-            keySpace.Location = new Point(keyboard[2][2].Location.X, GAP * 4 + 3 * keyHeight);
-            keySpace.Size = new Size((keyWidth) * 3 + GAP * 2, keySpace.Size.Height);
+            keySpace.Location = new Point(keyboard[2][2].Location.X, UI.GAP * 4 + 3 * keyHeight);
+            keySpace.Size = new Size((keyWidth) * 3 + UI.GAP * 2, keySpace.Size.Height);
             keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             spacebarLocation = keySpace.Location;
+
+            //clear button
+            btnClear.Location = new Point(keyboard[2][6].Location.X + keyWidth + UI.GAP, keyboard[2][6].Location.Y);
+            btnClear.Text = "Clear";
+            btnClear.Width = 2 * (keyWidth) + UI.GAP;
+            btnClear.Height = keyHeight;
+            this.Controls.Add(btnClear);
 
         }
 
@@ -151,21 +158,18 @@ namespace ALSProject
             }
 
             keyboard[0][10].Text = "Backspace";
+            keyboard[1][9].Text = "Delete\nWord";
         }
 
         private void setupKeypad()
         {
-            for(int j = 0; j <predictionKeyboard.Length; j++) { 
-                for(int i = 0; i < predictionKeyboard[0].Length; i++) {  
-                    predictionKeyboard[j][i] = new ALSButton();
-                    predictionKeyboard[j][i].Location = new Point(400 + (keyWidth+ GAP) * i+GAP, GAP * (5+ j) + (4+ j) * keyWidth);
-                    this.Controls.Add(predictionKeyboard[j][i]);
+            for (int j = 0; j < predictionKeyboard.Length; j++)
+            {
+                for (int i = 0; i < predictionKeyboard[j].Length; i++)
+                {
+                    //predictionKeyboard[j][i].Location; //= new Point(Parent.Width - (keyWidth + UI.GAP) * i + UI.GAP, UI.GAP * (5 + j) + (4 + j) * keyWidth);
                 }
             }
-
-            keyboard[0][10].Text = "Backspace";
-            keyboard[1][9].Text = "Delete\nWord";
-
         }
 
 
@@ -173,17 +177,11 @@ namespace ALSProject
         {
             btnShift = new ALSButton();
             btnShift.Text = ">";
-            btnShift.Location = new Point(GAP, Height - GAP - keyWidth);
+            btnShift.Location = new Point(UI.GAP, Height - UI.GAP - keyWidth);
             btnShift.Click += new System.EventHandler(this.btnRight_Click);
             this.Controls.Add(btnShift);
         }
 
-        private void setupTextBox()
-        {
-            txtEntry = new TextBox();
-            txtEntry.Location = new Point(400, 400);
-            this.Controls.Add(txtEntry);
-        }
 
         private void btnRight_Click(object sender, EventArgs e)
         {
@@ -208,20 +206,25 @@ namespace ALSProject
             return keySpace;
         }
 
+        public ALSButton getClear()
+        {
+            return btnClear;
+        }
+
         public void setRemainingVariables()
         {
-            keyWidth = (this.Width - 10 * GAP) / 11;
+            keyWidth = (this.Width - 10 * UI.GAP) / 11;
 
             setupLayout();
             setupLetters();
             //setupShift();
-            //setupKeypad();
+            setupKeypad();
             setupPreditionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
         {
-            setRemainingVariables(); //this creates extra shift buttons
+            setRemainingVariables();
         }
     }
 }

@@ -29,6 +29,7 @@ namespace ALSProject
 
             ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
             ALSButton space = this.alsKeyboard.getSpace();
+            ALSButton clear = this.alsKeyboard.getClear();
             foreach (ALSButton[] rows in keyboard)
                 foreach (ALSButton column in rows)
                 {
@@ -41,6 +42,8 @@ namespace ALSProject
                 }
             
             space.Click += new System.EventHandler(this.space_Click);
+            clear.Click += new System.EventHandler(this.btnClear_Click);
+
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) => {
                 updateCursor();

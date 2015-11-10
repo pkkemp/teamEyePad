@@ -12,14 +12,15 @@ namespace ALSProject
 {
     public partial class PredictionBoxControl : UserControl
     {
-        private int GAP = KeyboardControl.GAP;
 
         public PredictionBoxControl(UserControl parent)
         {
             InitializeComponent();
-            this.Size = new Size(KeyboardControl.spacebarLocation.X - GAP * 2, parent.Height - KeyboardControl.spacebarLocation.Y);
+            this.Size = new Size(KeyboardControl.spacebarLocation.X - UI.GAP * 2, parent.Height - KeyboardControl.spacebarLocation.Y);
 
         }
+
+
 
 
     }
