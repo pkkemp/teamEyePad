@@ -31,11 +31,12 @@ namespace ALSProject
                 topRowButtons[i] = new ALSButton();
 
             topRowButtons[0].Text = "Speak";
-            topRowButtons[1].Text = "Add";
-            topRowButtons[2].Text = "Edit";
-            topRowButtons[3].Text = "Page Left";
-            topRowButtons[4].Text = "Page Right";
-            topRowButtons[5].Text = "Back";
+            topRowButtons[1].Text = "Edit"; //add functionality should appear in edit mode
+            topRowButtons[2].Text = "Page Left";
+            topRowButtons[3].Text = "Page Right";
+            topRowButtons[4].Text = "Text to Speech";
+            topRowButtons[5].Text = "Main Menu";
+
 
 
             topRowButtons[2].Click += new System.EventHandler(this.edit_Click);
@@ -61,6 +62,12 @@ namespace ALSProject
                 callouts[2, i].Visible = false;
             }
         }
+
+        public ALSButton[] getMenuBtns()
+        {
+            return topRowButtons;
+        }
+
 
         private void Callout_Load(object sender, EventArgs e)
         {
@@ -115,6 +122,8 @@ namespace ALSProject
                 }
             }
         }
+
+    
 
     }
 }

@@ -16,12 +16,16 @@ namespace ALSProject
     {
         private new Form Parent;
         SpeechSynthesizer speaker;
+        bool predictLock = false; //this prevents the textbox words from being overwritten constantly
+
         public TextToSpeech(Form parent)
         {
             this.Parent = parent;
             InitializeComponent();
 
             this.alsKeyboard.setRemainingVariables();
+            this.alsKeyboard.setupPreditionBox();
+
             speaker = new SpeechSynthesizer();
 
             speaker.SetOutputToDefaultAudioDevice();
@@ -29,7 +33,9 @@ namespace ALSProject
             speaker.SelectVoiceByHints(VoiceGender.Male);
 
             ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
+            ALSButton[][] keypad = this.alsKeyboard.getKeypad();
             ALSButton space = this.alsKeyboard.getSpace();
+            ALSButton clear = this.alsKeyboard.getClear();
             foreach (ALSButton[] rows in keyboard)
                 foreach (ALSButton column in rows)
                 {
@@ -40,17 +46,53 @@ namespace ALSProject
                     else
                         column.Click += new System.EventHandler(this.key_Click);
                 }
-            
+
+            foreach (ALSButton[] rows in keypad)
+                foreach (ALSButton column in rows)
+                {
+                        column.Click += new System.EventHandler(this.keypad_Click);
+                }
+
+
             space.Click += new System.EventHandler(this.space_Click);
+            clear.Click += new System.EventHandler(this.btnClear_Click);
+
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) => {
                 updateCursor();
             };
         }
 
+        private void keypad_Click(object sender, EventArgs e)
+        {
+
+            String word = alsKeyboard.wordPrediction(Convert.ToInt16(((ALSButton)sender).Text));
+
+            if (!predictLock) { 
+                key_DeleteWord(sender, e);
+                predictLock = true;
+            }
+
+            if (textBox1.Text == "" || textBox1.Text[textBox1.Text.Length-1].ToString() == " ")
+            {
+                textBox1.Text += word + " ";
+            }
+            else
+            {
+                textBox1.Text += " " + word + " ";
+            }
+        }
+
         private void space_Click(object sender, EventArgs e)
         {
             textBox1.AppendText(" ");
+            predictReset();
+            
+        }
+
+        private void predictReset()
+        {
+            this.alsKeyboard.resetPredict();
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -62,6 +104,8 @@ namespace ALSProject
         private void key_Click(object sender, EventArgs e)
         {
             textBox1.Text += ((ALSButton)sender).Text;
+            this.alsKeyboard.predictType(((ALSButton)sender).Text);
+            predictLock = false;
         }
 
         private void key_Backspace(object sender, EventArgs e)
@@ -72,24 +116,29 @@ namespace ALSProject
 
         private void key_DeleteWord(object sender, EventArgs e)
         { 
-            var match = Regex.Match(textBox1.Text, @"\s+\w+\s*$");
+            var match = Regex.Match(textBox1.Text, @"\w+\s*$");
+            var match2 = Regex.Match(textBox1.Text, @"\w+\p{P}+\s*$");
             if (match.Success)
             {
-                textBox1.Text = textBox1.Text.Substring(0, match.Index) + " ";
+                textBox1.Text = textBox1.Text.Substring(0, match.Index);
             }
-            else
+            else if(match2.Success)
             {
-                textBox1.Text = "";
+                textBox1.Text = textBox1.Text.Substring(0, match2.Index);
             }
+
+            predictReset();
         }
 
         private void TextToSpeech_Load(object sender, EventArgs e)
         {
         }
-        
+
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+            predictReset();
         }
 
         private void btnSpeak_Click(object sender, EventArgs e)
@@ -135,5 +184,14 @@ namespace ALSProject
         {
 
         }
+
+        private void btnCallouts_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
     }
 }
