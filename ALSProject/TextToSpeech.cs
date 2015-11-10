@@ -20,6 +20,7 @@ namespace ALSProject
         {
             this.Parent = parent;
             InitializeComponent();
+
             this.alsKeyboard.setRemainingVariables();
             speaker = new SpeechSynthesizer();
 

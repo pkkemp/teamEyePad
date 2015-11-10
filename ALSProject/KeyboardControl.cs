@@ -57,6 +57,9 @@ namespace ALSProject
             this.Controls.Add(keySpace);
             keySpace.Text = "Space";
 
+            btnShift = new ALSButton();
+            this.Controls.Add(btnShift);
+            btnShift.Click += new System.EventHandler(this.btnRight_Click);
         }
 
 
@@ -118,7 +121,7 @@ namespace ALSProject
 
             String[] lowercaseKeyboard = { "qwertyuiop ", "asdfghjkl ", "zxcvbnm" };
             String[] uppercaseKeyboard = { "QWERTYUIOP ", "ASDFGHJKL ", "ZXCVBNM" };
-            String[] symbolsKeyboard = { "1234567890 ", "!$()_+;:     ", "\",.?    " };
+            String[] symbolsKeyboard = { "1234567890 ", "!@#$%^&*_ ", "\",.?:;'/    " };
 
             for (int i = 0; i < keyboard[0].Length; i++)
             {
@@ -151,6 +154,7 @@ namespace ALSProject
             }
 
             keyboard[0][10].Text = "Backspace";
+            keyboard[1][9].Text = "Delete\nWord";
         }
 
         private void setupKeypad()
@@ -162,20 +166,14 @@ namespace ALSProject
                     this.Controls.Add(predictionKeyboard[j][i]);
                 }
             }
-
-            keyboard[0][10].Text = "Backspace";
-            keyboard[1][9].Text = "Delete\nWord";
-
         }
 
 
         private void setupShift()
         {
-            btnShift = new ALSButton();
-            btnShift.Text = ">";
-            btnShift.Location = new Point(GAP, Height - GAP - keyWidth);
-            btnShift.Click += new System.EventHandler(this.btnRight_Click);
-            this.Controls.Add(btnShift);
+            btnShift.Text = "ABC";
+            btnShift.Location = new Point(GAP, 3 * GAP + 2 * keyWidth);
+            btnShift.Size = new Size((int)(1.5 * keyWidth), keyWidth);
         }
 
         private void setupTextBox()
@@ -188,6 +186,20 @@ namespace ALSProject
         private void btnRight_Click(object sender, EventArgs e)
         {
             keyboardNumber = (keyboardNumber + 1) % 3;
+            
+            switch (keyboardNumber)
+            {
+                case 0:
+                    btnShift.Text = "ABC";
+                    break;
+                case 1:
+                    btnShift.Text = "123";
+                    break;
+                case 2:
+                    btnShift.Text = "abc";
+                    break;
+            }
+
             fillKeyboard();
         }
 
@@ -214,7 +226,7 @@ namespace ALSProject
 
             setupLayout();
             setupLetters();
-            //setupShift();
+            setupShift();
             //setupKeypad();
             setupPreditionBox();
         }
