@@ -1,4 +1,6 @@
-﻿namespace ALSProject
+﻿using System;
+
+namespace ALSProject
 {
     partial class PredictionBoxControl
     {
@@ -38,6 +40,7 @@
             this.ResumeLayout(false);
 
         }
+
 
 
         #endregion

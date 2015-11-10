@@ -183,7 +183,7 @@ namespace ALSProject
                         predictionKeyboard[j][i].Size = new Size(keyWidth, keyWidth);
 
                         predictionKeyboard[j][i].Location = new Point(spacebarLocation.X + ((keyWidth + UI.GAP) * i) + UI.GAP, spacebarLocation.Y + 10 +  (keyWidth +UI.GAP) * (1+j));
-                        predictionKeyboard[j][i].Text = ((i+1) * (j + 1)).ToString();
+                        predictionKeyboard[j][i].Text = ((i+1) + (j * 5)).ToString();
                     }
                 }
             }
@@ -207,7 +207,16 @@ namespace ALSProject
             btnShift.Click += new System.EventHandler(this.btnRight_Click);
             this.Controls.Add(btnShift);
         }
+        
+        public void predictType(string key)
+        {
+            boxPredict.predictType(key);
+        }
 
+        public void resetPredict()
+        {
+            boxPredict.resetWord();
+        }
 
         private void btnRight_Click(object sender, EventArgs e)
         {

@@ -78,6 +78,13 @@ namespace ALSProject
         private void space_Click(object sender, EventArgs e)
         {
             textBox1.AppendText(" ");
+            predictReset();
+            
+        }
+
+        private void predictReset()
+        {
+            this.alsKeyboard.resetPredict();
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -89,6 +96,7 @@ namespace ALSProject
         private void key_Click(object sender, EventArgs e)
         {
             textBox1.Text += ((ALSButton)sender).Text;
+            this.alsKeyboard.predictType(((ALSButton)sender).Text);
         }
 
         private void key_Backspace(object sender, EventArgs e)
@@ -108,6 +116,8 @@ namespace ALSProject
             {
                 textBox1.Text = "";
             }
+
+            predictReset();
         }
 
         private void TextToSpeech_Load(object sender, EventArgs e)
@@ -117,6 +127,7 @@ namespace ALSProject
         private void btnClear_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+            predictReset();
         }
 
         private void btnSpeak_Click(object sender, EventArgs e)

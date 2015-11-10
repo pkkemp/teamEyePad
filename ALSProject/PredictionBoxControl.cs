@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using presage;
 
 namespace ALSProject
 {
@@ -15,12 +16,16 @@ namespace ALSProject
 
         Label[][] table;
         private int cellHeight;
+        Presage presage;
+        string buffer;
 
         public PredictionBoxControl(UserControl parent)
         {
             InitializeComponent();
             this.Parent = parent;
             cellHeight = this.Height / 11+5;
+            //presage = new Presage(buffer, "");
+
 
             setupTable();
             drawTable();
@@ -51,10 +56,13 @@ namespace ALSProject
 
             for (int i = 0; i < table[1].Length; i++)
             {
-                table[1][i].Text = "Sample";
+                table[1][i].Text = "Sample" + i;
                 table[1][i].Location = new Point(this.Width / 50 + 40, cellHeight * (i));
 
             }
+
+            table[0][0].Text = "";
+            table[1][0].Text = "";
 
         }
 
@@ -66,6 +74,20 @@ namespace ALSProject
         public void drawTable()
         {
 
+        }
+
+        public void predictType(string key)
+        {
+            table[0][0].Text += key;
+            for(int i = 0; i < table[1].Length; i++)
+            {
+
+            }
+        }
+
+        public void resetWord()
+        {
+            table[0][0].Text = "";
         }
 
         public void updateSize()
