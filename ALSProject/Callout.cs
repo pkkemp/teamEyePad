@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,16 +15,26 @@ namespace ALSProject
     public partial class Callout : Form
     {
 
+        private List<string> phrases;
+        
         ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]
          
         ALSButton[,] callouts;
         private const int EDIT_BUTTON_WIDTH = 100;
         private const int NUM_CALLOUTS = 6;
         private bool isEditMode;
+        SpeechSynthesizer speaker;
 
-        public Callout(Form parent)
+        public Callout(Form parent, SpeechSynthesizer voice)
         {
             InitializeComponent();
+
+            //setup speech
+            speaker = voice;
+
+            //setup  callout list
+            phrases = new List<String>();
+            populateList();
 
             //this.Parent = parent;
             topRowButtons = new ALSButton[6];
@@ -50,7 +62,7 @@ namespace ALSProject
                     callouts[i, j] = new ALSButton();
                     Controls.Add(callouts[i, j]);
                 }
-
+            
             for (int i = 1; i < callouts.GetLength(0); i++)
                 for (int j = 0; j < callouts.GetLength(1); j++)
                 {
@@ -60,7 +72,7 @@ namespace ALSProject
                             callouts[i, j].BackgroundImage = Properties.Resources.notepad;
                             break;
                         case 2:
-                            callouts[i, j].BackgroundImage = Properties.Resources.checkmark;
+                            callouts[i, j].BackgroundImage = Properties.Resources.trashcan;
                             break;
                         case 3:
                             callouts[i, j].Text = "Up";
@@ -72,6 +84,38 @@ namespace ALSProject
                     callouts[i, j].BackgroundImageLayout = ImageLayout.Zoom;
                     callouts[i, j].Visible = false;
                 }
+            
+        }
+
+        private void populateList()
+        {
+
+            if (!File.Exists("CalloutPhrases.txt")) {
+                generateDefaultFile();
+            }
+
+            StreamReader file = new StreamReader(File.Open("CalloutsPhrases.txt", FileMode.Open));
+
+            while (!file.EndOfStream) { 
+                phrases.Add(file.ReadLine());
+            }
+
+            foreach(string str in phrases)
+            {
+                Console.WriteLine(str);
+            }
+
+
+        }
+
+        private void generateDefaultFile()
+        {
+            StreamWriter filestream = new StreamWriter(File.Create("CalloutsPhrases.txt"));
+            for(int i =0; i < defaultPhrases.Length; i++) {
+                filestream.WriteLine(defaultPhrases[i]);
+            }
+
+            filestream.Close();
         }
 
         public ALSButton[] getMenuBtns()
@@ -131,7 +175,6 @@ namespace ALSProject
                 {
                     callouts[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * calloutsButtonHeight);
                     callouts[0, i].Size = new Size(Width - UI.GAP * 2, calloutsButtonHeight);
-                    callouts[0, i].Text = i + "";
                 }
                 for (int i = 1; i < callouts.GetLength(0); i++)
                     for (int j = 0; j < callouts.GetLength(1); j++)
@@ -141,7 +184,12 @@ namespace ALSProject
             }
         }
 
-    
+        private string[] defaultPhrases =
+        {
+            "Suction","Wipe my Eyes", "Adjust my head to the left","Adjust my head to the right",
+            "Adjust my head up","Adjust my head down","Sit my chair up","Recline my chair"
+        };
+
 
     }
 }
