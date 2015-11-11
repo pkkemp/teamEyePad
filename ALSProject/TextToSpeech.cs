@@ -91,6 +91,7 @@ namespace ALSProject
         private void space_Click(object sender, EventArgs e)
         {
             textBox1.AppendText(" ");
+            predictLock = true;
             predictReset();
             
         }
@@ -102,8 +103,8 @@ namespace ALSProject
 
         private void btnMenu_Click(object sender, EventArgs e)
         {
-            Parent.Visible = true;
-            this.Close();
+            Parent.Show();
+            this.Hide();
         }
 
         private void key_Click(object sender, EventArgs e)
