@@ -109,6 +109,7 @@ namespace ALSProject
         private void User_Interface_Load(object sender, EventArgs e)
         {
             drawButtons(sender, e);
+            resizeScreen();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -203,6 +204,41 @@ namespace ALSProject
             this.Hide();
         }
 
+        private void resizeScreen()
+        {
+            int height = (this.Height - 4 * UI.GAP) / 3;
+            int width = (this.Width);
+
+
+            alarmBut.Location = new Point(GAP, GAP);
+            alarmBut.Size = new Size(height, height);
+
+            btnMin.Location = new Point(GAP, 2 * GAP + height);
+            btnMin.Size = new Size(height, height);
+
+            btnMax.Location = new Point(GAP, 3 * GAP + 2 * height);
+            btnMax.Size = new Size(height, height);
+
+            ttsBut.Location = new Point(width / 2 - height / 2, GAP);
+            ttsBut.Size = new Size(height, height);
+
+            alsButton5.Location = new Point(width / 2 - height / 2, 2 * GAP + height);
+            alsButton5.Size = new Size(height, height);
+
+            setBut.Location = new Point(width / 2 - height / 2, 3 * GAP + 2 * height);
+            setBut.Size = new Size(height, height);
+
+            noteBut.Location = new Point(width - GAP - height, GAP);
+            noteBut.Size = new Size(height, height);
+
+            alsButton4.Location = new Point(width - GAP - height, 2 * GAP + height);
+            alsButton4.Size = new Size(height, height);
+
+            quitBut.Location = new Point(width - GAP - height, 3 * GAP + 2 * height);
+            quitBut.Size = new Size(height, height);
+
+
+        }
 
     }
 }

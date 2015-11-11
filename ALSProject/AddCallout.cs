@@ -25,7 +25,6 @@ namespace ALSProject
 
             //btnCallouts.Location = new Point(Width - UI.GAP, btnMenu.Top);
             btnCallouts.Size = new Size(btnMenu.Size.Width, btnMenu.Size.Height);
-            MessageBox.Show(Width + ", " + (btnMenu.Width + btnMenu.Left));
 
             textBox1.Location = new Point(alsAlarm1.Right + UI.GAP, alsAlarm1.Top);
             //textBox1.Visible = false;
@@ -33,11 +32,19 @@ namespace ALSProject
 
         private void AddCallout_Resize(object sender, EventArgs e)
         {
-            //Resize buttons
-            //resize keyboard
             btnCallouts.Location = new Point(this.Width - btnCallouts.Width - 2 * UI.GAP, btnMenu.Top);
             textBox1.Size = new Size(btnCallouts.Location.X, alsAlarm1.Size.Height);
 
+        }
+
+        public ALSButton getSaveButton()
+        {
+            return btnCallouts;
+        }
+
+        public TextBox getTextBox()
+        {
+            return textBox1;
         }
     }
 }
