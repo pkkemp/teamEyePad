@@ -9,6 +9,5 @@ C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.dll
 C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.pdb
 C:\git\teamEyePad\presage.net\bin\x86\Debug\presage.net.dll
 C:\git\teamEyePad\presage.net\bin\x86\Debug\presage.net.pdb
-C:\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.csprojResolveAssemblyReference.cache
 C:\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.dll
 C:\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.pdb

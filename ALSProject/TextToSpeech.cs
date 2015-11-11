@@ -73,7 +73,8 @@ namespace ALSProject
             clear.Click += new System.EventHandler(this.btnClear_Click);
 
             initControlsRecursive(this.Controls);
-            this.MouseClick += (sender, e) => {
+            this.MouseClick += (sender, e) =>
+            {
                 updateCursor();
             };
         }

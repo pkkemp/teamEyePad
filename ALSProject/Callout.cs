@@ -112,6 +112,13 @@ namespace ALSProject
             
         }
 
+        private int getNum(String str)
+        {
+            char test = str[str.Length - 1];
+            int num = Convert.ToInt16(test-'0');
+            return num;
+        }
+
         private void addToList(object sender, EventArgs e)
         {
             string str = ac.getTextBox().Text;
@@ -136,28 +143,7 @@ namespace ALSProject
         {
             try { 
                 ALSButton btn = (ALSButton)sender;
-                int num = 0;
-                switch (btn.Name) //I am fully aware this is a foolish way of doing this. By all means fix it but idk how
-                {
-                    case "btnDown0":
-                        num = 0;
-                        break;
-                    case "btnDown1":
-                        num = 1;
-                        break;
-                    case "btnDown2":
-                        num = 2;
-                        break;
-                    case "btnDown3":
-                        num = 3;
-                        break;
-                    case "btnDown4":
-                        num = 4;
-                        break;
-                    case "btnDown5":
-                        num = 5;
-                        break;
-                }
+                int num = getNum(btn.Name);
 
                 //num = pageNum * 5 + num; // there is a bug here
 
@@ -173,28 +159,7 @@ namespace ALSProject
         {
             try { 
                 ALSButton btn = (ALSButton)sender;
-                int num = 0;
-                switch (btn.Name)
-                {
-                    case "btnUp0":
-                        num = 0;
-                        break;
-                    case "btnUp1":
-                        num = 1;
-                        break;
-                    case "btnUp2":
-                        num = 2;
-                        break;
-                    case "btnUp3":
-                        num = 3;
-                        break;
-                    case "btnUp4":
-                        num = 4;
-                        break;
-                    case "btnUp5":
-                        num = 5;
-                        break;
-                }
+                int num = getNum(btn.Name);
 
                 //num = pageNum * 5 + num; //there is a bug here
 
@@ -209,28 +174,8 @@ namespace ALSProject
         private void deleteItem(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
-            int num = 0;
-            switch (btn.Name)
-            {
-                case "btnDel0":
-                    num = 0;
-                    break;
-                case "btnDel1":
-                    num = 1;
-                    break;
-                case "btnDel2":
-                    num = 2;
-                    break;
-                case "btnDel3":
-                    num = 3;
-                    break;
-                case "btnDel4":
-                    num = 4;
-                    break;
-                case "btnDel5":
-                    num = 5;
-                    break;
-            }
+
+            int num = getNum(btn.Name);
             try { 
                 phrases.RemoveAt(num);
             }
