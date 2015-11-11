@@ -40,17 +40,32 @@ namespace ALSProject
                 foreach (ALSButton column in rows)
                 {
                     if (column.Text == "Backspace")
+                    {
                         column.Click += new System.EventHandler(this.key_Backspace);
+                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+                    }
                     else if (column.Text == "Delete\nWord")
+                    {
                         column.Click += new System.EventHandler(this.key_DeleteWord);
+                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    }
                     else
+                    {
                         column.Click += new System.EventHandler(this.key_Click);
+                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    }
+                        
+                    clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    
+
                 }
 
-            foreach (ALSButton[] rows in keypad)
+                    foreach (ALSButton[] rows in keypad)
                 foreach (ALSButton column in rows)
                 {
                         column.Click += new System.EventHandler(this.keypad_Click);
+                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
 
 

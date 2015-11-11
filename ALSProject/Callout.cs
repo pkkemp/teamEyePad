@@ -53,12 +53,13 @@ namespace ALSProject
             topRowButtons[5].Text = "Main Menu";
 
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
-
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
 
-            foreach (ALSButton btn in topRowButtons)
+            foreach (ALSButton btn in topRowButtons) { 
                 Controls.Add(btn);
+                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); 
+            }
 
             callouts = new ALSButton[5, NUM_CALLOUTS];
             for (int i = 0; i < callouts.GetLength(0); i++)
