@@ -55,6 +55,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddCallout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCallout.Designer.cs">
+      <DependentUpon>AddCallout.cs</DependentUpon>
+    </Compile>
     <Compile Include="ALSAlarm.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddCallout.resx">
+      <DependentUpon>AddCallout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ALSAlarm.resx">
       <DependentUpon>ALSAlarm.cs</DependentUpon>
     </EmbeddedResource>

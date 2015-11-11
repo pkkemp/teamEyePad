@@ -139,18 +139,17 @@
             this.Text = "Text to Speech";
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.TextToSpeech_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private ALSButton btnMenu;
-        private System.Windows.Forms.TextBox textBox1;
-        private KeyboardControl alsKeyboard;
-        private ALSAlarm alsAlarm1;
-        private ALSButton btnSpeak;
-        private ALSButton btnCallouts;
+        protected ALSButton btnMenu;
+        protected System.Windows.Forms.TextBox textBox1;
+        protected KeyboardControl alsKeyboard;
+        protected ALSAlarm alsAlarm1;
+        protected ALSButton btnSpeak;
+        protected ALSButton btnCallouts;
     }
 }

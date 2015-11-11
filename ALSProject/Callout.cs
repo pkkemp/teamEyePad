@@ -51,6 +51,7 @@ namespace ALSProject
             topRowButtons[5].Text = "Main Menu";
 
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
+            topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
 
             foreach (ALSButton btn in topRowButtons)
                 Controls.Add(btn);
@@ -85,6 +86,16 @@ namespace ALSProject
                     callouts[i, j].Visible = false;
                 }
             
+        }
+
+        private void TextToSpeech_Click(object sender, EventArgs e)
+        {
+            if(isEditMode)
+            {
+                AddCallout ac = new AddCallout(this, speaker);
+                this.Hide();
+                ac.Show();
+            }
         }
 
         private void populateList()
