@@ -137,7 +137,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TextToSpeech";
             this.Text = "Text to Speech";
-            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TextToSpeech_Load);
             this.ResumeLayout(false);

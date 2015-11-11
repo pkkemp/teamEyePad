@@ -149,6 +149,7 @@ namespace ALSProject
 
         private void btnSpeak_Click(object sender, EventArgs e)
         {
+            speaker.SpeakAsyncCancelAll();
             speaker.SpeakAsync(textBox1.Text);
         }
 
