@@ -14,7 +14,7 @@ namespace ALSProject
     {
 
         ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]
-
+         
         ALSButton[,] callouts;
         private const int EDIT_BUTTON_WIDTH = 100;
         private const int NUM_CALLOUTS = 6;
@@ -36,9 +36,7 @@ namespace ALSProject
             topRowButtons[3].Text = "Page Right";
             topRowButtons[4].Text = "Text to Speech";
             topRowButtons[5].Text = "Main Menu";
-
-
-
+            
             topRowButtons[2].Click += new System.EventHandler(this.edit_Click);
 
             foreach (ALSButton btn in topRowButtons)
