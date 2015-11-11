@@ -151,10 +151,6 @@ namespace ALSProject
             predictReset();
         }
 
-        private void TextToSpeech_Load(object sender, EventArgs e)
-        {
-        }
-
 
         private void btnClear_Click(object sender, EventArgs e)
         {

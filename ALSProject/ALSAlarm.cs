@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ALSProject
 {
-    class ALSAlarm : ALSButton
+    public class ALSAlarm : ALSButton
     {
         private Boolean alarmOn;
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
@@ -18,7 +18,6 @@ namespace ALSProject
         public ALSAlarm()
         {
             this.player = new SoundPlayer(Properties.Resources.buzz);
-            //player.l
             //becm = new BECM(Properties.Resources.buzz);
             alarmOn = false;
             this.Text = "";

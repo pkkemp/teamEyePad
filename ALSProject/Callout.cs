@@ -25,6 +25,7 @@ namespace ALSProject
         private bool isEditMode;
         private int pageNum = 0;
         SpeechSynthesizer speaker;
+        AddCallout ac;
 
 
         public Callout(Form parent, SpeechSynthesizer voice)
@@ -33,6 +34,8 @@ namespace ALSProject
 
             //setup speech
             speaker = voice;
+
+            ac = new AddCallout(this, speaker);
 
             //setup  callout list
             phrases = new List<String>();
@@ -55,6 +58,8 @@ namespace ALSProject
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
+            topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
+            ac.getSaveButton().Click += new EventHandler(this.addToList);
 
             foreach (ALSButton btn in topRowButtons) { 
                 Controls.Add(btn);
@@ -105,6 +110,14 @@ namespace ALSProject
 
             flipToPage(0);
             
+        }
+
+        private void addToList(object sender, EventArgs e)
+        {
+            string str = ac.getTextBox().Text;
+            phrases.Add(str);
+            this.Show();
+            ac.Hide();
         }
 
         private void speakCallout(object sender, EventArgs e)
@@ -262,6 +275,15 @@ namespace ALSProject
         }
 
        
+
+        private void TextToSpeech_Click(object sender, EventArgs e)
+        {
+            if(isEditMode)
+            {
+                ac.Show();
+                this.Hide();
+            }
+        }
 
         private void populateList()
         {
