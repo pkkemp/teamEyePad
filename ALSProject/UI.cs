@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using System.Threading;
 using EyeXFramework;
 using Tobii.EyeX.Framework;
+using System.Speech.Synthesis;
 
 namespace ALSProject
 {
@@ -58,8 +59,9 @@ namespace ALSProject
             eyeTrackingThread.Name = "Eye Tracking Thread";
             eyeTrackingThread.Start();
 
-            texttospeech = new TextToSpeech(this);
-            callout = new Callout(this);
+            SpeechSynthesizer voice = new SpeechSynthesizer();
+            texttospeech = new TextToSpeech(this, voice);
+            callout = new Callout(this, voice);
             settingsScreen = new SettingsForm(this);
             quitScreen = new QuitForm(this);
 

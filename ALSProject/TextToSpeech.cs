@@ -18,14 +18,14 @@ namespace ALSProject
         SpeechSynthesizer speaker;
         bool predictLock = false; //this prevents the textbox words from being overwritten constantly
 
-        public TextToSpeech(Form parent)
+        public TextToSpeech(Form parent, SpeechSynthesizer voice)
         {
             this.Parent = parent;
             InitializeComponent();
             this.alsKeyboard.setRemainingVariables();
             this.alsKeyboard.setupPreditionBox();
 
-            speaker = new SpeechSynthesizer();
+            speaker = voice;
 
             speaker.SetOutputToDefaultAudioDevice();
             speaker.Volume = 100;
