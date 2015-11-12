@@ -116,6 +116,7 @@ namespace ALSProject
         {
             char test = str[str.Length - 1];
             int num = Convert.ToInt16(test-'0');
+            MessageBox.Show(num + ": " + pageNum );
             return num;
         }
 
@@ -145,7 +146,7 @@ namespace ALSProject
                 ALSButton btn = (ALSButton)sender;
                 int num = getNum(btn.Name);
 
-                //num = pageNum * 5 + num; // there is a bug here
+                num = pageNum * NUM_CALLOUTS + num; 
 
                 string temp = phrases[num+1];
                 phrases[num + 1] = phrases[num];
@@ -161,7 +162,7 @@ namespace ALSProject
                 ALSButton btn = (ALSButton)sender;
                 int num = getNum(btn.Name);
 
-                //num = pageNum * 5 + num; //there is a bug here
+                num = pageNum * NUM_CALLOUTS + num;
 
                 string temp = phrases[num - 1];
                 phrases[num - 1] = phrases[num];
