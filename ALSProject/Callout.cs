@@ -131,7 +131,7 @@ namespace ALSProject
         {
             ALSButton btn = (ALSButton)sender;
             speaker.SpeakAsyncCancelAll();
-            speaker.SpeakAsync(btn.Text);
+            speaker.Speak(btn.Text);
         }
 
         private void refreshCalloutList()
