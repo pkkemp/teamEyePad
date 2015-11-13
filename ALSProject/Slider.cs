@@ -13,14 +13,14 @@ namespace ALSProject
     public partial class Slider : UserControl
     {
         public enum direction { LEFT, RIGHT };
-        public double MIN_AMOUNT, MAX_AMOUNT, INCREMENT;
+        private double minAmount, maxAmount, increment;
         public double value;
 
         Rectangle slideBox;
         Rectangle bounds;
         private static Color sliderColor = Color.FromArgb(220, 220, 220);
 
-        public Slider(): this(1,0,10)
+        public Slider() : this(1, 0, 10)
         {
 
         }
@@ -29,45 +29,43 @@ namespace ALSProject
         public Slider(double inc, double min, double max)
         {
             InitializeComponent();
-            //MIN_AMOUNT = 0.25;
-            //INCREMENT = 0.25;
-            //MAX_AMOUNT = 5;
-            INCREMENT = inc;
-            MIN_AMOUNT = min;
-            MAX_AMOUNT = max;
+            initSlider(inc, min, max);
 
-            value = 1;
-            int leftBounds = (int)((value - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT) * this.Width);
-            slideBox = new Rectangle(leftBounds, 0, this.Width / 100, this.Height);
-            bounds = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
         }
 
         public void initSlider(double inc, double min, double max)
         {
-            INCREMENT = inc;
-            MIN_AMOUNT = min;
-            MAX_AMOUNT = max;
+            increment = inc;
+            minAmount = min;
+            maxAmount = max;
+
+            int numIncrements = (int)((max - min) / inc);
+
+            value = numIncrements / 2 * inc + min;
+            int leftBounds = (int)((value - minAmount) / (maxAmount - minAmount) * this.Width);
+            slideBox = new Rectangle(leftBounds, 0, this.Width / 100, this.Height);
+            bounds = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
         }
 
         public void UpdatePos(Slider.direction dir)
         {
-            switch(dir)
+            switch (dir)
             {
                 case direction.LEFT:
-                    if (value > MIN_AMOUNT)
-                        value -= INCREMENT;
+                    if (value > minAmount)
+                        value -= increment;
                     break;
                 case direction.RIGHT:
-                    if (value < MAX_AMOUNT)
-                        value += INCREMENT;
+                    if (value < maxAmount)
+                        value += increment;
                     break;
             }
             int leftBounds;
-            if (value >= MAX_AMOUNT)
+            if (value >= maxAmount)
                 leftBounds = Width - slideBox.Width;
             else
-                leftBounds  = (int)((value - MIN_AMOUNT) / (MAX_AMOUNT - MIN_AMOUNT) * this.Width);
-            
+                leftBounds = (int)((value - minAmount) / (maxAmount - minAmount) * this.Width);
+
             slideBox.Location = new Point(leftBounds, slideBox.Location.Y);
 
             Graphics gr = this.CreateGraphics();
@@ -80,7 +78,7 @@ namespace ALSProject
             Graphics gr = this.CreateGraphics();
             gr.FillRectangle(Brushes.Red, slideBox);
         }
-        
+
         private void Slider_Resize(object sender, EventArgs e)
         {
             bounds = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);

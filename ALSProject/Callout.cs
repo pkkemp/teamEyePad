@@ -14,7 +14,6 @@ namespace ALSProject
 {
     public partial class Callout : Form
     {
-
         private List<string> phrases;
 
         ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]

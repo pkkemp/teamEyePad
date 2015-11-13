@@ -21,31 +21,33 @@ namespace ALSProject
         protected Timer dwellTimer;
         protected bool clicked = false; //prevents rapid clicks
         public int timeDivision { get; set; }
+        private static List<ALSButton> alsButtons = new List<ALSButton>();
 
         public static Color baseColor = Color.FromArgb(224, 224, 224);
         public static int defaultTimeDivision = 15;
-        
+
         public ALSButton()
         {
             InitializeComponent();
             gr = this.CreateGraphics();
-            heightCounter =  0;
+            heightCounter = 0;
 
             dwellTimer = new Timer();
             dwellTimer.Interval = 50; // interval in milliseconds
             dwellTimer.Enabled = false;
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
             this.timeDivision = defaultTimeDivision;
+            alsButtons.Add(this);
         }
 
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
 
-            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127,128,128,128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / timeDivision));
-            
+            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / timeDivision));
+
             if (heightCounter > this.Height * 12 / 10)
             {
-               
+
                 this.PerformClick();
             }
             else
@@ -89,7 +91,7 @@ namespace ALSProject
 
         private void ALSButton_Resize(object sender, EventArgs e)
         {
-            gr = this.CreateGraphics(); 
+            gr = this.CreateGraphics();
 
             /*
             if(this.Text != null)
@@ -104,7 +106,7 @@ namespace ALSProject
 
         private void ALSButton_Click(object sender, EventArgs e)
         {
-           
+
             if (!clicked)
             { //prevents rapid clicks
                 clicked = true;
@@ -117,6 +119,14 @@ namespace ALSProject
                 this.Refresh();
             }
 
+        }
+
+        public static void setTimerSpeed(double speed)
+        {
+            if (speed < 0)
+                return;
+            foreach (ALSButton btn in alsButtons)
+                btn.dwellTimer.Interval = Convert.ToInt32(50 * speed + 20);
         }
     }
 }
