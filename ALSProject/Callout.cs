@@ -113,7 +113,6 @@ namespace ALSProject
         {
             char test = str[str.Length - 1];
             int num = Convert.ToInt16(test - '0');
-            MessageBox.Show(num + ": " + pageNum);
             return num;
         }
 
