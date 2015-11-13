@@ -16,9 +16,9 @@ namespace ALSProject
     {
 
         private List<string> phrases;
-        
+
         ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]
-         
+
         ALSButton[,] callouts;
         private const int EDIT_BUTTON_WIDTH = 100;
         private const int NUM_CALLOUTS = 6;
@@ -49,7 +49,7 @@ namespace ALSProject
             for (int i = 1; i < topRowButtons.Length; i++)
                 topRowButtons[i] = new ALSButton();
 
-            topRowButtons[1].Text = "Edit"; 
+            topRowButtons[1].Text = "Edit";
             topRowButtons[2].Text = "Page Left";
             topRowButtons[3].Text = "Page Right";
             topRowButtons[4].Text = "Text to Speech";
@@ -61,12 +61,13 @@ namespace ALSProject
             topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
             ac.getSaveButton().Click += new EventHandler(this.addToList);
 
-            foreach (ALSButton btn in topRowButtons) { 
+            foreach (ALSButton btn in topRowButtons)
+            {
                 Controls.Add(btn);
-                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); 
+                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
 
-            callouts = new ALSButton[5, NUM_CALLOUTS];
+            callouts = new ALSButton[4, NUM_CALLOUTS];
             for (int i = 0; i < callouts.GetLength(0); i++)
                 for (int j = 0; j < callouts.GetLength(1); j++)
                 {
@@ -74,31 +75,28 @@ namespace ALSProject
                     Controls.Add(callouts[i, j]);
                 }
 
-            for(int i = 0; i < callouts.GetLength(1); i++)
+            for (int i = 0; i < callouts.GetLength(1); i++)
             {
                 callouts[0, i].Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 callouts[0, i].Click += new EventHandler(this.speakCallout);
             }
-            
+
             for (int i = 1; i < callouts.GetLength(0); i++)
                 for (int j = 0; j < callouts.GetLength(1); j++)
                 {
-                    switch(i)
+                    switch (i)
                     {
                         case 1:
-                            callouts[i, j].BackgroundImage = Properties.Resources.notepad;
-                            break;
-                        case 2:
                             callouts[i, j].BackgroundImage = Properties.Resources.trashcan;
                             callouts[i, j].Name = "btnDel" + j;
                             callouts[i, j].Click += new System.EventHandler(this.deleteItem);
                             break;
-                        case 3:
+                        case 2:
                             callouts[i, j].Text = "Up";
                             callouts[i, j].Name = "btnUp" + j;
                             callouts[i, j].Click += new System.EventHandler(this.moveItemUp);
                             break;
-                        case 4:
+                        case 3:
                             callouts[i, j].Text = "Down";
                             callouts[i, j].Name = "btnDown" + j;
                             callouts[i, j].Click += new EventHandler(this.moveItemDown);
@@ -109,13 +107,13 @@ namespace ALSProject
                 }
 
             flipToPage(0);
-            
         }
 
         private int getNum(String str)
         {
             char test = str[str.Length - 1];
-            int num = Convert.ToInt16(test-'0');
+            int num = Convert.ToInt16(test - '0');
+            MessageBox.Show(num + ": " + pageNum);
             return num;
         }
 
@@ -141,13 +139,14 @@ namespace ALSProject
 
         private void moveItemDown(object sender, EventArgs e)
         {
-            try { 
+            try
+            {
                 ALSButton btn = (ALSButton)sender;
                 int num = getNum(btn.Name);
 
-                //num = pageNum * 5 + num; // there is a bug here
+                num = pageNum * NUM_CALLOUTS + num;
 
-                string temp = phrases[num+1];
+                string temp = phrases[num + 1];
                 phrases[num + 1] = phrases[num];
                 phrases[num] = temp;
                 refreshCalloutList();
@@ -157,11 +156,12 @@ namespace ALSProject
 
         private void moveItemUp(object sender, EventArgs e)
         {
-            try { 
+            try
+            {
                 ALSButton btn = (ALSButton)sender;
                 int num = getNum(btn.Name);
 
-                //num = pageNum * 5 + num; //there is a bug here
+                num = pageNum * NUM_CALLOUTS + num;
 
                 string temp = phrases[num - 1];
                 phrases[num - 1] = phrases[num];
@@ -176,7 +176,8 @@ namespace ALSProject
             ALSButton btn = (ALSButton)sender;
 
             int num = getNum(btn.Name);
-            try { 
+            try
+            {
                 phrases.RemoveAt(num);
             }
             catch (ArgumentOutOfRangeException) { }
@@ -204,14 +205,14 @@ namespace ALSProject
         {
             if (num < 0)
                 num = 0;
-            else if(phrases.Count / NUM_CALLOUTS< num)
+            else if (phrases.Count / NUM_CALLOUTS < num)
             {
                 num = phrases.Count / NUM_CALLOUTS;
             }
-            
+
             pageNum = num;
 
-            for(int i = 0; i < NUM_CALLOUTS; i++)
+            for (int i = 0; i < NUM_CALLOUTS; i++)
             {
                 try { callouts[0, i].Text = phrases[i + num * NUM_CALLOUTS]; }
                 catch (ArgumentOutOfRangeException) { callouts[0, i].Text = ""; }
@@ -219,11 +220,9 @@ namespace ALSProject
 
         }
 
-       
-
         private void TextToSpeech_Click(object sender, EventArgs e)
         {
-            if(isEditMode)
+            if (isEditMode)
             {
                 ac.Show();
                 this.Hide();
@@ -233,17 +232,19 @@ namespace ALSProject
         private void populateList()
         {
 
-            if (!File.Exists("CalloutPhrases.txt")) {
+            if (!File.Exists("CalloutPhrases.txt"))
+            {
                 generateDefaultFile();
             }
 
             StreamReader file = new StreamReader(File.Open("CalloutsPhrases.txt", FileMode.Open));
 
-            while (!file.EndOfStream) { 
+            while (!file.EndOfStream)
+            {
                 phrases.Add(file.ReadLine());
             }
 
-            foreach(string str in phrases)
+            foreach (string str in phrases)
             {
                 Console.WriteLine(str);
             }
@@ -254,7 +255,8 @@ namespace ALSProject
         private void generateDefaultFile()
         {
             StreamWriter filestream = new StreamWriter(File.Create("CalloutsPhrases.txt"));
-            for(int i =0; i < defaultPhrases.Length; i++) {
+            for (int i = 0; i < defaultPhrases.Length; i++)
+            {
                 filestream.WriteLine(defaultPhrases[i]);
             }
 
