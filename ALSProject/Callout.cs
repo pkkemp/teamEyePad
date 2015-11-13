@@ -112,7 +112,6 @@ namespace ALSProject
         {
             char test = str[str.Length - 1];
             int num = Convert.ToInt16(test - '0');
-            MessageBox.Show(num + ": " + pageNum);
             return num;
         }
 
@@ -128,7 +127,7 @@ namespace ALSProject
         {
             ALSButton btn = (ALSButton)sender;
             speaker.SpeakAsyncCancelAll();
-            speaker.SpeakAsync(btn.Text);
+            speaker.Speak(btn.Text);
         }
 
         private void refreshCalloutList()
