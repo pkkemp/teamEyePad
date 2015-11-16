@@ -48,5 +48,11 @@ namespace ALSProject
             label2.Text = "" + slider1.value;
             ALSButton.setTimerSpeed(slider1.value);
         }
+
+        private void SettingsForm_Resize(object sender, EventArgs e)
+        {
+            label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
+            label2.Location = new Point(Width / 2 - label2.Width / 2, label2.Top);
+        }
     }
 }
