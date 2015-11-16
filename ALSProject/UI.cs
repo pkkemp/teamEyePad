@@ -165,35 +165,31 @@ namespace ALSProject
 
         private void btnMax_Click(object sender, EventArgs e)
         {
-            this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            //this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;
         }
 
         private void alarmBut_Click(object sender, EventArgs e)
         {
-            //if(alarmBut.is)
-            //alarmBut.is
             if (!alarmBut.isAlarmOn())
             {
                 quitBut.BackColor = ALSButton.baseColor;
                 quitBut.Enabled = true;
+                alarmBut.Text = "Activate Alarm";
 
             }
             else
             {
                 quitBut.BackColor = Color.Red;
                 quitBut.Enabled = false;
+                alarmBut.Text = "Deactivate Alarm";
             }
+
 
         }
 
         private void btnMin_Click(object sender, EventArgs e)
         {
-            this.self.WindowState = System.Windows.Forms.FormWindowState.Normal;
-
-        }
-
-        private void noteBut_Click(object sender, EventArgs e)
-        {
+            //this.self.WindowState = System.Windows.Forms.FormWindowState.Normal;
         }
 
         private void ttsBut_Click(object sender, EventArgs e)
@@ -239,6 +235,5 @@ namespace ALSProject
 
 
         }
-
     }
 }

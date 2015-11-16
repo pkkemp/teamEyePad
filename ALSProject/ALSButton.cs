@@ -31,7 +31,6 @@ namespace ALSProject
             InitializeComponent();
             gr = this.CreateGraphics();
             heightCounter = 0;
-
             dwellTimer = new Timer();
             dwellTimer.Interval = 50; // interval in milliseconds
             dwellTimer.Enabled = false;
