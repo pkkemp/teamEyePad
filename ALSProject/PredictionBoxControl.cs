@@ -32,7 +32,7 @@ namespace ALSProject
                 (
                     callback_get_past_stream,
                     callback_get_future_stream,
-                    "presage_csharp_demo.xml"
+                    "presage.xml"
                 );
 
         }
@@ -85,6 +85,7 @@ namespace ALSProject
         {
             table[0][0].Text += key;
 
+            Console.WriteLine(callback_get_past_stream());
             String[] predictions = presage.predict();
 
             for(int i = 0; i < predictions.Length; i++)
@@ -99,6 +100,7 @@ namespace ALSProject
         {
             lastWord = table[0][0].Text;
             table[0][0].Text = "";
+
 
             String[] predictions = presage.predict();
 

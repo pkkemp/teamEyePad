@@ -119,6 +119,7 @@ namespace ALSProject
             keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             spacebarLocation = keySpace.Location;
 
+
             //clear button
             btnClear.Location = new Point(keyboard[2][6].Location.X + keyWidth + UI.GAP, keyboard[2][6].Location.Y);
             btnClear.Text = "Clear";
