@@ -53,6 +53,8 @@ namespace ALSProject
             initBECM();
             alarmBut.Click += new System.EventHandler(alarmBut_Click);
 
+
+
             //Temp code
             tobiiInt = new CVInterface();
             eyeTrackingThread = new Thread(tobiiInt.StartEyeTracking);
@@ -66,6 +68,7 @@ namespace ALSProject
             quitScreen = new QuitForm(this);
 
             texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
+            settingsScreen.btnResetCallouts.Click += new System.EventHandler(this.resetCallouts);
             
             foreach(ALSButton btn in callout.getMenuBtns())
             {
@@ -76,6 +79,12 @@ namespace ALSProject
             }
             
 
+        }
+
+        private void resetCallouts(object sender, EventArgs e)
+        {
+            callout.resetList();
+         
         }
 
         private void closeCallouts(object sender, EventArgs e)

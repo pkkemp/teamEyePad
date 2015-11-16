@@ -40,6 +40,7 @@
             this.Name = "Callout";
             this.Text = "Callout";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Callout_FormClosing);
             this.Load += new System.EventHandler(this.Callout_Load);
             this.ResumeLayout(false);
 

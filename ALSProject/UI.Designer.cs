@@ -56,7 +56,7 @@
             this.quitBut.TabIndex = 10;
             this.quitBut.Text = "Close";
             this.quitBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.quitBut.timeDivision = 15;
+            this.quitBut.dwellTimeInterval = 15;
             this.quitBut.UseVisualStyleBackColor = false;
             this.quitBut.Click += new System.EventHandler(this.quitBut_Click);
             // 
@@ -76,7 +76,7 @@
             this.setBut.TabIndex = 9;
             this.setBut.Text = "Settings";
             this.setBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.setBut.timeDivision = 15;
+            this.setBut.dwellTimeInterval = 15;
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
             this.setBut.MouseEnter += new System.EventHandler(this.setBut_MouseEnter);
@@ -93,7 +93,7 @@
             this.btnMax.Size = new System.Drawing.Size(312, 248);
             this.btnMax.TabIndex = 8;
             this.btnMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMax.timeDivision = 15;
+            this.btnMax.dwellTimeInterval = 15;
             this.btnMax.UseVisualStyleBackColor = false;
             this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
@@ -114,7 +114,7 @@
             this.alsButton4.TabIndex = 7;
             this.alsButton4.Text = "Callouts";
             this.alsButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.alsButton4.timeDivision = 15;
+            this.alsButton4.dwellTimeInterval = 15;
             this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
             // 
@@ -131,7 +131,7 @@
             this.alsButton5.Size = new System.Drawing.Size(312, 248);
             this.alsButton5.TabIndex = 6;
             this.alsButton5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton5.timeDivision = 15;
+            this.alsButton5.dwellTimeInterval = 15;
             this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // btnMin
@@ -148,7 +148,7 @@
             this.btnMin.Size = new System.Drawing.Size(312, 248);
             this.btnMin.TabIndex = 5;
             this.btnMin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMin.timeDivision = 15;
+            this.btnMin.dwellTimeInterval = 15;
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
@@ -165,7 +165,7 @@
             this.noteBut.Size = new System.Drawing.Size(312, 248);
             this.noteBut.TabIndex = 4;
             this.noteBut.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.noteBut.timeDivision = 15;
+            this.noteBut.dwellTimeInterval = 15;
             this.noteBut.UseVisualStyleBackColor = false;
             // 
             // ttsBut
@@ -184,7 +184,7 @@
             this.ttsBut.TabIndex = 3;
             this.ttsBut.Text = "Text to Speech";
             this.ttsBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ttsBut.timeDivision = 15;
+            this.ttsBut.dwellTimeInterval = 15;
             this.ttsBut.UseVisualStyleBackColor = false;
             this.ttsBut.Click += new System.EventHandler(this.ttsBut_Click);
             // 
@@ -203,7 +203,7 @@
             this.alarmBut.TabIndex = 2;
             this.alarmBut.Text = "Activate Alarm";
             this.alarmBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.alarmBut.timeDivision = 15;
+            this.alarmBut.dwellTimeInterval = 15;
             this.alarmBut.UseVisualStyleBackColor = false;
             this.alarmBut.Click += new System.EventHandler(this.alarmBut_Click);
             // 

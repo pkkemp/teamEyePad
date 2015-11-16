@@ -61,7 +61,7 @@
             this.btnCallouts.Size = new System.Drawing.Size(143, 140);
             this.btnCallouts.TabIndex = 8;
             this.btnCallouts.Text = "Callouts";
-            this.btnCallouts.timeDivision = 15;
+            this.btnCallouts.dwellTimeInterval = 15;
             this.btnCallouts.UseVisualStyleBackColor = false;
             this.btnCallouts.Click += new System.EventHandler(this.btnCallouts_Click);
             // 
@@ -76,7 +76,7 @@
             this.btnSpeak.Size = new System.Drawing.Size(132, 140);
             this.btnSpeak.TabIndex = 6;
             this.btnSpeak.Text = "Speak";
-            this.btnSpeak.timeDivision = 15;
+            this.btnSpeak.dwellTimeInterval = 15;
             this.btnSpeak.UseVisualStyleBackColor = false;
             this.btnSpeak.Click += new System.EventHandler(this.btnSpeak_Click);
             // 
@@ -93,7 +93,7 @@
             this.alsAlarm1.Size = new System.Drawing.Size(124, 140);
             this.alsAlarm1.TabIndex = 5;
             this.alsAlarm1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsAlarm1.timeDivision = 15;
+            this.alsAlarm1.dwellTimeInterval = 15;
             this.alsAlarm1.UseVisualStyleBackColor = false;
             // 
             // alsKeyboard
@@ -119,7 +119,7 @@
             this.btnMenu.Size = new System.Drawing.Size(141, 140);
             this.btnMenu.TabIndex = 1;
             this.btnMenu.Text = "Main Menu";
-            this.btnMenu.timeDivision = 15;
+            this.btnMenu.dwellTimeInterval = 15;
             this.btnMenu.UseVisualStyleBackColor = false;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 

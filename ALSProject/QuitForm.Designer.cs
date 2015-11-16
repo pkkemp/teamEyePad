@@ -44,7 +44,7 @@
             this.yesBut.Name = "yesBut";
             this.yesBut.Size = new System.Drawing.Size(312, 248);
             this.yesBut.TabIndex = 4;
-            this.yesBut.timeDivision = 50;
+            this.yesBut.dwellTimeInterval = 50;
             this.yesBut.UseVisualStyleBackColor = false;
             this.yesBut.Click += new System.EventHandler(this.yesBut_Click);
             // 
@@ -59,7 +59,7 @@
             this.noBut.Name = "noBut";
             this.noBut.Size = new System.Drawing.Size(312, 248);
             this.noBut.TabIndex = 5;
-            this.noBut.timeDivision = 15;
+            this.noBut.dwellTimeInterval = 15;
             this.noBut.UseVisualStyleBackColor = false;
             this.noBut.Click += new System.EventHandler(this.noBut_Click);
             // 

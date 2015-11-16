@@ -37,14 +37,14 @@ namespace ALSProject
 
             if (alarmOn)
             {
-                this.timeDivision = ALSButton.defaultTimeDivision;
+                //this.timeDivision = ALSButton.defaultTimeDivision;
                 this.BackgroundImage = Properties.Resources.speaker_icon;
                 player.Stop();
                 alarmOn = false;
             }
             else
             {
-                this.timeDivision = 50;
+                this.dwellTimeInterval = 50;
                 this.BackgroundImage = Properties.Resources.AlarmOff;
                 //Maximize volume
                 for (int i = 0; i < 64; i++)

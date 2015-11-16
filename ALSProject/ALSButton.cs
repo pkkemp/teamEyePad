@@ -20,11 +20,25 @@ namespace ALSProject
         Graphics gr;
         protected Timer dwellTimer;
         protected bool clicked = false; //prevents rapid clicks
-        public int timeDivision { get; set; }
+        private const int heightDivider = 50;
+        bool immutableDwellTime = false;
+        public int dwellTimeInterval {
+            get
+            {
+                return dwellTimer.Interval;
+            }
+
+            set {
+
+                immutableDwellTime = true;
+                dwellTimer.Interval = value;
+            }
+
+
+        }
         private static List<ALSButton> alsButtons = new List<ALSButton>();
 
         public static Color baseColor = Color.FromArgb(224, 224, 224);
-        public static int defaultTimeDivision = 15;
 
         public ALSButton()
         {
@@ -32,26 +46,24 @@ namespace ALSProject
             gr = this.CreateGraphics();
             heightCounter = 0;
             dwellTimer = new Timer();
-            dwellTimer.Interval = 50; // interval in milliseconds
             dwellTimer.Enabled = false;
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
-            this.timeDivision = defaultTimeDivision;
             alsButtons.Add(this);
         }
 
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
 
-            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / timeDivision));
+            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / heightDivider));
 
-            if (heightCounter > this.Height * 12 / 10)
+            if (heightCounter > this.Height)
             {
 
                 this.PerformClick();
             }
             else
             {
-                heightCounter += this.Height / timeDivision;
+                heightCounter += this.Height / heightDivider;
             }
         }
 
@@ -92,15 +104,6 @@ namespace ALSProject
         {
             gr = this.CreateGraphics();
 
-            /*
-            if(this.Text != null)
-            {
-                float p = this.Font.SizeInPoints;
-                this.TextAlign =  System.Drawing.ContentAlignment.TopCenter;     
-                this.Font = new Font(this.Font.Name, this.Width * 11 / 20);
-                if(this.Width * 11 / 20 == 110)
-                    this.Font = new Font(this.Font.Name, 40);
-            }*/
         }
 
         private void ALSButton_Click(object sender, EventArgs e)
@@ -120,12 +123,16 @@ namespace ALSProject
 
         }
 
+
         public static void setTimerSpeed(double speed)
         {
             if (speed < 0)
                 return;
             foreach (ALSButton btn in alsButtons)
-                btn.dwellTimer.Interval = Convert.ToInt32(50 * speed + 20);
+            {
+                if (!btn.immutableDwellTime)
+                    btn.dwellTimer.Interval *= Convert.ToInt32(1); //i disabled this
+            }
         }
     }
 }

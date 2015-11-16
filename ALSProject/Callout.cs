@@ -121,6 +121,9 @@ namespace ALSProject
             phrases.Add(str);
             this.Show();
             ac.Hide();
+            this.refreshCalloutList();
+            ac.getTextBox().Clear();
+            
         }
 
         private void speakCallout(object sender, EventArgs e)
@@ -230,7 +233,7 @@ namespace ALSProject
         private void populateList()
         {
 
-            if (!File.Exists("CalloutPhrases.txt"))
+            if (!File.Exists("CalloutsPhrases.txt"))
             {
                 generateDefaultFile();
             }
@@ -247,7 +250,18 @@ namespace ALSProject
                 Console.WriteLine(str);
             }
 
+            file.Close();
 
+        }
+
+        public void resetList()
+        {
+            phrases.Clear();
+            for (int i = 0; i < defaultPhrases.Length; i++)
+            {
+                phrases.Add(defaultPhrases[i]);
+            }
+            this.refreshCalloutList();
         }
 
         private void generateDefaultFile()
@@ -333,6 +347,17 @@ namespace ALSProject
             "Adjust my head up","Adjust my head down","Sit my chair up","Recline my chair"
         };
 
+        private void Callout_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            StreamWriter filestream = new StreamWriter(File.Open("CalloutsPhrases.txt", FileMode.Create));
+            for (int i = 0; i < phrases.Count; i++)
+            {
+                filestream.WriteLine(phrases[i]);
+            }
 
+            filestream.Close();
+        }
     }
+
+
 }

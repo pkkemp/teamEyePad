@@ -35,6 +35,7 @@
             this.slider1 = new ALSProject.Slider();
             this.alsButton2 = new ALSProject.ALSButton();
             this.alsButton1 = new ALSProject.ALSButton();
+            this.btnResetCallouts = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
             // label1
@@ -68,6 +69,7 @@
             this.btnAlarm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAlarm.BackgroundImage = global::ALSProject.Properties.Resources.speaker_icon;
             this.btnAlarm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnAlarm.dwellTimeInterval = 15;
             this.btnAlarm.FlatAppearance.BorderSize = 0;
             this.btnAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F);
@@ -76,13 +78,13 @@
             this.btnAlarm.Size = new System.Drawing.Size(201, 181);
             this.btnAlarm.TabIndex = 6;
             this.btnAlarm.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAlarm.timeDivision = 15;
             this.btnAlarm.UseVisualStyleBackColor = false;
             // 
             // btnBack
             // 
             this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBack.dwellTimeInterval = 15;
             this.btnBack.FlatAppearance.BorderSize = 0;
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F);
@@ -92,7 +94,6 @@
             this.btnBack.TabIndex = 5;
             this.btnBack.Text = "Main Menu";
             this.btnBack.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnBack.timeDivision = 15;
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
@@ -111,6 +112,7 @@
             // 
             this.alsButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.alsButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton2.dwellTimeInterval = 4;
             this.alsButton2.FlatAppearance.BorderSize = 0;
             this.alsButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 103F);
@@ -120,13 +122,13 @@
             this.alsButton2.TabIndex = 1;
             this.alsButton2.Text = ">";
             this.alsButton2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton2.timeDivision = 4;
             this.alsButton2.UseVisualStyleBackColor = false;
             this.alsButton2.Click += new System.EventHandler(this.alsButton2_Click);
             // 
             // alsButton1
             // 
             this.alsButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton1.dwellTimeInterval = 4;
             this.alsButton1.FlatAppearance.BorderSize = 0;
             this.alsButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 111F);
@@ -136,9 +138,22 @@
             this.alsButton1.TabIndex = 0;
             this.alsButton1.Text = "<";
             this.alsButton1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton1.timeDivision = 4;
             this.alsButton1.UseVisualStyleBackColor = false;
             this.alsButton1.Click += new System.EventHandler(this.alsButton1_Click);
+            // 
+            // btnResetCallouts
+            // 
+            this.btnResetCallouts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnResetCallouts.dwellTimeInterval = 100;
+            this.btnResetCallouts.FlatAppearance.BorderSize = 0;
+            this.btnResetCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnResetCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetCallouts.Location = new System.Drawing.Point(12, 376);
+            this.btnResetCallouts.Name = "btnResetCallouts";
+            this.btnResetCallouts.Size = new System.Drawing.Size(203, 150);
+            this.btnResetCallouts.TabIndex = 7;
+            this.btnResetCallouts.Text = "Reset Callouts";
+            this.btnResetCallouts.UseVisualStyleBackColor = false;
             // 
             // SettingsForm
             // 
@@ -146,6 +161,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnResetCallouts);
             this.Controls.Add(this.btnAlarm);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label2);
@@ -172,5 +188,6 @@
         private System.Windows.Forms.Label label2;
         private ALSButton btnBack;
         private ALSButton btnAlarm;
+        public ALSButton btnResetCallouts;
     }
 }
