@@ -39,6 +39,7 @@ namespace ALSProject
         public Form self { get; set; }
         private BECM becm;
         private CVInterface tobiiInt;
+        private Notebook notebook;
         private Thread eyeTrackingThread;
         public const int GAP = 10;
         TextToSpeech texttospeech;
@@ -52,9 +53,7 @@ namespace ALSProject
             this.self = this;
             initBECM();
             alarmBut.Click += new System.EventHandler(alarmBut_Click);
-
-
-
+            
             //Temp code
             tobiiInt = new CVInterface();
             eyeTrackingThread = new Thread(tobiiInt.StartEyeTracking);
@@ -63,21 +62,22 @@ namespace ALSProject
 
             SpeechSynthesizer voice = new SpeechSynthesizer();
             texttospeech = new TextToSpeech(this, voice);
+            notebook = new Notebook(this, voice);
             callout = new Callout(this, voice);
             settingsScreen = new SettingsForm(this);
             quitScreen = new QuitForm(this);
 
             texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
             settingsScreen.btnResetCallouts.Click += new System.EventHandler(this.resetCallouts);
-            
-            foreach(ALSButton btn in callout.getMenuBtns())
+
+            foreach (ALSButton btn in callout.getMenuBtns())
             {
-                if (btn.Text == "Main Menu"|| btn.Text == "Text to Speech")
+                if (btn.Text == "Main Menu" || btn.Text == "Text to Speech")
                 {
                     btn.Click += new System.EventHandler(this.closeCallouts);
                 }
             }
-            
+
 
         }
 
@@ -198,7 +198,8 @@ namespace ALSProject
 
         private void btnMin_Click(object sender, EventArgs e)
         {
-            //this.self.WindowState = System.Windows.Forms.FormWindowState.Normal;
+            notebook.Show();
+            texttospeech.Hide();
         }
 
         private void ttsBut_Click(object sender, EventArgs e)
