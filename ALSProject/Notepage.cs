@@ -13,16 +13,20 @@ namespace ALSProject
 {
     public partial class Notepage : Form
     {
+        private Form parentForm;
+        private SpeechSynthesizer voice;
         KeyboardControl keyboard;
         const int MENU_BUTTON_SIZE = 140;
         const int ARROW_KEY_SIZE = 80;
         ALSButton alarm, speak, back;
         ALSButton up, left, right, down, backWord, forwardWord;
-        TextBox content;
+        TextBox txtContect;
 
         public Notepage(Form parent, SpeechSynthesizer voice)
         {
             InitializeComponent();
+            this.parentForm = parent;
+            this.voice = voice;
 
             this.WindowState = FormWindowState.Maximized;
 
@@ -37,7 +41,7 @@ namespace ALSProject
             down = new ALSButton();
             backWord = new ALSButton();
             forwardWord = new ALSButton();
-            content = new TextBox();
+            txtContect = new TextBox();
 
             Controls.Add(alarm);
             Controls.Add(speak);
@@ -49,7 +53,16 @@ namespace ALSProject
             Controls.Add(backWord);
             Controls.Add(forwardWord);
             Controls.Add(keyboard);
-            Controls.Add(content);
+            Controls.Add(txtContect);
+            
+            speak.Click += new EventHandler(Speak_Click);
+            back.Click += new EventHandler(Back_Click);
+            up.Click += new EventHandler(Up_Click);
+            left.Click += new EventHandler(Left_Click);
+            right.Click += new EventHandler(Right_Click);
+            down.Click += new EventHandler(Down_Click);
+            backWord.Click += new EventHandler(BackWord_Click);
+            forwardWord.Click += new EventHandler(ForwardWord_Click);
 
             speak.Text = "Speak";
             back.Text = "Notebook";
@@ -60,7 +73,56 @@ namespace ALSProject
             backWord.Text = "Left one word";
             forwardWord.Text = "right one word";
 
-            content.Multiline = true;
+            txtContect.Multiline = true;
+        }
+
+        private void ForwardWord_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackWord_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Down_Click(object sender, EventArgs e)
+        {
+            SendKeys.Send("{DOWN}");
+        }
+
+        private void Right_Click(object sender, EventArgs e)
+        {
+            //txtContect.Focus();
+            txtContect.SelectionStart++;
+            txtContect.SelectionLength = 0;
+        }
+
+        private void Left_Click(object sender, EventArgs e)
+        {
+            txtContect.SelectionStart--;
+            txtContect.SelectionLength = 0;
+        }
+
+        private void Notepage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void Up_Click(object sender, EventArgs e)
+        {
+            SendKeys.Send("{UP}");
+        }
+
+        private void Back_Click(object sender, EventArgs e)
+        {
+            parentForm.Visible = true;
+            this.Visible = false;
+        }
+
+        private void Speak_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Notepage_Load(object sender, EventArgs e)
@@ -78,7 +140,7 @@ namespace ALSProject
             alarm.Location = new Point(UI.GAP, UI.GAP);
             speak.Location = new Point(UI.GAP + alarm.Right, UI.GAP);
             keyboard.Location = new Point(UI.GAP, alarm.Bottom + UI.GAP);
-            content.Location = new Point(speak.Right + UI.GAP, UI.GAP);
+            txtContect.Location = new Point(speak.Right + UI.GAP, UI.GAP);
         }
 
         private void Notepage_Resize(object sender, EventArgs e)
@@ -93,9 +155,7 @@ namespace ALSProject
             up.Location = new Point(down.Left, down.Top - UI.GAP - ARROW_KEY_SIZE);
 
             keyboard.Size = new Size(this.Width - UI.GAP * 2, this.Height - 3 * UI.GAP - MENU_BUTTON_SIZE);
-            content.Size = new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE);
-            MessageBox.Show(speak.Right + "");
-
+            txtContect.Size = new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE);
         }
 
         public TextBox getTextBox()

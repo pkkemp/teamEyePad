@@ -43,6 +43,7 @@ namespace ALSProject
             this.Text = "Notepage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Notepage_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Notepage_KeyPress);
             this.Resize += new System.EventHandler(this.Notepage_Resize);
             this.ResumeLayout(false);
 
