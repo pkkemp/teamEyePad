@@ -131,7 +131,7 @@ namespace ALSProject
             foreach (ALSButton btn in alsButtons)
             {
                 if (!btn.immutableDwellTime)
-                   btn.dwellTimer.Interval /= 10; //i disabled this
+                    btn.dwellTimer.Interval = Math.Max(btn.dwellTimer.Interval / 10, 1); 
             }
         }
     }
