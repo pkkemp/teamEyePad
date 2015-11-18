@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace ALSProject
 {
-    public partial class Callout : Form
+    public partial class Notebook : Form
     {
         private List<string> phrases;
 
@@ -24,17 +24,20 @@ namespace ALSProject
         protected bool isEditMode;
         protected int pageNum = 0;
         SpeechSynthesizer speaker;
-        AddCallout ac;
 
+        Notepage notepage;
 
-        public Callout(Form parent, SpeechSynthesizer voice)
+        private Form parentForm;
+
+        public Notebook(Form parent, SpeechSynthesizer voice)
         {
             InitializeComponent();
 
+            parentForm = parent;
             //setup speech
             speaker = voice;
 
-            ac = new AddCallout(this, speaker);
+            notepage = new Notepage(this, speaker);
 
             //setup  callout list
             phrases = new List<String>();
@@ -48,17 +51,18 @@ namespace ALSProject
             for (int i = 1; i < topRowButtons.Length; i++)
                 topRowButtons[i] = new ALSButton();
 
-            topRowButtons[1].Text = "Edit";
+            topRowButtons[1].Text = "Delete";
             topRowButtons[2].Text = "Page Left";
             topRowButtons[3].Text = "Page Right";
-            topRowButtons[4].Text = "Text to Speech";
+            topRowButtons[4].Text = "New Note";
             topRowButtons[5].Text = "Main Menu";
 
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
-            topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
-            ac.getSaveButton().Click += new EventHandler(this.addToList);
+            topRowButtons[4].Click += new System.EventHandler(this.NewNote_Click);
+            topRowButtons[5].Click += new System.EventHandler(this.MainMenu_Click);
+            notepage.getSaveButton().Click += new EventHandler(this.addToList);
 
             foreach (ALSButton btn in topRowButtons)
             {
@@ -66,7 +70,7 @@ namespace ALSProject
                 btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
 
-            callouts = new ALSButton[4, NUM_CALLOUTS];
+            callouts = new ALSButton[2, NUM_CALLOUTS];
             for (int i = 0; i < callouts.GetLength(0); i++)
                 for (int j = 0; j < callouts.GetLength(1); j++)
                 {
@@ -77,7 +81,7 @@ namespace ALSProject
             for (int i = 0; i < callouts.GetLength(1); i++)
             {
                 callouts[0, i].Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                callouts[0, i].Click += new EventHandler(this.speakCallout);
+                callouts[0, i].Click += new EventHandler(this.EditNote);
             }
 
             for (int i = 1; i < callouts.GetLength(0); i++)
@@ -90,22 +94,26 @@ namespace ALSProject
                             callouts[i, j].Name = "btnDel" + j;
                             callouts[i, j].Click += new System.EventHandler(this.deleteItem);
                             break;
-                        case 2:
-                            callouts[i, j].Text = "Up";
-                            callouts[i, j].Name = "btnUp" + j;
-                            callouts[i, j].Click += new System.EventHandler(this.moveItemUp);
-                            break;
-                        case 3:
-                            callouts[i, j].Text = "Down";
-                            callouts[i, j].Name = "btnDown" + j;
-                            callouts[i, j].Click += new EventHandler(this.moveItemDown);
-                            break;
                     }
                     callouts[i, j].BackgroundImageLayout = ImageLayout.Zoom;
                     callouts[i, j].Visible = false;
                 }
 
             flipToPage(0);
+        }
+
+        private void EditNote(object sender, EventArgs e)
+        {
+            notepage.Visible = true;
+            this.Visible = false;
+            //Load Text
+            //Set Cursor at end
+        }
+
+        private void MainMenu_Click(object sender, EventArgs e)
+        {
+            parentForm.Visible = true;
+            this.Visible = false;
         }
 
         private int getNum(String str)
@@ -117,66 +125,25 @@ namespace ALSProject
 
         private void addToList(object sender, EventArgs e)
         {
-            string str = ac.getTextBox().Text;
+            string str = notepage.getTextBox().Text;
             phrases.Add(str);
             this.Show();
-            ac.Hide();
+            notepage.Hide();
             this.refreshCalloutList();
-            ac.getTextBox().Clear();
-            
-        }
+            notepage.getTextBox().Clear();
 
-        private void speakCallout(object sender, EventArgs e)
-        {
-            ALSButton btn = (ALSButton)sender;
-            speaker.SpeakAsyncCancelAll();
-            speaker.Speak(btn.Text);
         }
-
+        
         private void refreshCalloutList()
         {
             flipToPage(pageNum);
         }
-
-        private void moveItemDown(object sender, EventArgs e)
-        {
-            try
-            {
-                ALSButton btn = (ALSButton)sender;
-                int num = getNum(btn.Name);
-
-                num = pageNum * NUM_CALLOUTS + num;
-
-                string temp = phrases[num + 1];
-                phrases[num + 1] = phrases[num];
-                phrases[num] = temp;
-                refreshCalloutList();
-            }
-            catch (ArgumentOutOfRangeException) { }
-        }
-
-        private void moveItemUp(object sender, EventArgs e)
-        {
-            try
-            {
-                ALSButton btn = (ALSButton)sender;
-                int num = getNum(btn.Name);
-
-                num = pageNum * NUM_CALLOUTS + num;
-
-                string temp = phrases[num - 1];
-                phrases[num - 1] = phrases[num];
-                phrases[num] = temp;
-                refreshCalloutList();
-            }
-            catch (ArgumentOutOfRangeException) { }
-        }
-
+        
         private void deleteItem(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
 
-            int num = getNum(btn.Name) + pageNum * NUM_CALLOUTS;
+            int num = getNum(btn.Name);
             try
             {
                 phrases.RemoveAt(num);
@@ -196,12 +163,7 @@ namespace ALSProject
             pageNum--;
             flipToPage(pageNum);
         }
-
-        private void Callout_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         private void flipToPage(int num)
         {
             if (num < 0)
@@ -221,13 +183,10 @@ namespace ALSProject
 
         }
 
-        private void TextToSpeech_Click(object sender, EventArgs e)
+        private void NewNote_Click(object sender, EventArgs e)
         {
-            if (isEditMode)
-            {
-                ac.Show();
-                this.Hide();
-            }
+            notepage.Visible = true;
+            this.Visible = false;
         }
 
         private void populateList()
@@ -279,19 +238,13 @@ namespace ALSProject
         {
             return topRowButtons;
         }
-
-
-        private void Callout_Load(object sender, EventArgs e)
-        {
-            ResizeButtons();
-        }
+        
         private void edit_Click(object sender, EventArgs e)
         {
             isEditMode = !isEditMode;
             for (int i = 0; i < callouts.GetLength(1); i++)
             {
                 callouts[1, i].Visible = isEditMode;
-                callouts[2, i].Visible = isEditMode;
             }
             ResizeButtons();
         }
@@ -357,7 +310,10 @@ namespace ALSProject
 
             filestream.Close();
         }
+
+        private void Notebook_Load(object sender, EventArgs e)
+        {
+            ResizeButtons();
+        }
     }
-
-
 }

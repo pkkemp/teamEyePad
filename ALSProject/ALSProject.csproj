@@ -88,6 +88,18 @@
     <Compile Include="KeyboardControl.Designer.cs">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notebook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notebook.Designer.cs">
+      <DependentUpon>Notebook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notepage.Designer.cs">
+      <DependentUpon>Notepage.cs</DependentUpon>
+    </Compile>
     <Compile Include="PredictionBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -164,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardControl.resx">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notebook.resx">
+      <DependentUpon>Notebook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notepage.resx">
+      <DependentUpon>Notepage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PredictionBoxControl.resx">
       <DependentUpon>PredictionBoxControl.cs</DependentUpon>
