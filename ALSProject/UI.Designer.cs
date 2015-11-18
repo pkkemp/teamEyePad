@@ -228,8 +228,8 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UI_FormClosed);
             this.Load += new System.EventHandler(this.User_Interface_Load);
             this.ResumeLayout(false);
 

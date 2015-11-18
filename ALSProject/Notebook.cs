@@ -129,12 +129,12 @@ namespace ALSProject
             phrases.Add(str);
             this.Show();
             notepage.Hide();
-            this.refreshCalloutList();
+            this.refreshNotes();
             notepage.getTextBox().Clear();
 
         }
         
-        private void refreshCalloutList()
+        private void refreshNotes()
         {
             flipToPage(pageNum);
         }
@@ -149,7 +149,7 @@ namespace ALSProject
                 phrases.RemoveAt(num);
             }
             catch (ArgumentOutOfRangeException) { }
-            refreshCalloutList();
+            refreshNotes();
         }
 
         private void pageRight(object sender, EventArgs e)
@@ -185,19 +185,19 @@ namespace ALSProject
 
         private void NewNote_Click(object sender, EventArgs e)
         {
-            notepage.Visible = true;
-            this.Visible = false;
+            notepage.Show();
+            this.Hide();
         }
 
         private void populateList()
         {
 
-            if (!File.Exists("CalloutsPhrases.txt"))
+            if (!File.Exists("Notes.txt"))
             {
                 generateDefaultFile();
             }
 
-            StreamReader file = new StreamReader(File.Open("CalloutsPhrases.txt", FileMode.Open));
+            StreamReader file = new StreamReader(File.Open("Notes.txt", FileMode.Open));
 
             while (!file.EndOfStream)
             {
@@ -216,19 +216,17 @@ namespace ALSProject
         public void resetList()
         {
             phrases.Clear();
-            for (int i = 0; i < defaultPhrases.Length; i++)
-            {
-                phrases.Add(defaultPhrases[i]);
-            }
-            this.refreshCalloutList();
+            this.refreshNotes();
         }
+
+        private String defaultPhrase = "Add new note";
 
         private void generateDefaultFile()
         {
-            StreamWriter filestream = new StreamWriter(File.Create("CalloutsPhrases.txt"));
-            for (int i = 0; i < defaultPhrases.Length; i++)
+            StreamWriter filestream = new StreamWriter(File.Create("Notes.txt"));
+            for (int i = 0; i < NUM_CALLOUTS; i++)
             {
-                filestream.WriteLine(defaultPhrases[i]);
+                filestream.WriteLine(defaultPhrase);
             }
 
             filestream.Close();
@@ -294,15 +292,10 @@ namespace ALSProject
             }
         }
 
-        private string[] defaultPhrases =
-        {
-            "Suction","Wipe my Eyes", "Adjust my head to the left","Adjust my head to the right",
-            "Adjust my head up","Adjust my head down","Sit my chair up","Recline my chair"
-        };
 
-        private void Callout_FormClosing(object sender, FormClosingEventArgs e)
+        private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
         {
-            StreamWriter filestream = new StreamWriter(File.Open("CalloutsPhrases.txt", FileMode.Create));
+            StreamWriter filestream = new StreamWriter(File.Open("Notes.txt", FileMode.Create));
             for (int i = 0; i < phrases.Count; i++)
             {
                 filestream.WriteLine(phrases[i]);
