@@ -16,6 +16,7 @@ using System.Threading;
 using EyeXFramework;
 using Tobii.EyeX.Framework;
 using System.Speech.Synthesis;
+using Timer = System.Windows.Forms.Timer;
 
 namespace ALSProject
 {
@@ -45,6 +46,7 @@ namespace ALSProject
         Callout callout;
         SettingsForm settingsScreen;
         QuitForm quitScreen;
+        Timer closeTimer;
 
         public UI()
         {
@@ -52,6 +54,11 @@ namespace ALSProject
             this.self = this;
             initBECM();
             alarmBut.Click += new System.EventHandler(alarmBut_Click);
+            
+            //listen for close
+            closeTimer = new Timer();
+            closeTimer.Enabled = true;
+            closeTimer.Tick += new EventHandler(closeTimeEvent);
 
 
 
@@ -79,6 +86,15 @@ namespace ALSProject
             }
             
 
+        }
+
+        private void closeTimeEvent(object sender, EventArgs e)
+        {
+
+           Console.WriteLine("Event");
+            if (callout == null || settingsScreen == null || texttospeech == null) ;
+               //this.Close();
+                
         }
 
         private void resetCallouts(object sender, EventArgs e)
@@ -244,5 +260,14 @@ namespace ALSProject
 
 
         }
+
+        private void UI_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            CVInterface.PleaseStop();
+            Application.Exit();
+            
+        }
     }
-}
+
+
+}  

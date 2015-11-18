@@ -84,7 +84,7 @@ namespace ALSProject
         public void predictType(string key)
         {
             table[0][0].Text += key;
-
+            
             Console.WriteLine(callback_get_past_stream());
             String[] predictions = presage.predict();
 

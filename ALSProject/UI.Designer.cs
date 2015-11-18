@@ -46,6 +46,7 @@
             this.quitBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.quitBut.BackgroundImage = global::ALSProject.Properties.Resources.power;
             this.quitBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.quitBut.dwellTimeInterval = 15;
             this.quitBut.FlatAppearance.BorderSize = 0;
             this.quitBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quitBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -56,7 +57,6 @@
             this.quitBut.TabIndex = 10;
             this.quitBut.Text = "Close";
             this.quitBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.quitBut.dwellTimeInterval = 15;
             this.quitBut.UseVisualStyleBackColor = false;
             this.quitBut.Click += new System.EventHandler(this.quitBut_Click);
             // 
@@ -66,6 +66,7 @@
             this.setBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.setBut.BackgroundImage = global::ALSProject.Properties.Resources.gear_b;
             this.setBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.setBut.dwellTimeInterval = 15;
             this.setBut.FlatAppearance.BorderSize = 0;
             this.setBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -76,7 +77,6 @@
             this.setBut.TabIndex = 9;
             this.setBut.Text = "Settings";
             this.setBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.setBut.dwellTimeInterval = 15;
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
             this.setBut.MouseEnter += new System.EventHandler(this.setBut_MouseEnter);
@@ -85,6 +85,7 @@
             // 
             this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMax.dwellTimeInterval = 15;
             this.btnMax.FlatAppearance.BorderSize = 0;
             this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -93,7 +94,6 @@
             this.btnMax.Size = new System.Drawing.Size(312, 248);
             this.btnMax.TabIndex = 8;
             this.btnMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMax.dwellTimeInterval = 15;
             this.btnMax.UseVisualStyleBackColor = false;
             this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
@@ -104,6 +104,7 @@
             this.alsButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alsButton4.BackgroundImage = global::ALSProject.Properties.Resources.Speech;
             this.alsButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.alsButton4.dwellTimeInterval = 15;
             this.alsButton4.FlatAppearance.BorderSize = 0;
             this.alsButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -114,7 +115,6 @@
             this.alsButton4.TabIndex = 7;
             this.alsButton4.Text = "Callouts";
             this.alsButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.alsButton4.dwellTimeInterval = 15;
             this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
             // 
@@ -123,6 +123,7 @@
             this.alsButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alsButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.alsButton5.dwellTimeInterval = 15;
             this.alsButton5.FlatAppearance.BorderSize = 0;
             this.alsButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -131,7 +132,6 @@
             this.alsButton5.Size = new System.Drawing.Size(312, 248);
             this.alsButton5.TabIndex = 6;
             this.alsButton5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton5.dwellTimeInterval = 15;
             this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // btnMin
@@ -140,6 +140,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMin.dwellTimeInterval = 15;
             this.btnMin.FlatAppearance.BorderSize = 0;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -148,7 +149,6 @@
             this.btnMin.Size = new System.Drawing.Size(312, 248);
             this.btnMin.TabIndex = 5;
             this.btnMin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMin.dwellTimeInterval = 15;
             this.btnMin.UseVisualStyleBackColor = false;
             this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
@@ -157,6 +157,7 @@
             this.noteBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.noteBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.noteBut.dwellTimeInterval = 15;
             this.noteBut.FlatAppearance.BorderSize = 0;
             this.noteBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.noteBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -165,7 +166,6 @@
             this.noteBut.Size = new System.Drawing.Size(312, 248);
             this.noteBut.TabIndex = 4;
             this.noteBut.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.noteBut.dwellTimeInterval = 15;
             this.noteBut.UseVisualStyleBackColor = false;
             // 
             // ttsBut
@@ -174,6 +174,7 @@
             this.ttsBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ttsBut.BackgroundImage = global::ALSProject.Properties.Resources.chatbubbles;
             this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ttsBut.dwellTimeInterval = 15;
             this.ttsBut.FlatAppearance.BorderSize = 0;
             this.ttsBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ttsBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -184,7 +185,6 @@
             this.ttsBut.TabIndex = 3;
             this.ttsBut.Text = "Text to Speech";
             this.ttsBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ttsBut.dwellTimeInterval = 15;
             this.ttsBut.UseVisualStyleBackColor = false;
             this.ttsBut.Click += new System.EventHandler(this.ttsBut_Click);
             // 
@@ -193,6 +193,7 @@
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alarmBut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("alarmBut.BackgroundImage")));
             this.alarmBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.alarmBut.dwellTimeInterval = 15;
             this.alarmBut.FlatAppearance.BorderSize = 0;
             this.alarmBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alarmBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -203,7 +204,6 @@
             this.alarmBut.TabIndex = 2;
             this.alarmBut.Text = "Activate Alarm";
             this.alarmBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.alarmBut.dwellTimeInterval = 15;
             this.alarmBut.UseVisualStyleBackColor = false;
             this.alarmBut.Click += new System.EventHandler(this.alarmBut_Click);
             // 
@@ -227,8 +227,8 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UI_FormClosed);
             this.Load += new System.EventHandler(this.User_Interface_Load);
             this.ResumeLayout(false);
 

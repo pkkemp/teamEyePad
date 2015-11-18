@@ -176,7 +176,7 @@ namespace ALSProject
         {
             ALSButton btn = (ALSButton)sender;
 
-            int num = getNum(btn.Name);
+            int num = getNum(btn.Name) + pageNum * NUM_CALLOUTS;
             try
             {
                 phrases.RemoveAt(num);
