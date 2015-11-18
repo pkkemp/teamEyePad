@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,7 +32,7 @@ namespace ALSProject
             this.WindowState = FormWindowState.Maximized;
 
             keyboard = new KeyboardControl(this);
-            
+
             alarm = new ALSAlarm();
             speak = new ALSButton();
             back = new ALSButton();
@@ -54,7 +55,7 @@ namespace ALSProject
             Controls.Add(forwardWord);
             Controls.Add(keyboard);
             Controls.Add(txtContect);
-            
+
             speak.Click += new EventHandler(Speak_Click);
             back.Click += new EventHandler(Back_Click);
             up.Click += new EventHandler(Up_Click);
@@ -74,16 +75,39 @@ namespace ALSProject
             forwardWord.Text = "right one word";
 
             txtContect.Multiline = true;
+            txtContect.Font = new Font("Microsoft Sans Serif", 20F);
         }
 
         private void ForwardWord_Click(object sender, EventArgs e)
         {
+            string content = txtContect.Text.Substring(txtContect.SelectionStart);
 
+            //Find the first whitespace. Move the cursor at the end of the whitespace
+            var match = Regex.Match(content, @"\s*\S+\s+");
+            if (match.Success)
+            {
+                txtContect.SelectionStart += match.Index + match.Length;
+            }
+            else
+            {
+                txtContect.SelectionStart = txtContect.Text.Length;
+            }
         }
 
         private void BackWord_Click(object sender, EventArgs e)
         {
-
+            string content = txtContect.Text.Substring(0, txtContect.SelectionStart);
+            MessageBox.Show(content);
+            
+            var match = Regex.Match(content, @"\s+\S+\s*$");
+            if (match.Success)
+            {
+                txtContect.SelectionStart = match.Index;
+            }
+            else
+            {
+                txtContect.SelectionStart = 0;
+            }
         }
 
         private void Down_Click(object sender, EventArgs e)
@@ -94,13 +118,15 @@ namespace ALSProject
         private void Right_Click(object sender, EventArgs e)
         {
             //txtContect.Focus();
-            txtContect.SelectionStart++;
+            if (txtContect.SelectionStart != txtContect.Text.Length)
+                txtContect.SelectionStart++;
             txtContect.SelectionLength = 0;
         }
 
         private void Left_Click(object sender, EventArgs e)
         {
-            txtContect.SelectionStart--;
+            if (txtContect.SelectionStart != 0)
+                txtContect.SelectionStart--;
             txtContect.SelectionLength = 0;
         }
 
@@ -122,7 +148,11 @@ namespace ALSProject
 
         private void Speak_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            voice.SpeakAsyncCancelAll();
+            if (txtContect.SelectionStart == txtContect.Text.Length)
+                voice.SpeakAsync(txtContect.Text);
+            else
+                voice.SpeakAsync(txtContect.Text.Substring(txtContect.SelectionStart));
         }
 
         private void Notepage_Load(object sender, EventArgs e)
@@ -145,7 +175,7 @@ namespace ALSProject
 
         private void Notepage_Resize(object sender, EventArgs e)
         {
-            
+
             back.Location = new Point(this.Right - MENU_BUTTON_SIZE - UI.GAP, UI.GAP);
             forwardWord.Location = new Point(Width - UI.GAP - forwardWord.Width, Height - UI.GAP - ARROW_KEY_SIZE);
             backWord.Location = new Point(forwardWord.Left - UI.GAP - backWord.Width, forwardWord.Top);

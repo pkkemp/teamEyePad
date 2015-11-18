@@ -70,6 +70,11 @@ namespace ALSProject
             eyeTrackingThread.Start();
 
             SpeechSynthesizer voice = new SpeechSynthesizer();
+
+            voice.SetOutputToDefaultAudioDevice();
+            voice.Volume = 100;
+            voice.SelectVoiceByHints(VoiceGender.Male);
+
             texttospeech = new TextToSpeech(this, voice);
             notebook = new Notebook(this, voice);
             callout = new Callout(this, voice);
@@ -86,8 +91,6 @@ namespace ALSProject
                     btn.Click += new System.EventHandler(this.closeCallouts);
                 }
             }
-
-
         }
 
         private void closeTimeEvent(object sender, EventArgs e)
