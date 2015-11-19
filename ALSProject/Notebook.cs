@@ -302,6 +302,8 @@ namespace ALSProject
         
         private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            //I'm pretty sure this is redundant in most cases. If we want to do this we need to make sure it only happens when the program is being closed by an outside operation
             /*if(indexBeingEdited != -1)
             {
                 phrases.Insert(0, notepage.getText());
@@ -323,7 +325,13 @@ namespace ALSProject
         }
 
         private void Notebook_VisibleChanged(object sender, EventArgs e)
-        {/*
+        {
+            
+            //I changed the way it saves notes into the list to be the same as callouts
+
+
+
+            /*
             if (Visible)
             {
                 if (indexBeingEdited != -1)
@@ -332,7 +340,8 @@ namespace ALSProject
                     indexBeingEdited = -1;
                 }
                 refreshNotes();
-            }*/
+            }
+            */
         }
     }
 }

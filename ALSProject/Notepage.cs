@@ -17,6 +17,7 @@ namespace ALSProject
         private Form parentForm;
         private SpeechSynthesizer voice;
         KeyboardControl keyboard;
+        
         const int MENU_BUTTON_SIZE = 140;
         const int ARROW_KEY_SIZE = 80;
         ALSButton alarm, speak, back;
@@ -32,6 +33,14 @@ namespace ALSProject
             this.WindowState = FormWindowState.Maximized;
 
             keyboard = new KeyboardControl(this);
+
+            foreach(ALSButton[] rows in keyboard.getKeyboard())
+            {
+                foreach(ALSButton column in rows)
+                {
+                    column.Click += new System.EventHandler(key_Click);
+                }
+            }
 
             alarm = new ALSAlarm();
             speak = new ALSButton();
