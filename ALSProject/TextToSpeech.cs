@@ -24,7 +24,7 @@ namespace ALSProject
             InitializeComponent();
 
             this.alsKeyboard.setRemainingVariables();
-            this.alsKeyboard.setupPreditionBox();
+            //this.alsKeyboard.setupPreditionBox();
 
             speaker = voice;
 
@@ -56,13 +56,15 @@ namespace ALSProject
                     
 
                 }
-
-                    foreach (ALSButton[] rows in keypad)
+            /*
+            foreach (ALSButton[] rows in keypad)
+            {
                 foreach (ALSButton column in rows)
                 {
-                        column.Click += new System.EventHandler(this.keypad_Click);
-                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    column.Click += new System.EventHandler(this.keypad_Click);
+                    column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
+            }*/
 
 
             space.Click += new System.EventHandler(this.space_Click);

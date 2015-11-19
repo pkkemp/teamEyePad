@@ -82,6 +82,12 @@
       <DependentUpon>Callout.cs</DependentUpon>
     </Compile>
     <Compile Include="CVInterface.cs" />
+    <Compile Include="Email.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Email.Designer.cs">
+      <DependentUpon>Email.cs</DependentUpon>
+    </Compile>
     <Compile Include="KeyboardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -106,6 +112,7 @@
     <Compile Include="PredictionBoxControl.Designer.cs">
       <DependentUpon>PredictionBoxControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PresagePredictor.cs" />
     <Compile Include="TextToSpeech.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -85,13 +85,15 @@ namespace ALSProject
         {
             table[0][0].Text += key;
             
-            Console.WriteLine(callback_get_past_stream());
+            //Console.WriteLine(callback_get_past_stream());
             String[] predictions = presage.predict();
 
             for(int i = 0; i < predictions.Length; i++)
             {
                 table[1][i+1].Text = predictions[i];
             }
+
+
 
 
         }

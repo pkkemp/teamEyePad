@@ -32,7 +32,6 @@ namespace ALSProject
             keyboardNumber = 0;
 
 
-            boxPredict = new PredictionBoxControl(this);
 
             keyboard = new ALSKey[3][];
             keyboard[0] = new ALSKey[11];
@@ -41,9 +40,20 @@ namespace ALSProject
             keySpace = new ALSButton();
             btnClear = new ALSButton();
 
-            predictionKeyboard = new ALSButton[2][];
-            predictionKeyboard[0] = new ALSButton[5];
-            predictionKeyboard[1] = new ALSButton[5];
+            //boxPredict = new PredictionBoxControl(this);
+            //predictionKeyboard = new ALSButton[2][];
+            //predictionKeyboard[0] = new ALSButton[5];
+            //predictionKeyboard[1] = new ALSButton[5];
+
+            /*
+            for (int i = 0; i < predictionKeyboard.Length; i++)
+            {
+                for (int j = 0; j < predictionKeyboard[i].Length; j++)
+                {
+                    predictionKeyboard[i][j] = new ALSButton();
+                    this.Controls.Add(predictionKeyboard[i][j]);
+                }
+            }*/
 
             for (int i = 0; i < keyboard.Length; i++)
             {
@@ -54,16 +64,8 @@ namespace ALSProject
                 }
             }
 
-            for (int i = 0; i < predictionKeyboard.Length; i++)
-            {
-                for (int j = 0; j < predictionKeyboard[i].Length; j++)
-                {
-                    predictionKeyboard[i][j] = new ALSButton();
-                    this.Controls.Add(predictionKeyboard[i][j]);
-                }
-            }
 
-            this.Controls.Add(boxPredict);
+            //this.Controls.Add(boxPredict);
             this.Controls.Add(keySpace);
             keySpace.Text = "Space";
 
@@ -78,7 +80,7 @@ namespace ALSProject
             this.Parent = parentForm;
         }
 
-        public void setupPreditionBox()
+        public void setupPredictionBox()
         {
             //boxPredict.Location = new Point(500 , 300);
             boxPredict.updateSize();
@@ -213,12 +215,12 @@ namespace ALSProject
         
         public void predictType(string key)
         {
-            boxPredict.predictType(key);
+            //boxPredict.predictType(key);
         }
 
         public void resetPredict()
         {
-                boxPredict.resetWord();
+            //boxPredict.resetWord();
             
         }
 
@@ -278,7 +280,7 @@ namespace ALSProject
             setupLetters();
             setupShift();
             setupKeypad();
-            setupPreditionBox();
+            //setupPredictionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
