@@ -76,10 +76,12 @@ namespace ALSProject
 
             txtContect.Multiline = true;
             txtContect.Font = new Font("Microsoft Sans Serif", 20F);
+            initControlsRecursive(this.Controls);
         }
 
         private void ForwardWord_Click(object sender, EventArgs e)
         {
+            txtContect.Focus();
             string content = txtContect.Text.Substring(txtContect.SelectionStart);
 
             //Find the first whitespace. Move the cursor at the end of the whitespace
@@ -96,9 +98,9 @@ namespace ALSProject
 
         private void BackWord_Click(object sender, EventArgs e)
         {
+            txtContect.Focus();
             string content = txtContect.Text.Substring(0, txtContect.SelectionStart);
-            MessageBox.Show(content);
-            
+
             var match = Regex.Match(content, @"\s+\S+\s*$");
             if (match.Success)
             {
@@ -112,12 +114,13 @@ namespace ALSProject
 
         private void Down_Click(object sender, EventArgs e)
         {
+            txtContect.Focus();
             SendKeys.Send("{DOWN}");
         }
 
         private void Right_Click(object sender, EventArgs e)
         {
-            //txtContect.Focus();
+            txtContect.Focus();
             if (txtContect.SelectionStart != txtContect.Text.Length)
                 txtContect.SelectionStart++;
             txtContect.SelectionLength = 0;
@@ -125,6 +128,7 @@ namespace ALSProject
 
         private void Left_Click(object sender, EventArgs e)
         {
+            txtContect.Focus();
             if (txtContect.SelectionStart != 0)
                 txtContect.SelectionStart--;
             txtContect.SelectionLength = 0;
@@ -137,6 +141,7 @@ namespace ALSProject
 
         private void Up_Click(object sender, EventArgs e)
         {
+            txtContect.Focus();
             SendKeys.Send("{UP}");
         }
 
@@ -155,6 +160,23 @@ namespace ALSProject
                 voice.SpeakAsync(txtContect.Text.Substring(txtContect.SelectionStart));
         }
 
+        void initControlsRecursive(System.Windows.Forms.Control.ControlCollection coll)
+        {
+            foreach (Control c in coll)
+            {
+                c.MouseClick += (sender, e) =>
+                {
+                    updateCursor();
+                };
+                initControlsRecursive(c.Controls);
+            }
+        }
+
+        private void updateCursor()
+        {
+            txtContect.Focus();
+        }
+
         private void Notepage_Load(object sender, EventArgs e)
         {
             alarm.Size = new Size(MENU_BUTTON_SIZE, MENU_BUTTON_SIZE);
@@ -171,6 +193,8 @@ namespace ALSProject
             speak.Location = new Point(UI.GAP + alarm.Right, UI.GAP);
             keyboard.Location = new Point(UI.GAP, alarm.Bottom + UI.GAP);
             txtContect.Location = new Point(speak.Right + UI.GAP, UI.GAP);
+
+            txtContect.Focus();
         }
 
         private void Notepage_Resize(object sender, EventArgs e)
@@ -188,9 +212,20 @@ namespace ALSProject
             txtContect.Size = new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE);
         }
 
-        public TextBox getTextBox()
+        public string getText()
         {
-            return new TextBox();
+            return txtContect.Text;
+        }
+
+        public void setText(string text)
+        {
+            if (text != null)
+                txtContect.Text = text;
+        }
+
+        public void setCursorAtEnd()
+        {
+            txtContect.SelectionStart = txtContect.Text.Length;
         }
 
         public ALSButton getSaveButton()

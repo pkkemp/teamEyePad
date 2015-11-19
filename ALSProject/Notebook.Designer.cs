@@ -41,6 +41,7 @@
             this.Text = "Notebook";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Notebook_Load);
+            this.VisibleChanged += new System.EventHandler(this.Notebook_VisibleChanged);
             this.ResumeLayout(false);
 
         }
