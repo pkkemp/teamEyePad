@@ -24,11 +24,12 @@ namespace ALSProject
         protected bool isEditMode;
         protected int pageNum = 0;
         SpeechSynthesizer speaker;
+        private int indexBeingEdited;       //-1 means it's not being used
 
         Notepage notepage;
 
         private Form parentForm;
-
+        
         public Notebook(Form parent, SpeechSynthesizer voice)
         {
             InitializeComponent();
@@ -38,6 +39,8 @@ namespace ALSProject
             speaker = voice;
 
             notepage = new Notepage(this, speaker);
+
+            indexBeingEdited = -1;
 
             //setup  callout list
             phrases = new List<String>();
@@ -82,6 +85,7 @@ namespace ALSProject
             {
                 callouts[0, i].Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 callouts[0, i].Click += new EventHandler(this.EditNote);
+                callouts[0, i].Name = "btnNotepage" + i;
             }
 
             for (int i = 1; i < callouts.GetLength(0); i++)
@@ -104,10 +108,24 @@ namespace ALSProject
 
         private void EditNote(object sender, EventArgs e)
         {
+            ALSButton btn = (ALSButton)sender;
             notepage.Visible = true;
             this.Visible = false;
             //Load Text
+            if(!String.IsNullOrEmpty(btn.Name))
+            {
+                int index = getNum(btn.Name) + pageNum * NUM_CALLOUTS;
+                if (index >= 0 && index < phrases.Count)
+                {
+                    notepage.setText(phrases[index]);
+                    indexBeingEdited = index;
+                    phrases.RemoveAt(index);
+                    if (phrases.Count < NUM_CALLOUTS)
+                        phrases.Add("Add new note");
+                }
+            }
             //Set Cursor at end
+            notepage.setCursorAtEnd();
         }
 
         private void MainMenu_Click(object sender, EventArgs e)
@@ -125,13 +143,12 @@ namespace ALSProject
 
         private void addToList(object sender, EventArgs e)
         {
-            string str = notepage.getTextBox().Text;
+            string str = notepage.getText();
             phrases.Add(str);
             this.Show();
             notepage.Hide();
             this.refreshNotes();
-            notepage.getTextBox().Clear();
-
+            notepage.setText("");
         }
         
         private void refreshNotes()
@@ -146,7 +163,9 @@ namespace ALSProject
             int num = getNum(btn.Name);
             try
             {
-                phrases.RemoveAt(num);
+                phrases.RemoveAt(num + NUM_CALLOUTS * pageNum);
+                if (phrases.Count < NUM_CALLOUTS)
+                    phrases.Add("Add new note");
             }
             catch (ArgumentOutOfRangeException) { }
             refreshNotes();
@@ -185,6 +204,7 @@ namespace ALSProject
 
         private void NewNote_Click(object sender, EventArgs e)
         {
+            indexBeingEdited = 0;
             notepage.Show();
             this.Hide();
         }
@@ -210,7 +230,6 @@ namespace ALSProject
             }
 
             file.Close();
-
         }
 
         public void resetList()
@@ -269,7 +288,6 @@ namespace ALSProject
                         else
                             callouts[i, j].Size = new Size(Width - UI.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
                     }
-                topRowButtons[4].Text = "Add";
             }
             else
             {
@@ -281,14 +299,17 @@ namespace ALSProject
                 for (int i = 1; i < callouts.GetLength(0); i++)
                     for (int j = 0; j < callouts.GetLength(1); j++)
                         callouts[i, j].Visible = false;
-
-                topRowButtons[4].Text = "Text to Speech";
             }
         }
-
-
+        
         private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if(indexBeingEdited != -1)
+            {
+                phrases.Insert(0, notepage.getText());
+            }
+
+
             StreamWriter filestream = new StreamWriter(File.Open("Notes.txt", FileMode.Create));
             for (int i = 0; i < phrases.Count; i++)
             {
@@ -301,6 +322,19 @@ namespace ALSProject
         private void Notebook_Load(object sender, EventArgs e)
         {
             ResizeButtons();
+        }
+
+        private void Notebook_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                if (indexBeingEdited != -1)
+                {
+                    phrases.Insert(0, notepage.getText());
+                    indexBeingEdited = -1;
+                }
+                refreshNotes();
+            }
         }
     }
 }

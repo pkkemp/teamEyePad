@@ -28,10 +28,6 @@ namespace ALSProject
 
             speaker = voice;
 
-            speaker.SetOutputToDefaultAudioDevice();
-            speaker.Volume = 100;
-            speaker.SelectVoiceByHints(VoiceGender.Male);
-
             ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
             ALSButton[][] keypad = this.alsKeyboard.getKeypad();
             ALSButton space = this.alsKeyboard.getSpace();
