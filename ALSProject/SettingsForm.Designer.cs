@@ -144,7 +144,7 @@
             // btnResetCallouts
             // 
             this.btnResetCallouts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnResetCallouts.dwellTimeInterval = 100;
+            this.btnResetCallouts.dwellTimeInterval = 15;
             this.btnResetCallouts.FlatAppearance.BorderSize = 0;
             this.btnResetCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

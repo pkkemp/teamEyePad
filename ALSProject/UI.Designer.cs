@@ -46,7 +46,7 @@
             this.quitBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.quitBut.BackgroundImage = global::ALSProject.Properties.Resources.power;
             this.quitBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.quitBut.dwellTimeInterval = 100;
+            this.quitBut.dwellTimeInterval = 15;
             this.quitBut.FlatAppearance.BorderSize = 0;
             this.quitBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quitBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -66,7 +66,7 @@
             this.setBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.setBut.BackgroundImage = global::ALSProject.Properties.Resources.gear_b;
             this.setBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.setBut.dwellTimeInterval = 100;
+            this.setBut.dwellTimeInterval = 15;
             this.setBut.FlatAppearance.BorderSize = 0;
             this.setBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -85,7 +85,7 @@
             // 
             this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMax.dwellTimeInterval = 100;
+            this.btnMax.dwellTimeInterval = 15;
             this.btnMax.FlatAppearance.BorderSize = 0;
             this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -104,7 +104,7 @@
             this.alsButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alsButton4.BackgroundImage = global::ALSProject.Properties.Resources.Speech;
             this.alsButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.alsButton4.dwellTimeInterval = 100;
+            this.alsButton4.dwellTimeInterval = 15;
             this.alsButton4.FlatAppearance.BorderSize = 0;
             this.alsButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -123,7 +123,7 @@
             this.alsButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alsButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.alsButton5.dwellTimeInterval = 100;
+            this.alsButton5.dwellTimeInterval = 15;
             this.alsButton5.FlatAppearance.BorderSize = 0;
             this.alsButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alsButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -141,7 +141,7 @@
             this.btnMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnMin.BackgroundImage = global::ALSProject.Properties.Resources.Notes;
             this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnMin.dwellTimeInterval = 100;
+            this.btnMin.dwellTimeInterval = 15;
             this.btnMin.FlatAppearance.BorderSize = 0;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -158,7 +158,7 @@
             this.noteBut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.noteBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noteBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.noteBut.dwellTimeInterval = 100;
+            this.noteBut.dwellTimeInterval = 15;
             this.noteBut.FlatAppearance.BorderSize = 0;
             this.noteBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.noteBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 171F);
@@ -175,7 +175,7 @@
             this.ttsBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ttsBut.BackgroundImage = global::ALSProject.Properties.Resources.chatbubbles;
             this.ttsBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ttsBut.dwellTimeInterval = 100;
+            this.ttsBut.dwellTimeInterval = 15;
             this.ttsBut.FlatAppearance.BorderSize = 0;
             this.ttsBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ttsBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -194,7 +194,7 @@
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.alarmBut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("alarmBut.BackgroundImage")));
             this.alarmBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.alarmBut.dwellTimeInterval = 100;
+            this.alarmBut.dwellTimeInterval = 15;
             this.alarmBut.FlatAppearance.BorderSize = 0;
             this.alarmBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.alarmBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

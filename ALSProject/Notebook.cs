@@ -219,16 +219,10 @@ namespace ALSProject
             this.refreshNotes();
         }
 
-        private String defaultPhrase = "Add new note";
 
         private void generateDefaultFile()
         {
             StreamWriter filestream = new StreamWriter(File.Create("Notes.txt"));
-            for (int i = 0; i < NUM_CALLOUTS; i++)
-            {
-                filestream.WriteLine(defaultPhrase);
-            }
-
             filestream.Close();
         }
 
