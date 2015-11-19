@@ -256,6 +256,11 @@ namespace ALSProject
         public void resetPrediction()
         {
             presage.reset();
+            
+            foreach(ALSButton btn in predictionKeys)
+            {
+                btn.Text = "";
+            }
         }
 
         public ALSButton[] getPredictKeys()

@@ -123,6 +123,8 @@ namespace ALSProject
                 textBox1.Text += " " + word + " ";
             }
 
+            predictReset();
+
         }
 
         private void space_Click(object sender, EventArgs e)
