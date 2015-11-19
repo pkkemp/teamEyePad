@@ -245,11 +245,6 @@ namespace ALSProject
                 phrases.Add(file.ReadLine());
             }
 
-            foreach (string str in phrases)
-            {
-                Console.WriteLine(str);
-            }
-
             file.Close();
 
         }

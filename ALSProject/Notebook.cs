@@ -18,9 +18,9 @@ namespace ALSProject
 
         ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]
 
-        protected ALSButton[,] callouts;
+        protected ALSButton[,] notes;
         protected const int EDIT_BUTTON_WIDTH = 100;
-        protected const int NUM_CALLOUTS = 6;
+        protected const int NUM_NOTES = 6;
         protected bool isEditMode;
         protected int pageNum = 0;
         SpeechSynthesizer speaker;
@@ -42,7 +42,7 @@ namespace ALSProject
 
             indexBeingEdited = -1;
 
-            //setup  callout list
+            //setup  note list
             phrases = new List<String>();
             populateList();
 
@@ -65,7 +65,9 @@ namespace ALSProject
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
             topRowButtons[4].Click += new System.EventHandler(this.NewNote_Click);
             topRowButtons[5].Click += new System.EventHandler(this.MainMenu_Click);
-            notepage.getSaveButton().Click += new EventHandler(this.addToList);
+
+            notepage.getBackBtn().Click += new System.EventHandler(this.addToList);
+            //notepage.getSaveButton().Click += new EventHandler(this.addToList); // there is no save button...
 
             foreach (ALSButton btn in topRowButtons)
             {
@@ -73,34 +75,34 @@ namespace ALSProject
                 btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
 
-            callouts = new ALSButton[2, NUM_CALLOUTS];
-            for (int i = 0; i < callouts.GetLength(0); i++)
-                for (int j = 0; j < callouts.GetLength(1); j++)
+            notes = new ALSButton[2, NUM_NOTES];
+            for (int i = 0; i < notes.GetLength(0); i++)
+                for (int j = 0; j < notes.GetLength(1); j++)
                 {
-                    callouts[i, j] = new ALSButton();
-                    Controls.Add(callouts[i, j]);
+                    notes[i, j] = new ALSButton();
+                    Controls.Add(notes[i, j]);
                 }
 
-            for (int i = 0; i < callouts.GetLength(1); i++)
+            for (int i = 0; i < notes.GetLength(1); i++)
             {
-                callouts[0, i].Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                callouts[0, i].Click += new EventHandler(this.EditNote);
-                callouts[0, i].Name = "btnNotepage" + i;
+                notes[0, i].Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                notes[0, i].Click += new EventHandler(this.EditNote);
+                notes[0, i].Name = "btnNotepage" + i;
             }
 
-            for (int i = 1; i < callouts.GetLength(0); i++)
-                for (int j = 0; j < callouts.GetLength(1); j++)
+            for (int i = 1; i < notes.GetLength(0); i++)
+                for (int j = 0; j < notes.GetLength(1); j++)
                 {
                     switch (i)
                     {
                         case 1:
-                            callouts[i, j].BackgroundImage = Properties.Resources.trashcan;
-                            callouts[i, j].Name = "btnDel" + j;
-                            callouts[i, j].Click += new System.EventHandler(this.deleteItem);
+                            notes[i, j].BackgroundImage = Properties.Resources.trashcan;
+                            notes[i, j].Name = "btnDel" + j;
+                            notes[i, j].Click += new System.EventHandler(this.deleteItem);
                             break;
                     }
-                    callouts[i, j].BackgroundImageLayout = ImageLayout.Zoom;
-                    callouts[i, j].Visible = false;
+                    notes[i, j].BackgroundImageLayout = ImageLayout.Zoom;
+                    notes[i, j].Visible = false;
                 }
 
             flipToPage(0);
@@ -114,14 +116,12 @@ namespace ALSProject
             //Load Text
             if(!String.IsNullOrEmpty(btn.Name))
             {
-                int index = getNum(btn.Name) + pageNum * NUM_CALLOUTS;
+                int index = getNum(btn.Name) + pageNum * NUM_NOTES;
                 if (index >= 0 && index < phrases.Count)
                 {
                     notepage.setText(phrases[index]);
                     indexBeingEdited = index;
                     phrases.RemoveAt(index);
-                    if (phrases.Count < NUM_CALLOUTS)
-                        phrases.Add("Add new note");
                 }
             }
             //Set Cursor at end
@@ -130,8 +130,8 @@ namespace ALSProject
 
         private void MainMenu_Click(object sender, EventArgs e)
         {
-            parentForm.Visible = true;
-            this.Visible = false;
+            parentForm.Show();
+            this.Hide();
         }
 
         private int getNum(String str)
@@ -144,11 +144,15 @@ namespace ALSProject
         private void addToList(object sender, EventArgs e)
         {
             string str = notepage.getText();
-            phrases.Add(str);
+            Console.WriteLine(str);
+            if (str != "" && str != null)
+            {
+                phrases.Add(str);
+            }
+
+            this.refreshNotes();
             this.Show();
             notepage.Hide();
-            this.refreshNotes();
-            notepage.setText("");
         }
         
         private void refreshNotes()
@@ -163,9 +167,7 @@ namespace ALSProject
             int num = getNum(btn.Name);
             try
             {
-                phrases.RemoveAt(num + NUM_CALLOUTS * pageNum);
-                if (phrases.Count < NUM_CALLOUTS)
-                    phrases.Add("Add new note");
+                phrases.RemoveAt(num + NUM_NOTES * pageNum);
             }
             catch (ArgumentOutOfRangeException) { }
             refreshNotes();
@@ -187,17 +189,17 @@ namespace ALSProject
         {
             if (num < 0)
                 num = 0;
-            else if (phrases.Count / NUM_CALLOUTS < num)
+            else if (phrases.Count / NUM_NOTES < num)
             {
-                num = phrases.Count / NUM_CALLOUTS;
+                num = phrases.Count / NUM_NOTES;
             }
 
             pageNum = num;
 
-            for (int i = 0; i < NUM_CALLOUTS; i++)
+            for (int i = 0; i < NUM_NOTES; i++)
             {
-                try { callouts[0, i].Text = phrases[i + num * NUM_CALLOUTS]; }
-                catch (ArgumentOutOfRangeException) { callouts[0, i].Text = ""; }
+                try { notes[0, i].Text = phrases[i + num * NUM_NOTES]; }
+                catch (ArgumentOutOfRangeException) { notes[0, i].Text = ""; }
             }
 
         }
@@ -205,6 +207,7 @@ namespace ALSProject
         private void NewNote_Click(object sender, EventArgs e)
         {
             indexBeingEdited = 0;
+            notepage.clearText();
             notepage.Show();
             this.Hide();
         }
@@ -222,11 +225,6 @@ namespace ALSProject
             while (!file.EndOfStream)
             {
                 phrases.Add(file.ReadLine());
-            }
-
-            foreach (string str in phrases)
-            {
-                Console.WriteLine(str);
             }
 
             file.Close();
@@ -253,9 +251,9 @@ namespace ALSProject
         private void edit_Click(object sender, EventArgs e)
         {
             isEditMode = !isEditMode;
-            for (int i = 0; i < callouts.GetLength(1); i++)
+            for (int i = 0; i < notes.GetLength(1); i++)
             {
-                callouts[1, i].Visible = isEditMode;
+                notes[1, i].Visible = isEditMode;
             }
             ResizeButtons();
         }
@@ -271,43 +269,43 @@ namespace ALSProject
             }
 
 
-            int calloutsButtonHeight = (Height - buttonWidth - UI.GAP * (2 + callouts.GetLength(1))) / callouts.GetLength(1);
+            int notesButtonHeight = (Height - buttonWidth - UI.GAP * (2 + notes.GetLength(1))) / notes.GetLength(1);
 
             if (isEditMode)
             {
 
-                for (int i = 0; i < callouts.GetLength(0); i++)
-                    for (int j = 0; j < callouts.GetLength(1); j++)
+                for (int i = 0; i < notes.GetLength(0); i++)
+                    for (int j = 0; j < notes.GetLength(1); j++)
                     {
                         if (i != 0)
                         {
-                            callouts[i, j].Location = new Point(Width - (callouts.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + UI.GAP), callouts[0, j].Location.Y);
-                            callouts[i, j].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
-                            callouts[i, j].Visible = true;
+                            notes[i, j].Location = new Point(Width - (notes.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + UI.GAP), notes[0, j].Location.Y);
+                            notes[i, j].Size = new Size(EDIT_BUTTON_WIDTH, notes[0, 0].Size.Height);
+                            notes[i, j].Visible = true;
                         }
                         else
-                            callouts[i, j].Size = new Size(Width - UI.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
+                            notes[i, j].Size = new Size(Width - UI.GAP * (notes.GetLength(0) + 1) - (notes.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, notes[0, 0].Size.Height);
                     }
             }
             else
             {
-                for (int i = 0; i < callouts.GetLength(1); i++)
+                for (int i = 0; i < notes.GetLength(1); i++)
                 {
-                    callouts[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * calloutsButtonHeight);
-                    callouts[0, i].Size = new Size(Width - UI.GAP * 2, calloutsButtonHeight);
+                    notes[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * notesButtonHeight);
+                    notes[0, i].Size = new Size(Width - UI.GAP * 2, notesButtonHeight);
                 }
-                for (int i = 1; i < callouts.GetLength(0); i++)
-                    for (int j = 0; j < callouts.GetLength(1); j++)
-                        callouts[i, j].Visible = false;
+                for (int i = 1; i < notes.GetLength(0); i++)
+                    for (int j = 0; j < notes.GetLength(1); j++)
+                        notes[i, j].Visible = false;
             }
         }
         
         private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(indexBeingEdited != -1)
+            /*if(indexBeingEdited != -1)
             {
                 phrases.Insert(0, notepage.getText());
-            }
+            }*/
 
 
             StreamWriter filestream = new StreamWriter(File.Open("Notes.txt", FileMode.Create));
@@ -325,7 +323,7 @@ namespace ALSProject
         }
 
         private void Notebook_VisibleChanged(object sender, EventArgs e)
-        {
+        {/*
             if (Visible)
             {
                 if (indexBeingEdited != -1)
@@ -334,7 +332,7 @@ namespace ALSProject
                     indexBeingEdited = -1;
                 }
                 refreshNotes();
-            }
+            }*/
         }
     }
 }

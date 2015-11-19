@@ -96,7 +96,7 @@ namespace ALSProject
         private void closeTimeEvent(object sender, EventArgs e)
         {
 
-           Console.WriteLine("Event");
+           
             if (callout == null || settingsScreen == null || texttospeech == null) ;
                //this.Close();
                 

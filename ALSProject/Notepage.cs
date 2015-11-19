@@ -112,6 +112,13 @@ namespace ALSProject
             }
         }
 
+        private void key_Click(object sender, EventArgs e)
+        {
+            txtContect.Text += ((ALSButton)sender).Text;
+            this.keyboard.predictType(((ALSButton)sender).Text);
+            //predictLock = false;
+        }
+
         private void Down_Click(object sender, EventArgs e)
         {
             txtContect.Focus();
@@ -147,8 +154,8 @@ namespace ALSProject
 
         private void Back_Click(object sender, EventArgs e)
         {
-            parentForm.Visible = true;
-            this.Visible = false;
+            parentForm.Show();
+            this.Hide();
         }
 
         private void Speak_Click(object sender, EventArgs e)
@@ -217,10 +224,20 @@ namespace ALSProject
             return txtContect.Text;
         }
 
+        public ALSButton getBackBtn()
+        {
+            return back;
+        }
+
         public void setText(string text)
         {
             if (text != null)
                 txtContect.Text = text;
+        }
+
+        public void clearText() //erases the textbox for when a new note is to be added
+        {
+            txtContect.Text = "";
         }
 
         public void setCursorAtEnd()
