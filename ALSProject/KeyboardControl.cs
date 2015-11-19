@@ -24,6 +24,7 @@ namespace ALSProject
         private int keyboardNumber;
         public static Point spacebarLocation;
         private PresagePredictor presage;
+        String buffer;
 
         //private ALSButton[][] predictionKeyboard;
         //private PredictionBoxControl boxPredict;
@@ -42,7 +43,14 @@ namespace ALSProject
             keyboard[2] = new ALSKey[7];
             keySpace = new ALSButton();
             btnClear = new ALSButton();
-            predictionKeys = new ALSButton[10];
+            predictionKeys = new ALSButton[6];
+
+            
+
+            /*
+            Context is changed to current sentence on space press or word predict press. Context is changed to word completion mode
+            when a key is pressed until space key is hit
+            */
 
             //boxPredict = new PredictionBoxControl(this);
             //predictionKeyboard = new ALSButton[2][];
@@ -90,6 +98,11 @@ namespace ALSProject
         public KeyboardControl(Form parentForm) : this()
         {
             this.Parent = parentForm;
+        }
+
+        public void setBuffer(string buffer)
+        {
+            this.buffer = buffer;
         }
 
         /*

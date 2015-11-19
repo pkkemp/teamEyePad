@@ -149,7 +149,7 @@ namespace ALSProject
         private void key_Click(object sender, EventArgs e)
         {
             textBox1.Text += ((ALSButton)sender).Text;
-            this.alsKeyboard.predictType(((ALSButton)sender).Text);
+            alsKeyboard.setBuffer(getCurrentSentence());
             predictLock = false;
         }
 
@@ -157,6 +157,19 @@ namespace ALSProject
         {
             if (textBox1.TextLength != 0)
                 textBox1.Text = textBox1.Text.Substring(0, textBox1.TextLength - 1);
+        }
+
+        private string getCurrentSentence()
+        {
+            var match2 = Regex.Match(textBox1.Text, @"\w+\p{P}+\s*$");
+            string sentence = "";
+            if (match2.Success)
+            {
+                sentence = textBox1.Text.Substring(match2.Index, textBox1.Text.Length-1);
+            }
+
+            Console.WriteLine("Current sentence = " + sentence + " ||..");
+            return sentence;
         }
 
         private void key_DeleteWord(object sender, EventArgs e)

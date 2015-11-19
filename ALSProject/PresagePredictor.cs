@@ -17,7 +17,7 @@ namespace ALSProject
         public PresagePredictor()
         {
             buffer = "";
-            nextWord = "Hello";
+            nextWord = "";
             presage = new Presage
                (
                    callback_get_past_stream,
@@ -34,7 +34,7 @@ namespace ALSProject
 
         public String[] getPredictions(string inputString)
         {
-            buffer += inputString;
+            buffer = inputString;
             return presage.predict();
         }
 
