@@ -29,7 +29,6 @@ namespace ALSProject
             speaker = voice;
 
             ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
-            ALSButton[][] keypad = this.alsKeyboard.getKeypad();
             ALSButton space = this.alsKeyboard.getSpace();
             ALSButton clear = this.alsKeyboard.getClear();
             foreach (ALSButton[] rows in keyboard)
@@ -66,6 +65,12 @@ namespace ALSProject
                 }
             }*/
 
+            foreach(ALSButton btn in alsKeyboard.getPredictKeys())
+            {
+                btn.Click += new System.EventHandler(this.keypad_Click);
+
+            }
+
 
             space.Click += new System.EventHandler(this.space_Click);
             clear.Click += new System.EventHandler(this.btnClear_Click);
@@ -84,7 +89,7 @@ namespace ALSProject
 
         private void keypad_Click(object sender, EventArgs e)
         {
-
+            /*
             String word = alsKeyboard.wordPrediction(Convert.ToInt16(((ALSButton)sender).Text));
 
             if (!predictLock) { 
@@ -99,7 +104,25 @@ namespace ALSProject
             else
             {
                 textBox1.Text += " " + word + " ";
+            }*/
+
+            String word = ((ALSButton)sender).Text;
+
+            if (!predictLock)
+            {
+                key_DeleteWord(sender, e);
+                predictLock = true;
             }
+
+            if (textBox1.Text == "" || textBox1.Text[textBox1.Text.Length - 1].ToString() == " ")
+            {
+                textBox1.Text += word + " ";
+            }
+            else
+            {
+                textBox1.Text += " " + word + " ";
+            }
+
         }
 
         private void space_Click(object sender, EventArgs e)
@@ -112,7 +135,7 @@ namespace ALSProject
 
         private void predictReset()
         {
-            this.alsKeyboard.resetPredict();
+            this.alsKeyboard.resetPrediction();
         }
 
         private void btnMenu_Click(object sender, EventArgs e)

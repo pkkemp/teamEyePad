@@ -12,9 +12,12 @@ namespace ALSProject
 
         Presage presage;
         String buffer;
+        String nextWord;
 
         public PresagePredictor()
         {
+            buffer = "";
+            nextWord = "Hello";
             presage = new Presage
                (
                    callback_get_past_stream,
@@ -23,11 +26,15 @@ namespace ALSProject
                );
         }
 
+        public void reset()
+        {
+            buffer = "";
+        }
 
 
         public String[] getPredictions(string inputString)
         {
-            buffer = inputString;
+            buffer += inputString;
             return presage.predict();
         }
 
@@ -39,8 +46,10 @@ namespace ALSProject
 
         private string callback_get_future_stream()
         {
-            return "";
+            return nextWord;
         }
+
+        
 
 
     }

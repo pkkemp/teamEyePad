@@ -1,4 +1,7 @@
-﻿namespace ALSProject
+﻿using System;
+using System.Collections.Generic;
+
+namespace ALSProject
 {
     partial class KeyboardControl
     {
@@ -42,6 +45,7 @@
             this.ResumeLayout(false);
 
         }
+
 
         #endregion
     }
