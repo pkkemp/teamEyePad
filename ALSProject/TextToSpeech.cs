@@ -79,6 +79,8 @@ namespace ALSProject
             this.MouseClick += (sender, e) =>
             {
                 updateCursor();
+                //*TODO Delete temporary code
+                getCurrentSentence();
             };
         }
 
@@ -161,14 +163,33 @@ namespace ALSProject
 
         private string getCurrentSentence()
         {
-            var match2 = Regex.Match(textBox1.Text, @"\w+\p{P}+\s*$");
+            //Assuming that we don't want the cursor to move around, we want this.
+            var finalSentence = Regex.Match(textBox1.Text, "[.!?][^.!?]*$");
+
+            //If you do want to move the caret around use this, then concatenate them
+            var firstHalf = Regex.Match(textBox1.Text.Substring(0, textBox1.SelectionStart), "[.!?][^.!?]*$");
+            var secondHalf = Regex.Match(textBox1.Text.Substring(textBox1.SelectionStart), "[^.!?]*[.!?]");
+            
             string sentence = "";
-            if (match2.Success)
+
+            if(firstHalf.Success)
             {
-                sentence = textBox1.Text.Substring(match2.Index, textBox1.Text.Length-1);
+                MessageBox.Show(textBox1.Text.Substring(firstHalf.Index, firstHalf.Length));
             }
 
-            Console.WriteLine("Current sentence = " + sentence + " ||..");
+            if (secondHalf.Success)
+            {
+                MessageBox.Show(textBox1.Text.Substring(secondHalf.Index, secondHalf.Length));
+                System.Diagnostics.Debug.WriteLine(Text.Substring(secondHalf.Index, secondHalf.Length));
+            }
+
+            //
+            //if (match2.Success)
+            //{
+            //    sentence = textBox1.Text.Substring(match2.Index, textBox1.Text.Length-1);
+            //}
+
+            //Console.WriteLine("Current sentence = " + sentence + " ||..");
             return sentence;
         }
 
