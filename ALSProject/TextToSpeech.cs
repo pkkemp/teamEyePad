@@ -24,12 +24,11 @@ namespace ALSProject
             InitializeComponent();
 
             this.alsKeyboard.setRemainingVariables();
-            this.alsKeyboard.setupPreditionBox();
+            //this.alsKeyboard.setupPreditionBox();
 
             speaker = voice;
 
             ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
-            ALSButton[][] keypad = this.alsKeyboard.getKeypad();
             ALSButton space = this.alsKeyboard.getSpace();
             ALSButton clear = this.alsKeyboard.getClear();
             foreach (ALSButton[] rows in keyboard)
@@ -56,13 +55,21 @@ namespace ALSProject
                     
 
                 }
-
-                    foreach (ALSButton[] rows in keypad)
+            /*
+            foreach (ALSButton[] rows in keypad)
+            {
                 foreach (ALSButton column in rows)
                 {
-                        column.Click += new System.EventHandler(this.keypad_Click);
-                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    column.Click += new System.EventHandler(this.keypad_Click);
+                    column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
+            }*/
+
+            foreach(ALSButton btn in alsKeyboard.getPredictKeys())
+            {
+                btn.Click += new System.EventHandler(this.keypad_Click);
+
+            }
 
 
             space.Click += new System.EventHandler(this.space_Click);
@@ -72,6 +79,8 @@ namespace ALSProject
             this.MouseClick += (sender, e) =>
             {
                 updateCursor();
+                //*TODO Delete temporary code
+                getCurrentSentence();
             };
         }
 
@@ -82,7 +91,7 @@ namespace ALSProject
 
         private void keypad_Click(object sender, EventArgs e)
         {
-
+            /*
             String word = alsKeyboard.wordPrediction(Convert.ToInt16(((ALSButton)sender).Text));
 
             if (!predictLock) { 
@@ -97,7 +106,27 @@ namespace ALSProject
             else
             {
                 textBox1.Text += " " + word + " ";
+            }*/
+
+            String word = ((ALSButton)sender).Text;
+
+            if (!predictLock)
+            {
+                key_DeleteWord(sender, e);
+                predictLock = true;
             }
+
+            if (textBox1.Text == "" || textBox1.Text[textBox1.Text.Length - 1].ToString() == " ")
+            {
+                textBox1.Text += word + " ";
+            }
+            else
+            {
+                textBox1.Text += " " + word + " ";
+            }
+
+            predictReset();
+
         }
 
         private void space_Click(object sender, EventArgs e)
@@ -110,7 +139,7 @@ namespace ALSProject
 
         private void predictReset()
         {
-            this.alsKeyboard.resetPredict();
+            this.alsKeyboard.resetPrediction();
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -122,7 +151,7 @@ namespace ALSProject
         private void key_Click(object sender, EventArgs e)
         {
             textBox1.Text += ((ALSButton)sender).Text;
-            this.alsKeyboard.predictType(((ALSButton)sender).Text);
+            alsKeyboard.setBuffer(getCurrentSentence());
             predictLock = false;
         }
 
@@ -130,6 +159,38 @@ namespace ALSProject
         {
             if (textBox1.TextLength != 0)
                 textBox1.Text = textBox1.Text.Substring(0, textBox1.TextLength - 1);
+        }
+
+        private string getCurrentSentence()
+        {
+            //Assuming that we don't want the cursor to move around, we want this.
+            var finalSentence = Regex.Match(textBox1.Text, "[.!?][^.!?]*$");
+
+            //If you do want to move the caret around use this, then concatenate them
+            var firstHalf = Regex.Match(textBox1.Text.Substring(0, textBox1.SelectionStart), "[.!?][^.!?]*$");
+            var secondHalf = Regex.Match(textBox1.Text.Substring(textBox1.SelectionStart), "[^.!?]*[.!?]");
+            
+            string sentence = "";
+
+            if(firstHalf.Success)
+            {
+                MessageBox.Show(textBox1.Text.Substring(firstHalf.Index, firstHalf.Length));
+            }
+
+            if (secondHalf.Success)
+            {
+                MessageBox.Show(textBox1.Text.Substring(secondHalf.Index, secondHalf.Length));
+                System.Diagnostics.Debug.WriteLine(Text.Substring(secondHalf.Index, secondHalf.Length));
+            }
+
+            //
+            //if (match2.Success)
+            //{
+            //    sentence = textBox1.Text.Substring(match2.Index, textBox1.Text.Length-1);
+            //}
+
+            //Console.WriteLine("Current sentence = " + sentence + " ||..");
+            return sentence;
         }
 
         private void key_DeleteWord(object sender, EventArgs e)

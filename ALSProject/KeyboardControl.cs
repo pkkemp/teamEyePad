@@ -16,14 +16,18 @@ namespace ALSProject
        
         private ALSKey[][] keyboard;    // [rows] [columns]
         private Char[,][] keyboards;    // [keyboard#, row#] [column#]
-        private ALSButton[][] predictionKeyboard;
+        private ALSButton[] predictionKeys;
         private ALSButton btnShift;
         private ALSButton keySpace;
         private ALSButton btnClear;
         private int keyWidth;
         private int keyboardNumber;
         public static Point spacebarLocation;
-        private PredictionBoxControl boxPredict;
+        private PresagePredictor presage;
+        String buffer;
+
+        //private ALSButton[][] predictionKeyboard;
+        //private PredictionBoxControl boxPredict;
 
         public KeyboardControl()
         {
@@ -31,8 +35,7 @@ namespace ALSProject
 
             keyboardNumber = 0;
 
-
-            boxPredict = new PredictionBoxControl(this);
+            presage = new PresagePredictor();
 
             keyboard = new ALSKey[3][];
             keyboard[0] = new ALSKey[11];
@@ -40,20 +43,21 @@ namespace ALSProject
             keyboard[2] = new ALSKey[7];
             keySpace = new ALSButton();
             btnClear = new ALSButton();
+            predictionKeys = new ALSButton[6];
 
-            predictionKeyboard = new ALSButton[2][];
-            predictionKeyboard[0] = new ALSButton[5];
-            predictionKeyboard[1] = new ALSButton[5];
+            
 
-            for (int i = 0; i < keyboard.Length; i++)
-            {
-                for (int j = 0; j < keyboard[i].Length; j++)
-                {
-                    keyboard[i][j] = new ALSKey();
-                    this.Controls.Add(keyboard[i][j]);
-                }
-            }
+            /*
+            Context is changed to current sentence on space press or word predict press. Context is changed to word completion mode
+            when a key is pressed until space key is hit
+            */
 
+            //boxPredict = new PredictionBoxControl(this);
+            //predictionKeyboard = new ALSButton[2][];
+            //predictionKeyboard[0] = new ALSButton[5];
+            //predictionKeyboard[1] = new ALSButton[5];
+
+            /*
             for (int i = 0; i < predictionKeyboard.Length; i++)
             {
                 for (int j = 0; j < predictionKeyboard[i].Length; j++)
@@ -61,13 +65,31 @@ namespace ALSProject
                     predictionKeyboard[i][j] = new ALSButton();
                     this.Controls.Add(predictionKeyboard[i][j]);
                 }
+            }*/
+
+            for (int i = 0; i < keyboard.Length; i++)
+            {
+                for (int j = 0; j < keyboard[i].Length; j++)
+                {
+                    keyboard[i][j] = new ALSKey();
+                    this.Controls.Add(keyboard[i][j]);
+                    keyboard[i][j].Click += new EventHandler(this.fillPredictKeys);
+                }
             }
 
-            this.Controls.Add(boxPredict);
+            for( int i = 0; i < predictionKeys.Length; i++)
+            {
+                predictionKeys[i] = new ALSButton();
+                this.Controls.Add(predictionKeys[i]);
+            }
+
+
+            //this.Controls.Add(boxPredict);
             this.Controls.Add(keySpace);
             keySpace.Text = "Space";
 
             btnShift = new ALSButton();
+            btnShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Controls.Add(btnShift);
             btnShift.Click += new System.EventHandler(this.btnRight_Click);
         }
@@ -78,13 +100,22 @@ namespace ALSProject
             this.Parent = parentForm;
         }
 
-        public void setupPreditionBox()
+        public void setBuffer(string buffer)
+        {
+            this.buffer = buffer;
+        }
+
+        /*
+        public void setupPredictionBox()
         {
             //boxPredict.Location = new Point(500 , 300);
             boxPredict.updateSize();
             boxPredict.Location = new Point(keySpace.Location.X - UI.GAP - boxPredict.Width, keySpace.Location.Y);
 
-        }
+        }*/
+
+        const int keyOffset = 10;
+
 
         private void setupLayout()
         {
@@ -95,26 +126,27 @@ namespace ALSProject
 
             //place the alphanumeric keys
 
+
             for (int i = 0; i < keyboard.Length; i++)
                 for (int j = 0; j < keyboard[i].Length; j++)
                 {
                     switch (i)
                     {
                         case 0:
-                            keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + UI.GAP), UI.GAP);
+                            keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + UI.GAP), UI.GAP + keyHeight + keyOffset);
                             break;
                         case 1:
-                            keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + UI.GAP), UI.GAP * 2 + keyHeight);
+                            keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + UI.GAP), UI.GAP * 2 + 2* keyHeight + keyOffset);
                             break;
                         case 2:
-                            keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + UI.GAP), UI.GAP * 3 + 2 * keyHeight);
+                            keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + UI.GAP), UI.GAP * 3 + 3 * keyHeight + keyOffset);
                             break;
                     }
                     keyboard[i][j].Height = keyHeight;
                     keyboard[i][j].Width = keyWidth;
                 }
             //place space bar
-            keySpace.Location = new Point(keyboard[2][2].Location.X, UI.GAP * 4 + 3 * keyHeight);
+            keySpace.Location = new Point(keyboard[2][2].Location.X, UI.GAP * 4 + 4 * keyHeight + keyOffset);
             keySpace.Size = new Size((keyWidth) * 3 + UI.GAP * 2, keySpace.Size.Height);
             keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             spacebarLocation = keySpace.Location;
@@ -126,6 +158,17 @@ namespace ALSProject
             btnClear.Width = 2 * (keyWidth) + UI.GAP;
             btnClear.Height = keyHeight;
             this.Controls.Add(btnClear);
+
+            //place prediction keys
+
+            int predictionKeySize = (this.Width - predictionKeys.Length * UI.GAP) / predictionKeys.Length;
+
+            for (int i = 0; i < predictionKeys.Length; i++)
+            {
+                predictionKeys[i].Size = new Size(predictionKeySize, keyHeight);
+                predictionKeys[i].Location = new Point(leftOffset + i * (predictionKeySize + UI.GAP), UI.GAP);
+                predictionKeys[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
 
         }
 
@@ -179,7 +222,7 @@ namespace ALSProject
 
         private void setupKeypad()
         {
-            try { 
+            /*try { 
                 for (int j = 0; j < predictionKeyboard.Length; j++)
                 {
                     for (int i = 0; i < predictionKeyboard[j].Length; i++)
@@ -194,33 +237,63 @@ namespace ALSProject
             catch(NullReferenceException e)
             {
                 Console.WriteLine("Parent unknown\n======\n" + e + "======");
-            }
+            }*/
+
+
         }
 
-        public string wordPrediction(int num)
+       /* public string wordPrediction(int num)
         {
           
             return boxPredict.getTable()[1][num].Text;
+        }*/
+
+        public void fillPredictKeys(object sender, EventArgs e)
+        {
+            ALSButton btn = ((ALSButton)sender);
+            String[] predictions = presage.getPredictions(btn.Text);
+
+            for (int i = 0; i < predictionKeys.Length; i++)
+            {
+                try
+                {
+                    predictionKeys[i].Text = predictions[i];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    predictionKeys[i].Text = "";
+                }
+            }
         }
 
+        public void resetPrediction()
+        {
+            presage.reset();
+            
+            foreach(ALSButton btn in predictionKeys)
+            {
+                btn.Text = "";
+            }
+        }
+
+        public ALSButton[] getPredictKeys()
+        {
+            return predictionKeys;
+        }
 
         private void setupShift()
         {
             btnShift.Text = "ABC";
-            btnShift.Location = new Point(UI.GAP, 3 * UI.GAP + 2 * keyWidth);
+            btnShift.Location = new Point(UI.GAP, 3 * UI.GAP + 3 * keyWidth + keyOffset);
             btnShift.Size = new Size((int)(1.5 * keyWidth), keyWidth);
         }
         
         public void predictType(string key)
         {
-            boxPredict.predictType(key);
+            //boxPredict.tType(key);
         }
 
-        public void resetPredict()
-        {
-                boxPredict.resetWord();
-            
-        }
+
 
         private void btnRight_Click(object sender, EventArgs e)
         {
@@ -230,7 +303,6 @@ namespace ALSProject
             {
                 case 0:
                     btnShift.Text = "ABC";
-                    btnShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
                 case 1:
                     btnShift.Text = "123";
@@ -265,10 +337,10 @@ namespace ALSProject
             return btnClear;
         }
 
-        public ALSButton[][] getKeypad()
+       /* public ALSButton[][] getKeypad()
         {
             return predictionKeyboard;
-        }
+        }*/
 
         public void setRemainingVariables()
         {
@@ -278,7 +350,7 @@ namespace ALSProject
             setupLetters();
             setupShift();
             setupKeypad();
-            setupPreditionBox();
+            //setupPredictionBox();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
