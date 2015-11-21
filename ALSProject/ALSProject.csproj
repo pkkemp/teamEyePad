@@ -88,6 +88,12 @@
     <Compile Include="KeyboardControl.Designer.cs">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeyboardControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KeyboardControl2.Designer.cs">
+      <DependentUpon>KeyboardControl2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Notebook.cs">
       <SubType>Form</SubType>
     </Compile>
