@@ -17,13 +17,15 @@ namespace ALSProject
         private new Form Parent;
         SpeechSynthesizer speaker;
         bool predictLock = false; //this prevents the textbox words from being overwritten constantly
+        private ClearTextConfirmation clearTextConfirmation;
 
         public TextToSpeech(Form parent, SpeechSynthesizer voice)
         {
-            this.Parent = parent;
             InitializeComponent();
+            this.Parent = parent;
 
             this.alsKeyboard.setRemainingVariables();
+            clearTextConfirmation = new ClearTextConfirmation(this);
             //this.alsKeyboard.setupPreditionBox();
 
             speaker = voice;
@@ -68,7 +70,6 @@ namespace ALSProject
             foreach(ALSButton btn in alsKeyboard.getPredictKeys())
             {
                 btn.Click += new System.EventHandler(this.keypad_Click);
-
             }
 
 
@@ -212,8 +213,15 @@ namespace ALSProject
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
+            clearTextConfirmation.Visible = true;
+        }
+
+        public void ClearText()
+        {
             textBox1.Clear();
             predictReset();
+            this.Enabled = true;
         }
 
         private void btnSpeak_Click(object sender, EventArgs e)
