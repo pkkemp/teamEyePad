@@ -21,6 +21,8 @@ namespace ALSProject
         {
             InitializeComponent();
             parentForm = parent;
+            yesBut.dwellTimeInterval = 100;
+            yesBut.btnType = ALSButton.ButtonType.immutable;
         }
         
         private void noBut_Click(object sender, EventArgs e)

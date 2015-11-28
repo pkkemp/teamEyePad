@@ -33,7 +33,7 @@
             this.btnCallouts = new ALSProject.ALSButton();
             this.btnSpeak = new ALSProject.ALSButton();
             this.alsAlarm1 = new ALSProject.ALSAlarm();
-            this.alsKeyboard = new ALSProject.KeyboardControl2();
+            this.alsKeyboard = new ALSProject.KeyboardControl();
             this.btnMenu = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
@@ -146,7 +146,7 @@
         #endregion
         protected ALSButton btnMenu;
         protected System.Windows.Forms.TextBox textBox1;
-        protected KeyboardControl2 alsKeyboard;
+        protected KeyboardControl alsKeyboard;
         protected ALSAlarm alsAlarm1;
         protected ALSButton btnSpeak;
         protected ALSButton btnCallouts;

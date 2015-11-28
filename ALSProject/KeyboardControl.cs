@@ -74,6 +74,7 @@ namespace ALSProject
                     keyboard[i][j] = new ALSKey();
                     this.Controls.Add(keyboard[i][j]);
                     keyboard[i][j].Click += new EventHandler(this.fillPredictKeys);
+                    keyboard[i][j].btnType = ALSButton.ButtonType.key;
                 }
             }
 

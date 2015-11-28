@@ -14,14 +14,12 @@ namespace ALSProject
     {
         Form parentForm;
 
-        //TO DO: make a setting for keyboard button speed vs all ALSButton speed
-
+        //TODO: make a setting for keyboard button speed vs all ALSButton speed
 
         public SettingsForm(Form pForm)
         {
             InitializeComponent();
             parentForm = pForm;
-            //slider1.initSlider(.1, .1, 5);
             update();
         }
 
@@ -46,7 +44,7 @@ namespace ALSProject
         private void update()
         {
             label2.Text = "" + slider1.value;
-            ALSButton.setTimerSpeed(slider1.value);
+            ALSButton.setTimerSpeed(slider1.value, ALSButton.ButtonType.normal);
         }
 
         private void SettingsForm_Resize(object sender, EventArgs e)
