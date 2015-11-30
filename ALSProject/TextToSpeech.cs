@@ -12,8 +12,10 @@ using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
+    
     public partial class TextToSpeech : Form
     {
+        String buffer = "";
         private new Form Parent;
         SpeechSynthesizer speaker;
         bool predictLock = false; //this prevents the textbox words from being overwritten constantly
@@ -90,7 +92,7 @@ namespace ALSProject
         }
 
         private void keypad_Click(object sender, EventArgs e)
-        {
+        {/*
             /*
             String word = alsKeyboard.wordPrediction(Convert.ToInt16(((ALSButton)sender).Text));
 
@@ -107,7 +109,7 @@ namespace ALSProject
             {
                 textBox1.Text += " " + word + " ";
             }*/
-
+            /*
             String word = ((ALSButton)sender).Text;
 
             if (!predictLock)
@@ -123,9 +125,8 @@ namespace ALSProject
             else
             {
                 textBox1.Text += " " + word + " ";
-            }
+            }*/
 
-            predictReset();
 
         }
 
@@ -133,13 +134,14 @@ namespace ALSProject
         {
             textBox1.AppendText(" ");
             predictLock = true;
+            buffer = "";
             predictReset();
             
         }
 
         private void predictReset()
         {
-            this.alsKeyboard.resetPrediction();
+           // this.alsKeyboard.resetPrediction();
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -150,8 +152,15 @@ namespace ALSProject
 
         private void key_Click(object sender, EventArgs e)
         {
-            textBox1.Text += ((ALSButton)sender).Text;
-            alsKeyboard.setBuffer(getCurrentSentence());
+            string letter = ((ALSButton)sender).Text;
+            textBox1.Text += letter;
+            buffer += letter;
+            //MessageBox.Show(buffer);
+            
+            
+            alsKeyboard.setBuffer(buffer);
+            
+           // Console.WriteLine(getCurrentSentence());
             predictLock = false;
         }
 
@@ -174,14 +183,18 @@ namespace ALSProject
 
             if(firstHalf.Success)
             {
-                MessageBox.Show(textBox1.Text.Substring(firstHalf.Index, firstHalf.Length));
+                string sen = textBox1.Text.Substring(firstHalf.Index, firstHalf.Length);
+                //MessageBox.Show(sen);
+                sentence = sen;
             }
-
+            /*
             if (secondHalf.Success)
             {
-                MessageBox.Show(textBox1.Text.Substring(secondHalf.Index, secondHalf.Length));
-                System.Diagnostics.Debug.WriteLine(Text.Substring(secondHalf.Index, secondHalf.Length));
-            }
+                string sen = textBox1.Text.Substring(secondHalf.Index, secondHalf.Length);
+                MessageBox.Show(sen);
+                sentence = sen;
+                //System.Diagnostics.Debug.WriteLine(Text.Substring(secondHalf.Index, secondHalf.Length));
+            }*/
 
             //
             //if (match2.Success)
