@@ -16,7 +16,7 @@ namespace ALSProject
     {
         private Form parentForm;
         private SpeechSynthesizer voice;
-        KeyboardControl keyboard;
+        KeyboardControl2 keyboard;
         
         const int MENU_BUTTON_SIZE = 140;
         const int ARROW_KEY_SIZE = 80;
@@ -32,14 +32,12 @@ namespace ALSProject
 
             this.WindowState = FormWindowState.Maximized;
 
-            keyboard = new KeyboardControl(this);
+            keyboard = new KeyboardControl2(this);
 
-            foreach(ALSButton[] rows in keyboard.getKeyboard())
-            {
-                foreach(ALSButton column in rows)
-                {
-                    column.Click += new System.EventHandler(key_Click);
-                }
+            foreach(ALSButton button in keyboard.getKeyboard())
+            { 
+                    button.Click += new System.EventHandler(key_Click);
+                
             }
 
             alarm = new ALSAlarm();
@@ -244,7 +242,7 @@ namespace ALSProject
                 txtContect.Text = text;
         }
 
-        public void clearText() //erases the textbox for when a new note is to be added
+        public void ClearText() //erases the textbox for when a new note is to be added
         {
             txtContect.Text = "";
         }

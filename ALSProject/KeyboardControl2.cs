@@ -7,350 +7,331 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
     public partial class KeyboardControl2 : UserControl
     {
+        private enum KeyboardType
+        {
+            Lowercase, Uppercase, Characters,
+            aTOf, gTOn, nTOs, tTOz,
+            ATOF, GTON, NTOS, TTOZ,
+            _1TO9, Punctuation, Symbols, Symbols2
+        };
 
-        ////private ALSKey[][] keyboard;    // [rows] [columns]
-        //private ALSKey[] mainKeyboard;
-        //private Char[,][] keyboards;    // [keyboard#, row#] [column#]
-        //private ALSButton[] predictionKeys;
-        //private ALSButton btnShift;
-        //private ALSButton keySpace;
-        //private ALSButton btnClear;
-        //private int keyWidth;
-        //private int keyboardNumber;
-        //public static Point spacebarLocation;
-        //private PresagePredictor presage;
-        //String buffer;
+        private KeyboardType keyboardType;
+        private ALSKey[,] keyboard;
+        private ALSButton[] predictionKeys;
+        private TextBox textBox;
+        private ALSButton keySpace;
+        private ALSButton btnClear;
+        public static Point spacebarLocation;
+        private PresagePredictor presage;
+        String buffer;
 
-        ////private ALSButton[][] predictionKeyboard;
-        ////private PredictionBoxControl boxPredict;
+        public KeyboardControl2()
+        {
+            InitializeComponent();
 
-        //public KeyboardControl2()
-        //{
-        //    InitializeComponent();
+            keyboardType = KeyboardType.Lowercase;
 
-        //    keyboardNumber = 0;
+            presage = new PresagePredictor();
+            keyboard = new ALSKey[15, 10];
+            textBox = new TextBox();
 
-        //    presage = new PresagePredictor();
-        //    mainKeyboard = new ALSKey[5];
-        //    //keyboard = new ALSKey[3][];
-        //    //keyboard[0] = new ALSKey[11];
-        //    //keyboard[1] = new ALSKey[10];
-        //    //keyboard[2] = new ALSKey[7];
-        //    keySpace = new ALSButton();
-        //    btnClear = new ALSButton();
-        //    predictionKeys = new ALSButton[6];
+            keySpace = new ALSButton();
+            btnClear = new ALSButton();
+            predictionKeys = new ALSButton[5];
 
-        //    //for (int i = 0; i < keyboard.Length; i++)
-        //    //{
-        //    //    for (int j = 0; j < keyboard[i].Length; j++)
-        //    //    {
-        //    //        keyboard[i][j] = new ALSKey();
-        //    //        this.Controls.Add(keyboard[i][j]);
-        //    //        keyboard[i][j].Click += new EventHandler(this.fillPredictKeys);
-        //    //    }
-        //    //}
+            textBox.Multiline = true;
 
+            Controls.Add(textBox);
 
-        //    for (int i = 0; i < predictionKeys.Length; i++)
-        //    {
-        //        predictionKeys[i] = new ALSButton();
-        //        this.Controls.Add(predictionKeys[i]);
-        //    }
+            for (int i = 0; i < predictionKeys.Length; i++)
+            {
+                predictionKeys[i] = new ALSButton();
+                this.Controls.Add(predictionKeys[i]);
+            }
 
+            string[,] letters = { { "a-f", "g-l", "m-s", "t-z", "b", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "A-F", "G-L", "M-S", "T-Z", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "0", "1-9", ",!?", "@#$", "[({", "abc", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "a", "b", "c", "d", "e", "f", "", "", "", "Back"},
+                                  { "g", "h", "i", "j", "k", "l", "", "", "", "Back"},
+                                  { "m", "n", "o", "p", "q", "r", "s", "", "", "Back"},
+                                  { "t", "u", "v", "w", "x", "y", "z", "", "", "Back"},
+                                  { "A", "B", "C", "D", "E", "F", "", "", "", "Back"},
+                                  { "G", "H", "I", "J", "K", "L", "", "", "", "Back"},
+                                  { "M", "N", "O", "P", "Q", "R", "S", "", "", "Back"},
+                                  { "T", "U", "V", "W", "X", "Y", "Z", "", "", "Back"},
+                                  { "1", "2", "3", "4", "5", "6", "7", "8", "9", "Back"},
+                                  { ".", "!", "?", ",", ":", ";", "'", "\"", "", "Back"},
+                                  { "@", "$", "%", "^", "&&", "*", "+", "-", "=", "Back"},
+                                  { "(", ")", "[", "]", "{", "}", "|", "\\", "/", "Back"} };
 
-        //    //this.Controls.Add(boxPredict);
-        //    this.Controls.Add(keySpace);
-        //    keySpace.Text = "Space";
+            for (int i = 0; i < keyboard.GetLength(0); i++)
+            {
+                for (int j = 0; j < keyboard.GetLength(1); j++)
+                {
+                    keyboard[i, j] = new ALSKey();
+                    Controls.Add(keyboard[i, j]);
+                    keyboard[i, j].Text = letters[i, j];
 
-        //    btnShift = new ALSButton();
-        //    btnShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        //    this.Controls.Add(btnShift);
-        //    btnShift.Click += new System.EventHandler(this.btnRight_Click);
-        //}
+                    switch (i)
+                    {
+                        case 0:
+                        case 1:
+                            if (j < 4 || j == 5)
+                                keyboard[i, j].Click += NavigateKeyboard;
+                            else if(j == 4 || j == 6)
+                                keyboard[i, j].Click += TypeCharacter;
+                            else if (j == 7)
+                                keyboard[i, j].Click += Backspace;
+                            else if (j == 8)
+                                keyboard[i, j].Click += DeleteWord;
+                            else if (j == 9)
+                                keyboard[i, j].Click += Clear;
+                            break;
+                        case 2:
+                            if (j <= 5)
+                                keyboard[i, j].Click += NavigateKeyboard;
+                            else if (j == 6)
+                                keyboard[i, j].Click += TypeCharacter;
+                            else if (j == 7)
+                                keyboard[i, j].Click += Backspace;
+                            else if (j == 8)
+                                keyboard[i, j].Click += DeleteWord;
+                            else if (j == 9)
+                                keyboard[i, j].Click += Clear;
+                            break;
+                        default:
+                            if (j < 9)
+                                keyboard[i, j].Click += TypeCharacter;
+                            else
+                                keyboard[i, j].Click += NavigateKeyboard;
+                            break;
+                    }
+                }
+            }
+        }
 
+        private void Clear(object sender, EventArgs e)
+        {
+            textBox.Text = "";
+        }
 
-        //public KeyboardControl2(Form parentForm) : this()
-        //{
-        //    this.Parent = parentForm;
-        //}
+        private void DeleteWord(object sender, EventArgs e)
+        {
+            var match = Regex.Match(textBox.Text, @"\s+\S+\s*$");
+
+            if (match.Success)
+                textBox.Text = textBox.Text.Substring(0, match.Index);
+            else
+                textBox.Text = "";
+        }
+
+        private void Backspace(object sender, EventArgs e)
+        {
+            if(textBox.Text.Length > 0)
+                textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
+        }
+
+        private void TypeCharacter(object sender, EventArgs e)
+        {
+            ALSButton button = (ALSButton)sender;
+            if (button.Text.Equals("Space"))
+                textBox.Text += " ";
+            else if (button.Text.Equals("&&"))
+                textBox.Text += "&";
+            else
+                textBox.Text += button.Text;
+        }
+
+        
+
+        private void NavigateKeyboard(object sender, EventArgs e)
+        {
+            ALSButton button = (ALSButton)sender;
+            switch (button.Text)
+            {
+                case "abc":
+                    keyboardType = KeyboardType.Lowercase;
+                    break;
+                case "ABC":
+                    keyboardType = KeyboardType.Uppercase;
+                    break;
+                case "123":
+                    keyboardType = KeyboardType.Characters;
+                    break;
+                case "a-f":
+                    keyboardType = KeyboardType.aTOf;
+                    break;
+                case "g-l":
+                    keyboardType = KeyboardType.gTOn;
+                    break;
+                case "m-s":
+                    keyboardType = KeyboardType.nTOs;
+                    break;
+                case "t-z":
+                    keyboardType = KeyboardType.tTOz;
+                    break;
+                case "A-F":
+                    keyboardType = KeyboardType.ATOF;
+                    break;
+                case "G-L":
+                    keyboardType = KeyboardType.GTON;
+                    break;
+                case "M-S":
+                    keyboardType = KeyboardType.NTOS;
+                    break;
+                case "T-Z":
+                    keyboardType = KeyboardType.TTOZ;
+                    break;
+                case "1-9":
+                    keyboardType = KeyboardType._1TO9;
+                    break;
+                case ",!?":
+                    keyboardType = KeyboardType.Punctuation;
+                    break;
+                case "@#$":
+                    keyboardType = KeyboardType.Symbols;
+                    break;
+                case "[({":
+                    keyboardType = KeyboardType.Symbols2;
+                    break;
+                case "Back":
+                    int tempKT = (int)keyboardType;
+                    if (tempKT >= 3 && tempKT <= 6)
+                        keyboardType = KeyboardType.Lowercase;
+                    else if (tempKT >= 7 && tempKT <= 10)
+                        keyboardType = KeyboardType.Uppercase;
+                    else
+                        keyboardType = KeyboardType.Characters;
+                    break;
+            }
+            int temp = (int)keyboardType;
+            for (int i = 0; i < keyboard.GetLength(1); i++)
+                keyboard[(int)keyboardType, i].BringToFront();
+        }
+
+        public KeyboardControl2(Form parentForm) : this()
+        {
+            this.Parent = parentForm;
+        }
 
         //public void setBuffer(string buffer)
         //{
         //    this.buffer = buffer;
         //}
 
-        ///*
-        //public void setupPredictionBox()
-        //{
-        //    //boxPredict.Location = new Point(500 , 300);
-        //    boxPredict.updateSize();
-        //    boxPredict.Location = new Point(keySpace.Location.X - UI.GAP - boxPredict.Width, keySpace.Location.Y);
+        private void setupKeypad()
+        {
 
-        //}*/
+        }
 
-        //const int keyOffset = 10;
+        public void fillPredictKeys(object sender, EventArgs e)
+        {
+            ALSButton btn = ((ALSButton)sender);
+            String[] predictions = presage.getPredictions(btn.Text);
 
+            for (int i = 0; i < predictionKeys.GetLength(0); i++)
+            {
+                try
+                {
+                    predictionKeys[i].Text = predictions[i];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    predictionKeys[i].Text = "";
+                }
+            }
+        }
 
-        //private void setupLayout()
-        //{
-        //    int keyHeight = keyWidth;
-        //    int leftOffset = UI.GAP;
-        //    int midOffset = leftOffset + keyWidth / 2;
-        //    int bottomOffset = midOffset + keyWidth + UI.GAP;
+        public void resetPrediction()
+        {
+            presage.reset();
 
-        //    //place the alphanumeric keys
+            foreach (ALSButton btn in predictionKeys)
+            {
+                btn.Text = "";
+            }
+        }
 
+        public ALSButton[] getPredictKeys()
+        {
+            return predictionKeys;
+        }
 
-        //    //for (int i = 0; i < keyboard.Length; i++)
-        //    //    for (int j = 0; j < keyboard[i].Length; j++)
-        //    //    {
-        //    //        switch (i)
-        //    //        {
-        //    //            case 0:
-        //    //                keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + UI.GAP), UI.GAP + keyHeight + keyOffset);
-        //    //                break;
-        //    //            case 1:
-        //    //                keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + UI.GAP), UI.GAP * 2 + 2 * keyHeight + keyOffset);
-        //    //                break;
-        //    //            case 2:
-        //    //                keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + UI.GAP), UI.GAP * 3 + 3 * keyHeight + keyOffset);
-        //    //                break;
-        //    //        }
-        //    //        keyboard[i][j].Height = keyHeight;
-        //    //        keyboard[i][j].Width = keyWidth;
-        //    //    }
+        public void predictType(string key)
+        {
+            //boxPredict.tType(key);
+        }
 
-        //    for(int i = 0; i < mainKeyboard.Length; i++)
-        //    {
-        //        mainKeyboard[i] = new ALSKey();
-        //        mainKeyboard[i].Height = keyHeight;
-        //        mainKeyboard[i].Width = keyWidth;
-        //    }
-        //    mainKeyboard[0].Location = new Point(UI.GAP, UI.GAP + keyHeight + keyOffset);
-        //    for (int i = 1; i < mainKeyboard.Length; i++)
-        //    {
-        //        mainKeyboard[i].Location = new Point(UI.GAP + mainKeyboard[i-1].Right, UI.GAP + keyHeight + keyOffset);
-        //    }
+        public ALSKey[,] getKeyboard()
+        {
+            return keyboard;
+        }
 
+        public string getText()
+        {
+            return textBox.Text;
+        }
 
+        public void setText(string text)
+        {
+            textBox.Text = text;
+        }
 
-        //    //place space bar
-        //    //keySpace.Location = new Point(keyboard[2][2].Location.X, UI.GAP * 4 + 4 * keyHeight + keyOffset);
-        //    keySpace.Location = new Point(mainKeyboard[0].Bottom + UI.GAP, UI.GAP * 4 + 4 * keyHeight + keyOffset);
-        //    keySpace.Size = new Size((keyWidth) * 3 + UI.GAP * 2, keySpace.Size.Height);
-        //    keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-        //    spacebarLocation = keySpace.Location;
+        public void setTextBoxLocation(Point location)
+        {
+            textBox.Location = location;    //Test this
+        }
 
+        public void setTextBoxSize(Size size)
+        {
+            textBox.Size = size;
+        }
 
-        //    //clear button
-        //    btnClear.Location = new Point(keyboard[2][6].Location.X + keyWidth + UI.GAP, keyboard[2][6].Location.Y);
-        //    btnClear.Text = "Clear";
-        //    btnClear.Width = 2 * (keyWidth) + UI.GAP;
-        //    btnClear.Height = keyHeight;
-        //    this.Controls.Add(btnClear);
+        private void KeyboardControl_Resize(object sender, EventArgs e)
+        {
+            //Set width of text box
+            textBox.Size = new Size(this.Width, textBox.Height);
 
-        //    //place prediction keys
+            //Calculate Button Height and Width
+            int buttonHeight = (Height - 2 * UI.GAP - textBox.Height) / 3;
+            int buttonWidth = (Width - (keyboard.GetLength(1) / 2 - 1) * UI.GAP) / (keyboard.GetLength(1) / 2);
 
-        //    int predictionKeySize = (this.Width - predictionKeys.Length * UI.GAP) / predictionKeys.Length;
+            //Set heights and widths
+            foreach (ALSButton button in keyboard)
+                button.Size = new Size(buttonHeight, buttonWidth);
 
-        //    for (int i = 0; i < predictionKeys.Length; i++)
-        //    {
-        //        predictionKeys[i].Size = new Size(predictionKeySize, keyHeight);
-        //        predictionKeys[i].Location = new Point(leftOffset + i * (predictionKeySize + UI.GAP), UI.GAP);
-        //        predictionKeys[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        //    }
+            foreach (ALSButton button in predictionKeys)
+                button.Size = new Size(buttonHeight, buttonWidth);
 
-        //}
+            //Set button locations
+            predictionKeys[0].Location = new Point(0, textBox.Bottom + UI.GAP);
 
-        //private void setupLetters()
-        //{
-        //    keyboards = new Char[3, 3][];
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        keyboards[i, 0] = new Char[keyboard[0].Length];
-        //        keyboards[i, 1] = new Char[keyboard[1].Length];
-        //        keyboards[i, 2] = new Char[keyboard[2].Length];
-        //    }
+            for (int i = 1; i < predictionKeys.Length; i++)
+            {
+                predictionKeys[i].Location = new Point(predictionKeys[i - 1].Right + UI.GAP, textBox.Bottom + UI.GAP);
+            }
 
-        //    String[] lowercaseKeyboard = { "qwertyuiop ", "asdfghjkl ", "zxcvbnm" };
-        //    String[] uppercaseKeyboard = { "QWERTYUIOP ", "ASDFGHJKL ", "ZXCVBNM" };
-        //    String[] symbolsKeyboard = { "1234567890 ", "!@#$%^&*_ ", "\",.?:;'/    " };
+            for (int i = 0; i < keyboard.GetLength(0); i++)
+            {
+                keyboard[i, 0].Location = new Point(0, predictionKeys[0].Bottom + UI.GAP);
+                keyboard[i, keyboard.GetLength(1) / 2].Location = new Point(0, keyboard[i, 0].Bottom + UI.GAP);
+            }
 
-        //    for (int i = 0; i < keyboard[0].Length; i++)
-        //    {
-        //        keyboards[0, 0][i] = lowercaseKeyboard[0][i];
-        //        keyboards[1, 0][i] = uppercaseKeyboard[0][i];
-        //        keyboards[2, 0][i] = symbolsKeyboard[0][i];
-        //    }
-        //    for (int i = 0; i < keyboard[1].Length; i++)
-        //    {
-        //        keyboards[0, 1][i] = lowercaseKeyboard[1][i];
-        //        keyboards[1, 1][i] = uppercaseKeyboard[1][i];
-        //        keyboards[2, 1][i] = symbolsKeyboard[1][i];
-        //    }
-        //    for (int i = 0; i < keyboard[2].Length; i++)
-        //    {
-        //        keyboards[0, 2][i] = lowercaseKeyboard[2][i];
-        //        keyboards[1, 2][i] = uppercaseKeyboard[2][i];
-        //        keyboards[2, 2][i] = symbolsKeyboard[2][i];
-        //    }
+            for (int i = 0; i < keyboard.GetLength(0); i++)
+                for (int j = 1; j < keyboard.GetLength(1) / 2; j++)
+                {
+                    keyboard[i, j].Location = new Point(keyboard[i, j - 1].Right + UI.GAP, keyboard[i, 0].Location.Y);
 
-        //    fillKeyboard();
-        //}
-
-        //private void fillKeyboard()
-        //{
-        //    for (int i = 0; i < keyboard.Length; i++)
-        //    {
-        //        for (int j = 0; j < keyboard[i].Length; j++)
-        //            keyboard[i][j].Text = Convert.ToString(keyboards[keyboardNumber, i][j]);
-        //    }
-
-        //    keyboard[0][10].Text = "Backspace";
-        //    keyboard[1][9].Text = "Delete\nWord";
-        //}
-
-        //private void setupKeypad()
-        //{
-        //    /*try { 
-        //        for (int j = 0; j < predictionKeyboard.Length; j++)
-        //        {
-        //            for (int i = 0; i < predictionKeyboard[j].Length; i++)
-        //            {
-        //                predictionKeyboard[j][i].Size = new Size(keyWidth, keyWidth);
-
-        //                predictionKeyboard[j][i].Location = new Point(keySpace.Location.X + ((keyWidth + UI.GAP) * i) + UI.GAP, keySpace.Location.Y + keySpace.Height + UI.GAP + (keyWidth +UI.GAP) * (j));
-        //                predictionKeyboard[j][i].Text = ((i+1) + (j * 5)).ToString();
-        //            }
-        //        }
-        //    }
-        //    catch(NullReferenceException e)
-        //    {
-        //        Console.WriteLine("Parent unknown\n======\n" + e + "======");
-        //    }*/
-
-
-        //}
-
-        ///* public string wordPrediction(int num)
-        // {
-
-        //     return boxPredict.getTable()[1][num].Text;
-        // }*/
-
-        //public void fillPredictKeys(object sender, EventArgs e)
-        //{
-        //    ALSButton btn = ((ALSButton)sender);
-        //    String[] predictions = presage.getPredictions(btn.Text);
-
-        //    for (int i = 0; i < predictionKeys.Length; i++)
-        //    {
-        //        try
-        //        {
-        //            predictionKeys[i].Text = predictions[i];
-        //        }
-        //        catch (IndexOutOfRangeException)
-        //        {
-        //            predictionKeys[i].Text = "";
-        //        }
-        //    }
-        //}
-
-        //public void resetPrediction()
-        //{
-        //    presage.reset();
-
-        //    foreach (ALSButton btn in predictionKeys)
-        //    {
-        //        btn.Text = "";
-        //    }
-        //}
-
-        //public ALSButton[] getPredictKeys()
-        //{
-        //    return predictionKeys;
-        //}
-
-        //private void setupShift()
-        //{
-        //    btnShift.Text = "ABC";
-        //    btnShift.Location = new Point(UI.GAP, 3 * UI.GAP + 3 * keyWidth + keyOffset);
-        //    btnShift.Size = new Size((int)(1.5 * keyWidth), keyWidth);
-        //}
-
-        //public void predictType(string key)
-        //{
-        //    //boxPredict.tType(key);
-        //}
-
-
-
-        //private void btnRight_Click(object sender, EventArgs e)
-        //{
-        //    keyboardNumber = (keyboardNumber + 1) % 3;
-
-        //    switch (keyboardNumber)
-        //    {
-        //        case 0:
-        //            btnShift.Text = "ABC";
-        //            break;
-        //        case 1:
-        //            btnShift.Text = "123";
-        //            break;
-        //        case 2:
-        //            btnShift.Text = "abc";
-        //            break;
-        //    }
-
-        //    fillKeyboard();
-        //}
-
-        //private void KeyboardControl_Load(object sender, EventArgs e)
-        //{
-        //    for (int i = 0; i < keyboard.Length; i++)
-        //        foreach (ALSKey button in keyboard[i])
-        //            button.Show();
-        //}
-
-        //public ALSKey[][] getKeyboard()
-        //{
-        //    return keyboard;
-        //}
-
-        //public ALSButton getSpace()
-        //{
-        //    return keySpace;
-        //}
-
-        //public ALSButton getClear()
-        //{
-        //    return btnClear;
-        //}
-
-        ///* public ALSButton[][] getKeypad()
-        // {
-        //     return predictionKeyboard;
-        // }*/
-
-        //public void setRemainingVariables()
-        //{
-        //    keyWidth = (this.Width - 10 * UI.GAP) / 11;
-
-        //    setupLayout();
-        //    setupLetters();
-        //    setupShift();
-        //    setupKeypad();
-        //    //setupPredictionBox();
-        //}
-
-        //private void KeyboardControl_Resize(object sender, EventArgs e)
-        //{
-        //    setRemainingVariables();
-        //}
+                    int row2 = keyboard.GetLength(1) / 2;
+                    keyboard[i, row2 + j].Location = new Point(keyboard[i, row2 + j - 1].Right + UI.GAP, keyboard[i, row2].Location.Y);
+                }
+        }
     }
 }
