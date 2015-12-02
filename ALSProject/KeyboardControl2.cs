@@ -44,7 +44,7 @@ namespace ALSProject
             keySpace = new ALSButton();
             btnClear = new ALSButton();
             predictionKeys = new ALSButton[5];
-
+            textBox.Font = new Font(textBox.Font.FontFamily, 24);
             textBox.Multiline = true;
 
             Controls.Add(textBox);
@@ -151,7 +151,7 @@ namespace ALSProject
             else
                 textBox.Text += button.Text;
         }
-   
+
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
@@ -166,28 +166,28 @@ namespace ALSProject
                 case "123":
                     keyboardType = KeyboardType.Characters;
                     break;
-                case "a-f":
+                case "abc\ndef":
                     keyboardType = KeyboardType.aTOf;
                     break;
-                case "g-l":
+                case "ghi\njkl":
                     keyboardType = KeyboardType.gTOn;
                     break;
-                case "m-s":
+                case "mnop\nqrs":
                     keyboardType = KeyboardType.nTOs;
                     break;
-                case "t-z":
+                case "tuvw\nxyz":
                     keyboardType = KeyboardType.tTOz;
                     break;
-                case "A-F":
+                case "ABC\nDEF":
                     keyboardType = KeyboardType.ATOF;
                     break;
-                case "G-L":
+                case "GHI\nJKL":
                     keyboardType = KeyboardType.GTON;
                     break;
-                case "M-S":
+                case "MNOP\nQRS":
                     keyboardType = KeyboardType.NTOS;
                     break;
-                case "T-Z":
+                case "TUVW\nXYZ":
                     keyboardType = KeyboardType.TTOZ;
                     break;
                 case "1-9":
@@ -226,7 +226,7 @@ namespace ALSProject
                         }
                     }
                     break;
-                    
+
             }
 
 
@@ -293,24 +293,40 @@ namespace ALSProject
             return keyboard;
         }
 
-        public string getText()
+        public string GetText()
         {
             return textBox.Text;
         }
 
-        public void setText(string text)
+        public void SetText(string text)
         {
             textBox.Text = text;
         }
 
-        public void setTextBoxLocation(Point location)
+        public void SetTextBoxLocation(Point location)
         {
             textBox.Location = location;    //Test this
         }
 
-        public void setTextBoxSize(Size size)
+        public void SetTextBoxSize(Size size)
         {
             textBox.Size = size;
+        }
+
+        public void SetSelection(int start, int length)
+        {
+            textBox.SelectionStart = start;
+            textBox.SelectionLength = length;
+        }
+
+        public int GetSelectionStart()
+        {
+            return textBox.SelectionStart;
+        }
+
+        public void SetTextBoxFocus()
+        {
+            textBox.Focus();
         }
 
         private void KeyboardControl_Resize(object sender, EventArgs e)
@@ -324,7 +340,7 @@ namespace ALSProject
 
             //Set heights and widths
             foreach (ALSButton button in keyboard)
-                button.Size = new Size(buttonWidth,buttonHeight);
+                button.Size = new Size(buttonWidth, buttonHeight);
 
             foreach (ALSButton button in predictionKeys)
                 // button.Size = new Size(buttonHeight, buttonWidth);

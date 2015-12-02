@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextToSpeech));
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.alsKeyboard = new ALSProject.KeyboardControl2();
             this.btnCallouts = new ALSProject.ALSButton();
             this.btnSpeak = new ALSProject.ALSButton();
@@ -37,24 +36,12 @@
             this.btnMenu = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(281, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(435, 140);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // alsKeyboard
             // 
             this.alsKeyboard.BackColor = System.Drawing.Color.Black;
             this.alsKeyboard.Location = new System.Drawing.Point(13, 158);
             this.alsKeyboard.Name = "alsKeyboard";
-            this.alsKeyboard.Size = new System.Drawing.Size(601, 369);
+            this.alsKeyboard.Size = new System.Drawing.Size(606, 369);
             this.alsKeyboard.TabIndex = 9;
             // 
             // btnCallouts
@@ -133,23 +120,21 @@
             this.Controls.Add(this.btnCallouts);
             this.Controls.Add(this.btnSpeak);
             this.Controls.Add(this.alsAlarm1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TextToSpeech";
             this.Text = "Text to Speech";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Resize += new System.EventHandler(this.TextToSpeech_Resize);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         protected ALSButton btnMenu;
-        protected System.Windows.Forms.TextBox textBox1;
         protected ALSAlarm alsAlarm1;
         protected ALSButton btnSpeak;
         protected ALSButton btnCallouts;
-        private KeyboardControl2 alsKeyboard;
+        protected KeyboardControl2 alsKeyboard;
     }
 }

@@ -26,25 +26,20 @@ namespace ALSProject
             //btnCallouts.Location = new Point(Width - UI.GAP, btnMenu.Top);
             btnCallouts.Size = new Size(btnMenu.Size.Width, btnMenu.Size.Height);
 
-            textBox1.Location = new Point(alsAlarm1.Right + UI.GAP, alsAlarm1.Top);
+            alsKeyboard.SetTextBoxLocation(new Point(alsAlarm1.Right + UI.GAP, alsAlarm1.Top));
+            
             //textBox1.Visible = false;
         }
 
         private void AddCallout_Resize(object sender, EventArgs e)
         {
             btnCallouts.Location = new Point(this.Width - btnCallouts.Width - 2 * UI.GAP, btnMenu.Top);
-            textBox1.Size = new Size(btnCallouts.Location.X, alsAlarm1.Size.Height);
-
+            alsKeyboard.SetTextBoxSize(new Size(btnCallouts.Location.X, alsAlarm1.Size.Height));
         }
 
         public ALSButton getSaveButton()
         {
             return btnCallouts;
-        }
-
-        public TextBox getTextBox()
-        {
-            return textBox1;
         }
     }
 }
