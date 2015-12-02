@@ -69,6 +69,7 @@
             this.btnAlarm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAlarm.BackgroundImage = global::ALSProject.Properties.Resources.speaker_icon;
             this.btnAlarm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnAlarm.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnAlarm.dwellTimeInterval = 15;
             this.btnAlarm.FlatAppearance.BorderSize = 0;
             this.btnAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -84,6 +85,7 @@
             // 
             this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBack.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnBack.dwellTimeInterval = 15;
             this.btnBack.FlatAppearance.BorderSize = 0;
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -112,6 +114,7 @@
             // 
             this.alsButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.alsButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton2.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.alsButton2.dwellTimeInterval = 4;
             this.alsButton2.FlatAppearance.BorderSize = 0;
             this.alsButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -128,6 +131,7 @@
             // alsButton1
             // 
             this.alsButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton1.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.alsButton1.dwellTimeInterval = 4;
             this.alsButton1.FlatAppearance.BorderSize = 0;
             this.alsButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -144,6 +148,7 @@
             // btnResetCallouts
             // 
             this.btnResetCallouts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnResetCallouts.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnResetCallouts.dwellTimeInterval = 15;
             this.btnResetCallouts.FlatAppearance.BorderSize = 0;
             this.btnResetCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

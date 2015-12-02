@@ -15,26 +15,30 @@ namespace ALSProject
 {
     public partial class ALSButton : Button
     {
+        public enum ButtonType { key, normal, immutable };
+
+        public ButtonType btnType
+        {
+            get; set;
+        }
 
         int heightCounter;
         Graphics gr;
         protected Timer dwellTimer;
         protected bool clicked = false; //prevents rapid clicks
-        private const int heightDivider = 50;
-        bool immutableDwellTime = false;
-        public int dwellTimeInterval {
+        private int heightDivider = 30;
+        //bool immutableDwellTime = false;
+        public int dwellTimeInterval
+        {
             get
             {
                 return dwellTimer.Interval;
             }
-
-            set {
-
-                immutableDwellTime = true;
+            set
+            {
+                //btnType = ButtonType.immutable;
                 dwellTimer.Interval = value;
             }
-
-
         }
         private static List<ALSButton> alsButtons = new List<ALSButton>();
 
@@ -49,6 +53,7 @@ namespace ALSProject
             dwellTimer.Enabled = false;
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
             alsButtons.Add(this);
+            btnType = ButtonType.normal;
         }
 
         protected void dwellTimeEvent(object sender, EventArgs e)
@@ -103,7 +108,6 @@ namespace ALSProject
         private void ALSButton_Resize(object sender, EventArgs e)
         {
             gr = this.CreateGraphics();
-
         }
 
         private void ALSButton_Click(object sender, EventArgs e)
@@ -124,14 +128,16 @@ namespace ALSProject
         }
 
 
-        public static void setTimerSpeed(double speed)
+        public static void setTimerSpeed(double speed, ButtonType buttonType)
         {
             if (speed < 0)
                 return;
             foreach (ALSButton btn in alsButtons)
             {
-                if (!btn.immutableDwellTime)
-                    btn.dwellTimer.Interval = Math.Max(btn.dwellTimer.Interval / 10, 1); 
+                if (btn.btnType.Equals(buttonType))
+                {
+                    btn.dwellTimer.Interval = Math.Max((int)(speed * 7), 1);
+                }
             }
         }
     }

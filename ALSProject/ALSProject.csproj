@@ -81,6 +81,18 @@
     <Compile Include="Callout.Designer.cs">
       <DependentUpon>Callout.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClearTextConfirmation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClearTextConfirmation.Designer.cs">
+      <DependentUpon>ClearTextConfirmation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Confirmation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Confirmation.Designer.cs">
+      <DependentUpon>Confirmation.cs</DependentUpon>
+    </Compile>
     <Compile Include="CVInterface.cs" />
     <Compile Include="Email.cs">
       <SubType>Form</SubType>
@@ -93,6 +105,12 @@
     </Compile>
     <Compile Include="KeyboardControl.Designer.cs">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyboardControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KeyboardControl2.Designer.cs">
+      <DependentUpon>KeyboardControl2.cs</DependentUpon>
     </Compile>
     <Compile Include="Notebook.cs">
       <SubType>Form</SubType>
@@ -180,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Callout.resx">
       <DependentUpon>Callout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClearTextConfirmation.resx">
+      <DependentUpon>ClearTextConfirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Confirmation.resx">
+      <DependentUpon>Confirmation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardControl.resx">
       <DependentUpon>KeyboardControl.cs</DependentUpon>

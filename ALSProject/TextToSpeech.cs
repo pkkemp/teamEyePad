@@ -19,44 +19,46 @@ namespace ALSProject
         private new Form Parent;
         SpeechSynthesizer speaker;
         bool predictLock = false; //this prevents the textbox words from being overwritten constantly
+        private ClearTextConfirmation clearTextConfirmation;
 
         public TextToSpeech(Form parent, SpeechSynthesizer voice)
         {
-            this.Parent = parent;
             InitializeComponent();
+            this.Parent = parent;
 
-            this.alsKeyboard.setRemainingVariables();
+           // this.alsKeyboard.setRemainingVariables();
+            clearTextConfirmation = new ClearTextConfirmation(this);
             //this.alsKeyboard.setupPreditionBox();
 
             speaker = voice;
 
-            ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
-            ALSButton space = this.alsKeyboard.getSpace();
-            ALSButton clear = this.alsKeyboard.getClear();
-            foreach (ALSButton[] rows in keyboard)
-                foreach (ALSButton column in rows)
-                {
-                    if (column.Text == "Backspace")
-                    {
-                        column.Click += new System.EventHandler(this.key_Backspace);
-                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
+            //ALSButton space = this.alsKeyboard.getSpace();
+            //ALSButton clear = this.alsKeyboard.getClear();
+            //foreach (ALSButton[] rows in keyboard)
+            //    foreach (ALSButton column in rows)
+            //    {
+            //        if (column.Text == "Backspace")
+            //        {
+            //            column.Click += new System.EventHandler(this.key_Backspace);
+            //            column.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-                    }
-                    else if (column.Text == "Delete\nWord")
-                    {
-                        column.Click += new System.EventHandler(this.key_DeleteWord);
-                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    }
-                    else
-                    {
-                        column.Click += new System.EventHandler(this.key_Click);
-                        column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    }
+            //        }
+            //        else if (column.Text == "Delete\nWord")
+            //        {
+            //            column.Click += new System.EventHandler(this.key_DeleteWord);
+            //            column.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //        }
+            //        else
+            //        {
+            //            column.Click += new System.EventHandler(this.key_Click);
+            //            column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //        }
                         
-                    clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //        clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     
 
-                }
+            //    }
             /*
             foreach (ALSButton[] rows in keypad)
             {
@@ -70,12 +72,11 @@ namespace ALSProject
             foreach(ALSButton btn in alsKeyboard.getPredictKeys())
             {
                 btn.Click += new System.EventHandler(this.keypad_Click);
-
             }
 
 
-            space.Click += new System.EventHandler(this.space_Click);
-            clear.Click += new System.EventHandler(this.btnClear_Click);
+            //space.Click += new System.EventHandler(this.space_Click);
+            //clear.Click += new System.EventHandler(this.btnClear_Click);
 
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) =>
@@ -84,6 +85,9 @@ namespace ALSProject
                 //*TODO Delete temporary code
                 getCurrentSentence();
             };
+
+            alsKeyboard.Size = new Size(Width-2*UI.GAP, Height - alsAlarm1.Bottom - 2 * UI.GAP);
+
         }
 
         public ALSButton getCalloutBtn()
@@ -152,6 +156,7 @@ namespace ALSProject
 
         private void key_Click(object sender, EventArgs e)
         {
+            /*
             string letter = ((ALSButton)sender).Text;
             textBox1.Text += letter;
             buffer += letter;
@@ -160,7 +165,9 @@ namespace ALSProject
             
             alsKeyboard.setBuffer(buffer);
             
-           // Console.WriteLine(getCurrentSentence());
+           // Console.WriteLine(getCurrentSentence());*/
+            textBox1.Text += ((ALSButton)sender).Text;
+            //alsKeyboard.setBuffer(getCurrentSentence());
             predictLock = false;
         }
 
@@ -225,8 +232,15 @@ namespace ALSProject
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
+            clearTextConfirmation.Visible = true;
+        }
+
+        public void ClearText()
+        {
             textBox1.Clear();
             predictReset();
+            this.Enabled = true;
         }
 
         private void btnSpeak_Click(object sender, EventArgs e)

@@ -207,7 +207,7 @@ namespace ALSProject
         private void NewNote_Click(object sender, EventArgs e)
         {
             indexBeingEdited = 0;
-            notepage.clearText();
+            notepage.ClearText();
             notepage.Show();
             this.Hide();
         }
@@ -235,8 +235,7 @@ namespace ALSProject
             phrases.Clear();
             this.refreshNotes();
         }
-
-
+        
         private void generateDefaultFile()
         {
             StreamWriter filestream = new StreamWriter(File.Create("Notes.txt"));

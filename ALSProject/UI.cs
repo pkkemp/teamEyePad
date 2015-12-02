@@ -57,10 +57,7 @@ namespace ALSProject
             alarmBut.Click += new System.EventHandler(alarmBut_Click);
             
 
-            //listen for close
-            closeTimer = new Timer();
-            closeTimer.Enabled = true;
-            closeTimer.Tick += new EventHandler(closeTimeEvent);
+
 
 
             //Temp code
@@ -91,15 +88,23 @@ namespace ALSProject
                     btn.Click += new System.EventHandler(this.closeCallouts);
                 }
             }
+
+            //listen for close
+            closeTimer = new Timer();
+            closeTimer.Enabled = true;
+            closeTimer.Interval = 1000;
+            closeTimer.Tick += new EventHandler(closeTimeEvent);
         }
 
         private void closeTimeEvent(object sender, EventArgs e)
         {
 
-           
-            if (callout == null || settingsScreen == null || texttospeech == null) ;
-               //this.Close();
+            if (callout != null && settingsScreen != null && texttospeech != null) {
                 
+                //this.Close();
+            }
+
+
         }
 
         private void resetCallouts(object sender, EventArgs e)
