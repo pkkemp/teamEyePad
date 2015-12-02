@@ -55,8 +55,8 @@ namespace ALSProject
                 this.Controls.Add(predictionKeys[i]);
             }
 
-            string[,] letters = { { "a-f", "g-l", "m-s", "t-z", "b", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
-                                  { "A-F", "G-L", "M-S", "T-Z", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
+            string[,] letters = { { "abc\ndef", "ghi\njkl", "mnop\nqrs", "tuvw\nxyz", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "ABC\nDEF", "GHI\nJKL", "MNOP\nQRS", "TUVW\nXYZ", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "0", "1-9", ",!?", "@#$", "[({", "abc", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "a", "b", "c", "d", "e", "f", "", "", "", "Back"},
                                   { "g", "h", "i", "j", "k", "l", "", "", "", "Back"},
@@ -85,7 +85,7 @@ namespace ALSProject
                         case 1:
                             if (j < 4 || j == 5)
                                 keyboard[i, j].Click += NavigateKeyboard;
-                            else if(j == 4 || j == 6)
+                            else if (j == 4 || j == 6)
                                 keyboard[i, j].Click += TypeCharacter;
                             else if (j == 7)
                                 keyboard[i, j].Click += Backspace;
@@ -108,7 +108,10 @@ namespace ALSProject
                             break;
                         default:
                             if (j < 9)
+                            {
                                 keyboard[i, j].Click += TypeCharacter;
+                                keyboard[i, j].Click += NavigateKeyboard;
+                            }
                             else
                                 keyboard[i, j].Click += NavigateKeyboard;
                             break;
@@ -134,7 +137,7 @@ namespace ALSProject
 
         private void Backspace(object sender, EventArgs e)
         {
-            if(textBox.Text.Length > 0)
+            if (textBox.Text.Length > 0)
                 textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
         }
 
@@ -148,9 +151,7 @@ namespace ALSProject
             else
                 textBox.Text += button.Text;
         }
-
-        
-
+   
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
@@ -210,7 +211,25 @@ namespace ALSProject
                     else
                         keyboardType = KeyboardType.Characters;
                     break;
+                default:
+                    if (button.Text.Length > 0)
+                    {
+                        if (button.Text[0] >= 'a' && button.Text[0] <= 'z')
+                            keyboardType = KeyboardType.Lowercase;
+                        else if (button.Text[0] >= 'A' && button.Text[0] <= 'Z')
+                        {
+                            keyboardType = KeyboardType.Uppercase;
+                        }
+                        else
+                        {
+                            keyboardType = KeyboardType.Characters;
+                        }
+                    }
+                    break;
+                    
             }
+
+
             int temp = (int)keyboardType;
             for (int i = 0; i < keyboard.GetLength(1); i++)
                 keyboard[(int)keyboardType, i].BringToFront();
