@@ -324,10 +324,11 @@ namespace ALSProject
 
             //Set heights and widths
             foreach (ALSButton button in keyboard)
-                button.Size = new Size(buttonHeight, buttonWidth);
+                button.Size = new Size(buttonWidth,buttonHeight);
 
             foreach (ALSButton button in predictionKeys)
-                button.Size = new Size(buttonHeight, buttonWidth);
+                // button.Size = new Size(buttonHeight, buttonWidth);
+                button.Size = new Size(buttonWidth, buttonHeight);
 
             //Set button locations
             predictionKeys[0].Location = new Point(0, textBox.Bottom + UI.GAP);

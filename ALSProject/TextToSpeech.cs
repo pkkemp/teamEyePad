@@ -30,6 +30,11 @@ namespace ALSProject
 
             speaker = voice;
 
+            Graphics gr = CreateGraphics();
+            btnCallouts.setFontSize(gr);
+            btnMenu.setFontSize(gr);
+            btnSpeak.setFontSize(gr);
+
             //ALSButton[][] keyboard = this.alsKeyboard.getKeyboard();
             //ALSButton space = this.alsKeyboard.getSpace();
             //ALSButton clear = this.alsKeyboard.getClear();
@@ -52,9 +57,9 @@ namespace ALSProject
             //            column.Click += new System.EventHandler(this.key_Click);
             //            column.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             //        }
-                        
+
             //        clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    
+
 
             //    }
             /*
@@ -67,7 +72,7 @@ namespace ALSProject
                 }
             }*/
 
-            foreach(ALSButton btn in alsKeyboard.getPredictKeys())
+            foreach (ALSButton btn in alsKeyboard.getPredictKeys())
             {
                 btn.Click += new System.EventHandler(this.keypad_Click);
             }

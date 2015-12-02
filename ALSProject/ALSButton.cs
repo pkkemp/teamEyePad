@@ -108,6 +108,7 @@ namespace ALSProject
         private void ALSButton_Resize(object sender, EventArgs e)
         {
             gr = this.CreateGraphics();
+            setFontSize(gr);
         }
 
         private void ALSButton_Click(object sender, EventArgs e)
@@ -126,8 +127,7 @@ namespace ALSProject
             }
 
         }
-
-
+        
         public static void setTimerSpeed(double speed, ButtonType buttonType)
         {
             if (speed < 0)
@@ -139,6 +139,23 @@ namespace ALSProject
                     btn.dwellTimer.Interval = Math.Max((int)(speed * 7), 1);
                 }
             }
+        }
+
+        //This function checks the room size and your text and appropriate font for your text to fit in room
+        //Text is the string which it's bounds is more than room bounds.
+        public void setFontSize(Graphics g)
+        {
+            //Graphics g = Graphics.FromImage(this.Image);
+            SizeF RealSize = g.MeasureString(Text, Font);
+            float HeightScaleRatio = Height / RealSize.Height;
+            float WidthScaleRatio = Width / RealSize.Width;
+            float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
+            float ScaleFontSize = Font.Size * ScaleRatio;
+
+            if (Text.Equals("Speak"))
+                Console.Write(" ");
+
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize-5, 50));
         }
     }
 }
