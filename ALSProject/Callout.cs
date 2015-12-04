@@ -49,10 +49,10 @@ namespace ALSProject
                 topRowButtons[i] = new ALSButton();
 
             topRowButtons[1].Text = "Edit";
-            topRowButtons[2].Text = "Page Left";
-            topRowButtons[3].Text = "Page Right";
-            topRowButtons[4].Text = "Text to Speech";
-            topRowButtons[5].Text = "Main Menu";
+            topRowButtons[2].Text = "Page\nLeft";
+            topRowButtons[3].Text = "Page\nRight";
+            topRowButtons[4].Text = "Text to\nSpeech";
+            topRowButtons[5].Text = "Main\nMenu";
 
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);

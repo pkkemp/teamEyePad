@@ -20,6 +20,13 @@ namespace ALSProject
         {
             InitializeComponent();
             parentForm = pForm;
+
+
+            Graphics gr = CreateGraphics();
+            btnAlarm.setFontSize(gr);
+            btnBack.setFontSize(gr);
+            btnResetCallouts.setFontSize(gr);
+
             update();
         }
 
