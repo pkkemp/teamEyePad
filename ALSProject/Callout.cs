@@ -117,12 +117,12 @@ namespace ALSProject
 
         private void addToList(object sender, EventArgs e)
         {
-            string str = ac.getTextBox().Text;
+            string str = ac.GetText();
             phrases.Add(str);
             this.Show();
             ac.Hide();
             this.refreshCalloutList();
-            ac.getTextBox().Clear();
+            ac.setText("");
             
         }
 

@@ -29,25 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextToSpeech));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.alsKeyboard = new ALSProject.KeyboardControl2();
             this.btnCallouts = new ALSProject.ALSButton();
             this.btnSpeak = new ALSProject.ALSButton();
             this.alsAlarm1 = new ALSProject.ALSAlarm();
             this.btnMenu = new ALSProject.ALSButton();
-            this.alsKeyboard = new ALSProject.KeyboardControl2();
             this.SuspendLayout();
             // 
-            // textBox1
+            // alsKeyboard
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(281, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(435, 140);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.alsKeyboard.BackColor = System.Drawing.Color.Black;
+            this.alsKeyboard.Location = new System.Drawing.Point(13, 158);
+            this.alsKeyboard.Name = "alsKeyboard";
+            this.alsKeyboard.Size = new System.Drawing.Size(606, 369);
+            this.alsKeyboard.TabIndex = 9;
             // 
             // btnCallouts
             // 
@@ -57,7 +52,7 @@
             this.btnCallouts.dwellTimeInterval = 15;
             this.btnCallouts.FlatAppearance.BorderSize = 0;
             this.btnCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnCallouts.Location = new System.Drawing.Point(722, 12);
             this.btnCallouts.Name = "btnCallouts";
             this.btnCallouts.Size = new System.Drawing.Size(143, 140);
@@ -73,7 +68,7 @@
             this.btnSpeak.dwellTimeInterval = 15;
             this.btnSpeak.FlatAppearance.BorderSize = 0;
             this.btnSpeak.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSpeak.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSpeak.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnSpeak.Location = new System.Drawing.Point(143, 12);
             this.btnSpeak.Name = "btnSpeak";
             this.btnSpeak.Size = new System.Drawing.Size(132, 140);
@@ -91,7 +86,7 @@
             this.alsAlarm1.dwellTimeInterval = 15;
             this.alsAlarm1.FlatAppearance.BorderSize = 0;
             this.alsAlarm1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsAlarm1.Font = new System.Drawing.Font("Microsoft Sans Serif", 119F);
+            this.alsAlarm1.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.alsAlarm1.Location = new System.Drawing.Point(13, 12);
             this.alsAlarm1.Name = "alsAlarm1";
             this.alsAlarm1.Size = new System.Drawing.Size(124, 140);
@@ -107,7 +102,7 @@
             this.btnMenu.dwellTimeInterval = 15;
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnMenu.Location = new System.Drawing.Point(871, 12);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(141, 140);
@@ -115,14 +110,6 @@
             this.btnMenu.Text = "Main Menu";
             this.btnMenu.UseVisualStyleBackColor = false;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
-            // 
-            // alsKeyboard
-            // 
-            this.alsKeyboard.BackColor = System.Drawing.Color.Black;
-            this.alsKeyboard.Location = new System.Drawing.Point(13, 158);
-            this.alsKeyboard.Name = "alsKeyboard";
-            this.alsKeyboard.Size = new System.Drawing.Size(755, 369);
-            this.alsKeyboard.TabIndex = 9;
             // 
             // TextToSpeech
             // 
@@ -133,23 +120,21 @@
             this.Controls.Add(this.btnCallouts);
             this.Controls.Add(this.btnSpeak);
             this.Controls.Add(this.alsAlarm1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TextToSpeech";
             this.Text = "Text to Speech";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Resize += new System.EventHandler(this.TextToSpeech_Resize);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         protected ALSButton btnMenu;
-        protected System.Windows.Forms.TextBox textBox1;
         protected ALSAlarm alsAlarm1;
         protected ALSButton btnSpeak;
         protected ALSButton btnCallouts;
-        private KeyboardControl2 alsKeyboard;
+        protected KeyboardControl2 alsKeyboard;
     }
 }
