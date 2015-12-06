@@ -43,11 +43,15 @@ namespace ALSProject
         private Notebook notebook;
         private Thread eyeTrackingThread;
         public const int GAP = 10;
+
         TextToSpeech texttospeech;
         Callout callout;
         SettingsForm settingsScreen;
         QuitForm quitScreen;
+        Browser browser;
+
         Timer closeTimer;
+
 
         public UI()
         {
@@ -77,6 +81,7 @@ namespace ALSProject
             callout = new Callout(this, voice);
             settingsScreen = new SettingsForm(this);
             quitScreen = new QuitForm(this);
+            browser = new Browser(this);
 
             texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
             settingsScreen.btnResetCallouts.Click += new System.EventHandler(this.resetCallouts);
@@ -198,10 +203,6 @@ namespace ALSProject
         {
         }
 
-        private void btnMax_Click(object sender, EventArgs e)
-        {
-            //this.self.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-        }
 
         private void alarmBut_Click(object sender, EventArgs e)
         {
@@ -248,8 +249,8 @@ namespace ALSProject
             btnMin.Location = new Point(GAP, 2 * GAP + height);
             btnMin.Size = new Size(height, height);
 
-            btnMax.Location = new Point(GAP, 3 * GAP + 2 * height);
-            btnMax.Size = new Size(height, height);
+            btnBrowser.Location = new Point(GAP, 3 * GAP + 2 * height);
+            btnBrowser.Size = new Size(height, height);
 
             ttsBut.Location = new Point(width / 2 - height / 2, GAP);
             ttsBut.Size = new Size(height, height);
@@ -277,6 +278,12 @@ namespace ALSProject
             CVInterface.PleaseStop();
             Application.Exit();
             
+        }
+
+        private void btnBrowser_Click(object sender, EventArgs e)
+        {
+            browser.Show();
+            this.Hide();
         }
     }
 

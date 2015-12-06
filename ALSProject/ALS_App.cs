@@ -11,6 +11,7 @@ namespace ALSProject
     static class ALS_App
     {
         //main loop
+        [STAThread]
         static void Main(String[] args)
         {
             
