@@ -14,26 +14,40 @@ namespace ALSProject
     {
         private Form parentForm;
         private int scrollPoint = 0;
-        private const int SCROLL_INCREMENT = 100;
+        private const int SCROLL_INCREMENT = 100; 
         private TextBox keyboardTextBox;
+        private MouseRectangle mouseBox;
+        private string tempHomepage = "http://www.facebook.com";
+        private Timer timer;
 
         public Browser(Form parent)
         {
             parentForm = parent;
             InitializeComponent();
+            initBrowser();
+
+            timer = new Timer();
+            timer.Tick += new System.EventHandler(timerEvent);
+            timer.Interval = 100;
+            timer.Enabled = true;
+
+            mouseBox = new MouseRectangle(this);
             keyboard.hideTextBox();
             keyboardTextBox = keyboard.getTextBox();
             keyboardTextBox.TextChanged += new System.EventHandler(this.pressKey);
-            
+            winBrowse.Navigate(tempHomepage);        
 
         }
 
-       
+        private void timerEvent(object sender, EventArgs e)
+        {
+             mouseBox.setClickmode(winBrowse.getMouseOver());   
+        }
 
         private void pressKey(object sender, EventArgs e)
         {
-
-            System.Windows.Forms.SendKeys.Send(keyboardTextBox.Text[keyboardTextBox.TextLength - 1] + "");
+            if(keyboardTextBox!=null&&keyboardTextBox.Text!="")
+                System.Windows.Forms.SendKeys.Send(keyboardTextBox.Text[keyboardTextBox.TextLength - 1] + "");
         }
 
         private void alsAlarm1_Click(object sender, EventArgs e)
@@ -41,10 +55,6 @@ namespace ALSProject
 
         }
 
-        private void alsButton2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnMenu_Click(object sender, EventArgs e)
         {
@@ -71,6 +81,33 @@ namespace ALSProject
             scrollPoint += SCROLL_INCREMENT;
         }
 
-        
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            winBrowse.GoBack();
+        }
+
+
+        private ALSBrowserCntrl winBrowse;
+        private void initBrowser()
+        {
+            winBrowse = new ALSBrowserCntrl(this);
+            this.winBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.winBrowse.Location = new System.Drawing.Point(129, 12);
+            this.winBrowse.MinimumSize = new System.Drawing.Size(20, 20);
+            this.winBrowse.Name = "winBrowse";
+            this.winBrowse.ScrollBarsEnabled = false;
+            this.winBrowse.Size = new System.Drawing.Size(867, 330);
+            this.winBrowse.TabIndex = 5;
+            this.Controls.Add(this.winBrowse);
+        }
+//        private ALSTextbox txtUrl;
+
+
     }
+
+
+
+
 }

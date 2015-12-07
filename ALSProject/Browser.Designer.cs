@@ -29,35 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Browser));
-            this.txtUrl = new System.Windows.Forms.TextBox();
-            this.winBrowse = new ALSBrowserCntrl(this);
             this.btnScrollDown = new ALSProject.ALSButton();
             this.btnScrollUp = new ALSProject.ALSButton();
             this.alsButton1 = new ALSProject.ALSButton();
             this.keyboard = new ALSProject.KeyboardControl2();
             this.btnMenu = new ALSProject.ALSButton();
+            this.btnBack = new ALSProject.ALSButton();
             this.alsAlarm1 = new ALSProject.ALSAlarm();
+            this.txtUrl = new ALSTextbox();
             this.SuspendLayout();
-            // 
-            // txtUrl
-            // 
-            this.txtUrl.Location = new System.Drawing.Point(12, 242);
-            this.txtUrl.Multiline = true;
-            this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(112, 53);
-            this.txtUrl.TabIndex = 3;
-            // 
-            // winBrowse
-            // 
-            this.winBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.winBrowse.Location = new System.Drawing.Point(129, 12);
-            this.winBrowse.MinimumSize = new System.Drawing.Size(20, 20);
-            this.winBrowse.Name = "winBrowse";
-            this.winBrowse.ScrollBarsEnabled = false;
-            this.winBrowse.Size = new System.Drawing.Size(867, 330);
-            this.winBrowse.TabIndex = 5;
             // 
             // btnScrollDown
             // 
@@ -133,6 +113,22 @@
             this.btnMenu.UseVisualStyleBackColor = false;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBack.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.btnBack.dwellTimeInterval = 100;
+            this.btnBack.FlatAppearance.BorderSize = 0;
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnBack.Location = new System.Drawing.Point(12, 596);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(112, 94);
+            this.btnBack.TabIndex = 8;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // alsAlarm1
             // 
             this.alsAlarm1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -150,16 +146,24 @@
             this.alsAlarm1.UseVisualStyleBackColor = false;
             this.alsAlarm1.Click += new System.EventHandler(this.alsAlarm1_Click);
             // 
+            // txtUrl
+            // 
+            this.txtUrl.Location = new System.Drawing.Point(12, 242);
+            this.txtUrl.Multiline = true;
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(112, 53);
+            this.txtUrl.TabIndex = 3;
+            // 
             // Browser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnScrollDown);
             this.Controls.Add(this.btnScrollUp);
             this.Controls.Add(this.alsButton1);
-            this.Controls.Add(this.winBrowse);
             this.Controls.Add(this.keyboard);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.btnMenu);
@@ -178,11 +182,11 @@
 
         private ALSAlarm alsAlarm1;
         private ALSButton btnMenu;
-        private System.Windows.Forms.TextBox txtUrl;
         private KeyboardControl2 keyboard;
-        private System.Windows.Forms.WebBrowser winBrowse;
         private ALSButton alsButton1;
         private ALSButton btnScrollUp;
         private ALSButton btnScrollDown;
+        private ALSButton btnBack;
+        private ALSTextbox txtUrl;
     }
 }

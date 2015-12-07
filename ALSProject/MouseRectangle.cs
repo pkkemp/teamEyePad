@@ -16,6 +16,9 @@ namespace ALSProject
         private Form parentForm;
         private Control parentControl;
         Graphics gr;
+        const int RECT_SIZE = 100;
+        private int mouseCount = -1;
+        bool clickmode = false;
 
         public MouseRectangle(Form parent)
         {
@@ -23,8 +26,9 @@ namespace ALSProject
             timer.Tick += new System.EventHandler(timerEvent);
             timer.Interval = 100;
             timer.Enabled = true;
-            bounds.Size = new Size(50, 50);
+            bounds.Size = new Size(RECT_SIZE, RECT_SIZE);
             parentForm = parent;
+
         }
 
         public MouseRectangle(Control parent)
@@ -33,34 +37,45 @@ namespace ALSProject
             timer.Tick += new System.EventHandler(timerEvent);
             timer.Interval = 100;
             timer.Enabled = false;
-            bounds.Size = new Size(50, 50);
+            bounds.Size = new Size(RECT_SIZE, RECT_SIZE);
             parentControl = parent;
+            bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width / 2, Cursor.Position.Y - bounds.Size.Height / 2);
         }
 
+        public void setClickmode(bool mode)
+        {
+            clickmode = mode;
+        }
+        private const int MOUSEWAIT = 15;
         private void timerEvent(object sender, EventArgs e)
         {
-            bool doEvent = false;
-            if (parentForm != null && parentForm.Visible)
+            mouseCount++;
+            if ((parentForm != null && parentForm.Visible) || (parentControl != null && parentControl.Visible))
             {
-                gr = parentForm.CreateGraphics();
-                doEvent = true;
-            }
-            else if (parentControl != null && parentControl.Visible)
-            {
-                gr = parentControl.CreateGraphics();
-                doEvent = true;
-            }
 
+                if (!bounds.Contains(Cursor.Position))
+                {
+                    bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width / 2, Cursor.Position.Y - bounds.Size.Height / 2);
+                    parentForm.CreateGraphics().Clear(Color.FromArgb(32, 32, 32));
+                    parentForm.CreateGraphics().FillRectangle(Brushes.SkyBlue, bounds);
+                    mouseCount = -1;
+                    
 
-            if (doEvent) {
-                gr.Clear(Color.FromArgb(32,32,32));
-                bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width/2, Cursor.Position.Y - bounds.Size.Height / 2);
-                gr.FillRectangle(Brushes.SkyBlue, bounds);
+                }
+
+                if (mouseCount == MOUSEWAIT && clickmode)
+                {
+                    MouseSimulator.ClickLeftMouseButton();
+                    System.Media.SystemSounds.Asterisk.Play();
+                }
+                else if (mouseCount >= MOUSEWAIT)
+                    mouseCount = -1;
             }
         }
 
         public void UpdateRect()
         {
+            /*
             bool doEvent = false;
             if (parentForm != null && parentForm.Visible)
             {
@@ -80,6 +95,7 @@ namespace ALSProject
                 bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width / 2, Cursor.Position.Y - bounds.Size.Height / 2);
                 gr.FillRectangle(Brushes.SkyBlue, bounds);
             }
+            */
         }
 
     }
