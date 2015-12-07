@@ -45,7 +45,7 @@ namespace ALSProject
             btnClear = new ALSButton();
             predictionKeys = new ALSButton[6];
 
-            
+
 
             /*
             Context is changed to current sentence on space press or word predict press. Context is changed to word completion mode
@@ -66,6 +66,7 @@ namespace ALSProject
                     this.Controls.Add(predictionKeyboard[i][j]);
                 }
             }*/
+
 
             for (int i = 0; i < keyboard.Length; i++)
             {
@@ -93,6 +94,9 @@ namespace ALSProject
             btnShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Controls.Add(btnShift);
             btnShift.Click += new System.EventHandler(this.btnRight_Click);
+
+            resetPrediction();
+
         }
 
 
@@ -252,7 +256,7 @@ namespace ALSProject
         public void fillPredictKeys(object sender, EventArgs e)
         {
             ALSButton btn = ((ALSButton)sender);
-            String[] predictions = presage.getPredictions(btn.Text);
+            String[] predictions = presage.getPredictions(buffer+btn.Text);
 
             for (int i = 0; i < predictionKeys.Length; i++)
             {
@@ -270,6 +274,7 @@ namespace ALSProject
         public void resetPrediction()
         {
             presage.reset();
+            buffer = "";
             
             foreach(ALSButton btn in predictionKeys)
             {

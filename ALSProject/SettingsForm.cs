@@ -59,5 +59,6 @@ namespace ALSProject
             label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
             label2.Location = new Point(Width / 2 - label2.Width / 2, label2.Top);
         }
+
     }
 }

@@ -125,6 +125,12 @@ namespace ALSProject
             textBox.Text = "";
         }
 
+        public void hideTextBox()
+        {
+            textBox.Hide();
+            textBox.Size = new Size(0,0);
+        }
+
         private void DeleteWord(object sender, EventArgs e)
         {
             var match = Regex.Match(textBox.Text, @"\s+\S+\s*$");
@@ -296,6 +302,11 @@ namespace ALSProject
         public string GetText()
         {
             return textBox.Text;
+        }
+
+        public TextBox getTextBox()
+        {
+            return textBox;
         }
 
         public void SetText(string text)

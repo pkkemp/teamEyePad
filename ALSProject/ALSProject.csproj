@@ -64,6 +64,12 @@
     <Compile Include="ALSAlarm.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ALSBrowserCntrl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ALSBrowserCntrl.Designer.cs">
+      <DependentUpon>ALSBrowserCntrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ALSButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -75,6 +81,12 @@
     </Compile>
     <Compile Include="ALS_App.cs" />
     <Compile Include="BECM.cs" />
+    <Compile Include="Browser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Browser.Designer.cs">
+      <DependentUpon>Browser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Callout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +124,7 @@
     <Compile Include="KeyboardControl2.Designer.cs">
       <DependentUpon>KeyboardControl2.cs</DependentUpon>
     </Compile>
+    <Compile Include="MouseRectangle.cs" />
     <Compile Include="Notebook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Browser.resx">
+      <DependentUpon>Browser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Callout.resx">
       <DependentUpon>Callout.cs</DependentUpon>

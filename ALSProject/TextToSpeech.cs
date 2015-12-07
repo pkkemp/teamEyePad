@@ -24,7 +24,7 @@ namespace ALSProject
             InitializeComponent();
             this.Parent = parent;
 
-           // this.alsKeyboard.setRemainingVariables();
+            // this.alsKeyboard.setRemainingVariables();
             clearTextConfirmation = new ClearTextConfirmation(this);
             //this.alsKeyboard.setupPreditionBox();
 
@@ -51,7 +51,7 @@ namespace ALSProject
                 //*TODO Delete temporary code
                 getCurrentSentence();
             };
-            
+
             alsKeyboard.Location = new Point(UI.GAP, UI.GAP);
             alsKeyboard.SendToBack();
 
@@ -107,10 +107,10 @@ namespace ALSProject
             //If you do want to move the caret around use this, then concatenate them
             var firstHalf = Regex.Match(text.Substring(0, alsKeyboard.GetSelectionStart()), "[.!?][^.!?]*$");
             var secondHalf = Regex.Match(text.Substring(alsKeyboard.GetSelectionStart()), "[^.!?]*[.!?]");
-            
+
             string sentence = "";
 
-            if(firstHalf.Success)
+            if (firstHalf.Success)
             {
                 MessageBox.Show(text.Substring(firstHalf.Index, firstHalf.Length));
             }
@@ -141,7 +141,7 @@ namespace ALSProject
             {
                 alsKeyboard.SetText(text.Substring(0, match.Index));
             }
-            else if(match2.Success)
+            else if (match2.Success)
             {
                 alsKeyboard.SetText(text.Substring(0, match2.Index));
             }
