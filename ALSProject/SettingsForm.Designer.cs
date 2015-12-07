@@ -30,12 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnResetCallouts = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSButton();
             this.btnBack = new ALSProject.ALSButton();
             this.slider1 = new ALSProject.Slider();
             this.alsButton2 = new ALSProject.ALSButton();
             this.alsButton1 = new ALSProject.ALSButton();
-            this.btnResetCallouts = new ALSProject.ALSButton();
             this.SuspendLayout();
             // 
             // label1
@@ -63,6 +63,21 @@
             this.label2.Size = new System.Drawing.Size(296, 63);
             this.label2.TabIndex = 4;
             this.label2.Text = "Seconds: 1";
+            // 
+            // btnResetCallouts
+            // 
+            this.btnResetCallouts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnResetCallouts.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.btnResetCallouts.dwellTimeInterval = 15;
+            this.btnResetCallouts.FlatAppearance.BorderSize = 0;
+            this.btnResetCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnResetCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnResetCallouts.Location = new System.Drawing.Point(12, 376);
+            this.btnResetCallouts.Name = "btnResetCallouts";
+            this.btnResetCallouts.Size = new System.Drawing.Size(203, 150);
+            this.btnResetCallouts.TabIndex = 7;
+            this.btnResetCallouts.Text = "Reset\r\nCallouts";
+            this.btnResetCallouts.UseVisualStyleBackColor = false;
             // 
             // btnAlarm
             // 
@@ -144,21 +159,6 @@
             this.alsButton1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.alsButton1.UseVisualStyleBackColor = false;
             this.alsButton1.Click += new System.EventHandler(this.alsButton1_Click);
-            // 
-            // btnResetCallouts
-            // 
-            this.btnResetCallouts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnResetCallouts.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.btnResetCallouts.dwellTimeInterval = 15;
-            this.btnResetCallouts.FlatAppearance.BorderSize = 0;
-            this.btnResetCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResetCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.btnResetCallouts.Location = new System.Drawing.Point(12, 376);
-            this.btnResetCallouts.Name = "btnResetCallouts";
-            this.btnResetCallouts.Size = new System.Drawing.Size(203, 150);
-            this.btnResetCallouts.TabIndex = 7;
-            this.btnResetCallouts.Text = "Reset\\nCallouts";
-            this.btnResetCallouts.UseVisualStyleBackColor = false;
             // 
             // SettingsForm
             // 

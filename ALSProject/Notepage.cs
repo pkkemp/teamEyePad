@@ -54,12 +54,12 @@ namespace ALSProject
             Controls.Add(alarm);
             Controls.Add(speak);
             Controls.Add(back);
-            Controls.Add(up);
-            Controls.Add(left);
-            Controls.Add(right);
-            Controls.Add(down);
-            Controls.Add(backWord);
-            Controls.Add(forwardWord);
+            //Controls.Add(up);
+            //Controls.Add(left);
+            //Controls.Add(right);
+            //Controls.Add(down);
+            //Controls.Add(backWord);
+            //Controls.Add(forwardWord);
             Controls.Add(keyboard);
             Controls.Add(txtContect);
 
@@ -84,6 +84,8 @@ namespace ALSProject
             txtContect.Multiline = true;
             txtContect.Font = new Font("Microsoft Sans Serif", 20F);
             initControlsRecursive(this.Controls);
+
+            keyboard.SetTextBoxSize(new Size(0, 0));
         }
 
         private void ForwardWord_Click(object sender, EventArgs e)

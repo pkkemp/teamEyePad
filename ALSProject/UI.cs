@@ -140,6 +140,11 @@ namespace ALSProject
         }
 
 
+        public void OpenTTS()
+        {
+            texttospeech.Show();
+        }
+
 
         public void initBECM()
         {

@@ -56,7 +56,6 @@
             this.quitBut.Name = "quitBut";
             this.quitBut.Size = new System.Drawing.Size(312, 248);
             this.quitBut.TabIndex = 10;
-            this.quitBut.Text = "Close";
             this.quitBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.quitBut.UseVisualStyleBackColor = false;
             this.quitBut.Click += new System.EventHandler(this.quitBut_Click);
@@ -77,7 +76,6 @@
             this.setBut.Name = "setBut";
             this.setBut.Size = new System.Drawing.Size(312, 248);
             this.setBut.TabIndex = 9;
-            this.setBut.Text = "Settings";
             this.setBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
@@ -118,7 +116,6 @@
             this.alsButton4.Name = "alsButton4";
             this.alsButton4.Size = new System.Drawing.Size(312, 248);
             this.alsButton4.TabIndex = 7;
-            this.alsButton4.Text = "Callouts";
             this.alsButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
@@ -193,7 +190,6 @@
             this.ttsBut.Name = "ttsBut";
             this.ttsBut.Size = new System.Drawing.Size(312, 248);
             this.ttsBut.TabIndex = 3;
-            this.ttsBut.Text = "Text to Speech";
             this.ttsBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttsBut.UseVisualStyleBackColor = false;
             this.ttsBut.Click += new System.EventHandler(this.ttsBut_Click);
@@ -213,7 +209,6 @@
             this.alarmBut.Name = "alarmBut";
             this.alarmBut.Size = new System.Drawing.Size(312, 248);
             this.alarmBut.TabIndex = 2;
-            this.alarmBut.Text = "Activate Alarm";
             this.alarmBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.alarmBut.UseVisualStyleBackColor = false;
             this.alarmBut.Click += new System.EventHandler(this.alarmBut_Click);

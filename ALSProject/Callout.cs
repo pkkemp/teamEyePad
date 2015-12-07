@@ -25,12 +25,13 @@ namespace ALSProject
         protected int pageNum = 0;
         SpeechSynthesizer speaker;
         AddCallout ac;
-
+        Form Parent;
 
         public Callout(Form parent, SpeechSynthesizer voice)
         {
             InitializeComponent();
 
+            this.Parent = parent;
             //setup speech
             speaker = voice;
 
@@ -58,6 +59,7 @@ namespace ALSProject
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
             topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
+            topRowButtons[5].Click += new System.EventHandler(this.MainMenu_Click);
             ac.getSaveButton().Click += new EventHandler(this.addToList);
 
             foreach (ALSButton btn in topRowButtons)
@@ -106,6 +108,12 @@ namespace ALSProject
                 }
 
             flipToPage(0);
+        }
+
+        private void MainMenu_Click(object sender, EventArgs e)
+        {
+            this.Parent.Visible = true;
+            this.Visible = false;
         }
 
         private int getNum(String str)
@@ -227,6 +235,10 @@ namespace ALSProject
             {
                 ac.Show();
                 this.Hide();
+            }
+            else
+            {
+                ((UI)this.Parent).OpenTTS();
             }
         }
 

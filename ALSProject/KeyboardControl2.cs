@@ -95,7 +95,9 @@ namespace ALSProject
                                 keyboard[i, j].Click += Clear;
                             break;
                         case 2:
-                            if (j <= 5)
+                            if (j == 0)
+                                keyboard[i, j].Click += TypeCharacter;
+                            else if (j >= 1 && j <= 5)
                                 keyboard[i, j].Click += NavigateKeyboard;
                             else if (j == 6)
                                 keyboard[i, j].Click += TypeCharacter;
@@ -128,7 +130,7 @@ namespace ALSProject
         public void hideTextBox()
         {
             textBox.Hide();
-            textBox.Size = new Size(0,0);
+            textBox.Size = new Size(0, 0);
         }
 
         private void DeleteWord(object sender, EventArgs e)

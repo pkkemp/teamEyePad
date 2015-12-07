@@ -156,7 +156,7 @@ namespace ALSProject
             if (Text.Equals("Speak"))
                 Console.Write(" ");
 
-            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize-5, 50));
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize - 8, 50));
         }
     }
 }
