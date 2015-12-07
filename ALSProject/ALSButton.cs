@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 using System.Timers;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
@@ -145,7 +146,7 @@ namespace ALSProject
         //Text is the string which it's bounds is more than room bounds.
         public void setFontSize(Graphics g)
         {
-            //Graphics g = Graphics.FromImage(this.Image);
+
             SizeF RealSize = g.MeasureString(Text, Font);
             float HeightScaleRatio = Height / RealSize.Height;
             float WidthScaleRatio = Width / RealSize.Width;
