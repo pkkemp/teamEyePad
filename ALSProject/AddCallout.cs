@@ -23,11 +23,17 @@ namespace ALSProject
             btnMenu.Text = "Exit\nwithout\nsaving";
             btnCallouts.Text = "Save";
 
+
+
             //btnCallouts.Location = new Point(Width - UI.GAP, btnMenu.Top);
             btnCallouts.Size = new Size(btnMenu.Size.Width, btnMenu.Size.Height);
 
             alsKeyboard.SetTextBoxLocation(new Point(alsAlarm1.Right + UI.GAP, alsAlarm1.Top));
-            
+
+            Graphics g = CreateGraphics();
+            btnSpeak.setFontSize(g);
+            btnMenu.setFontSize(g);
+            btnCallouts.setFontSize(g);
             //textBox1.Visible = false;
         }
 

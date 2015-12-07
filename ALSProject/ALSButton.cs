@@ -153,10 +153,10 @@ namespace ALSProject
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
 
-            if (Text.Equals("Speak"))
-                Console.Write(" ");
-
-            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize - 8, 50));
+            if (Text.Equals("Up"))
+                Font = new Font(Font.FontFamily, 37);
+            else
+                Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize - 4, 50));
         }
     }
 }
