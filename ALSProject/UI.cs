@@ -290,6 +290,7 @@ namespace ALSProject
             browser.Show();
             this.Hide();
         }
+
     }
 
 

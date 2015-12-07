@@ -13,17 +13,21 @@ namespace ALSProject
     public partial class ALSBrowserCntrl : WebBrowser
     {
         private Form parentForm;
-        MouseRectangle mouseBox;
         Timer timer;
         
 
         public ALSBrowserCntrl(Form parent)
         {
             parentForm = parent;
-            mouseBox = new MouseRectangle(this);
             InitializeComponent();
-
         }
+
+        public bool getMouseOver()
+        {
+            return new Rectangle(this.Location, this.Size).Contains(Cursor.Position);
+        }
+
+
 
     }
 }

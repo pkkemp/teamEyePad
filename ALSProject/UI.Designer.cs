@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
             this.quitBut = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
             this.btnBrowser = new ALSProject.ALSButton();
@@ -197,7 +196,7 @@
             // alarmBut
             // 
             this.alarmBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.alarmBut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("alarmBut.BackgroundImage")));
+            this.alarmBut.BackgroundImage = global::ALSProject.Properties.Resources.speaker_icon;
             this.alarmBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.alarmBut.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.alarmBut.dwellTimeInterval = 15;

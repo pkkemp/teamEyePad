@@ -79,6 +79,12 @@
     <Compile Include="ALSKey.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ALSTextbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ALSTextbox.Designer.cs">
+      <DependentUpon>ALSTextbox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ALS_App.cs" />
     <Compile Include="BECM.cs" />
     <Compile Include="Browser.cs">
@@ -125,6 +131,7 @@
       <DependentUpon>KeyboardControl2.cs</DependentUpon>
     </Compile>
     <Compile Include="MouseRectangle.cs" />
+    <Compile Include="MouseSimulator.cs" />
     <Compile Include="Notebook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ALSTextbox.resx">
+      <DependentUpon>ALSTextbox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
