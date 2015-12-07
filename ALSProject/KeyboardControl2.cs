@@ -53,6 +53,7 @@ namespace ALSProject
             {
                 predictionKeys[i] = new ALSButton();
                 this.Controls.Add(predictionKeys[i]);
+                predictionKeys[i].btnType = ALSButton.ButtonType.key;
             }
 
             string[,] letters = { { "abc\ndef", "ghi\njkl", "mnop\nqrs", "tuvw\nxyz", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
@@ -78,6 +79,7 @@ namespace ALSProject
                     keyboard[i, j] = new ALSKey();
                     Controls.Add(keyboard[i, j]);
                     keyboard[i, j].Text = letters[i, j];
+                    keyboard[i,j].btnType = ALSButton.ButtonType.key;
 
                     switch (i)
                     {

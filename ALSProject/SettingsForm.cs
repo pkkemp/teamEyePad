@@ -27,19 +27,19 @@ namespace ALSProject
             btnBack.setFontSize(gr);
             btnResetCallouts.setFontSize(gr);
 
-            update();
+            updateSldrDwellTime();
         }
 
         private void alsButton1_Click(object sender, EventArgs e)
         {
-            slider1.UpdatePos(Slider.direction.LEFT);
-            update();
+            sldrDwellTime.UpdatePos(Slider.direction.LEFT);
+            updateSldrDwellTime();
         }
 
         private void alsButton2_Click(object sender, EventArgs e)
         {
-            slider1.UpdatePos(Slider.direction.RIGHT);
-            update();
+            sldrDwellTime.UpdatePos(Slider.direction.RIGHT);
+            updateSldrDwellTime();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -48,17 +48,33 @@ namespace ALSProject
             this.Hide();
         }
 
-        private void update()
+        private void updateSldrDwellTime()
         {
-            label2.Text = "" + slider1.value;
-            ALSButton.setTimerSpeed(slider1.value, ALSButton.ButtonType.normal);
+            //label2.Text = "" + slider1.value;
+            ALSButton.setTimerSpeed(sldrDwellTime.value, ALSButton.ButtonType.normal);
         }
 
         private void SettingsForm_Resize(object sender, EventArgs e)
         {
             label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
-            label2.Location = new Point(Width / 2 - label2.Width / 2, label2.Top);
+            //label2.Location = new Point(Width / 2 - label2.Width / 2, label2.Top);
         }
 
+        private void btnKeyboardLeft_Click(object sender, EventArgs e)
+        {
+            sldrKeyboard.UpdatePos(Slider.direction.LEFT);
+            updateSldrKeyboard();
+        }
+
+        private void updateSldrKeyboard()
+        {
+            ALSButton.setTimerSpeed(sldrKeyboard.value, ALSButton.ButtonType.key);
+        }
+
+        private void btnKeyboardRight_Click(object sender, EventArgs e)
+        {
+            sldrKeyboard.UpdatePos(Slider.direction.RIGHT);
+            updateSldrKeyboard();
+        }
     }
 }
