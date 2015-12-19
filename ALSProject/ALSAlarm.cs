@@ -9,7 +9,7 @@ namespace ALSProject
 {
     public class ALSAlarm : ALSButton
     {
-        private Boolean alarmOn;
+        private static Boolean alarmOn;
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
 
@@ -24,7 +24,23 @@ namespace ALSProject
             Click += new System.EventHandler(this.ALSAlarm_Click);
             this.BackgroundImage = Properties.Resources.speaker_icon;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.VisibleChanged += ALSAlarm_VisibleChanged;
+            
+        }
 
+        private void ALSAlarm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                if (alarmOn)
+                {
+                    this.BackgroundImage = Properties.Resources.AlarmOff;
+                }
+                else
+                {
+                    this.BackgroundImage = Properties.Resources.speaker_icon;
+                }
+            }
         }
 
         public Boolean isAlarmOn()

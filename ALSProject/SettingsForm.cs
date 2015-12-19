@@ -21,6 +21,7 @@ namespace ALSProject
             InitializeComponent();
             parentForm = pForm;
 
+            btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
             Graphics gr = CreateGraphics();
             btnAlarm.setFontSize(gr);

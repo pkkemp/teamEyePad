@@ -36,7 +36,7 @@ namespace ALSProject
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
 
-  
+
         public Form self { get; set; }
         private BECM becm;
         private CVInterface tobiiInt;
@@ -58,10 +58,7 @@ namespace ALSProject
             InitializeComponent();
             this.self = this;
             initBECM();
-            alarmBut.Click += new System.EventHandler(alarmBut_Click);
-            
-
-
+            btnAlarm.Click += new System.EventHandler(alarmBut_Click);
 
 
             //Temp code
@@ -82,6 +79,14 @@ namespace ALSProject
             settingsScreen = new SettingsForm(this);
             quitScreen = new QuitForm(this);
             browser = new Browser(this);
+
+            texttospeech.Visible = false;
+            notebook.Visible = false;
+            texttospeech.Visible = false;
+            callout.Visible = false;
+            settingsScreen.Visible = false;
+            browser.Visible = false;
+            this.VisibleChanged += UI_VisibleChanged;
 
             texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
             settingsScreen.btnResetCallouts.Click += new System.EventHandler(this.resetCallouts);
@@ -104,39 +109,35 @@ namespace ALSProject
         private void closeTimeEvent(object sender, EventArgs e)
         {
 
-            if (callout != null && settingsScreen != null && texttospeech != null) {
-                
+            if (callout != null && settingsScreen != null && texttospeech != null)
+            {
                 //this.Close();
             }
-
-
         }
 
         private void resetCallouts(object sender, EventArgs e)
         {
             callout.resetList();
-         
         }
 
         private void closeCallouts(object sender, EventArgs e)
         {
-            if(((ALSButton)sender).Text=="Main Menu")
+            if (((ALSButton)sender).Text == "Main Menu")
             {
                 this.Show();
-                callout.Hide(); 
+                callout.Hide();
             }
             else if (((ALSButton)sender).Text == "Text to Speech")
             {
                 texttospeech.Show();
                 callout.Hide();
-                
             }
         }
 
         public void openCallouts(object sender, EventArgs e)
         {
             callout.Show();
-            texttospeech.Hide(); 
+            texttospeech.Hide();
         }
 
 
@@ -148,7 +149,6 @@ namespace ALSProject
 
         public void initBECM()
         {
-            //becm = new BECM(Properties.Resources.buzz);
             becm = new BECM();
         }
         private void User_Interface_Load(object sender, EventArgs e)
@@ -169,7 +169,7 @@ namespace ALSProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -189,11 +189,10 @@ namespace ALSProject
         private void quitBut_Click(object sender, EventArgs e)
         {
 
-            if (!alarmBut.isAlarmOn())
+            if (!btnAlarm.isAlarmOn())
             {
                 quitScreen.Show();
                 this.Hide();
-
             }
         }
 
@@ -201,43 +200,45 @@ namespace ALSProject
         {
             settingsScreen.Show();
             this.Hide();
-
         }
 
-        private void setBut_MouseEnter(object sender, EventArgs e)
+        private void UI_VisibleChanged(object sender, EventArgs e)
         {
-        }
-
-
-        private void alarmBut_Click(object sender, EventArgs e)
-        {
-            if (!alarmBut.isAlarmOn())
+            if (btnAlarm.isAlarmOn())
             {
-                quitBut.BackColor = ALSButton.baseColor;
-                quitBut.Enabled = true;
-                alarmBut.Text = "Activate Alarm";
-
+                btnQuit.BackColor = Color.Red;
+                btnQuit.Enabled = false;
             }
             else
             {
-                quitBut.BackColor = Color.Red;
-                quitBut.Enabled = false;
-                alarmBut.Text = "Deactivate Alarm";
+                btnQuit.BackColor = ALSButton.baseColor;
+                btnQuit.Enabled = true;
             }
+        }
 
-
+        private void alarmBut_Click(object sender, EventArgs e)
+        {
+            if (!btnAlarm.isAlarmOn())
+            {
+                btnQuit.BackColor = ALSButton.baseColor;
+                btnQuit.Enabled = true;
+            }
+            else
+            {
+                btnQuit.BackColor = Color.Red;
+                btnQuit.Enabled = false;
+            }
         }
 
         private void btnMin_Click(object sender, EventArgs e)
         {
             notebook.Show();
             texttospeech.Hide();
+            this.Hide();
         }
 
         private void ttsBut_Click(object sender, EventArgs e)
         {
-
-            
             texttospeech.Show();
             this.Hide();
         }
@@ -248,8 +249,8 @@ namespace ALSProject
             int width = (this.Width);
 
 
-            alarmBut.Location = new Point(GAP, GAP);
-            alarmBut.Size = new Size(height, height);
+            btnAlarm.Location = new Point(GAP, GAP);
+            btnAlarm.Size = new Size(height, height);
 
             btnMin.Location = new Point(GAP, 2 * GAP + height);
             btnMin.Size = new Size(height, height);
@@ -257,8 +258,8 @@ namespace ALSProject
             btnBrowser.Location = new Point(GAP, 3 * GAP + 2 * height);
             btnBrowser.Size = new Size(height, height);
 
-            ttsBut.Location = new Point(width / 2 - height / 2, GAP);
-            ttsBut.Size = new Size(height, height);
+            btnTTS.Location = new Point(width / 2 - height / 2, GAP);
+            btnTTS.Size = new Size(height, height);
 
             alsButton5.Location = new Point(width / 2 - height / 2, 2 * GAP + height);
             alsButton5.Size = new Size(height, height);
@@ -266,14 +267,14 @@ namespace ALSProject
             setBut.Location = new Point(width / 2 - height / 2, 3 * GAP + 2 * height);
             setBut.Size = new Size(height, height);
 
-            noteBut.Location = new Point(width - GAP - height, GAP);
-            noteBut.Size = new Size(height, height);
+            btnNotebook.Location = new Point(width - GAP - height, GAP);
+            btnNotebook.Size = new Size(height, height);
 
             alsButton4.Location = new Point(width - GAP - height, 2 * GAP + height);
             alsButton4.Size = new Size(height, height);
 
-            quitBut.Location = new Point(width - GAP - height, 3 * GAP + 2 * height);
-            quitBut.Size = new Size(height, height);
+            btnQuit.Location = new Point(width - GAP - height, 3 * GAP + 2 * height);
+            btnQuit.Size = new Size(height, height);
 
 
         }
@@ -282,7 +283,7 @@ namespace ALSProject
         {
             CVInterface.PleaseStop();
             Application.Exit();
-            
+
         }
 
         private void btnBrowser_Click(object sender, EventArgs e)
@@ -294,4 +295,4 @@ namespace ALSProject
     }
 
 
-}  
+}

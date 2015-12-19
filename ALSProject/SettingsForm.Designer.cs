@@ -34,7 +34,7 @@
             this.btnKeyboardRight = new ALSProject.ALSButton();
             this.btnKeyboardLeft = new ALSProject.ALSButton();
             this.btnResetCallouts = new ALSProject.ALSButton();
-            this.btnAlarm = new ALSProject.ALSButton();
+            this.btnAlarm = new ALSProject.ALSAlarm();
             this.btnBack = new ALSProject.ALSButton();
             this.sldrDwellTime = new ALSProject.Slider();
             this.alsButton2 = new ALSProject.ALSButton();
@@ -243,7 +243,7 @@
         private Slider sldrDwellTime;
         private System.Windows.Forms.Label label1;
         private ALSButton btnBack;
-        private ALSButton btnAlarm;
+        private ALSAlarm btnAlarm;
         public ALSButton btnResetCallouts;
         private System.Windows.Forms.Label label4;
         private Slider sldrKeyboard;
