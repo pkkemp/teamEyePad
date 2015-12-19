@@ -17,12 +17,11 @@ namespace ALSProject
         private Form parentForm;
         private SpeechSynthesizer voice;
         KeyboardControl2 keyboard;
-        
+
         const int MENU_BUTTON_SIZE = 140;
         const int ARROW_KEY_SIZE = 80;
         ALSButton alarm, speak, back;
         ALSButton up, left, right, down, backWord, forwardWord;
-        TextBox txtContect;
 
         public Notepage(Form parent, SpeechSynthesizer voice)
         {
@@ -34,12 +33,6 @@ namespace ALSProject
 
             keyboard = new KeyboardControl2(this);
 
-            foreach(ALSButton button in keyboard.getKeyboard())
-            { 
-                    button.Click += new System.EventHandler(key_Click);
-                
-            }
-
             alarm = new ALSAlarm();
             speak = new ALSButton();
             back = new ALSButton();
@@ -49,19 +42,17 @@ namespace ALSProject
             down = new ALSButton();
             backWord = new ALSButton();
             forwardWord = new ALSButton();
-            txtContect = new TextBox();
 
             Controls.Add(alarm);
             Controls.Add(speak);
             Controls.Add(back);
-            //Controls.Add(up);
-            //Controls.Add(left);
-            //Controls.Add(right);
-            //Controls.Add(down);
-            //Controls.Add(backWord);
-            //Controls.Add(forwardWord);
+            Controls.Add(up);
+            Controls.Add(left);
+            Controls.Add(right);
+            Controls.Add(down);
+            Controls.Add(backWord);
+            Controls.Add(forwardWord);
             Controls.Add(keyboard);
-            Controls.Add(txtContect);
 
             speak.Click += new EventHandler(Speak_Click);
             back.Click += new EventHandler(Back_Click);
@@ -81,83 +72,73 @@ namespace ALSProject
             backWord.Text = "Left one word";
             forwardWord.Text = "right one word";
 
-            txtContect.Multiline = true;
-            txtContect.Font = new Font("Microsoft Sans Serif", 20F);
             initControlsRecursive(this.Controls);
 
-            keyboard.SetTextBoxSize(new Size(0, 0));
         }
 
         private void ForwardWord_Click(object sender, EventArgs e)
         {
-            txtContect.Focus();
-            string content = txtContect.Text.Substring(txtContect.SelectionStart);
+            keyboard.SetTextBoxFocus();
+            string content = keyboard.GetText().Substring(keyboard.GetSelectionStart());
 
             //Find the first whitespace. Move the cursor at the end of the whitespace
             var match = Regex.Match(content, @"\s*\S+\s+");
             if (match.Success)
             {
-                txtContect.SelectionStart += match.Index + match.Length;
+                keyboard.SetSelection(match.Index + match.Length, 0);
             }
             else
             {
-                txtContect.SelectionStart = txtContect.Text.Length;
+                keyboard.SetSelection(keyboard.GetText().Length, 0);
             }
         }
 
         private void BackWord_Click(object sender, EventArgs e)
         {
-            txtContect.Focus();
-            string content = txtContect.Text.Substring(0, txtContect.SelectionStart);
+            keyboard.SetTextBoxFocus();
+
+            string content = keyboard.GetText().Substring(0, keyboard.GetSelectionStart());
 
             var match = Regex.Match(content, @"\s+\S+\s*$");
             if (match.Success)
             {
-                txtContect.SelectionStart = match.Index;
+                keyboard.SetSelection(match.Index, 0);
+                //txtContect.SelectionStart = match.Index;
             }
             else
             {
-                txtContect.SelectionStart = 0;
+                keyboard.SetSelection(0, 0);
+                //txtContect.SelectionStart = 0;
             }
-        }
-
-        private void key_Click(object sender, EventArgs e)
-        {
-            txtContect.Text += ((ALSButton)sender).Text;
-            this.keyboard.predictType(((ALSButton)sender).Text);
-            //predictLock = false;
         }
 
         private void Down_Click(object sender, EventArgs e)
         {
-            txtContect.Focus();
+            keyboard.SetTextBoxFocus();
             SendKeys.Send("{DOWN}");
         }
 
         private void Right_Click(object sender, EventArgs e)
         {
-            txtContect.Focus();
-            if (txtContect.SelectionStart != txtContect.Text.Length)
-                txtContect.SelectionStart++;
-            txtContect.SelectionLength = 0;
+            keyboard.SetTextBoxFocus();
+
+            int kStart = keyboard.GetSelectionStart();
+            if (kStart != keyboard.GetText().Length)
+                keyboard.SetSelection(kStart + 1, 0);
         }
 
         private void Left_Click(object sender, EventArgs e)
         {
-            txtContect.Focus();
-            if (txtContect.SelectionStart != 0)
-                txtContect.SelectionStart--;
-            txtContect.SelectionLength = 0;
-        }
+            keyboard.SetTextBoxFocus();
 
-        private void Notepage_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
+            int kStart = keyboard.GetSelectionStart();
+            if (kStart != 0)
+                keyboard.SetSelection(kStart - 1, 0);
         }
 
         private void Up_Click(object sender, EventArgs e)
         {
-            txtContect.Focus();
+            keyboard.SetTextBoxFocus();
             SendKeys.Send("{UP}");
         }
 
@@ -170,10 +151,17 @@ namespace ALSProject
         private void Speak_Click(object sender, EventArgs e)
         {
             voice.SpeakAsyncCancelAll();
-            if (txtContect.SelectionStart == txtContect.Text.Length)
-                voice.SpeakAsync(txtContect.Text);
+            int kStart = keyboard.GetSelectionStart();
+            if (kStart == keyboard.GetText().Length)
+                voice.SpeakAsync(keyboard.GetText());
             else
-                voice.SpeakAsync(txtContect.Text.Substring(txtContect.SelectionStart));
+                voice.SpeakAsync(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
+        }
+
+
+        private void Notepage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Type printable characters in text box
         }
 
         void initControlsRecursive(System.Windows.Forms.Control.ControlCollection coll)
@@ -190,7 +178,7 @@ namespace ALSProject
 
         private void updateCursor()
         {
-            txtContect.Focus();
+            keyboard.SetTextBoxFocus();
         }
 
         private void Notepage_Load(object sender, EventArgs e)
@@ -207,10 +195,8 @@ namespace ALSProject
 
             alarm.Location = new Point(UI.GAP, UI.GAP);
             speak.Location = new Point(UI.GAP + alarm.Right, UI.GAP);
-            keyboard.Location = new Point(UI.GAP, alarm.Bottom + UI.GAP);
-            txtContect.Location = new Point(speak.Right + UI.GAP, UI.GAP);
+            keyboard.Location = new Point(UI.GAP, UI.GAP);
 
-            txtContect.Focus();
         }
 
         private void Notepage_Resize(object sender, EventArgs e)
@@ -223,14 +209,17 @@ namespace ALSProject
             down.Location = new Point(right.Left - UI.GAP - ARROW_KEY_SIZE, right.Top);
             left.Location = new Point(down.Left - UI.GAP - ARROW_KEY_SIZE, right.Top);
             up.Location = new Point(down.Left, down.Top - UI.GAP - ARROW_KEY_SIZE);
+            keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + UI.GAP * 2, speak.Top));
 
-            keyboard.Size = new Size(this.Width - UI.GAP * 2, this.Height - 3 * UI.GAP - MENU_BUTTON_SIZE);
-            txtContect.Size = new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE);
+            keyboard.Size = new Size(this.Width - UI.GAP * 2, this.Height - 2 * UI.GAP);
+            keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE));
+
+            keyboard.SetTextBoxFocus();
         }
 
         public string getText()
         {
-            return txtContect.Text;
+            return keyboard.GetText();
         }
 
         public ALSButton getBackBtn()
@@ -241,17 +230,17 @@ namespace ALSProject
         public void setText(string text)
         {
             if (text != null)
-                txtContect.Text = text;
+                keyboard.SetText(text);
         }
 
         public void ClearText() //erases the textbox for when a new note is to be added
         {
-            txtContect.Text = "";
+            keyboard.SetText("");
         }
 
         public void setCursorAtEnd()
         {
-            txtContect.SelectionStart = txtContect.Text.Length;
+            keyboard.SetSelection(keyboard.GetText().Length, 0);
         }
 
         public ALSButton getSaveButton()

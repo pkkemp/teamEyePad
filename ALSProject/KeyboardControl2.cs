@@ -79,7 +79,7 @@ namespace ALSProject
                     keyboard[i, j] = new ALSKey();
                     Controls.Add(keyboard[i, j]);
                     keyboard[i, j].Text = letters[i, j];
-                    keyboard[i,j].btnType = ALSButton.ButtonType.key;
+                    keyboard[i, j].btnType = ALSButton.ButtonType.key;
 
                     switch (i)
                     {
@@ -148,18 +148,29 @@ namespace ALSProject
         private void Backspace(object sender, EventArgs e)
         {
             if (textBox.Text.Length > 0)
-                textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
+            {
+                int selectionStart = textBox.SelectionStart;
+                if (selectionStart == textBox.Text.Length)
+                    textBox.Text = textBox.Text.Substring(0, selectionStart - 1);
+                else
+                    textBox.Text = textBox.Text.Substring(0, selectionStart- 1) + textBox.Text.Substring(selectionStart);
+
+                textBox.SelectionStart = selectionStart - 1;
+            }  
         }
 
         private void TypeCharacter(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
+            int selectionStart = textBox.SelectionStart;
             if (button.Text.Equals("Space"))
-                textBox.Text += " ";
+                textBox.Text = textBox.Text.Substring(0, selectionStart) + " " + textBox.Text.Substring(selectionStart);
             else if (button.Text.Equals("&&"))
-                textBox.Text += "&";
+                textBox.Text = textBox.Text.Substring(0, selectionStart) + "&" + textBox.Text.Substring(selectionStart);
             else
-                textBox.Text += button.Text;
+                textBox.Text = textBox.Text.Substring(0, selectionStart) + button.Text + textBox.Text.Substring(selectionStart);
+            
+            textBox.SelectionStart = selectionStart + 1;
         }
 
         private void NavigateKeyboard(object sender, EventArgs e)
