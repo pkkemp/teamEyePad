@@ -40,10 +40,6 @@ namespace ALSProject
                 btn.Click += new System.EventHandler(this.keypad_Click);
             }
 
-
-            //space.Click += new System.EventHandler(this.space_Click);
-            //clear.Click += new System.EventHandler(this.btnClear_Click);
-
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) =>
             {

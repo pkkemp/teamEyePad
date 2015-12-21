@@ -74,6 +74,21 @@ namespace ALSProject
 
             initControlsRecursive(this.Controls);
 
+            var keys = keyboard.getKeyboard();
+            foreach (var key in keys)
+                if (key.Text.Equals("Clear"))
+                {
+                    key.Click -= keyboard.Clear;
+                    key.Click += Clear_Click;
+                }
+
+        }
+
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            ClearTextConfirmation confirm = new ClearTextConfirmation(this);
+            confirm.Visible = true;
         }
 
         private void ForwardWord_Click(object sender, EventArgs e)

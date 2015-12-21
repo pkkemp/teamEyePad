@@ -26,7 +26,6 @@ namespace ALSProject
         private ALSButton[] predictionKeys;
         private TextBox textBox;
         private ALSButton keySpace;
-        private ALSButton btnClear;
         public static Point spacebarLocation;
         private PresagePredictor presage;
         String buffer;
@@ -42,7 +41,6 @@ namespace ALSProject
             textBox = new TextBox();
 
             keySpace = new ALSButton();
-            btnClear = new ALSButton();
             predictionKeys = new ALSButton[5];
             textBox.Font = new Font(textBox.Font.FontFamily, 24);
             textBox.Multiline = true;
@@ -124,7 +122,7 @@ namespace ALSProject
             }
         }
 
-        private void Clear(object sender, EventArgs e)
+        public void Clear(object sender, EventArgs e)
         {
             textBox.Text = "";
         }

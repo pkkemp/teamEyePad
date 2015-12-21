@@ -38,11 +38,11 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 12);
+            this.label1.Location = new System.Drawing.Point(179, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(630, 51);
+            this.label1.Size = new System.Drawing.Size(302, 51);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Are you sure you want to quit?";
+            this.label1.Text = "Are you sure?";
             // 
             // btnConfirm
             // 
@@ -53,6 +53,7 @@
             this.btnConfirm.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnConfirm.dwellTimeInterval = 50;
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnConfirm.Location = new System.Drawing.Point(3, 66);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(312, 248);
@@ -68,6 +69,7 @@
             this.btnCancel.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnCancel.dwellTimeInterval = 15;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnCancel.Location = new System.Drawing.Point(324, 66);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(312, 248);
