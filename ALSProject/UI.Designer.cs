@@ -28,16 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
+            this.btnBrowser = new ALSProject.ALSButton();
+            this.alsButton5 = new ALSProject.ALSButton();
             this.btnQuit = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
-            this.btnBrowser = new ALSProject.ALSButton();
             this.alsButton4 = new ALSProject.ALSButton();
-            this.alsButton5 = new ALSProject.ALSButton();
             this.btnMin = new ALSProject.ALSButton();
             this.btnNotebook = new ALSProject.ALSButton();
             this.btnTTS = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSAlarm();
             this.SuspendLayout();
+            // 
+            // btnBrowser
+            // 
+            this.btnBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBrowser.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.btnBrowser.dwellTimeInterval = 15;
+            this.btnBrowser.FlatAppearance.BorderSize = 0;
+            this.btnBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnBrowser.Location = new System.Drawing.Point(12, 518);
+            this.btnBrowser.Name = "btnBrowser";
+            this.btnBrowser.Size = new System.Drawing.Size(312, 248);
+            this.btnBrowser.TabIndex = 8;
+            this.btnBrowser.Text = "Browser";
+            this.btnBrowser.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnBrowser.UseVisualStyleBackColor = false;
+            this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
+            // 
+            // alsButton5
+            // 
+            this.alsButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.alsButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.alsButton5.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.alsButton5.dwellTimeInterval = 15;
+            this.alsButton5.FlatAppearance.BorderSize = 0;
+            this.alsButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.alsButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.alsButton5.Location = new System.Drawing.Point(356, 264);
+            this.alsButton5.Name = "alsButton5";
+            this.alsButton5.Size = new System.Drawing.Size(312, 248);
+            this.alsButton5.TabIndex = 6;
+            this.alsButton5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // btnQuit
             // 
@@ -79,24 +115,6 @@
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
             // 
-            // btnBrowser
-            // 
-            this.btnBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnBrowser.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.btnBrowser.dwellTimeInterval = 15;
-            this.btnBrowser.FlatAppearance.BorderSize = 0;
-            this.btnBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.btnBrowser.Location = new System.Drawing.Point(12, 518);
-            this.btnBrowser.Name = "btnBrowser";
-            this.btnBrowser.Size = new System.Drawing.Size(312, 248);
-            this.btnBrowser.TabIndex = 8;
-            this.btnBrowser.Text = "Browser";
-            this.btnBrowser.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnBrowser.UseVisualStyleBackColor = false;
-            this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
-            // 
             // alsButton4
             // 
             this.alsButton4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -117,23 +135,6 @@
             this.alsButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
-            // 
-            // alsButton5
-            // 
-            this.alsButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.alsButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.alsButton5.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.alsButton5.dwellTimeInterval = 15;
-            this.alsButton5.FlatAppearance.BorderSize = 0;
-            this.alsButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.alsButton5.Location = new System.Drawing.Point(356, 264);
-            this.alsButton5.Name = "alsButton5";
-            this.alsButton5.Size = new System.Drawing.Size(312, 248);
-            this.alsButton5.TabIndex = 6;
-            this.alsButton5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // btnMin
             // 
@@ -159,6 +160,7 @@
             // 
             this.btnNotebook.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNotebook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnNotebook.BackgroundImage = global::ALSProject.Properties.Resources.Lock;
             this.btnNotebook.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnNotebook.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnNotebook.dwellTimeInterval = 15;
@@ -171,6 +173,7 @@
             this.btnNotebook.TabIndex = 4;
             this.btnNotebook.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnNotebook.UseVisualStyleBackColor = false;
+            this.btnNotebook.Click += new System.EventHandler(this.btnNotebook_Click);
             // 
             // btnTTS
             // 
@@ -195,7 +198,7 @@
             // btnAlarm
             // 
             this.btnAlarm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnAlarm.BackgroundImage = global::ALSProject.Properties.Resources.speaker_icon;
+            this.btnAlarm.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAlarm.BackgroundImage")));
             this.btnAlarm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAlarm.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnAlarm.dwellTimeInterval = 15;

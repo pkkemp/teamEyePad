@@ -19,6 +19,7 @@ namespace ALSProject
         const int RECT_SIZE = 100;
         private int mouseCount = -1;
         bool clickmode = false;
+        private const int MOUSEWAIT = 15;
 
         public MouseRectangle(Form parent)
         {
@@ -46,7 +47,7 @@ namespace ALSProject
         {
             clickmode = mode;
         }
-        private const int MOUSEWAIT = 15;
+
         private void timerEvent(object sender, EventArgs e)
         {
             mouseCount++;

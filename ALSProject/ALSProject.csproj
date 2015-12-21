@@ -130,6 +130,12 @@
     <Compile Include="KeyboardControl2.Designer.cs">
       <DependentUpon>KeyboardControl2.cs</DependentUpon>
     </Compile>
+    <Compile Include="LockScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LockScreen.Designer.cs">
+      <DependentUpon>LockScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="MouseRectangle.cs" />
     <Compile Include="MouseSimulator.cs" />
     <Compile Include="Notebook.cs">
@@ -233,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KeyboardControl.resx">
       <DependentUpon>KeyboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LockScreen.resx">
+      <DependentUpon>LockScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Notebook.resx">
       <DependentUpon>Notebook.cs</DependentUpon>
@@ -343,6 +352,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CalloutPhrases.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lock.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

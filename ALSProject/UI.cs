@@ -42,6 +42,7 @@ namespace ALSProject
         private CVInterface tobiiInt;
         private Notebook notebook;
         private Thread eyeTrackingThread;
+        private static LockScreen lockScreen;
         public const int GAP = 10;
 
         TextToSpeech texttospeech;
@@ -59,7 +60,7 @@ namespace ALSProject
             this.self = this;
             initBECM();
             btnAlarm.Click += new System.EventHandler(alarmBut_Click);
-
+            lockScreen = new LockScreen();
 
             //Temp code
             tobiiInt = new CVInterface();
@@ -292,6 +293,16 @@ namespace ALSProject
             this.Hide();
         }
 
+        private void btnNotebook_Click(object sender, EventArgs e)
+        {
+            showLockScreen();
+        }
+
+        public static void showLockScreen()
+        {
+            lockScreen.Visible = true;
+            lockScreen.Focus();
+        }
     }
 
 

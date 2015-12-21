@@ -22,6 +22,7 @@ namespace ALSProject
         const int ARROW_KEY_SIZE = 80;
         ALSButton alarm, speak, back;
         ALSButton up, left, right, down, backWord, forwardWord;
+        ALSButton _lock;
 
         public Notepage(Form parent, SpeechSynthesizer voice)
         {
@@ -42,6 +43,7 @@ namespace ALSProject
             down = new ALSButton();
             backWord = new ALSButton();
             forwardWord = new ALSButton();
+            _lock = new ALSButton();
 
             Controls.Add(alarm);
             Controls.Add(speak);
@@ -53,6 +55,7 @@ namespace ALSProject
             Controls.Add(backWord);
             Controls.Add(forwardWord);
             Controls.Add(keyboard);
+            Controls.Add(_lock);
 
             speak.Click += new EventHandler(Speak_Click);
             back.Click += new EventHandler(Back_Click);
@@ -71,6 +74,10 @@ namespace ALSProject
             down.Text = "Down";
             backWord.Text = "Left one word";
             forwardWord.Text = "right one word";
+            _lock.BackgroundImage = Properties.Resources.Lock;
+
+            _lock.BackgroundImageLayout = ImageLayout.Zoom;
+            _lock.Click += _lock_Click;
 
             initControlsRecursive(this.Controls);
 
@@ -82,6 +89,11 @@ namespace ALSProject
                     key.Click += Clear_Click;
                 }
 
+        }
+
+        private void _lock_Click(object sender, EventArgs e)
+        {
+            UI.showLockScreen();
         }
 
         private void Clear_Click(object sender, EventArgs e)
@@ -201,12 +213,14 @@ namespace ALSProject
             alarm.Size = new Size(MENU_BUTTON_SIZE, MENU_BUTTON_SIZE);
             speak.Size = new Size(MENU_BUTTON_SIZE, MENU_BUTTON_SIZE);
             back.Size = new Size(MENU_BUTTON_SIZE, MENU_BUTTON_SIZE);
+            _lock.Size = new Size(MENU_BUTTON_SIZE, MENU_BUTTON_SIZE);
             up.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             left.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             right.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             down.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             backWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
             forwardWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
+
 
             alarm.Location = new Point(UI.GAP, UI.GAP);
             speak.Location = new Point(UI.GAP + alarm.Right, UI.GAP);
@@ -225,6 +239,7 @@ namespace ALSProject
             left.Location = new Point(down.Left - UI.GAP - ARROW_KEY_SIZE, right.Top);
             up.Location = new Point(down.Left, down.Top - UI.GAP - ARROW_KEY_SIZE);
             keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + UI.GAP * 2, speak.Top));
+            _lock.Location = new Point(back.Left, MENU_BUTTON_SIZE + 2 * UI.GAP);
 
             keyboard.Size = new Size(left.Location.X - UI.GAP * 2, this.Height - 2 * UI.GAP);
             keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE));

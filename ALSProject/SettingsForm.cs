@@ -13,13 +13,16 @@ namespace ALSProject
     public partial class SettingsForm : Form
     {
         Form parentForm;
-
+        ALSButton btnLock;
         //TODO: make a setting for keyboard button speed vs all ALSButton speed
 
         public SettingsForm(Form pForm)
         {
             InitializeComponent();
             parentForm = pForm;
+            btnLock = new ALSButton();
+
+            Controls.Add(btnLock);
 
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
@@ -28,7 +31,16 @@ namespace ALSProject
             btnBack.setFontSize(gr);
             btnResetCallouts.setFontSize(gr);
 
+            btnLock.BackgroundImage = Properties.Resources.Lock;
+            btnLock.BackgroundImageLayout = ImageLayout.Zoom;
+            btnLock.Click += _lock_Click;
+            btnLock.Size = btnBack.Size;
             updateSldrDwellTime();
+        }
+
+        private void _lock_Click(object sender, EventArgs e)
+        {
+            UI.showLockScreen();
         }
 
         private void alsButton1_Click(object sender, EventArgs e)
@@ -59,6 +71,8 @@ namespace ALSProject
         {
             label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
             //label2.Location = new Point(Width / 2 - label2.Width / 2, label2.Top);
+            btnLock.Location = new Point(Width - btnLock.Size.Width - UI.GAP, Height - btnLock.Size.Height - UI.GAP);
+            
         }
 
         private void btnKeyboardLeft_Click(object sender, EventArgs e)
