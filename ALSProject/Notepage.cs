@@ -211,7 +211,7 @@ namespace ALSProject
             up.Location = new Point(down.Left, down.Top - UI.GAP - ARROW_KEY_SIZE);
             keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + UI.GAP * 2, speak.Top));
 
-            keyboard.Size = new Size(this.Width - UI.GAP * 2, this.Height - 2 * UI.GAP);
+            keyboard.Size = new Size(left.Location.X - UI.GAP * 2, this.Height - 2 * UI.GAP);
             keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE));
 
             keyboard.SetTextBoxFocus();

@@ -148,15 +148,12 @@ namespace ALSProject
         {
 
             SizeF RealSize = g.MeasureString(Text, Font);
-            float HeightScaleRatio = Height / RealSize.Height;
-            float WidthScaleRatio = Width / RealSize.Width;
+            float HeightScaleRatio = (Height-16) / RealSize.Height;
+            float WidthScaleRatio = (Width-16) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
-
-            if (Text.Equals("Up"))
-                Font = new Font(Font.FontFamily, 37);
-            else
-                Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize - 4, 50));
+            
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
     }
 }
