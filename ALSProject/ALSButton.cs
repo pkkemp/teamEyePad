@@ -25,7 +25,7 @@ namespace ALSProject
 
         int heightCounter;
         Graphics gr;
-        protected Timer dwellTimer;
+        protected Timer dwellTimer, decayTimer;
         protected bool clicked = false; //prevents rapid clicks
         private int heightDivider = 30;
         //bool immutableDwellTime = false;
@@ -53,13 +53,54 @@ namespace ALSProject
             dwellTimer = new Timer();
             dwellTimer.Enabled = false;
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
+
+            decayTimer = new Timer();
+            decayTimer.Enabled = false;
+            decayTimer.Tick += decayTimer_Tick;
+
             alsButtons.Add(this);
             btnType = ButtonType.normal;
         }
 
+        private void decayTimer_Tick(object sender, EventArgs e)
+        {
+            if (firstTime)
+            {
+                ClearRect();
+                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
+                firstTime = false;
+            }
+            else
+            {
+                ClearRect();
+                //g.ExcludeClip(new Rectangle(0, 0, Width, Height - heightCounter));
+                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
+                // g.Clip = new Region(new RectangleF(0, Height - heightCounter, Width, Height / heightDivider));
+                // g.Clear(BackColor);
+            }
+            if (heightCounter < 0)
+            {
+                heightCounter = 0;
+                decayTimer.Stop();
+                decayTimer.Enabled = false;
+            }
+            else
+            {
+                heightCounter -= this.Height / heightDivider;
+            }
+        }
+
+        private bool firstTime = true;
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
-
+            if(firstTime)
+            {
+                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
+                firstTime = false;
+            }
+            else 
+            //ClearRect();
+            //this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
             this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / heightDivider));
 
             if (heightCounter > this.Height)
@@ -76,22 +117,26 @@ namespace ALSProject
         private void ALSButton_MouseEnter(object sender, EventArgs e)
         {
             dwellTimer.Enabled = true;
+            firstTime = true;
+            decayTimer.Stop();
         }
 
         private void ALSButton_MouseLeave(object sender, EventArgs e)
         {
             dwellTimer.Enabled = false;
             clicked = false;
-            ClearRect();
+            //ClearRect();
+            decayTimer.Start();
+            firstTime = true;
         }
 
         //deletes rectangle, restores image if any
         protected void ClearRect()
         {
-            String text = Text;
+            string text = Text;
             try
             {
-                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy)
+                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy
                 gr.Clear(baseColor);
                 this.BackgroundImage = temp;
             }
@@ -100,8 +145,8 @@ namespace ALSProject
                 this.CreateGraphics().Clear(baseColor);    //clears rectangle if there is no image
             }
             Text = text;
-
-            heightCounter = 0;
+            
+            //heightCounter = 0;
             clicked = false;
         }
 
@@ -114,12 +159,12 @@ namespace ALSProject
 
         private void ALSButton_Click(object sender, EventArgs e)
         {
-
             if (!clicked)
             { //prevents rapid clicks
                 clicked = true;
                 ClearRect();
                 dwellTimer.Enabled = true;
+                decayTimer.Stop();
 
                 //reset
                 dwellTimer.Stop();
@@ -128,7 +173,7 @@ namespace ALSProject
             }
 
         }
-        
+
         public static void setTimerSpeed(double speed, ButtonType buttonType)
         {
             if (speed < 0)
@@ -146,13 +191,12 @@ namespace ALSProject
         //Text is the string which it's bounds is more than room bounds.
         public void setFontSize(Graphics g)
         {
-
             SizeF RealSize = g.MeasureString(Text, Font);
-            float HeightScaleRatio = (Height-16) / RealSize.Height;
-            float WidthScaleRatio = (Width-16) / RealSize.Width;
+            float HeightScaleRatio = (Height - 16) / RealSize.Height;
+            float WidthScaleRatio = (Width - 16) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
-            
+
             Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
     }
