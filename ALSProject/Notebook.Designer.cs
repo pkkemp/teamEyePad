@@ -38,7 +38,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Notebook";
-            this.Text = "Notebook";
+            this.Text = "7";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Notebook_FormClosing);
             this.Load += new System.EventHandler(this.Notebook_Load);

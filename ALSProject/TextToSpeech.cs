@@ -51,6 +51,13 @@ namespace ALSProject
             alsKeyboard.Location = new Point(UI.GAP, UI.GAP);
             alsKeyboard.SendToBack();
 
+            var keys = alsKeyboard.getKeyboard();
+            foreach (var key in keys)
+                if (key.Text.Equals("Clear"))
+                {
+                    key.Click -= alsKeyboard.Clear;
+                    key.Click += Clear_Click;
+                }
         }
 
         public ALSButton getCalloutBtn()
@@ -125,6 +132,13 @@ namespace ALSProject
 
             //Console.WriteLine("Current sentence = " + sentence + " ||..");
             return sentence;
+        }
+
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            ClearTextConfirmation confirm = new ClearTextConfirmation(this);
+            confirm.Visible = true;
         }
 
         protected void key_DeleteWord(object sender, EventArgs e)
