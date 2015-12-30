@@ -198,7 +198,14 @@ namespace ALSProject
 
             for (int i = 0; i < NUM_NOTES; i++)
             {
-                try { notes[0, i].Text = phrases[i + num * NUM_NOTES]; }
+                try
+                {
+                    int maxCharactersShown = 40;
+                    if (phrases[i + num * NUM_NOTES].Length >= maxCharactersShown)
+                        notes[0, i].Text = phrases[i + num * NUM_NOTES].Substring(0, maxCharactersShown);
+                    else
+                        notes[0, i].Text = phrases[i + num * NUM_NOTES];
+                }
                 catch (ArgumentOutOfRangeException) { notes[0, i].Text = ""; }
             }
 
