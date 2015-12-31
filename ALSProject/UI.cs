@@ -100,6 +100,12 @@ namespace ALSProject
                 }
             }
 
+            Rectangle resolution = Screen.PrimaryScreen.Bounds;
+            if(resolution.Width < 840 || resolution.Height < 580)
+            {
+                MessageBox.Show("You are using a computer with a screen resolution less than recommended. Undesired results may incur.");
+            }
+
             //listen for close
             closeTimer = new Timer();
             closeTimer.Enabled = true;

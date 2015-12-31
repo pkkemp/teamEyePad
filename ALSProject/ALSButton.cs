@@ -192,8 +192,8 @@ namespace ALSProject
         public void setFontSize(Graphics g)
         {
             SizeF RealSize = g.MeasureString(Text, Font);
-            float HeightScaleRatio = (Height - 16) / RealSize.Height;
-            float WidthScaleRatio = (Width - 16) / RealSize.Width;
+            float HeightScaleRatio = (Height - 18) / RealSize.Height;
+            float WidthScaleRatio = (Width - 18) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
 
