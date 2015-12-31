@@ -35,7 +35,7 @@ namespace ALSProject
             btnMenu.setFontSize(gr);
             btnSpeak.setFontSize(gr);
 
-            foreach (ALSButton btn in alsKeyboard.getPredictKeys())
+            foreach (ALSButton btn in alsKeyboard.GetPredictKeys())
             {
                 btn.Click += new System.EventHandler(this.keypad_Click);
             }
@@ -51,7 +51,7 @@ namespace ALSProject
             alsKeyboard.Location = new Point(UI.GAP, UI.GAP);
             alsKeyboard.SendToBack();
 
-            var keys = alsKeyboard.getKeyboard();
+            var keys = alsKeyboard.GetKeyboard();
             foreach (var key in keys)
                 if (key.Text.Equals("Clear"))
                 {
@@ -91,7 +91,7 @@ namespace ALSProject
 
         protected void predictReset()
         {
-            this.alsKeyboard.resetPrediction();
+            this.alsKeyboard.ResetPrediction();
         }
 
         protected void btnMenu_Click(object sender, EventArgs e)
@@ -157,8 +157,7 @@ namespace ALSProject
             }
             predictReset();
         }
-
-
+        
         protected void btnClear_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
@@ -233,9 +232,21 @@ namespace ALSProject
 
         private void TextToSpeech_Resize(object sender, EventArgs e)
         {
-            alsKeyboard.Size = new Size(Width - UI.GAP * 2, Height - UI.GAP * 2);
             alsKeyboard.SetTextBoxLocation(new Point(btnSpeak.Right, 0));
             alsKeyboard.SetTextBoxSize(new Size(btnCallouts.Left - btnSpeak.Right - UI.GAP * 2, btnCallouts.Height));
+            alsKeyboard.Size = new Size(Width - UI.GAP * 2, Height - UI.GAP * 2);
+        }
+
+        public void makeKeyboard(bool isQwerty)
+        {
+            this.Controls.Remove(alsKeyboard);
+            if (isQwerty)
+                alsKeyboard = new KeyboardControl3(this);
+            else
+                alsKeyboard = new KeyboardControl2(this);
+            alsKeyboard.Location = new Point(UI.GAP, UI.GAP);
+            TextToSpeech_Resize(this, null);
+            Invalidate();
         }
     }
 }

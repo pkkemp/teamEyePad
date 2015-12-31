@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
-    public partial class KeyboardControl2 : UserControl
+    public partial class KeyboardControl2 : Keyboard
     {
         private enum KeyboardType
         {
@@ -22,38 +22,15 @@ namespace ALSProject
         };
 
         private KeyboardType keyboardType;
-        private ALSKey[,] keyboard;
-        private ALSButton[] predictionKeys;
-        private TextBox textBox;
-        private ALSButton keySpace;
-        public static Point spacebarLocation;
-        private PresagePredictor presage;
-        String buffer;
 
-        public KeyboardControl2()
+        public KeyboardControl2() : base()
         {
             InitializeComponent();
 
             keyboardType = KeyboardType.Lowercase;
 
-            presage = new PresagePredictor();
             keyboard = new ALSKey[15, 10];
-            textBox = new TextBox();
-
-            keySpace = new ALSButton();
-            predictionKeys = new ALSButton[5];
-            textBox.Font = new Font(textBox.Font.FontFamily, 24);
-            textBox.Multiline = true;
-
-            Controls.Add(textBox);
-
-            for (int i = 0; i < predictionKeys.Length; i++)
-            {
-                predictionKeys[i] = new ALSButton();
-                this.Controls.Add(predictionKeys[i]);
-                predictionKeys[i].btnType = ALSButton.ButtonType.key;
-            }
-
+            
             string[,] letters = { { "abc\ndef", "ghi\njkl", "mnop\nqrs", "tuvw\nxyz", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "ABC\nDEF", "GHI\nJKL", "MNOP\nQRS", "TUVW\nXYZ", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "0", "1-9", ",!?,:;'\"", "@$%^&*+-=", "()[]{}|\\/", "abc", "Space", "Backspace", "Delete Word", "Clear"},
@@ -122,55 +99,11 @@ namespace ALSProject
             }
         }
 
-        public void Clear(object sender, EventArgs e)
+        public KeyboardControl2(Form parentForm) : this()
         {
-            textBox.Text = "";
+            this.Parent = parentForm;
         }
-
-        public void hideTextBox()
-        {
-            textBox.Hide();
-            textBox.Size = new Size(0, 0);
-        }
-
-        private void DeleteWord(object sender, EventArgs e)
-        {
-            var match = Regex.Match(textBox.Text, @"\s+\S+\s*$");
-
-            if (match.Success)
-                textBox.Text = textBox.Text.Substring(0, match.Index);
-            else
-                textBox.Text = "";
-        }
-
-        private void Backspace(object sender, EventArgs e)
-        {
-            if (textBox.Text.Length > 0)
-            {
-                int selectionStart = textBox.SelectionStart;
-                if (selectionStart == textBox.Text.Length)
-                    textBox.Text = textBox.Text.Substring(0, selectionStart - 1);
-                else
-                    textBox.Text = textBox.Text.Substring(0, selectionStart- 1) + textBox.Text.Substring(selectionStart);
-
-                textBox.SelectionStart = selectionStart - 1;
-            }  
-        }
-
-        private void TypeCharacter(object sender, EventArgs e)
-        {
-            ALSButton button = (ALSButton)sender;
-            int selectionStart = textBox.SelectionStart;
-            if (button.Text.Equals("Space"))
-                textBox.Text = textBox.Text.Substring(0, selectionStart) + " " + textBox.Text.Substring(selectionStart);
-            else if (button.Text.Equals("&&"))
-                textBox.Text = textBox.Text.Substring(0, selectionStart) + "&" + textBox.Text.Substring(selectionStart);
-            else
-                textBox.Text = textBox.Text.Substring(0, selectionStart) + button.Text + textBox.Text.Substring(selectionStart);
-            
-            textBox.SelectionStart = selectionStart + 1;
-        }
-
+        
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
@@ -254,112 +187,13 @@ namespace ALSProject
                 keyboard[(int)keyboardType, i].BringToFront();
         }
 
-        public KeyboardControl2(Form parentForm) : this()
+        protected override void Keyboard_Resize(object sender, EventArgs e)
         {
-            this.Parent = parentForm;
-        }
-
-        //public void setBuffer(string buffer)
-        //{
-        //    this.buffer = buffer;
-        //}
-
-        private void setupKeypad()
-        {
-
-        }
-
-        public void fillPredictKeys(object sender, EventArgs e)
-        {
-            ALSButton btn = ((ALSButton)sender);
-            String[] predictions = presage.getPredictions(btn.Text);
-
-            for (int i = 0; i < predictionKeys.GetLength(0); i++)
-            {
-                try
-                {
-                    predictionKeys[i].Text = predictions[i];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    predictionKeys[i].Text = "";
-                }
-            }
-        }
-
-        public void resetPrediction()
-        {
-            presage.reset();
-
-            foreach (ALSButton btn in predictionKeys)
-            {
-                btn.Text = "";
-            }
-        }
-
-        public ALSButton[] getPredictKeys()
-        {
-            return predictionKeys;
-        }
-
-        public void predictType(string key)
-        {
-            //boxPredict.tType(key);
-        }
-
-        public ALSKey[,] getKeyboard()
-        {
-            return keyboard;
-        }
-
-        public string GetText()
-        {
-            return textBox.Text;
-        }
-
-        public TextBox getTextBox()
-        {
-            return textBox;
-        }
-
-        public void SetText(string text)
-        {
-            textBox.Text = text;
-        }
-
-        public void SetTextBoxLocation(Point location)
-        {
-            textBox.Location = location;    //Test this
-        }
-
-        public void SetTextBoxSize(Size size)
-        {
-            textBox.Size = size;
-        }
-
-        public void SetSelection(int start, int length)
-        {
-            textBox.SelectionStart = start;
-            textBox.SelectionLength = length;
-        }
-
-        public int GetSelectionStart()
-        {
-            return textBox.SelectionStart;
-        }
-
-        public void SetTextBoxFocus()
-        {
-            textBox.Focus();
-        }
-
-        private void KeyboardControl_Resize(object sender, EventArgs e)
-        {
-            //Set width of text box
-            textBox.Size = new Size(this.Width, textBox.Height);
+            if (keyboard == null)
+                return;
 
             //Calculate Button Height and Width
-            int buttonHeight = (Height - 2 * UI.GAP - textBox.Height) / 3;
+            int buttonHeight = (Height - 2 * UI.GAP - _textBox.Height) / 3;
             int buttonWidth = (Width - (keyboard.GetLength(1) / 2 - 1) * UI.GAP) / (keyboard.GetLength(1) / 2);
 
             //Set heights and widths
@@ -371,11 +205,11 @@ namespace ALSProject
                 button.Size = new Size(buttonWidth, buttonHeight);
 
             //Set button locations
-            predictionKeys[0].Location = new Point(0, textBox.Bottom + UI.GAP);
+            predictionKeys[0].Location = new Point(0, _textBox.Bottom + UI.GAP);
 
             for (int i = 1; i < predictionKeys.Length; i++)
             {
-                predictionKeys[i].Location = new Point(predictionKeys[i - 1].Right + UI.GAP, textBox.Bottom + UI.GAP);
+                predictionKeys[i].Location = new Point(predictionKeys[i - 1].Right + UI.GAP, _textBox.Bottom + UI.GAP);
             }
 
             for (int i = 0; i < keyboard.GetLength(0); i++)

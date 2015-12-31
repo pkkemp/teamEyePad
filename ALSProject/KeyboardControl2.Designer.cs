@@ -39,7 +39,6 @@
             this.BackColor = System.Drawing.Color.Black;
             this.Name = "KeyboardControl";
             this.Size = new System.Drawing.Size(755, 369);
-            this.Resize += new System.EventHandler(this.KeyboardControl_Resize);
             this.ResumeLayout(false);
         }
 

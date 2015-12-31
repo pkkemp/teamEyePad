@@ -118,6 +118,9 @@
     <Compile Include="Email.Designer.cs">
       <DependentUpon>Email.cs</DependentUpon>
     </Compile>
+    <Compile Include="Keyboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="KeyboardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,6 +132,12 @@
     </Compile>
     <Compile Include="KeyboardControl2.Designer.cs">
       <DependentUpon>KeyboardControl2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyboardControl3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KeyboardControl3.Designer.cs">
+      <DependentUpon>KeyboardControl3.cs</DependentUpon>
     </Compile>
     <Compile Include="LockScreen.cs">
       <SubType>Form</SubType>

@@ -14,15 +14,15 @@ namespace ALSProject
     {
         Form parentForm;
         ALSButton btnLock;
+        ALSButton btnToggleKeyboard;
+        bool isQwerty = false;  //Shows if the program's keyboards are qwerty or large button 
         //TODO: make a setting for keyboard button speed vs all ALSButton speed
 
         public SettingsForm(Form pForm)
         {
             InitializeComponent();
             parentForm = pForm;
-            btnLock = new ALSButton();
 
-            Controls.Add(btnLock);
 
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
@@ -31,10 +31,19 @@ namespace ALSProject
             btnBack.setFontSize(gr);
             btnResetCallouts.setFontSize(gr);
 
+            btnLock = new ALSButton();
             btnLock.BackgroundImage = Properties.Resources.Lock;
             btnLock.BackgroundImageLayout = ImageLayout.Zoom;
             btnLock.Click += _lock_Click;
             btnLock.Size = btnBack.Size;
+            Controls.Add(btnLock);
+
+            btnToggleKeyboard = new ALSButton();
+            btnToggleKeyboard.Text = "Qwerty\nKeyboard";
+            btnToggleKeyboard.Size = btnBack.Size;
+            btnToggleKeyboard.Click += Toggle_Click;
+            Controls.Add(btnToggleKeyboard);
+
             updateSldrDwellTime();
         }
 
@@ -69,10 +78,11 @@ namespace ALSProject
 
         private void SettingsForm_Resize(object sender, EventArgs e)
         {
+            if (btnLock == null)
+                return;
             label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
-            //label2.Location = new Point(Width / 2 - label2.Width / 2, label2.Top);
             btnLock.Location = new Point(Width - btnLock.Size.Width - UI.GAP, Height - btnLock.Size.Height - UI.GAP);
-            
+            btnToggleKeyboard.Location = new Point(btnLock.Left - btnToggleKeyboard.Width - UI.GAP, btnLock.Top);
         }
 
         private void btnKeyboardLeft_Click(object sender, EventArgs e)
@@ -90,6 +100,13 @@ namespace ALSProject
         {
             sldrKeyboard.UpdatePos(Slider.direction.RIGHT);
             updateSldrKeyboard();
+        }
+
+        private void Toggle_Click(object sender, EventArgs e)
+        {
+            isQwerty = !isQwerty;
+            ((UI)parentForm).SetKeyboard(isQwerty);
+            ((ALSButton)sender).Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
         }
     }
 }

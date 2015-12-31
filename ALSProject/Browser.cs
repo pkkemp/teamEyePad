@@ -32,8 +32,8 @@ namespace ALSProject
             timer.Enabled = true;
 
             mouseBox = new MouseRectangle(this);
-            keyboard.hideTextBox();
-            keyboardTextBox = keyboard.getTextBox();
+            keyboard.HideTextBox();
+            keyboardTextBox = keyboard.GetTextBox();
             keyboardTextBox.TextChanged += new System.EventHandler(this.pressKey);
             winBrowse.Navigate(tempHomepage);        
 
@@ -85,15 +85,12 @@ namespace ALSProject
         {
             winBrowse.GoBack();
         }
-
-
+        
         private ALSBrowserCntrl winBrowse;
         private void initBrowser()
         {
             winBrowse = new ALSBrowserCntrl(this);
-            this.winBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.winBrowse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.winBrowse.Location = new System.Drawing.Point(129, 12);
             this.winBrowse.MinimumSize = new System.Drawing.Size(20, 20);
             this.winBrowse.Name = "winBrowse";
@@ -102,12 +99,16 @@ namespace ALSProject
             this.winBrowse.TabIndex = 5;
             this.Controls.Add(this.winBrowse);
         }
-//        private ALSTextbox txtUrl;
 
-
+        public void makeKeyboard(bool isQwerty)
+        {
+            Controls.Remove(keyboard);
+            if (isQwerty)
+                keyboard = new KeyboardControl3(this);
+            else
+                keyboard = new KeyboardControl2(this);
+            //TextToSpeech_Resize(this, null);
+            Invalidate();
+        }
     }
-
-
-
-
 }

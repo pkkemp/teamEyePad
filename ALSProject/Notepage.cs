@@ -16,7 +16,7 @@ namespace ALSProject
     {
         private Form parentForm;
         private SpeechSynthesizer voice;
-        KeyboardControl2 keyboard;
+        Keyboard keyboard;
 
         const int MENU_BUTTON_SIZE = 140;
         const int ARROW_KEY_SIZE = 80;
@@ -32,7 +32,7 @@ namespace ALSProject
 
             this.WindowState = FormWindowState.Maximized;
 
-            keyboard = new KeyboardControl2(this);
+            keyboard = new KeyboardControl3(this);
 
             alarm = new ALSAlarm();
             speak = new ALSButton();
@@ -81,7 +81,7 @@ namespace ALSProject
 
             initControlsRecursive(this.Controls);
 
-            var keys = keyboard.getKeyboard();
+            var keys = keyboard.GetKeyboard();
             foreach (var key in keys)
                 if (key.Text.Equals("Clear"))
                 {
@@ -228,7 +228,6 @@ namespace ALSProject
 
         private void Notepage_Resize(object sender, EventArgs e)
         {
-
             back.Location = new Point(this.Right - MENU_BUTTON_SIZE - UI.GAP, UI.GAP);
             forwardWord.Location = new Point(Width - UI.GAP - forwardWord.Width, Height - UI.GAP - ARROW_KEY_SIZE);
             backWord.Location = new Point(forwardWord.Left - UI.GAP - backWord.Width, forwardWord.Top);
@@ -239,8 +238,8 @@ namespace ALSProject
             keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + UI.GAP * 2, speak.Top));
             _lock.Location = new Point(back.Left, MENU_BUTTON_SIZE + 2 * UI.GAP);
 
-            keyboard.Size = new Size(left.Location.X - UI.GAP * 2, this.Height - 2 * UI.GAP);
             keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE));
+            keyboard.Size = new Size(left.Location.X - UI.GAP * 2, this.Height - 2 * UI.GAP);
 
             keyboard.SetTextBoxFocus();
         }
@@ -274,6 +273,17 @@ namespace ALSProject
         public ALSButton getSaveButton()
         {
             return new ALSButton();
+        }
+
+        public void makeKeyboard(bool isQwerty)
+        {
+            Controls.Remove(keyboard);
+            if (isQwerty)
+                keyboard = new KeyboardControl3(this);
+            else
+                keyboard = new KeyboardControl2(this);
+            Notepage_Resize(this, null);
+            Invalidate();
         }
     }
 }

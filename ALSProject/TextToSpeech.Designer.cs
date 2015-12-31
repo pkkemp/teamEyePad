@@ -135,6 +135,6 @@
         protected ALSAlarm alsAlarm1;
         protected ALSButton btnSpeak;
         protected ALSButton btnCallouts;
-        protected KeyboardControl2 alsKeyboard;
+        protected Keyboard alsKeyboard;
     }
 }

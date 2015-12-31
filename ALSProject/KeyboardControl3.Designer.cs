@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ALSProject
+﻿namespace ALSProject
 {
-    partial class KeyboardControl
+    partial class KeyboardControl3
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,19 +28,9 @@ namespace ALSProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // KeyboardControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.Name = "KeyboardControl";
-            this.Size = new System.Drawing.Size(755, 369);
-            this.Load += new System.EventHandler(this.KeyboardControl_Load);
-            this.ResumeLayout(false);
         }
-
 
         #endregion
     }

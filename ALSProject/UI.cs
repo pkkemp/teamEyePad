@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,21 +22,19 @@ namespace ALSProject
 {
     public partial class UI : Form
     {
-
-        // main UI for our application
-        // maximize and quit buttons are temporary
-
         /*
-        I had to look up the difference between the constructor and Form_Load. Superficially they seem to do the same thing. The constructor
-        is immediately called on creation regardless of whether the form is displayed or not. The _Load method is called when the form becomes
-        visible to the user. I am moving the code to the _Load section because that allows all forms within our program to be created before
-        any of the elements are loaded. This isn't necessarily helpful now but may be useful in the future.
-*/
+            main UI for our application
+            maximize and quit buttons are temporary
+
+            I had to look up the difference between the constructor and Form_Load. Superficially they seem to do the same thing. The constructor
+            is immediately called on creation regardless of whether the form is displayed or not. The _Load method is called when the form becomes
+            visible to the user. I am moving the code to the _Load section because that allows all forms within our program to be created before
+            any of the elements are loaded. This isn't necessarily helpful now but may be useful in the future.
+        */
 
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
-
-
+        
         public Form self { get; set; }
         private BECM becm;
         private CVInterface tobiiInt;
@@ -52,7 +50,6 @@ namespace ALSProject
         Browser browser;
 
         Timer closeTimer;
-
 
         public UI()
         {
@@ -146,18 +143,17 @@ namespace ALSProject
             callout.Show();
             texttospeech.Hide();
         }
-
-
+        
         public void OpenTTS()
         {
             texttospeech.Show();
         }
-
-
+        
         public void initBECM()
         {
             becm = new BECM();
         }
+
         private void User_Interface_Load(object sender, EventArgs e)
         {
             drawButtons(sender, e);
@@ -308,6 +304,21 @@ namespace ALSProject
         {
             lockScreen.Visible = true;
             lockScreen.Focus();
+        }
+
+        public void SetKeyboard(bool isQwerty)
+        {
+            texttospeech.makeKeyboard(isQwerty);
+            callout.GetAddCallout().makeKeyboard(isQwerty);
+            browser.makeKeyboard(isQwerty);
+            notebook.GetNotepage().makeKeyboard(isQwerty);
+        }
+
+        private Keyboard GetNewKeyboard(bool isQwerrty)
+        {
+            if (isQwerrty)
+                return new KeyboardControl3();
+            return new KeyboardControl2();
         }
     }
 

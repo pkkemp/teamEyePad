@@ -182,7 +182,7 @@
 
         private ALSAlarm alsAlarm1;
         private ALSButton btnMenu;
-        private KeyboardControl2 keyboard;
+        private Keyboard keyboard;
         private ALSButton alsButton1;
         private ALSButton btnScrollUp;
         private ALSButton btnScrollDown;

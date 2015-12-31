@@ -352,5 +352,11 @@ namespace ALSProject
         {
 
         }
+
+        public Notepage GetNotepage()
+        {
+            return notepage;
+        }
+
     }
 }

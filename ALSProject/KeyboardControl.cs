@@ -11,7 +11,7 @@ using presage;
 
 namespace ALSProject
 {
-    public partial class KeyboardControl : UserControl
+    public partial class KeyboardControl : Keyboard
     {
        
         private ALSKey[][] keyboard;    // [rows] [columns]
@@ -20,7 +20,7 @@ namespace ALSProject
         private ALSButton btnShift;
         private ALSButton keySpace;
         private ALSButton btnClear;
-        private int keyWidth;
+        private int keyWidth, keyHeight;
         private int keyboardNumber;
         public static Point spacebarLocation;
         private PresagePredictor presage;
@@ -33,6 +33,11 @@ namespace ALSProject
         {
             InitializeComponent();
 
+            _textBox = new TextBox();
+            _textBox.Font = new Font(_textBox.Font.FontFamily, 24);
+            _textBox.Multiline = true;
+            Controls.Add(_textBox);
+
             keyboardNumber = 0;
 
             presage = new PresagePredictor();
@@ -44,9 +49,7 @@ namespace ALSProject
             keySpace = new ALSButton();
             btnClear = new ALSButton();
             predictionKeys = new ALSButton[6];
-
-
-
+            
             /*
             Context is changed to current sentence on space press or word predict press. Context is changed to word completion mode
             when a key is pressed until space key is hit
@@ -66,8 +69,7 @@ namespace ALSProject
                     this.Controls.Add(predictionKeyboard[i][j]);
                 }
             }*/
-
-
+            
             for (int i = 0; i < keyboard.Length; i++)
             {
                 for (int j = 0; j < keyboard[i].Length; j++)
@@ -84,8 +86,7 @@ namespace ALSProject
                 predictionKeys[i] = new ALSButton();
                 this.Controls.Add(predictionKeys[i]);
             }
-
-
+            
             //this.Controls.Add(boxPredict);
             this.Controls.Add(keySpace);
             keySpace.Text = "Space";
@@ -103,6 +104,7 @@ namespace ALSProject
         public KeyboardControl(Form parentForm) : this()
         {
             this.Parent = parentForm;
+
         }
 
         public void setBuffer(string buffer)
@@ -118,13 +120,9 @@ namespace ALSProject
             boxPredict.Location = new Point(keySpace.Location.X - UI.GAP - boxPredict.Width, keySpace.Location.Y);
 
         }*/
-
-        const int keyOffset = 10;
-
-
+        
         private void setupLayout()
         {
-            int keyHeight = keyWidth;
             int leftOffset = UI.GAP;
             int midOffset = leftOffset + keyWidth / 2;
             int bottomOffset = midOffset + keyWidth + UI.GAP;
@@ -138,20 +136,20 @@ namespace ALSProject
                     switch (i)
                     {
                         case 0:
-                            keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + UI.GAP), UI.GAP + keyHeight + keyOffset);
+                            keyboard[i][j].Location = new Point(leftOffset + j * (keyWidth + UI.GAP), _textBox.Height +  UI.GAP + keyHeight + UI.GAP);
                             break;
                         case 1:
-                            keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + UI.GAP), UI.GAP * 2 + 2* keyHeight + keyOffset);
+                            keyboard[i][j].Location = new Point(midOffset + j * (keyWidth + UI.GAP), _textBox.Height + UI.GAP * 2 + 2* keyHeight + UI.GAP);
                             break;
                         case 2:
-                            keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + UI.GAP), UI.GAP * 3 + 3 * keyHeight + keyOffset);
+                            keyboard[i][j].Location = new Point(bottomOffset + j * (keyWidth + UI.GAP), _textBox.Height + UI.GAP * 3 + 3 * keyHeight + UI.GAP);
                             break;
                     }
                     keyboard[i][j].Height = keyHeight;
                     keyboard[i][j].Width = keyWidth;
                 }
             //place space bar
-            keySpace.Location = new Point(keyboard[2][2].Location.X, UI.GAP * 4 + 4 * keyHeight + keyOffset);
+            keySpace.Location = new Point(keyboard[2][2].Location.X, UI.GAP * 4 + 4 * keyHeight + UI.GAP);
             keySpace.Size = new Size((keyWidth) * 3 + UI.GAP * 2, keySpace.Size.Height);
             keySpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             spacebarLocation = keySpace.Location;
@@ -165,7 +163,6 @@ namespace ALSProject
             this.Controls.Add(btnClear);
 
             //place prediction keys
-
             int predictionKeySize = (this.Width - predictionKeys.Length * UI.GAP) / predictionKeys.Length;
 
             for (int i = 0; i < predictionKeys.Length; i++)
@@ -290,7 +287,7 @@ namespace ALSProject
         private void setupShift()
         {
             btnShift.Text = "ABC";
-            btnShift.Location = new Point(UI.GAP, 3 * UI.GAP + 3 * keyWidth + keyOffset);
+            btnShift.Location = new Point(UI.GAP, 3 * UI.GAP + 3 * keyWidth + UI.GAP);
             btnShift.Size = new Size((int)(1.5 * keyWidth), keyWidth);
         }
         
@@ -298,9 +295,7 @@ namespace ALSProject
         {
             //boxPredict.tType(key);
         }
-
-
-
+        
         private void btnRight_Click(object sender, EventArgs e)
         {
             keyboardNumber = (keyboardNumber + 1) % 3;
@@ -351,7 +346,7 @@ namespace ALSProject
         public void setRemainingVariables()
         {
             keyWidth = (this.Width - 10 * UI.GAP) / 11;
-
+            keyHeight = (this.Height - 5 * UI.GAP) / 6;
             setupLayout();
             setupLetters();
             setupShift();
@@ -359,7 +354,7 @@ namespace ALSProject
             //setupPredictionBox();
         }
 
-        private void KeyboardControl_Resize(object sender, EventArgs e)
+        protected override void Keyboard_Resize(object sender, EventArgs e)
         {
             setRemainingVariables();
         }
