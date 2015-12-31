@@ -56,7 +56,7 @@ namespace ALSProject
 
             string[,] letters = { { "abc\ndef", "ghi\njkl", "mnop\nqrs", "tuvw\nxyz", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "ABC\nDEF", "GHI\nJKL", "MNOP\nQRS", "TUVW\nXYZ", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
-                                  { "0", "1-9", ",!?", "@#$", "[({", "abc", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "0", "1-9", ",!?,:;'\"", "@$%^&*+-=", "()[]{}|\\/", "abc", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "a", "b", "c", "d", "e", "f", "", "", "", "Back"},
                                   { "g", "h", "i", "j", "k", "l", "", "", "", "Back"},
                                   { "m", "n", "o", "p", "q", "r", "s", "", "", "Back"},
