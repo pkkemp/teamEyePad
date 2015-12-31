@@ -184,14 +184,13 @@ namespace ALSProject
             else
                 voice.SpeakAsync(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
         }
-
-
+        
         private void Notepage_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Type printable characters in text box
         }
 
-        void initControlsRecursive(System.Windows.Forms.Control.ControlCollection coll)
+        void initControlsRecursive(Control.ControlCollection coll)
         {
             foreach (Control c in coll)
             {
@@ -220,8 +219,7 @@ namespace ALSProject
             down.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             backWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
             forwardWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
-
-
+            
             alarm.Location = new Point(UI.GAP, UI.GAP);
             speak.Location = new Point(UI.GAP + alarm.Right, UI.GAP);
             keyboard.Location = new Point(UI.GAP, UI.GAP);
