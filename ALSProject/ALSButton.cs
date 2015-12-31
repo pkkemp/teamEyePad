@@ -64,20 +64,20 @@ namespace ALSProject
 
         private void decayTimer_Tick(object sender, EventArgs e)
         {
-            if (firstTime)
-            {
-                ClearRect();
-                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
-                firstTime = false;
-            }
-            else
-            {
-                ClearRect();
-                //g.ExcludeClip(new Rectangle(0, 0, Width, Height - heightCounter));
-                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
-                // g.Clip = new Region(new RectangleF(0, Height - heightCounter, Width, Height / heightDivider));
-                // g.Clear(BackColor);
-            }
+            //if (firstTime)
+            //{
+            //    ClearRect();
+            //    this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
+            //    firstTime = false;
+            //}
+            //else
+            //{
+            //    ClearRect();
+            //    //g.ExcludeClip(new Rectangle(0, 0, Width, Height - heightCounter));
+            //    this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
+            //    // g.Clip = new Region(new RectangleF(0, Height - heightCounter, Width, Height / heightDivider));
+            //    // g.Clear(BackColor);
+            //}
             if (heightCounter < 0)
             {
                 heightCounter = 0;

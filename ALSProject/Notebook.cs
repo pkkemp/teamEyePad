@@ -29,7 +29,7 @@ namespace ALSProject
         Notepage notepage;
 
         private Form parentForm;
-        
+
         public Notebook(Form parent, SpeechSynthesizer voice)
         {
             InitializeComponent();
@@ -68,6 +68,10 @@ namespace ALSProject
 
             notepage.getBackBtn().Click += new System.EventHandler(this.addToList);
             //notepage.getSaveButton().Click += new EventHandler(this.addToList); // there is no save button...
+
+            topRowButtons[2].Enabled = false;
+            if (NUM_NOTES > phrases.Count)
+                topRowButtons[3].Enabled = false;
 
             foreach (ALSButton btn in topRowButtons)
             {
@@ -114,7 +118,7 @@ namespace ALSProject
             notepage.Visible = true;
             this.Visible = false;
             //Load Text
-            if(!String.IsNullOrEmpty(btn.Name))
+            if (!String.IsNullOrEmpty(btn.Name))
             {
                 int index = getNum(btn.Name) + pageNum * NUM_NOTES;
                 if (index >= 0 && index < phrases.Count)
@@ -122,6 +126,8 @@ namespace ALSProject
                     notepage.setText(phrases[index]);
                     indexBeingEdited = index;
                     phrases.RemoveAt(index);
+                    if ((pageNum + 1) * NUM_NOTES > phrases.Count + 1)
+                        topRowButtons[3].Enabled = false;
                 }
             }
             //Set Cursor at end
@@ -148,18 +154,21 @@ namespace ALSProject
             if (str != "" && str != null)
             {
                 phrases.Add(str);
+                if ((pageNum + 1) * NUM_NOTES <= phrases.Count)
+                    topRowButtons[3].Enabled = true;
+
             }
 
             this.refreshNotes();
             this.Show();
             notepage.Hide();
         }
-        
+
         private void refreshNotes()
         {
             flipToPage(pageNum);
         }
-        
+
         private void deleteItem(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
@@ -168,6 +177,9 @@ namespace ALSProject
             try
             {
                 phrases.RemoveAt(num + NUM_NOTES * pageNum);
+                if ((pageNum + 1) * NUM_NOTES > phrases.Count + 1)
+                    topRowButtons[3].Enabled = false;
+
             }
             catch (ArgumentOutOfRangeException) { }
             refreshNotes();
@@ -177,14 +189,20 @@ namespace ALSProject
         {
             pageNum++;
             flipToPage(pageNum);
+            topRowButtons[2].Enabled = true;
+            if ((pageNum + 1) * NUM_NOTES > phrases.Count)
+                topRowButtons[3].Enabled = false;
         }
 
         private void pageLeft(object sender, EventArgs e)
         {
             pageNum--;
             flipToPage(pageNum);
+            topRowButtons[3].Enabled = true;
+            if (pageNum == 0)
+                topRowButtons[2].Enabled = false;
         }
-        
+
         private void flipToPage(int num)
         {
             if (num < 0)
@@ -242,7 +260,7 @@ namespace ALSProject
             phrases.Clear();
             this.refreshNotes();
         }
-        
+
         private void generateDefaultFile()
         {
             StreamWriter filestream = new StreamWriter(File.Create("Notes.txt"));
@@ -253,7 +271,7 @@ namespace ALSProject
         {
             return topRowButtons;
         }
-        
+
         private void edit_Click(object sender, EventArgs e)
         {
             isEditMode = !isEditMode;
@@ -305,7 +323,7 @@ namespace ALSProject
                         notes[i, j].Visible = false;
             }
         }
-        
+
         private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
         {
 
@@ -332,22 +350,7 @@ namespace ALSProject
 
         private void Notebook_VisibleChanged(object sender, EventArgs e)
         {
-            
-            //I changed the way it saves notes into the list to be the same as callouts
 
-
-
-            /*
-            if (Visible)
-            {
-                if (indexBeingEdited != -1)
-                {
-                    phrases.Insert(0, notepage.getText());
-                    indexBeingEdited = -1;
-                }
-                refreshNotes();
-            }
-            */
         }
     }
 }
