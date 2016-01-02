@@ -29,11 +29,10 @@ namespace ALSProject
             //this.alsKeyboard.setupPreditionBox();
 
             speaker = voice;
-
-            Graphics gr = CreateGraphics();
-            btnCallouts.setFontSize(gr);
-            btnMenu.setFontSize(gr);
-            btnSpeak.setFontSize(gr);
+            
+            btnCallouts.setFontSize();
+            btnMenu.setFontSize();
+            btnSpeak.setFontSize();
 
             foreach (ALSButton btn in alsKeyboard.GetPredictKeys())
             {

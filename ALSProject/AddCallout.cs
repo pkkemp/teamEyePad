@@ -25,9 +25,9 @@ namespace ALSProject
             alsKeyboard.SetTextBoxLocation(new Point(alsAlarm1.Right + UI.GAP, alsAlarm1.Top));
 
             Graphics g = CreateGraphics();
-            btnSpeak.setFontSize(g);
-            btnMenu.setFontSize(g);
-            btnCallouts.setFontSize(g);
+            btnSpeak.setFontSize();
+            btnMenu.setFontSize();
+            btnCallouts.setFontSize();
         }
 
         private void AddCallout_Resize(object sender, EventArgs e)

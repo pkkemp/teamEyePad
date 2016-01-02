@@ -25,11 +25,10 @@ namespace ALSProject
 
 
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
-
-            Graphics gr = CreateGraphics();
-            btnAlarm.setFontSize(gr);
-            btnBack.setFontSize(gr);
-            btnResetCallouts.setFontSize(gr);
+            
+            btnAlarm.setFontSize();
+            btnBack.setFontSize();
+            btnResetCallouts.setFontSize();
 
             btnLock = new ALSButton();
             btnLock.BackgroundImage = Properties.Resources.Lock;

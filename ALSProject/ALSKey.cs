@@ -11,25 +11,24 @@ namespace ALSProject
     {
 
 
-        public ALSKey()
+        public ALSKey() : base()
         {
-
-
         }
 
         private void ALSButton_Click(object sender, EventArgs e)
         {
+            // prevents rapid clicks
             if (!clicked)
-            { //prevents rapid clicks
+            {
                 clicked = true;
-                ClearRect();
+                Invalidate();
                 dwellTimer.Enabled = true;
 
                 pressKey();
             }
 
         }
-        
+
         private String pressKey()
         {
             return Text;
