@@ -14,7 +14,7 @@ namespace ALSProject
         protected TextBox _textBox;
         protected bool _confirmClear = false;
         protected ALSButton[] predictionKeys;
-        private PresagePredictor presage = new PresagePredictor();
+        protected PresagePredictor presage = new PresagePredictor();
         protected ALSKey[,] keyboard;
 
         public Keyboard()
@@ -32,8 +32,32 @@ namespace ALSProject
                 predictionKeys[i] = new ALSButton();
                 this.Controls.Add(predictionKeys[i]);
                 predictionKeys[i].btnType = ALSButton.ButtonType.key;
+                predictionKeys[i].Click += new System.EventHandler(this.Predictionkey_Click);
             }
             this.Resize += new System.EventHandler(this.Keyboard_Resize);
+             
+            
+
+        }
+
+        public void Predictionkey_Click(object sender, EventArgs e)
+        {
+            //this doesn't really work
+            this.DeleteWord(sender, e);
+            if (_textBox.TextLength > 1)
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.TextLength - 1);
+            else
+                _textBox.Text = "";
+          
+            //daniel fix this already, turns out git wasn't even broken
+
+            ALSButton key = ((ALSButton)sender);
+            _textBox.Text += (" " + key.Text + " ");
+            this.Populate_Predictkeys();
+
+            //come on daniel 16 hours really?
+
+            //WHY ISN'T THIS FIXED BY NOW? DANIEL!?!?
 
         }
 
@@ -150,6 +174,28 @@ namespace ALSProject
                 _textBox.Text = "";
         }
 
+        protected void Populate_Predictkeys()
+        {
+            String lastWord = "";
+
+            var match = Regex.Match(_textBox.Text, @"\p{P}*$");
+
+            if (match.Success)
+                lastWord = _textBox.Text.Substring(0, match.Index);
+            else
+                lastWord = "";
+
+            String[] predictions = presage.getPredictions(lastWord);
+
+            try {
+                for (int i = 0; i < predictionKeys.Length; i++)
+                {
+                    predictionKeys[i].Text = predictions[i];
+                }
+            }
+            catch(IndexOutOfRangeException) { }
+        }
+
         protected void Backspace(object sender, EventArgs e)
         {
             if (_textBox.Text.Length > 0)
@@ -176,6 +222,8 @@ namespace ALSProject
                 _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text + _textBox.Text.Substring(selectionStart);
 
             _textBox.SelectionStart = selectionStart + 1;
+
+            this.Populate_Predictkeys();
         }
 
         public ALSKey[,] GetKeyboard()

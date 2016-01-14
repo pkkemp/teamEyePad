@@ -186,6 +186,25 @@ namespace ALSProject
             for (int i = 0; i < keyboard.GetLength(1); i++)
                 keyboard[(int)keyboardType, i].BringToFront();
         }
+        /*
+        public void Populate_Predictkeys()
+        {
+            String lastWord = "";
+
+            var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
+
+            if (match.Success)
+                lastWord = _textBox.Text.Substring(0, match.Index);
+            else
+                lastWord = "";
+
+            String[] predictions = presage.getPredictions(lastWord);
+
+            for (int i = 0; i < predictions.Length; i++)
+            {
+                predictionKeys[i].Text = predictions[i];
+            }
+        }*/
 
         protected override void Keyboard_Resize(object sender, EventArgs e)
         {

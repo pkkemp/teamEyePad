@@ -7,7 +7,7 @@ using presage;
 
 namespace ALSProject
 {
-    class PresagePredictor
+    public class PresagePredictor
     {
 
         Presage presage;
