@@ -35,7 +35,8 @@ namespace ALSProject
             keyboard.HideTextBox();
             keyboardTextBox = keyboard.GetTextBox();
             keyboardTextBox.TextChanged += new System.EventHandler(this.pressKey);
-            winBrowse.Navigate(tempHomepage);        
+            winBrowse.Navigate(tempHomepage);
+           
 
         }
 
@@ -103,12 +104,22 @@ namespace ALSProject
         public void makeKeyboard(bool isQwerty)
         {
             Controls.Remove(keyboard);
-            if (isQwerty)
-                keyboard = new KeyboardControl3(this);
+            if (isQwerty) ;
+            //keyboard = new KeyboardControl3(this);
             else
                 keyboard = new KeyboardControl2(this);
             //TextToSpeech_Resize(this, null);
             Invalidate();
+        }
+
+        private void Browser_Resize(object sender, EventArgs e)
+        {
+            this.btnMenu.setFontSize();
+            this.btnBack.setFontSize();
+            this.btnScrollDown.setFontSize();
+            this.btnScrollUp.setFontSize();
+            this.btnGo.setFontSize();
+            this.btnMenu.Text = "Main\nMenu";
         }
     }
 }
