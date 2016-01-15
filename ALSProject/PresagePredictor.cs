@@ -21,8 +21,7 @@ namespace ALSProject
             presage = new Presage
                (
                    callback_get_past_stream,
-                   callback_get_future_stream,
-                   "presage.xml"
+                   callback_get_future_stream
                );
         }
 
@@ -48,9 +47,5 @@ namespace ALSProject
         {
             return nextWord;
         }
-
-        
-
-
     }
 }

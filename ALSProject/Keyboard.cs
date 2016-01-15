@@ -178,12 +178,14 @@ namespace ALSProject
         {
             String lastWord = "";
 
-            var match = Regex.Match(_textBox.Text, @"\p{P}*$");
+            var match = Regex.Match(_textBox.Text, @"[.!?]^[.!?]*$");
+
+            //var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
 
             if (match.Success)
-                lastWord = _textBox.Text.Substring(0, match.Index);
+                lastWord = _textBox.Text.Substring(match.Index);
             else
-                lastWord = "";
+                lastWord = _textBox.Text;
 
             String[] predictions = presage.getPredictions(lastWord);
 
@@ -191,6 +193,12 @@ namespace ALSProject
                 for (int i = 0; i < predictionKeys.Length; i++)
                 {
                     predictionKeys[i].Text = predictions[i];
+                }
+                //Temporary Code
+                for (int i = predictionKeys.Length; i < predictions.Length; i++)
+                {
+                    predictionKeys[4].Text += "\n" + predictions[i];
+
                 }
             }
             catch(IndexOutOfRangeException) { }
