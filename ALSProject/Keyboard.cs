@@ -37,9 +37,6 @@ namespace ALSProject
                 predictionKeys[i].Click += new System.EventHandler(this.Predictionkey_Click);
             }
             this.Resize += new System.EventHandler(this.Keyboard_Resize);
-
-
-
         }
 
         public void Predictionkey_Click(object sender, EventArgs e)

@@ -25,6 +25,7 @@ namespace ALSProject
         }
 
         int heightCounter;
+        private static bool isDecay;
         protected Timer dwellTimer, decayTimer;
         protected bool clicked = false; //prevents rapid clicks
         private int heightDivider = 30;
@@ -47,6 +48,8 @@ namespace ALSProject
         public ALSButton()
         {
             InitializeComponent();
+            isDecay = false;
+
             heightCounter = 0;
             dwellTimer = new Timer();
             dwellTimer.Tick += new EventHandler(dwellTimeEvent);
@@ -116,7 +119,10 @@ namespace ALSProject
             dwellTimer.Enabled = false;
             clicked = false;
             firstTime = true;
-            decayTimer.Start();
+            if (isDecay)
+                decayTimer.Start();
+            else
+                heightCounter = 0;
         }
 
         private void ALSButton_Resize(object sender, EventArgs e)
@@ -166,8 +172,23 @@ namespace ALSProject
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
 
-            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 8));
-            //Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
+            //Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 8));
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
+        }
+
+        public static void setDecay(bool isDecay)
+        {
+            ALSButton.isDecay = isDecay;
+        }
+
+        public static void toggleDecay()
+        {
+            isDecay = !isDecay;
+        }
+
+        public static bool getDecay()
+        {
+            return isDecay;
         }
     }
 }

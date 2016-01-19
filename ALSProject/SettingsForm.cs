@@ -15,6 +15,7 @@ namespace ALSProject
         Form parentForm;
         ALSButton btnLock;
         ALSButton btnToggleKeyboard;
+        ALSButton btnToggleDecay;
         bool isQwerty = false;  //Shows if the program's keyboards are qwerty or large button 
         //TODO: make a setting for keyboard button speed vs all ALSButton speed
 
@@ -23,9 +24,8 @@ namespace ALSProject
             InitializeComponent();
             parentForm = pForm;
 
-
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
-            
+
             btnAlarm.setFontSize();
             btnBack.setFontSize();
             btnResetCallouts.setFontSize();
@@ -42,6 +42,12 @@ namespace ALSProject
             btnToggleKeyboard.Size = btnBack.Size;
             btnToggleKeyboard.Click += Toggle_Click;
             Controls.Add(btnToggleKeyboard);
+
+            btnToggleDecay = new ALSButton();
+            btnToggleDecay.Text = "Allow\nDecay";
+            btnToggleDecay.Size = btnBack.Size;
+            btnToggleDecay.Click += btnDecay_Click;
+            Controls.Add(btnToggleDecay);
 
             updateSldrDwellTime();
         }
@@ -82,6 +88,7 @@ namespace ALSProject
             label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
             btnLock.Location = new Point(Width - btnLock.Size.Width - UI.GAP, Height - btnLock.Size.Height - UI.GAP);
             btnToggleKeyboard.Location = new Point(btnLock.Left - btnToggleKeyboard.Width - UI.GAP, btnLock.Top);
+            btnToggleDecay.Location = new Point(btnToggleKeyboard.Left - btnToggleDecay.Width - UI.GAP, btnLock.Top);
         }
 
         private void btnKeyboardLeft_Click(object sender, EventArgs e)
@@ -106,6 +113,12 @@ namespace ALSProject
             isQwerty = !isQwerty;
             ((UI)parentForm).SetKeyboard(isQwerty);
             ((ALSButton)sender).Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
+        }
+
+        private void btnDecay_Click(object sender, EventArgs e)
+        {
+            ALSButton.toggleDecay();
+            ((ALSButton)sender).Text = ALSButton.getDecay() ? "Prevent\nDecay" : "Allow\nDecay";
         }
     }
 }
