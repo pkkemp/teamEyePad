@@ -265,5 +265,16 @@ namespace ALSProject
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Keyboard
+            // 
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Name = "Keyboard";
+            this.ResumeLayout(false);
+
+        }
     }
 }

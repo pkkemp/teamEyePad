@@ -93,7 +93,7 @@ namespace ALSProject
 
         private void _lock_Click(object sender, EventArgs e)
         {
-            UI.showLockScreen();
+            MainMenu.showLockScreen();
         }
 
         private void Clear_Click(object sender, EventArgs e)
@@ -220,26 +220,26 @@ namespace ALSProject
             backWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
             forwardWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
             
-            alarm.Location = new Point(UI.GAP, UI.GAP);
-            speak.Location = new Point(UI.GAP + alarm.Right, UI.GAP);
-            keyboard.Location = new Point(UI.GAP, UI.GAP);
+            alarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
+            speak.Location = new Point(MainMenu.GAP + alarm.Right, MainMenu.GAP);
+            keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
 
         }
 
         private void Notepage_Resize(object sender, EventArgs e)
         {
-            back.Location = new Point(this.Right - MENU_BUTTON_SIZE - UI.GAP, UI.GAP);
-            forwardWord.Location = new Point(Width - UI.GAP - forwardWord.Width, Height - UI.GAP - ARROW_KEY_SIZE);
-            backWord.Location = new Point(forwardWord.Left - UI.GAP - backWord.Width, forwardWord.Top);
-            right.Location = new Point(Width - UI.GAP - ARROW_KEY_SIZE, forwardWord.Top - UI.GAP - ARROW_KEY_SIZE);
-            down.Location = new Point(right.Left - UI.GAP - ARROW_KEY_SIZE, right.Top);
-            left.Location = new Point(down.Left - UI.GAP - ARROW_KEY_SIZE, right.Top);
-            up.Location = new Point(down.Left, down.Top - UI.GAP - ARROW_KEY_SIZE);
-            keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + UI.GAP * 2, speak.Top));
-            _lock.Location = new Point(back.Left, MENU_BUTTON_SIZE + 2 * UI.GAP);
+            back.Location = new Point(this.Right - MENU_BUTTON_SIZE - MainMenu.GAP, MainMenu.GAP);
+            forwardWord.Location = new Point(Width - MainMenu.GAP - forwardWord.Width, Height - MainMenu.GAP - ARROW_KEY_SIZE);
+            backWord.Location = new Point(forwardWord.Left - MainMenu.GAP - backWord.Width, forwardWord.Top);
+            right.Location = new Point(Width - MainMenu.GAP - ARROW_KEY_SIZE, forwardWord.Top - MainMenu.GAP - ARROW_KEY_SIZE);
+            down.Location = new Point(right.Left - MainMenu.GAP - ARROW_KEY_SIZE, right.Top);
+            left.Location = new Point(down.Left - MainMenu.GAP - ARROW_KEY_SIZE, right.Top);
+            up.Location = new Point(down.Left, down.Top - MainMenu.GAP - ARROW_KEY_SIZE);
+            keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + MainMenu.GAP * 2, speak.Top));
+            _lock.Location = new Point(back.Left, MENU_BUTTON_SIZE + 2 * MainMenu.GAP);
 
-            keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - UI.GAP * 4, MENU_BUTTON_SIZE));
-            keyboard.Size = new Size(left.Location.X - UI.GAP * 2, this.Height - 2 * UI.GAP);
+            keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - MainMenu.GAP * 4, MENU_BUTTON_SIZE));
+            keyboard.Size = new Size(left.Location.X - MainMenu.GAP * 2, this.Height - 2 * MainMenu.GAP);
 
             keyboard.SetTextBoxFocus();
         }

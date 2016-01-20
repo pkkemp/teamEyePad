@@ -284,16 +284,16 @@ namespace ALSProject
 
         private void ResizeButtons()
         {
-            int buttonWidth = (this.Width - (topRowButtons.Length + 1) * UI.GAP) / topRowButtons.Length;
+            int buttonWidth = (this.Width - (topRowButtons.Length + 1) * MainMenu.GAP) / topRowButtons.Length;
 
             for (int i = 0; i < topRowButtons.Length; i++)
             {
-                topRowButtons[i].Location = new Point(UI.GAP * (1 + i) + buttonWidth * i, UI.GAP);
+                topRowButtons[i].Location = new Point(MainMenu.GAP * (1 + i) + buttonWidth * i, MainMenu.GAP);
                 topRowButtons[i].Size = new Size(buttonWidth, buttonWidth);
             }
 
 
-            int notesButtonHeight = (Height - buttonWidth - UI.GAP * (2 + notes.GetLength(1))) / notes.GetLength(1);
+            int notesButtonHeight = (Height - buttonWidth - MainMenu.GAP * (2 + notes.GetLength(1))) / notes.GetLength(1);
 
             if (isEditMode)
             {
@@ -303,20 +303,20 @@ namespace ALSProject
                     {
                         if (i != 0)
                         {
-                            notes[i, j].Location = new Point(Width - (notes.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + UI.GAP), notes[0, j].Location.Y);
+                            notes[i, j].Location = new Point(Width - (notes.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + MainMenu.GAP), notes[0, j].Location.Y);
                             notes[i, j].Size = new Size(EDIT_BUTTON_WIDTH, notes[0, 0].Size.Height);
                             notes[i, j].Visible = true;
                         }
                         else
-                            notes[i, j].Size = new Size(Width - UI.GAP * (notes.GetLength(0) + 1) - (notes.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, notes[0, 0].Size.Height);
+                            notes[i, j].Size = new Size(Width - MainMenu.GAP * (notes.GetLength(0) + 1) - (notes.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, notes[0, 0].Size.Height);
                     }
             }
             else
             {
                 for (int i = 0; i < notes.GetLength(1); i++)
                 {
-                    notes[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * notesButtonHeight);
-                    notes[0, i].Size = new Size(Width - UI.GAP * 2, notesButtonHeight);
+                    notes[0, i].Location = new Point(MainMenu.GAP, (2 + i) * MainMenu.GAP + buttonWidth + i * notesButtonHeight);
+                    notes[0, i].Size = new Size(Width - MainMenu.GAP * 2, notesButtonHeight);
                 }
                 for (int i = 1; i < notes.GetLength(0); i++)
                     for (int j = 0; j < notes.GetLength(1); j++)

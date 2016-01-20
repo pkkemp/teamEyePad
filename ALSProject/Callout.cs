@@ -238,7 +238,7 @@ namespace ALSProject
             }
             else
             {
-                ((UI)this.Parent).OpenTTS();
+                ((MainMenu)this.Parent).OpenTTS();
             }
         }
 
@@ -305,16 +305,16 @@ namespace ALSProject
 
         private void ResizeButtons()
         {
-            int buttonWidth = (this.Width - (topRowButtons.Length + 1) * UI.GAP) / topRowButtons.Length;
+            int buttonWidth = (this.Width - (topRowButtons.Length + 1) * MainMenu.GAP) / topRowButtons.Length;
 
             for (int i = 0; i < topRowButtons.Length; i++)
             {
-                topRowButtons[i].Location = new Point(UI.GAP * (1 + i) + buttonWidth * i, UI.GAP);
+                topRowButtons[i].Location = new Point(MainMenu.GAP * (1 + i) + buttonWidth * i, MainMenu.GAP);
                 topRowButtons[i].Size = new Size(buttonWidth, buttonWidth);
             }
 
 
-            int calloutsButtonHeight = (Height - buttonWidth - UI.GAP * (2 + callouts.GetLength(1))) / callouts.GetLength(1);
+            int calloutsButtonHeight = (Height - buttonWidth - MainMenu.GAP * (2 + callouts.GetLength(1))) / callouts.GetLength(1);
 
             if (isEditMode)
             {
@@ -324,12 +324,12 @@ namespace ALSProject
                     {
                         if (i != 0)
                         {
-                            callouts[i, j].Location = new Point(Width - (callouts.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + UI.GAP), callouts[0, j].Location.Y);
+                            callouts[i, j].Location = new Point(Width - (callouts.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + MainMenu.GAP), callouts[0, j].Location.Y);
                             callouts[i, j].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
                             callouts[i, j].Visible = true;
                         }
                         else
-                            callouts[i, j].Size = new Size(Width - UI.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
+                            callouts[i, j].Size = new Size(Width - MainMenu.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
                     }
                 topRowButtons[4].Text = "Add";
             }
@@ -337,8 +337,8 @@ namespace ALSProject
             {
                 for (int i = 0; i < callouts.GetLength(1); i++)
                 {
-                    callouts[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * calloutsButtonHeight);
-                    callouts[0, i].Size = new Size(Width - UI.GAP * 2, calloutsButtonHeight);
+                    callouts[0, i].Location = new Point(MainMenu.GAP, (2 + i) * MainMenu.GAP + buttonWidth + i * calloutsButtonHeight);
+                    callouts[0, i].Size = new Size(Width - MainMenu.GAP * 2, calloutsButtonHeight);
                 }
                 for (int i = 1; i < callouts.GetLength(0); i++)
                     for (int j = 0; j < callouts.GetLength(1); j++)

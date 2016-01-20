@@ -53,7 +53,7 @@
             this.btnConfirm.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnConfirm.dwellTimeInterval = 50;
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnConfirm.Location = new System.Drawing.Point(3, 66);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(312, 248);
@@ -69,7 +69,7 @@
             this.btnCancel.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnCancel.dwellTimeInterval = 15;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnCancel.Location = new System.Drawing.Point(324, 66);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(312, 248);
@@ -80,6 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.label1);

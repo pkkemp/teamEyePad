@@ -12,9 +12,14 @@ namespace ALSProject
 {
     public partial class Email : Form
     {
-        public Email()
+        Form parent;
+
+        public Email(Form parent)
         {
             InitializeComponent();
+            this.parent = parent;
         }
+
+        
     }
 }

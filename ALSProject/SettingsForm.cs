@@ -48,7 +48,7 @@ namespace ALSProject
 
         private void _lock_Click(object sender, EventArgs e)
         {
-            UI.showLockScreen();
+            MainMenu.showLockScreen();
         }
 
         private void alsButton1_Click(object sender, EventArgs e)
@@ -80,8 +80,8 @@ namespace ALSProject
             if (btnLock == null)
                 return;
             label1.Location = new Point(Width / 2 - label1.Width / 2, label1.Top);
-            btnLock.Location = new Point(Width - btnLock.Size.Width - UI.GAP, Height - btnLock.Size.Height - UI.GAP);
-            btnToggleKeyboard.Location = new Point(btnLock.Left - btnToggleKeyboard.Width - UI.GAP, btnLock.Top);
+            btnLock.Location = new Point(Width - btnLock.Size.Width - MainMenu.GAP, Height - btnLock.Size.Height - MainMenu.GAP);
+            btnToggleKeyboard.Location = new Point(btnLock.Left - btnToggleKeyboard.Width - MainMenu.GAP, btnLock.Top);
         }
 
         private void btnKeyboardLeft_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace ALSProject
         private void Toggle_Click(object sender, EventArgs e)
         {
             isQwerty = !isQwerty;
-            ((UI)parentForm).SetKeyboard(isQwerty);
+            ((MainMenu)parentForm).SetKeyboard(isQwerty);
             ((ALSButton)sender).Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
         }
     }

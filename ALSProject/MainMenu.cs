@@ -48,6 +48,7 @@ namespace ALSProject
         SettingsForm settingsScreen;
         QuitForm quitScreen;
         Browser browser;
+        Email email;
 
         Timer closeTimer;
 
@@ -77,6 +78,7 @@ namespace ALSProject
             settingsScreen = new SettingsForm(this);
             quitScreen = new QuitForm(this);
             browser = new Browser(this);
+            email = new Email(this);
 
             texttospeech.Visible = false;
             notebook.Visible = false;
@@ -84,6 +86,8 @@ namespace ALSProject
             callout.Visible = false;
             settingsScreen.Visible = false;
             browser.Visible = false;
+            email.Visible = false;
+
             this.VisibleChanged += UI_VisibleChanged;
 
             texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
@@ -264,8 +268,8 @@ namespace ALSProject
             btnTTS.Location = new Point(width / 2 - height / 2, GAP);
             btnTTS.Size = new Size(height, height);
 
-            alsButton5.Location = new Point(width / 2 - height / 2, 2 * GAP + height);
-            alsButton5.Size = new Size(height, height);
+            btnEmail.Location = new Point(width / 2 - height / 2, 2 * GAP + height);
+            btnEmail.Size = new Size(height, height);
 
             setBut.Location = new Point(width / 2 - height / 2, 3 * GAP + 2 * height);
             setBut.Size = new Size(height, height);
@@ -319,6 +323,11 @@ namespace ALSProject
             if (isQwerrty)
                 return new KeyboardControl3();
             return new KeyboardControl2();
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

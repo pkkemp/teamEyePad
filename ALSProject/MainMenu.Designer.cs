@@ -29,51 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-            this.btnBrowser = new ALSProject.ALSButton();
-            this.alsButton5 = new ALSProject.ALSButton();
             this.btnQuit = new ALSProject.ALSButton();
             this.setBut = new ALSProject.ALSButton();
+            this.btnBrowser = new ALSProject.ALSButton();
             this.alsButton4 = new ALSProject.ALSButton();
+            this.btnEmail = new ALSProject.ALSButton();
             this.btnMin = new ALSProject.ALSButton();
             this.btnNotebook = new ALSProject.ALSButton();
             this.btnTTS = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSAlarm();
             this.SuspendLayout();
-            // 
-            // btnBrowser
-            // 
-            this.btnBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnBrowser.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.btnBrowser.dwellTimeInterval = 15;
-            this.btnBrowser.FlatAppearance.BorderSize = 0;
-            this.btnBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.btnBrowser.Location = new System.Drawing.Point(12, 518);
-            this.btnBrowser.Name = "btnBrowser";
-            this.btnBrowser.Size = new System.Drawing.Size(312, 248);
-            this.btnBrowser.TabIndex = 8;
-            this.btnBrowser.Text = "Browser";
-            this.btnBrowser.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnBrowser.UseVisualStyleBackColor = false;
-            this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
-            // 
-            // alsButton5
-            // 
-            this.alsButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.alsButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.alsButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.alsButton5.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.alsButton5.dwellTimeInterval = 15;
-            this.alsButton5.FlatAppearance.BorderSize = 0;
-            this.alsButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.alsButton5.Location = new System.Drawing.Point(356, 264);
-            this.alsButton5.Name = "alsButton5";
-            this.alsButton5.Size = new System.Drawing.Size(312, 248);
-            this.alsButton5.TabIndex = 6;
-            this.alsButton5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton5.UseVisualStyleBackColor = false;
             // 
             // btnQuit
             // 
@@ -85,7 +50,7 @@
             this.btnQuit.dwellTimeInterval = 15;
             this.btnQuit.FlatAppearance.BorderSize = 0;
             this.btnQuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnQuit.ForeColor = System.Drawing.Color.Blue;
             this.btnQuit.Location = new System.Drawing.Point(700, 518);
             this.btnQuit.Name = "btnQuit";
@@ -105,7 +70,7 @@
             this.setBut.dwellTimeInterval = 15;
             this.setBut.FlatAppearance.BorderSize = 0;
             this.setBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.setBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.setBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.setBut.ForeColor = System.Drawing.Color.Blue;
             this.setBut.Location = new System.Drawing.Point(356, 518);
             this.setBut.Name = "setBut";
@@ -114,6 +79,24 @@
             this.setBut.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.setBut.UseVisualStyleBackColor = false;
             this.setBut.Click += new System.EventHandler(this.setBut_Click);
+            // 
+            // btnBrowser
+            // 
+            this.btnBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBrowser.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.btnBrowser.dwellTimeInterval = 15;
+            this.btnBrowser.FlatAppearance.BorderSize = 0;
+            this.btnBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnBrowser.Location = new System.Drawing.Point(12, 518);
+            this.btnBrowser.Name = "btnBrowser";
+            this.btnBrowser.Size = new System.Drawing.Size(312, 248);
+            this.btnBrowser.TabIndex = 8;
+            this.btnBrowser.Text = "Browser";
+            this.btnBrowser.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnBrowser.UseVisualStyleBackColor = false;
+            this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
             // 
             // alsButton4
             // 
@@ -126,7 +109,7 @@
             this.alsButton4.dwellTimeInterval = 15;
             this.alsButton4.FlatAppearance.BorderSize = 0;
             this.alsButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.alsButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.alsButton4.ForeColor = System.Drawing.Color.Blue;
             this.alsButton4.Location = new System.Drawing.Point(700, 264);
             this.alsButton4.Name = "alsButton4";
@@ -135,6 +118,25 @@
             this.alsButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.alsButton4.UseVisualStyleBackColor = false;
             this.alsButton4.Click += new System.EventHandler(this.alsButton4_Click);
+            // 
+            // btnEmail
+            // 
+            this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnEmail.BackgroundImage = global::ALSProject.Properties.Resources.mail;
+            this.btnEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnEmail.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.btnEmail.dwellTimeInterval = 15;
+            this.btnEmail.FlatAppearance.BorderSize = 0;
+            this.btnEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnEmail.Location = new System.Drawing.Point(356, 264);
+            this.btnEmail.Name = "btnEmail";
+            this.btnEmail.Size = new System.Drawing.Size(312, 248);
+            this.btnEmail.TabIndex = 6;
+            this.btnEmail.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnEmail.UseVisualStyleBackColor = false;
+            this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
             // btnMin
             // 
@@ -147,7 +149,7 @@
             this.btnMin.dwellTimeInterval = 15;
             this.btnMin.FlatAppearance.BorderSize = 0;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnMin.Location = new System.Drawing.Point(12, 264);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(312, 248);
@@ -166,7 +168,7 @@
             this.btnNotebook.dwellTimeInterval = 15;
             this.btnNotebook.FlatAppearance.BorderSize = 0;
             this.btnNotebook.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNotebook.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnNotebook.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnNotebook.Location = new System.Drawing.Point(700, 10);
             this.btnNotebook.Name = "btnNotebook";
             this.btnNotebook.Size = new System.Drawing.Size(312, 248);
@@ -185,7 +187,7 @@
             this.btnTTS.dwellTimeInterval = 15;
             this.btnTTS.FlatAppearance.BorderSize = 0;
             this.btnTTS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnTTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnTTS.ForeColor = System.Drawing.Color.Blue;
             this.btnTTS.Location = new System.Drawing.Point(356, 10);
             this.btnTTS.Name = "btnTTS";
@@ -204,7 +206,7 @@
             this.btnAlarm.dwellTimeInterval = 15;
             this.btnAlarm.FlatAppearance.BorderSize = 0;
             this.btnAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnAlarm.ForeColor = System.Drawing.Color.Blue;
             this.btnAlarm.Location = new System.Drawing.Point(12, 10);
             this.btnAlarm.Name = "btnAlarm";
@@ -214,7 +216,7 @@
             this.btnAlarm.UseVisualStyleBackColor = false;
             this.btnAlarm.Click += new System.EventHandler(this.alarmBut_Click);
             // 
-            // UI
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -224,13 +226,13 @@
             this.Controls.Add(this.setBut);
             this.Controls.Add(this.btnBrowser);
             this.Controls.Add(this.alsButton4);
-            this.Controls.Add(this.alsButton5);
+            this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnMin);
             this.Controls.Add(this.btnNotebook);
             this.Controls.Add(this.btnTTS);
             this.Controls.Add(this.btnAlarm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "UI";
+            this.Name = "MainMenu";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -246,7 +248,7 @@
         private ALSButton btnTTS;
         private ALSButton btnNotebook;
         private ALSButton alsButton4;
-        private ALSButton alsButton5;
+        private ALSButton btnEmail;
         private ALSButton btnMin;
         private ALSButton setBut;
         private ALSButton btnBrowser;
