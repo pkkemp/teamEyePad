@@ -121,12 +121,6 @@
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="KeyboardControl.Designer.cs">
-      <DependentUpon>KeyboardControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="KeyboardControl2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -245,9 +239,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Confirmation.resx">
       <DependentUpon>Confirmation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KeyboardControl.resx">
-      <DependentUpon>KeyboardControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LockScreen.resx">
       <DependentUpon>LockScreen.cs</DependentUpon>

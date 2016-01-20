@@ -188,6 +188,6 @@
         private ALSButton btnScrollDown;
         private ALSButton btnBack;
         private ALSTextbox txtUrl;
-        private KeyboardControl2 keyboard;
+        private Keyboard keyboard;
     }
 }

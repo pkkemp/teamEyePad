@@ -104,8 +104,8 @@ namespace ALSProject
         public void makeKeyboard(bool isQwerty)
         {
             Controls.Remove(keyboard);
-            if (isQwerty) ;
-            //keyboard = new KeyboardControl3(this);
+            if (isQwerty) //this variable is declared in the designer code so it might be automatically changed and break
+                keyboard = new KeyboardControl3(this); 
             else
                 keyboard = new KeyboardControl2(this);
             //TextToSpeech_Resize(this, null);

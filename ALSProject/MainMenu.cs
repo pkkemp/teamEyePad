@@ -20,7 +20,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace ALSProject
 {
-    public partial class UI : Form
+    public partial class MainMenu : Form
     {
         /*
             main UI for our application
@@ -51,7 +51,7 @@ namespace ALSProject
 
         Timer closeTimer;
 
-        public UI()
+        public MainMenu()
         {
             InitializeComponent();
             this.self = this;
@@ -248,7 +248,7 @@ namespace ALSProject
 
         private void resizeScreen()
         {
-            int height = (this.Height - 4 * UI.GAP) / 3;
+            int height = (this.Height - 4 * MainMenu.GAP) / 3;
             int width = (this.Width);
 
 

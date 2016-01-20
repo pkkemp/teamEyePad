@@ -1,6 +1,6 @@
 ﻿namespace ALSProject
 {
-    partial class UI
+    partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.btnBrowser = new ALSProject.ALSButton();
             this.alsButton5 = new ALSProject.ALSButton();
             this.btnQuit = new ALSProject.ALSButton();

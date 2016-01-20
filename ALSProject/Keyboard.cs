@@ -9,6 +9,11 @@ using System.Windows.Forms;
 
 namespace ALSProject
 {
+
+    //this shouldn't be abstract. When drawing a KeyboardControl2, it does not instantiate the child class. It instantiates this class
+    //and draws on it according to the child class specifications. It is causing the error for keyboardControl2 design view. 
+    //I'm leaving it because it isn't causing a problem and fixing it is a low priority, but for general polish and correct design
+    //methodology, this should be fixed in the future
     public abstract class Keyboard : UserControl
     {
         protected TextBox _textBox;
