@@ -306,7 +306,7 @@ namespace ALSProject
 
         public static void showLockScreen()
         {
-            lockScreen.Visible = true;
+            lockScreen.Show();
             lockScreen.Focus();
         }
 
@@ -327,7 +327,8 @@ namespace ALSProject
 
         private void btnEmail_Click(object sender, EventArgs e)
         {
-
+            email.Show();
+            this.Hide();
         }
     }
 

@@ -20,6 +20,11 @@ namespace ALSProject
             this.parent = parent;
         }
 
-        
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            parent.Show();
+            this.Hide();
+
+        }
     }
 }
