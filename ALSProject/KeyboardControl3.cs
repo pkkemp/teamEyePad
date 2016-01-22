@@ -94,18 +94,18 @@ namespace ALSProject
 
         protected override void Keyboard_Resize(object sender, EventArgs e)
         {
-            int predictionWidth = (Width - (predictionKeys.Length - 1) * UI.GAP) / predictionKeys.Length;
+            int predictionWidth = (Width - (predictionKeys.Length - 1) * MainMenu.GAP) / predictionKeys.Length;
 
-            int keyHeight = (int)((Height - _textBox.Height - UI.GAP * 5) / 5);
+            int keyHeight = (int)((Height - _textBox.Height - MainMenu.GAP * 5) / 5);
 
 
             for (int i = 0; i < predictionKeys.Length; i++)
             {
                 predictionKeys[i].Size = new Size(predictionWidth, keyHeight);
-                predictionKeys[i].Location = new Point(i * (predictionWidth + UI.GAP), _textBox.Bottom + UI.GAP);
+                predictionKeys[i].Location = new Point(i * (predictionWidth + MainMenu.GAP), _textBox.Bottom + MainMenu.GAP);
 
             }
-            int keyWidth = (Width - 11 * UI.GAP) / 10;
+            int keyWidth = (Width - 11 * MainMenu.GAP) / 10;
 
             for (int i = 0; i < keyboard.GetLength(0); i++)
             {
@@ -113,37 +113,37 @@ namespace ALSProject
                 for (int j = 0; j < 10; j++)   //10 letters on top row
                 {
                     keyboard[i, j].Size = new Size(keyWidth, keyHeight);
-                    keyboard[i, j].Location = new Point(j * (keyWidth + UI.GAP), predictionKeys[0].Location.Y + predictionKeys[0].Height + UI.GAP);
+                    keyboard[i, j].Location = new Point(j * (keyWidth + MainMenu.GAP), predictionKeys[0].Location.Y + predictionKeys[0].Height + MainMenu.GAP);
                 }
                 //Middle row
                 int middleRowOffest = keyWidth / 2;
                 for (int j = 10; j < 19; j++)   //9 letters on middle row
                 {
                     keyboard[i, j].Size = new Size(keyWidth, keyHeight);
-                    keyboard[i, j].Location = new Point((j- 10) * (keyWidth + UI.GAP) + middleRowOffest, keyboard[0, 0].Location.Y + keyboard[0, 0].Height + UI.GAP);
+                    keyboard[i, j].Location = new Point((j- 10) * (keyWidth + MainMenu.GAP) + middleRowOffest, keyboard[0, 0].Location.Y + keyboard[0, 0].Height + MainMenu.GAP);
                 }
                 //Shift
                 keyboard[i, 19].Size = new Size((int)(keyWidth * 1.5), keyHeight);
-                keyboard[i, 19].Location = new Point(0, keyboard[0, 10].Location.Y + keyboard[0, 10].Height + UI.GAP);
+                keyboard[i, 19].Location = new Point(0, keyboard[0, 10].Location.Y + keyboard[0, 10].Height + MainMenu.GAP);
                 //Bottom row
-                int bottomRowOffest = keyboard[i, 19].Width + UI.GAP;
+                int bottomRowOffest = keyboard[i, 19].Width + MainMenu.GAP;
                 for (int j = 20; j < 27; j++)   //7 letters on bottom row
                 {
                     keyboard[i, j].Size = new Size(keyWidth, keyHeight);
-                    keyboard[i, j].Location = new Point((j - 20) * (keyWidth + UI.GAP) + bottomRowOffest, keyboard[i,19].Location.Y);
+                    keyboard[i, j].Location = new Point((j - 20) * (keyWidth + MainMenu.GAP) + bottomRowOffest, keyboard[i,19].Location.Y);
                 }
                 //Backspace
-                keyboard[i, 27].Size = new Size(Width - (keyboard[i,26].Right + UI.GAP), keyHeight);
-                keyboard[i, 27].Location = new Point(keyboard[i, 26].Right + UI.GAP, keyboard[i, 19].Location.Y);
+                keyboard[i, 27].Size = new Size(Width - (keyboard[i,26].Right + MainMenu.GAP), keyHeight);
+                keyboard[i, 27].Location = new Point(keyboard[i, 26].Right + MainMenu.GAP, keyboard[i, 19].Location.Y);
                 //Delete Word
                 keyboard[i, 29].Size = new Size(keyboard[i,27].Width, keyHeight);
-                keyboard[i, 29].Location = new Point(0, keyboard[i, 26].Bottom + UI.GAP);
+                keyboard[i, 29].Location = new Point(0, keyboard[i, 26].Bottom + MainMenu.GAP);
                 //Clear
                 keyboard[i, 30].Size = new Size(keyboard[i, 27].Width, keyHeight);
                 keyboard[i, 30].Location = new Point(Width - keyboard[i,30].Width, keyboard[i, 29].Top);
                 //Space
-                keyboard[i, 28].Size = new Size(keyboard[i,30].Left - keyboard[i,29].Right - UI.GAP * 2, keyHeight);
-                keyboard[i, 28].Location = new Point(keyboard[i, 29].Right + UI.GAP, keyboard[i, 29].Top);
+                keyboard[i, 28].Size = new Size(keyboard[i,30].Left - keyboard[i,29].Right - MainMenu.GAP * 2, keyHeight);
+                keyboard[i, 28].Location = new Point(keyboard[i, 29].Right + MainMenu.GAP, keyboard[i, 29].Top);
             }
         }
     }

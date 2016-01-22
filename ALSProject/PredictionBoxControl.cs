@@ -11,6 +11,8 @@ using presage;
 
 namespace ALSProject
 {
+
+    //may be deleted in the future
     public partial class PredictionBoxControl : UserControl
     {
 
@@ -116,7 +118,7 @@ namespace ALSProject
 
         public void updateSize()
         {
-            this.Size = new Size(KeyboardControl.spacebarLocation.X - UI.GAP * 2, this.Parent.Height - KeyboardControl.spacebarLocation.Y);
+            //this.Size = new Size(KeyboardControl.spacebarLocation.X - UI.GAP * 2, this.Parent.Height - KeyboardControl.spacebarLocation.Y);
 
         }
 

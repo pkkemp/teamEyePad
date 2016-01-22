@@ -12,9 +12,19 @@ namespace ALSProject
 {
     public partial class Email : Form
     {
-        public Email()
+        Form parent;
+
+        public Email(Form parent)
         {
             InitializeComponent();
+            this.parent = parent;
+        }
+
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            parent.Show();
+            this.Hide();
+
         }
     }
 }

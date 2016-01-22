@@ -47,7 +47,7 @@ namespace ALSProject
                 getCurrentSentence();
             };
 
-            alsKeyboard.Location = new Point(UI.GAP, UI.GAP);
+            alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             alsKeyboard.SendToBack();
 
             var keys = alsKeyboard.GetKeyboard();
@@ -232,8 +232,8 @@ namespace ALSProject
         private void TextToSpeech_Resize(object sender, EventArgs e)
         {
             alsKeyboard.SetTextBoxLocation(new Point(btnSpeak.Right, 0));
-            alsKeyboard.SetTextBoxSize(new Size(btnCallouts.Left - btnSpeak.Right - UI.GAP * 2, btnCallouts.Height));
-            alsKeyboard.Size = new Size(Width - UI.GAP * 2, Height - UI.GAP * 2);
+            alsKeyboard.SetTextBoxSize(new Size(btnCallouts.Left - btnSpeak.Right - MainMenu.GAP * 2, btnCallouts.Height));
+            alsKeyboard.Size = new Size(Width - MainMenu.GAP * 2, Height - MainMenu.GAP * 2);
         }
 
         public void makeKeyboard(bool isQwerty)
@@ -243,7 +243,7 @@ namespace ALSProject
                 alsKeyboard = new KeyboardControl3(this);
             else
                 alsKeyboard = new KeyboardControl2(this);
-            alsKeyboard.Location = new Point(UI.GAP, UI.GAP);
+            alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             TextToSpeech_Resize(this, null);
             Invalidate();
         }
