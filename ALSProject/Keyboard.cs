@@ -218,6 +218,7 @@ namespace ALSProject
                 {
                     string word = predictionWords.ElementAt(i);
                     predictionKeys[i].Text = word;
+                    predictionKeys[i].setFontSize();
                 }
                 catch (ArgumentOutOfRangeException)
                 {
