@@ -131,7 +131,7 @@ namespace ALSProject
             ac.Hide();
             this.refreshCalloutList();
             ac.setText("");
-            
+
         }
 
         private void speakCallout(object sender, EventArgs e)
@@ -312,33 +312,38 @@ namespace ALSProject
                 topRowButtons[i].Location = new Point(UI.GAP * (1 + i) + buttonWidth * i, UI.GAP);
                 topRowButtons[i].Size = new Size(buttonWidth, buttonWidth);
             }
-
-
-            int calloutsButtonHeight = (Height - buttonWidth - UI.GAP * (2 + callouts.GetLength(1))) / callouts.GetLength(1);
-
             if (isEditMode)
             {
-
+                int buttonHeight = (Height - topRowButtons[0].Bottom - UI.GAP * (1 + callouts.GetLength(1))) / callouts.GetLength(1);
+                
                 for (int i = 0; i < callouts.GetLength(0); i++)
                     for (int j = 0; j < callouts.GetLength(1); j++)
                     {
                         if (i != 0)
                         {
                             callouts[i, j].Location = new Point(Width - (callouts.GetLength(0) - i) * (EDIT_BUTTON_WIDTH + UI.GAP), callouts[0, j].Location.Y);
-                            callouts[i, j].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
+                            callouts[i, j].Size = new Size(EDIT_BUTTON_WIDTH, callouts[0, 0].Height);
                             callouts[i, j].Visible = true;
                         }
                         else
-                            callouts[i, j].Size = new Size(Width - UI.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, callouts[0, 0].Size.Height);
+                        {
+                            callouts[i, j].Size = new Size(Width - UI.GAP * (callouts.GetLength(0) + 1) - (callouts.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, (Height - topRowButtons[0].Bottom - UI.GAP * (callouts.GetLength(1) + 1)) / callouts.GetLength(1));
+                            callouts[i, j].Location = new Point(UI.GAP, topRowButtons[0].Bottom + UI.GAP + (UI.GAP + buttonHeight) * j);
+                        }
                     }
                 topRowButtons[4].Text = "Add";
             }
             else
             {
+                buttonWidth = (Width - UI.GAP * 2) / (callouts.GetLength(1) / 2);
+                int buttonHeight = (Height - UI.GAP * 3 - topRowButtons[0].Bottom) / 2;
+
                 for (int i = 0; i < callouts.GetLength(1); i++)
                 {
-                    callouts[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * calloutsButtonHeight);
-                    callouts[0, i].Size = new Size(Width - UI.GAP * 2, calloutsButtonHeight);
+                    callouts[0, i].Location = new Point(UI.GAP + ((UI.GAP + buttonWidth) * (i % (callouts.GetLength(1) / 2))),
+                        topRowButtons[0].Bottom + UI.GAP + ((UI.GAP + buttonHeight) * (i / (callouts.GetLength(1) / 2))));
+
+                    callouts[0, i].Size = new Size(buttonWidth, buttonHeight);
                 }
                 for (int i = 1; i < callouts.GetLength(0); i++)
                     for (int j = 0; j < callouts.GetLength(1); j++)

@@ -308,15 +308,25 @@ namespace ALSProject
                             notes[i, j].Visible = true;
                         }
                         else
-                            notes[i, j].Size = new Size(Width - UI.GAP * (notes.GetLength(0) + 1) - (notes.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, notes[0, 0].Size.Height);
+                        {
+                            notes[i, j].Location = new Point(UI.GAP, topRowButtons[0].Bottom + UI.GAP + (UI.GAP + notesButtonHeight) * j);
+                            notes[i, j].Size = new Size(Width - UI.GAP * (notes.GetLength(0) + 1) - (notes.GetLength(0) - 1) * EDIT_BUTTON_WIDTH, notesButtonHeight);
+                        }
                     }
             }
             else
             {
                 for (int i = 0; i < notes.GetLength(1); i++)
                 {
-                    notes[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * notesButtonHeight);
-                    notes[0, i].Size = new Size(Width - UI.GAP * 2, notesButtonHeight);
+                    buttonWidth = (Width - UI.GAP * 2) / (notes.GetLength(1) / 2);
+                    int buttonHeight = (Height - UI.GAP * 3 - topRowButtons[0].Bottom) / 2;
+                    //notes[0, i].Location = new Point(UI.GAP, (2 + i) * UI.GAP + buttonWidth + i * notesButtonHeight);
+                    //notes[0, i].Size = new Size(Width - UI.GAP * 2, notesButtonHeight);
+
+                    notes[0, i].Location = new Point(UI.GAP + ((UI.GAP + buttonWidth) * (i % (notes.GetLength(1) / 2))),
+                        topRowButtons[0].Bottom + UI.GAP + ((UI.GAP + buttonHeight) * (i / (notes.GetLength(1) / 2))));
+
+                    notes[0, i].Size = new Size(buttonWidth, buttonHeight);
                 }
                 for (int i = 1; i < notes.GetLength(0); i++)
                     for (int j = 0; j < notes.GetLength(1); j++)
