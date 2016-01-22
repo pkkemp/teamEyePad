@@ -128,7 +128,7 @@
             this.btnMenu.dwellTimeInterval = 100;
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.8661F);
+            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnMenu.Location = new System.Drawing.Point(12, 128);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(111, 108);
@@ -188,6 +188,6 @@
         private ALSButton btnScrollDown;
         private ALSButton btnBack;
         private ALSTextbox txtUrl;
-        private KeyboardControl2 keyboard;
+        private Keyboard keyboard;
     }
 }

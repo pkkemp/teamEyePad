@@ -118,6 +118,7 @@ namespace ALSProject
         {
             _textBox.Hide();
             _textBox.Size = new Size(0, 0);
+            Keyboard_Resize(this, null);
         }
 
         public void setClearConfirmation(bool confirmClear)

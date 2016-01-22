@@ -14,7 +14,7 @@ namespace ALSProject
     {
         private Form parentForm;
         private int scrollPoint = 0;
-        private const int SCROLL_INCREMENT = 100; 
+        private const int SCROLL_INCREMENT = 100;
         private TextBox keyboardTextBox;
         private MouseRectangle mouseBox;
         private string tempHomepage = "http://www.facebook.com";
@@ -36,18 +36,18 @@ namespace ALSProject
             keyboardTextBox = keyboard.GetTextBox();
             keyboardTextBox.TextChanged += new System.EventHandler(this.pressKey);
             winBrowse.Navigate(tempHomepage);
-           
+
 
         }
 
         private void timerEvent(object sender, EventArgs e)
         {
-             mouseBox.setClickmode(winBrowse.getMouseOver());   
+            mouseBox.setClickmode(winBrowse.getMouseOver());
         }
 
         private void pressKey(object sender, EventArgs e)
         {
-            if(keyboardTextBox!=null&&keyboardTextBox.Text!="")
+            if (keyboardTextBox != null && keyboardTextBox.Text != "")
                 System.Windows.Forms.SendKeys.Send(keyboardTextBox.Text[keyboardTextBox.TextLength - 1] + "");
         }
 
@@ -71,7 +71,7 @@ namespace ALSProject
 
         private void btnScrollUp_Click(object sender, EventArgs e)
         {
-            
+
             winBrowse.Document.Window.ScrollTo(new Point(0, scrollPoint - SCROLL_INCREMENT));
             scrollPoint -= SCROLL_INCREMENT;
         }
@@ -86,7 +86,7 @@ namespace ALSProject
         {
             winBrowse.GoBack();
         }
-        
+
         private ALSBrowserCntrl winBrowse;
         private void initBrowser()
         {
@@ -104,16 +104,22 @@ namespace ALSProject
         public void makeKeyboard(bool isQwerty)
         {
             Controls.Remove(keyboard);
-            if (isQwerty) ;
-            //keyboard = new KeyboardControl3(this);
+            if (isQwerty)
+                keyboard = new KeyboardControl3(this);
             else
                 keyboard = new KeyboardControl2(this);
+            keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
+            keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
             //TextToSpeech_Resize(this, null);
+            keyboard.HideTextBox();
+            //keyboard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Bottom;
             Invalidate();
         }
 
         private void Browser_Resize(object sender, EventArgs e)
         {
+            keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
+            keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
             this.btnMenu.setFontSize();
             this.btnBack.setFontSize();
             this.btnScrollDown.setFontSize();
