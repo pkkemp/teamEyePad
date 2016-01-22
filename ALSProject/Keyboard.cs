@@ -46,22 +46,41 @@ namespace ALSProject
 
         public void Predictionkey_Click(object sender, EventArgs e)
         {
-            //this doesn't really work
-            this.DeleteWord(sender, e);
-            if (_textBox.TextLength > 1)
-                _textBox.Text = _textBox.Text.Substring(0, _textBox.TextLength - 1);
-            else
-                _textBox.Text = "";
-
-            //daniel fix this already, turns out git wasn't even broken
-
             ALSButton key = ((ALSButton)sender);
-            _textBox.Text += (" " + key.Text + " ");
-            this.Populate_Predictkeys();
+            if (key.Text.Length == 0)
+                return;
 
-            //come on daniel 16 hours really?
+            //Remove typed characters
+            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+            var match = Regex.Match(text, @"\S+\s*$");
+            bool firstCapitolized = false, allCapitolized = false;
 
-            //WHY ISN'T THIS FIXED BY NOW? DANIEL!?!?
+            firstCapitolized = char.IsUpper(match.Value[0]);
+            if (match.Value.Length > 1)
+                allCapitolized = char.IsUpper(text[1]);
+            string newWord;
+            int charactersAfterCaret = _textBox.TextLength - _textBox.SelectionStart;
+            if (match.Value.Contains(" "))
+            {
+                newWord = key.Text;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + _textBox.Text.Substring(_textBox.SelectionStart);
+            }
+            else if (match.Index == 0)
+            {
+                newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                _textBox.Text = newWord + _textBox.Text.Substring(_textBox.SelectionStart);
+            }
+            else
+            {
+                newWord = allCapitolized ? key.Text.ToUpper() :
+                    firstCapitolized ? key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1) :
+                                                key.Text;
+                _textBox.Text = text.Substring(0, match.Index) + newWord + _textBox.Text.Substring(_textBox.SelectionStart);
+            }
+            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret;
+            
+            predictionWords.Clear();
+            ResetPrediction();
 
         }
 
@@ -169,34 +188,24 @@ namespace ALSProject
             //boxPredict.tType(key);
         }
 
-        protected void DeleteWord(object sender, EventArgs e)
-        {
-            var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
-
-            if (match.Success)
-                _textBox.Text = _textBox.Text.Substring(0, match.Index);
-            else
-                _textBox.Text = "";
-        }
-
         protected void Populate_Predictkeys()
         {
-            String lastWord = "";
-
-            var match = Regex.Match(_textBox.Text, @"[.!?]^[.!?]*$");
+            string lastWord = "";
+            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+            var match = Regex.Match(text, @"[.!?]^[.!?]*$");
 
             //var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
 
             if (match.Success)
-                lastWord = _textBox.Text.Substring(match.Index);
+                lastWord = text.Substring(match.Index);
             else
-                lastWord = _textBox.Text;
-            
+                lastWord = text;
+
             //remove inaplicable words
-            match = Regex.Match(_textBox.Text, @"\S*$");
+            match = Regex.Match(text, @"\S*$");
             string lastWord2 = "";
             if (match.Success)
-                lastWord2 = _textBox.Text.Substring(match.Index);
+                lastWord2 = text.Substring(match.Index);
             else
                 predictionWords.Clear();    //new word
             for (int i = predictionWords.Count - 1; i >= 0; i--)
@@ -224,6 +233,25 @@ namespace ALSProject
                 {
                     predictionKeys[i].Text = "";
                 }
+            }
+        }
+
+        // This is wrong. If the caret is in the middle of the word, it only deletes the text before the caret, 
+        // whereas it should also delete the text after the caret
+        protected void DeleteWord(object sender, EventArgs e)
+        {
+            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+            var match = Regex.Match(text, @"\s+\S+\s*$");
+
+            if (match.Success)
+            {
+                _textBox.Text = text.Substring(1, match.Index) + _textBox.Text.Substring(_textBox.SelectionStart);
+                _textBox.SelectionStart = text.Length;
+            }
+            else
+            {
+                _textBox.Text = _textBox.Text.Substring(_textBox.SelectionStart);
+                _textBox.SelectionStart = _textBox.TextLength;
             }
         }
 
