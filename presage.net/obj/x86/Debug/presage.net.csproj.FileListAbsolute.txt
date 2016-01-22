@@ -16,3 +16,8 @@ C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.csp
 =======
 C:\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.csprojResolveAssemblyReference.cache
 >>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
+C:\teamEyePad\teamEyePad\presage.net\bin\x86\Debug\presage.net.dll
+C:\teamEyePad\teamEyePad\presage.net\bin\x86\Debug\presage.net.pdb
+C:\teamEyePad\teamEyePad\presage.net\obj\x86\Debug\presage.net.csprojResolveAssemblyReference.cache
+C:\teamEyePad\teamEyePad\presage.net\obj\x86\Debug\presage.net.dll
+C:\teamEyePad\teamEyePad\presage.net\obj\x86\Debug\presage.net.pdb
