@@ -118,6 +118,14 @@
     <Compile Include="Email.Designer.cs">
       <DependentUpon>Email.cs</DependentUpon>
     </Compile>
+<<<<<<< Upstream, based on origin/master
+=======
+    <Compile Include="Email.GUI.cs">
+      <DependentUpon>Email.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmailClient.cs" />
+>>>>>>> f2ab486 Test email
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
