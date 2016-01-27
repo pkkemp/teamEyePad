@@ -60,6 +60,13 @@ namespace ALSProject
 
             alsButtons.Add(this);
             btnType = ButtonType.normal;
+
+            TextChanged += ALSButton_TextChanged;
+        }
+
+        private void ALSButton_TextChanged(object sender, EventArgs e)
+        {
+            setFontSize();
         }
 
         private void decayTimer_Tick(object sender, EventArgs e)
