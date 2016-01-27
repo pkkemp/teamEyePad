@@ -118,14 +118,11 @@
     <Compile Include="Email.Designer.cs">
       <DependentUpon>Email.cs</DependentUpon>
     </Compile>
-<<<<<<< Upstream, based on origin/master
-=======
     <Compile Include="Email.GUI.cs">
       <DependentUpon>Email.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmailClient.cs" />
->>>>>>> f2ab486 Test email
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,12 +157,6 @@
     </Compile>
     <Compile Include="Notepage.Designer.cs">
       <DependentUpon>Notepage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PredictionBoxControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PredictionBoxControl.Designer.cs">
-      <DependentUpon>PredictionBoxControl.cs</DependentUpon>
     </Compile>
     <Compile Include="PresagePredictor.cs" />
     <Compile Include="TextToSpeech.cs">
@@ -262,9 +253,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Notepage.resx">
       <DependentUpon>Notepage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PredictionBoxControl.resx">
-      <DependentUpon>PredictionBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextToSpeech.resx">
       <DependentUpon>TextToSpeech.cs</DependentUpon>

@@ -20,11 +20,9 @@ namespace ALSProject
         public Email(Form parent)
         {
             InitializeComponent();
-<<<<<<< Upstream, based on origin/master
-=======
+
             client = new EmailClient();
             this.CreateLayout(new System.ComponentModel.ComponentResourceManager(typeof(Email)));
->>>>>>> f2ab486 Test email
             this.parent = parent;
         }
 
@@ -34,8 +32,7 @@ namespace ALSProject
             this.Hide();
 
         }
-<<<<<<< Upstream, based on origin/master
-=======
+
 
         private void btnTest_Click(object sender, EventArgs e)
         {
@@ -43,8 +40,5 @@ namespace ALSProject
 
         }
 
-
-
->>>>>>> f2ab486 Test email
     }
 }
