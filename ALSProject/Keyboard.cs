@@ -295,7 +295,6 @@ namespace ALSProject
                     _textBox.Text = _textBox.Text.Substring(0, selectionStart) + _textBox.Text.Substring(selectionStart);
                     selectionStart -= match.Length;
                     _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text + _textBox.Text.Substring(selectionStart);
-                    //selectionStart++;
                     ResetPrediction();
                     break;
                 default:

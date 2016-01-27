@@ -105,7 +105,6 @@ namespace ALSProject
             }
             if (heightCounter > this.Height)
             {
-                heightCounter = 0;
                 this.PerformClick();
             }
             else
@@ -143,15 +142,12 @@ namespace ALSProject
             if (!clicked)
             {
                 clicked = true;
-                Invalidate();                   //Clears anything created by the graphics object
-                dwellTimer.Enabled = true;
-                decayTimer.Stop();
+                //Invalidate();                   //Clears anything created by the graphics object
                 heightCounter = 0;
 
                 //reset
                 dwellTimer.Stop();
-                dwellTimer.Start();
-                this.Refresh();
+                decayTimer.Stop();
             }
         }
 
