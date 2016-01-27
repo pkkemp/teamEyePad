@@ -133,12 +133,11 @@ namespace ALSProject
             ac.setText("");
 
         }
-
+        
         private void speakCallout(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
-            speaker.SpeakAsyncCancelAll();
-            speaker.Speak(btn.Text);
+            speaker.SpeakAsync(btn.Text);
         }
 
         private void refreshCalloutList()
