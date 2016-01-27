@@ -50,38 +50,42 @@ namespace ALSProject
             if (key.Text.Length == 0)
                 return;
 
-            //Remove typed characters
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
             var match = Regex.Match(text, @"\S+\s*$");
-            bool firstCapitolized = false, allCapitolized = false;
 
-            firstCapitolized = char.IsUpper(match.Value[0]);
-            if (match.Value.Length > 1)
-                allCapitolized = char.IsUpper(text[1]);
             string newWord;
             int charactersAfterCaret = _textBox.TextLength - _textBox.SelectionStart;
+
             if (match.Value.Contains(" "))
             {
-                newWord = key.Text;
-                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + _textBox.Text.Substring(_textBox.SelectionStart);
-            }
-            else if (match.Index == 0)
-            {
-                newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
-                _textBox.Text = newWord + _textBox.Text.Substring(_textBox.SelectionStart);
+                if (needsCapitalization())
+                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                else
+                    newWord = key.Text;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
             }
             else
             {
-                newWord = allCapitolized ? key.Text.ToUpper() :
-                    firstCapitolized ? key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1) :
-                                                key.Text;
-                _textBox.Text = text.Substring(0, match.Index) + newWord + _textBox.Text.Substring(_textBox.SelectionStart);
-            }
-            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret;
-            
-            predictionWords.Clear();
-            ResetPrediction();
+                //Remove typed characters
+                int numCharactersToRemove = 0;
+                for (int i = 0; i < text.Length; i++)
+                    if (text.ToLower()[i].Equals(key.Text.ToLower()[i]))
+                        numCharactersToRemove++;
+                    else
+                        break;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart - numCharactersToRemove) + _textBox.Text.Substring(_textBox.SelectionStart);
 
+                if (needsCapitalization())
+                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                else
+                    newWord = key.Text;
+
+                _textBox.Text = text.Substring(0, match.Index) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
+            }
+            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret + 1;
+
+            ResetPrediction();
+            Populate_Predictkeys();
         }
 
         public void Clear(object sender, EventArgs e)
@@ -170,6 +174,7 @@ namespace ALSProject
 
         public void ResetPrediction()
         {
+            predictionWords.Clear();
             presage.reset();
 
             foreach (ALSButton btn in predictionKeys)
@@ -192,12 +197,10 @@ namespace ALSProject
         {
             string lastWord = "";
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
-            var match = Regex.Match(text, @"[.!?]^[.!?]*$");
-
-            //var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
+            var match = Regex.Match(text, @"[.!?][^.!?]*$");
 
             if (match.Success)
-                lastWord = text.Substring(match.Index);
+                lastWord = match.Length > 1 ? text.Substring(match.Index + 1) : "";
             else
                 lastWord = text;
 
@@ -273,13 +276,36 @@ namespace ALSProject
         {
             ALSButton button = (ALSButton)sender;
             int selectionStart = _textBox.SelectionStart;
-            if (button.Text.Equals("Space"))
-                _textBox.Text = _textBox.Text.Substring(0, selectionStart) + " " + _textBox.Text.Substring(selectionStart);
-            else if (button.Text.Equals("&&"))
-                _textBox.Text = _textBox.Text.Substring(0, selectionStart) + "&" + _textBox.Text.Substring(selectionStart);
-            else
-                _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text + _textBox.Text.Substring(selectionStart);
 
+
+            switch (button.Text)
+            {
+                case "Space":
+                    _textBox.Text = _textBox.Text.Substring(0, selectionStart) + " " + _textBox.Text.Substring(selectionStart);
+                    break;
+                case "&&":
+                    _textBox.Text = _textBox.Text.Substring(0, selectionStart) + "&" + _textBox.Text.Substring(selectionStart);
+                    break;
+                case ".":
+                case "!":
+                case "?":
+                case ",":
+                    string text = _textBox.Text.Substring(0, selectionStart);
+                    var match = Regex.Match(text, @"\s*$");
+                    _textBox.Text = _textBox.Text.Substring(0, selectionStart) + _textBox.Text.Substring(selectionStart);
+                    selectionStart -= match.Length;
+                    _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text + _textBox.Text.Substring(selectionStart);
+                    //selectionStart++;
+                    ResetPrediction();
+                    break;
+                default:
+                    if (needsCapitalization())
+                        _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text.ToUpper() + _textBox.Text.Substring(selectionStart);
+                    else
+                        _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text + _textBox.Text.Substring(selectionStart);
+                    break;
+            }
+            
             _textBox.SelectionStart = selectionStart + 1;
 
             this.Populate_Predictkeys();
@@ -288,6 +314,18 @@ namespace ALSProject
         public ALSKey[,] GetKeyboard()
         {
             return keyboard;
+        }
+
+        private bool needsCapitalization()
+        {
+            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+            var match = Regex.Match(text, @"[.!?]\s*$");
+            if (match.Success)
+                return true;
+            match = Regex.Match(text, @"^\s*$");
+            if (match.Success)
+                return true;
+            return false;
         }
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
