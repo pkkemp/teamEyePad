@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +9,7 @@ using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ALSProject
 {
@@ -134,13 +135,11 @@ namespace ALSProject
 
         }
 
-        int speed = -5;
         private void speakCallout(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
-            //between -10 and 10 inclusive
-            speaker.Rate = speed;
-            speaker.SpeakAsync(btn.Text);
+            speaker.SpeakAsyncCancelAll();
+            speaker.Speak(btn.Text);
         }
 
         private void refreshCalloutList()
@@ -378,6 +377,4 @@ namespace ALSProject
             return ac;
         }
     }
-
-
 }

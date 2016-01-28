@@ -1,4 +1,4 @@
-﻿namespace ALSProject
+namespace ALSProject
 {
     partial class SettingsForm
     {

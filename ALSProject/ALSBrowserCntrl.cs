@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -14,7 +14,6 @@ namespace ALSProject
     {
         private Form parentForm;
         
-
         public ALSBrowserCntrl(Form parent)
         {
             parentForm = parent;
@@ -25,8 +24,5 @@ namespace ALSProject
         {
             return new Rectangle(this.Location, this.Size).Contains(Cursor.Position);
         }
-
-
-
     }
 }
