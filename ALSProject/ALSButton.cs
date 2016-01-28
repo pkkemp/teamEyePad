@@ -144,6 +144,8 @@ namespace ALSProject
                 clicked = true;
                 //Invalidate();                   //Clears anything created by the graphics object
                 heightCounter = 0;
+                decayTimer.Stop();
+                heightCounter = 0;
 
                 //reset
                 dwellTimer.Stop();
@@ -175,6 +177,33 @@ namespace ALSProject
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
             
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
+        }
+
+        public static void setDecay(bool isDecay)
+        {
+            ALSButton.isDecay = isDecay;
+        }
+
+        public static void toggleDecay()
+        {
+            isDecay = !isDecay;
+        }
+            //Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 8));
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
+        }
+
+        public static void setDecay(bool isDecay)
+        {
+            ALSButton.isDecay = isDecay;
+        }
+
+        public static void toggleDecay()
+        {
+            isDecay = !isDecay;
+        }
+
+            //Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 8));
             Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
 

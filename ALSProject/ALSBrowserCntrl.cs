@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,6 +13,7 @@ namespace ALSProject
     public partial class ALSBrowserCntrl : WebBrowser
     {
         private Form parentForm;
+        Timer timer;
         
 
         public ALSBrowserCntrl(Form parent)

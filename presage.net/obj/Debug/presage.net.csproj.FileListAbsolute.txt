@@ -1,5 +1,0 @@
-C:\Users\daniel.griffin\git\teamEyePad\presage.net\bin\Debug\presage.net.dll
-C:\Users\daniel.griffin\git\teamEyePad\presage.net\bin\Debug\presage.net.pdb
-C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\Debug\presage.net.csprojResolveAssemblyReference.cache
-C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\Debug\presage.net.dll
-C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\Debug\presage.net.pdb
