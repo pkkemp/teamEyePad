@@ -17,3 +17,4 @@ C:\teamEyePad\teamEyePad\presage.net\bin\x86\Debug\presage.net.pdb
 C:\teamEyePad\teamEyePad\presage.net\obj\x86\Debug\presage.net.csprojResolveAssemblyReference.cache
 C:\teamEyePad\teamEyePad\presage.net\obj\x86\Debug\presage.net.dll
 C:\teamEyePad\teamEyePad\presage.net\obj\x86\Debug\presage.net.pdb
+C:\Users\daniel.griffin\git\teamEyePad\presage.net\obj\x86\Debug\presage.net.csprojResolveAssemblyReference.cache
