@@ -28,17 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.sldrKeyboard = new ALSProject.Slider();
-            this.btnKeyboardRight = new ALSProject.ALSButton();
-            this.btnKeyboardLeft = new ALSProject.ALSButton();
+            this.sldrDwellTime = new ALSProject.Slider("Dwell Time");
             this.btnResetCallouts = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSAlarm();
             this.btnBack = new ALSProject.ALSButton();
-            this.sldrDwellTime = new ALSProject.Slider();
-            this.alsButton2 = new ALSProject.ALSButton();
-            this.alsButton1 = new ALSProject.ALSButton();
+            this.sldrKeyboard = new ALSProject.Slider("Keyboard Dwell Time");
             this.SuspendLayout();
             // 
             // label1
@@ -48,7 +45,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(311, 164);
+            this.label1.Location = new System.Drawing.Point(311, 199);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(466, 63);
             this.label1.TabIndex = 3;
@@ -67,51 +64,13 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Keyboard Dwell Speed";
             // 
-            // sldrKeyboard
+            // sldrDwellTime
             // 
-            this.sldrKeyboard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sldrKeyboard.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.sldrKeyboard.BackColor = System.Drawing.Color.Gainsboro;
-            this.sldrKeyboard.Location = new System.Drawing.Point(221, 449);
-            this.sldrKeyboard.Name = "sldrKeyboard";
-            this.sldrKeyboard.Size = new System.Drawing.Size(598, 34);
-            this.sldrKeyboard.TabIndex = 10;
-            // 
-            // btnKeyboardRight
-            // 
-            this.btnKeyboardRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnKeyboardRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnKeyboardRight.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.btnKeyboardRight.dwellTimeInterval = 4;
-            this.btnKeyboardRight.FlatAppearance.BorderSize = 0;
-            this.btnKeyboardRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKeyboardRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.btnKeyboardRight.Location = new System.Drawing.Point(825, 418);
-            this.btnKeyboardRight.Name = "btnKeyboardRight";
-            this.btnKeyboardRight.Size = new System.Drawing.Size(189, 130);
-            this.btnKeyboardRight.TabIndex = 9;
-            this.btnKeyboardRight.Text = ">";
-            this.btnKeyboardRight.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnKeyboardRight.UseVisualStyleBackColor = false;
-            this.btnKeyboardRight.Click += new System.EventHandler(this.btnKeyboardRight_Click);
-            // 
-            // btnKeyboardLeft
-            // 
-            this.btnKeyboardLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnKeyboardLeft.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.btnKeyboardLeft.dwellTimeInterval = 4;
-            this.btnKeyboardLeft.FlatAppearance.BorderSize = 0;
-            this.btnKeyboardLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKeyboardLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.btnKeyboardLeft.Location = new System.Drawing.Point(12, 418);
-            this.btnKeyboardLeft.Name = "btnKeyboardLeft";
-            this.btnKeyboardLeft.Size = new System.Drawing.Size(203, 130);
-            this.btnKeyboardLeft.TabIndex = 8;
-            this.btnKeyboardLeft.Text = "<";
-            this.btnKeyboardLeft.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnKeyboardLeft.UseVisualStyleBackColor = false;
-            this.btnKeyboardLeft.Click += new System.EventHandler(this.btnKeyboardLeft_Click);
+            this.sldrDwellTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.sldrDwellTime.Location = new System.Drawing.Point(177, 300);
+            this.sldrDwellTime.Name = "sldrDwellTime";
+            this.sldrDwellTime.Size = new System.Drawing.Size(158, 58);
+            this.sldrDwellTime.TabIndex = 12;
             // 
             // btnResetCallouts
             // 
@@ -120,7 +79,7 @@
             this.btnResetCallouts.dwellTimeInterval = 15;
             this.btnResetCallouts.FlatAppearance.BorderSize = 0;
             this.btnResetCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResetCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnResetCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 34.12514F);
             this.btnResetCallouts.Location = new System.Drawing.Point(12, 619);
             this.btnResetCallouts.Name = "btnResetCallouts";
             this.btnResetCallouts.Size = new System.Drawing.Size(203, 150);
@@ -131,7 +90,7 @@
             // btnAlarm
             // 
             this.btnAlarm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnAlarm.BackgroundImage = global::ALSProject.Properties.Resources.speaker_icon;
+            this.btnAlarm.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAlarm.BackgroundImage")));
             this.btnAlarm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnAlarm.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnAlarm.dwellTimeInterval = 15;
@@ -153,7 +112,7 @@
             this.btnBack.dwellTimeInterval = 15;
             this.btnBack.FlatAppearance.BorderSize = 0;
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 43.64351F);
             this.btnBack.Location = new System.Drawing.Point(811, 12);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(201, 157);
@@ -163,51 +122,13 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // sldrDwellTime
+            // sldrKeyboard
             // 
-            this.sldrDwellTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sldrDwellTime.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.sldrDwellTime.BackColor = System.Drawing.Color.Gainsboro;
-            this.sldrDwellTime.Location = new System.Drawing.Point(221, 230);
-            this.sldrDwellTime.Name = "sldrDwellTime";
-            this.sldrDwellTime.Size = new System.Drawing.Size(598, 34);
-            this.sldrDwellTime.TabIndex = 2;
-            // 
-            // alsButton2
-            // 
-            this.alsButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.alsButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.alsButton2.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.alsButton2.dwellTimeInterval = 4;
-            this.alsButton2.FlatAppearance.BorderSize = 0;
-            this.alsButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.alsButton2.Location = new System.Drawing.Point(825, 199);
-            this.alsButton2.Name = "alsButton2";
-            this.alsButton2.Size = new System.Drawing.Size(189, 130);
-            this.alsButton2.TabIndex = 1;
-            this.alsButton2.Text = ">";
-            this.alsButton2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton2.UseVisualStyleBackColor = false;
-            this.alsButton2.Click += new System.EventHandler(this.alsButton2_Click);
-            // 
-            // alsButton1
-            // 
-            this.alsButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.alsButton1.btnType = ALSProject.ALSButton.ButtonType.normal;
-            this.alsButton1.dwellTimeInterval = 4;
-            this.alsButton1.FlatAppearance.BorderSize = 0;
-            this.alsButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
-            this.alsButton1.Location = new System.Drawing.Point(12, 199);
-            this.alsButton1.Name = "alsButton1";
-            this.alsButton1.Size = new System.Drawing.Size(203, 130);
-            this.alsButton1.TabIndex = 0;
-            this.alsButton1.Text = "<";
-            this.alsButton1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.alsButton1.UseVisualStyleBackColor = false;
-            this.alsButton1.Click += new System.EventHandler(this.alsButton1_Click);
+            this.sldrKeyboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.sldrKeyboard.Location = new System.Drawing.Point(297, 485);
+            this.sldrKeyboard.Name = "sldrKeyboard";
+            this.sldrKeyboard.Size = new System.Drawing.Size(258, 58);
+            this.sldrKeyboard.TabIndex = 13;
             // 
             // SettingsForm
             // 
@@ -215,17 +136,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.sldrKeyboard);
-            this.Controls.Add(this.btnKeyboardRight);
-            this.Controls.Add(this.btnKeyboardLeft);
+            this.Controls.Add(this.sldrDwellTime);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnResetCallouts);
             this.Controls.Add(this.btnAlarm);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.sldrDwellTime);
-            this.Controls.Add(this.alsButton2);
-            this.Controls.Add(this.alsButton1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
@@ -237,17 +154,12 @@
         }
 
         #endregion
-
-        private ALSButton alsButton1;
-        private ALSButton alsButton2;
-        private Slider sldrDwellTime;
         private System.Windows.Forms.Label label1;
         private ALSButton btnBack;
         private ALSAlarm btnAlarm;
         public ALSButton btnResetCallouts;
         private System.Windows.Forms.Label label4;
+        private Slider sldrDwellTime;
         private Slider sldrKeyboard;
-        private ALSButton btnKeyboardRight;
-        private ALSButton btnKeyboardLeft;
     }
 }

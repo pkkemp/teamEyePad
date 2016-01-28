@@ -133,10 +133,13 @@ namespace ALSProject
             ac.setText("");
 
         }
-        
+
+        int speed = -5;
         private void speakCallout(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
+            //between -10 and 10 inclusive
+            speaker.Rate = speed;
             speaker.SpeakAsync(btn.Text);
         }
 

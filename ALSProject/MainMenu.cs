@@ -41,6 +41,8 @@ namespace ALSProject
         private Notebook notebook;
         private Thread eyeTrackingThread;
         private static LockScreen lockScreen;
+        private static SpeechSynthesizer voice;
+
         public const int GAP = 10;
 
         TextToSpeech texttospeech;
@@ -66,7 +68,7 @@ namespace ALSProject
             eyeTrackingThread.Name = "Eye Tracking Thread";
             eyeTrackingThread.Start();
 
-            SpeechSynthesizer voice = new SpeechSynthesizer();
+            voice = new SpeechSynthesizer();
 
             voice.SetOutputToDefaultAudioDevice();
             voice.Volume = 100;
@@ -308,6 +310,14 @@ namespace ALSProject
         {
             lockScreen.Show();
             lockScreen.Focus();
+        }
+
+        public static void SetVoiceSpeed(int speed)
+        {
+            if(speed >= -10 && speed <= 10)
+            {
+                voice.Rate = speed;
+            }
         }
 
         public void SetKeyboard(bool isQwerty)

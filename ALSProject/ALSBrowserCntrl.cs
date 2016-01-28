@@ -13,7 +13,6 @@ namespace ALSProject
     public partial class ALSBrowserCntrl : WebBrowser
     {
         private Form parentForm;
-        Timer timer;
         
 
         public ALSBrowserCntrl(Form parent)

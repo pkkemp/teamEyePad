@@ -15,7 +15,6 @@ namespace ALSProject
         Timer timer;
         private Form parentForm;
         private Control parentControl;
-        Graphics gr;
         const int RECT_SIZE = 100;
         private int mouseCount = -1;
         bool clickmode = false;

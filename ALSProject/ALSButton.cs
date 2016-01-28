@@ -174,8 +174,7 @@ namespace ALSProject
             float WidthScaleRatio = (Width - 18) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
-
-            //Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 8));
+            
             Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
 
