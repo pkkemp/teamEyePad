@@ -1,7 +1,4 @@
 /bin/debug/*
-
 !bin/debug/Tobii.EyeX.Client.dll
-
 /bin/release/
-
 /obj/

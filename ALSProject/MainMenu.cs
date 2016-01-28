@@ -1,4 +1,4 @@
-using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +34,7 @@ namespace ALSProject
 
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
-
+        
         public Form self { get; set; }
         private BECM becm;
         private CVInterface tobiiInt;
@@ -104,7 +104,7 @@ namespace ALSProject
             }
 
             Rectangle resolution = Screen.PrimaryScreen.Bounds;
-            if (resolution.Width < 840 || resolution.Height < 580)
+            if(resolution.Width < 840 || resolution.Height < 580)
             {
                 MessageBox.Show("You are using a computer with a screen resolution less than recommended. Undesired results may incur.");
             }
@@ -149,12 +149,12 @@ namespace ALSProject
             callout.Show();
             texttospeech.Hide();
         }
-
+        
         public void OpenTTS()
         {
             texttospeech.Show();
         }
-
+        
         public void initBECM()
         {
             becm = new BECM();
@@ -314,7 +314,7 @@ namespace ALSProject
 
         public static void SetVoiceSpeed(int speed)
         {
-            if (speed >= -10 && speed <= 10)
+            if(speed >= -10 && speed <= 10)
             {
                 voice.Rate = speed;
             }
@@ -341,4 +341,6 @@ namespace ALSProject
             this.Hide();
         }
     }
+
+
 }
