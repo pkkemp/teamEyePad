@@ -231,16 +231,26 @@ namespace ALSProject
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
             var match = Regex.Match(text, @"\s+\S+\s*$");
             var selectionStart = _textBox.SelectionStart;
+            int numCharacterToDelete;
             if (match.Success)
             {
                 _textBox.Text = text.Substring(0, match.Index) + " " + _textBox.Text.Substring(_textBox.SelectionStart);
+                numCharacterToDelete = selectionStart - match.Length + 1;
                 _textBox.SelectionStart = selectionStart - match.Length + 1;
             }
             else
             {
+                numCharacterToDelete = _textBox.SelectionStart;
                 _textBox.Text = _textBox.Text.Substring(_textBox.SelectionStart);
                 _textBox.SelectionStart = 0;
             }
+
+            mostRecentEntry = "";
+            for (int i = 0; i < numCharacterToDelete; i++)
+                mostRecentEntry += "\b";
+            if (OnPressed != null)
+                OnPressed(this, EventArgs.Empty);
+
             ResetPrediction();
             Populate_Predictkeys();
         }
@@ -256,6 +266,9 @@ namespace ALSProject
                 ResetPrediction();
                 Populate_Predictkeys();
             }
+            mostRecentEntry = "\b";
+            if (OnPressed != null)
+                OnPressed(this, EventArgs.Empty);
         }
 
         protected void TypeCharacter(object sender, EventArgs e)
