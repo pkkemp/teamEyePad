@@ -12,7 +12,6 @@ namespace ALSProject
 {
     public partial class SettingsForm : Form
     {
-        Form parentForm;
         ALSButton btnLock;
         ALSButton btnToggleKeyboard;
         ALSButton btnToggleDecay;
@@ -21,11 +20,15 @@ namespace ALSProject
         frmAbout frmAboutPage;
         bool isQwerty = false;  //Shows if the program's keyboards are qwerty or large button 
 
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
 
-        public SettingsForm(Form pForm)
+        public delegate void ChangeKeyboard_Click(bool isQwerty);
+        public event ChangeKeyboard_Click ToggleKeyboard;
+        
+        public SettingsForm()
         {
             InitializeComponent();
-            parentForm = pForm;
 
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
@@ -113,8 +116,9 @@ namespace ALSProject
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
             this.Hide();
+            if (MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         private void updateSldrDwellTime()
@@ -163,7 +167,8 @@ namespace ALSProject
         private void Toggle_Click(object sender, EventArgs e)
         {
             isQwerty = !isQwerty;
-            ((MainMenu)parentForm).SetKeyboard(isQwerty);
+            if (ToggleKeyboard != null)
+                ToggleKeyboard(isQwerty);
             ((ALSButton)sender).Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
         }
 
@@ -171,6 +176,21 @@ namespace ALSProject
         {
             ALSButton.toggleDecay();
             ((ALSButton)sender).Text = ALSButton.getDecay() ? "Prevent\nDecay" : "Allow\nDecay";
+        }
+    }
+
+    public class SettingsEventArgs : EventArgs
+    {
+        private bool isQwerty;
+
+        public SettingsEventArgs(bool isQwerty)
+        {
+            this.isQwerty = isQwerty;
+        }
+
+        public bool getIsQwerty()
+        {
+            return isQwerty;
         }
     }
 }

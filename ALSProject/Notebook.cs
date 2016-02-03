@@ -28,17 +28,17 @@ namespace ALSProject
 
         Notepage notepage;
 
-        private Form parentForm;
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
 
-        public Notebook(Form parent, SpeechSynthesizer voice)
+        public Notebook(SpeechSynthesizer voice)
         {
             InitializeComponent();
-
-            parentForm = parent;
+            
             //setup speech
             speaker = voice;
 
-            notepage = new Notepage(this, speaker);
+            notepage = new Notepage(speaker);
 
             indexBeingEdited = -1;
 
@@ -64,10 +64,11 @@ namespace ALSProject
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
             topRowButtons[4].Click += new System.EventHandler(this.NewNote_Click);
-            topRowButtons[5].Click += new System.EventHandler(this.MainMenu_Click);
+            topRowButtons[5].Click += new System.EventHandler(this.btnMainMenu_Click);
 
-            notepage.getBackBtn().Click += new System.EventHandler(this.addToList);
+            notepage.getBackBtn().Click += new System.EventHandler(this.Notebook_Show);
             //notepage.getSaveButton().Click += new EventHandler(this.addToList); // there is no save button...
+            notepage.Back_Click += Notepage_Back_Click;
 
             topRowButtons[2].Enabled = false;
             if (NUM_NOTES > phrases.Count)
@@ -112,6 +113,11 @@ namespace ALSProject
             flipToPage(0);
         }
 
+        private void Notepage_Back_Click(object sender, EventArgs args)
+        {
+            this.Show();
+        }
+
         private void EditNote(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
@@ -136,10 +142,11 @@ namespace ALSProject
             notepage.setCursorAtEnd();
         }
 
-        private void MainMenu_Click(object sender, EventArgs e)
+        private void btnMainMenu_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
             this.Hide();
+            if (MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         private int getNum(String str)
@@ -149,8 +156,9 @@ namespace ALSProject
             return num;
         }
 
-        private void addToList(object sender, EventArgs e)
+        private void Notebook_Show(object sender, EventArgs e)
         {
+            this.Show();
             string str = notepage.getText();
             Console.WriteLine(str);
             if (str != "" && str != null)

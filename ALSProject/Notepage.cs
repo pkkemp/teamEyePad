@@ -14,7 +14,6 @@ namespace ALSProject
 {
     public partial class Notepage : Form
     {
-        private Form parentForm;
         private SpeechSynthesizer voice;
         Keyboard keyboard;
 
@@ -24,10 +23,12 @@ namespace ALSProject
         ALSButton up, left, right, down, backWord, forwardWord;
         ALSButton _lock;
 
-        public Notepage(Form parent, SpeechSynthesizer voice)
+        public delegate void BackClick(object sender, EventArgs args);
+        public event BackClick Back_Click;
+
+        public Notepage(SpeechSynthesizer voice)
         {
             InitializeComponent();
-            this.parentForm = parent;
             this.voice = voice;
 
             this.WindowState = FormWindowState.Maximized;
@@ -58,7 +59,7 @@ namespace ALSProject
             Controls.Add(_lock);
 
             speak.Click += new EventHandler(Speak_Click);
-            back.Click += new EventHandler(Back_Click);
+            back.Click += new EventHandler(btnBack_Click);
             up.Click += new EventHandler(Up_Click);
             left.Click += new EventHandler(Left_Click);
             right.Click += new EventHandler(Right_Click);
@@ -122,12 +123,10 @@ namespace ALSProject
             if (match.Success)
             {
                 keyboard.SetSelection(match.Index, 0);
-                //txtContect.SelectionStart = match.Index;
             }
             else
             {
                 keyboard.SetSelection(0, 0);
-                //txtContect.SelectionStart = 0;
             }
         }
 
@@ -161,9 +160,10 @@ namespace ALSProject
             SendKeys.Send("{UP}");
         }
 
-        private void Back_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
+            if(Back_Click != null)
+                Back_Click(this, e);
             this.Hide();
         }
 
@@ -176,7 +176,7 @@ namespace ALSProject
             else
                 voice.SpeakAsync(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
         }
-        
+
         private void Notepage_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Type printable characters in text box
@@ -211,7 +211,7 @@ namespace ALSProject
             down.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             backWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
             forwardWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
-            
+
             alarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             speak.Location = new Point(MainMenu.GAP + alarm.Right, MainMenu.GAP);
             keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);

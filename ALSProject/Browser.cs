@@ -12,16 +12,17 @@ namespace ALSProject
 {
     public partial class Browser : Form
     {
-        private Form parentForm;
         private int scrollPoint = 0;
         private const int SCROLL_INCREMENT = 100;
         private MouseRectangle mouseBox;
         private string tempHomepage = "http://www.facebook.com";
         private Timer timer;
 
-        public Browser(Form parent)
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
+
+        public Browser()
         {
-            parentForm = parent;
             InitializeComponent();
             initBrowser();
 
@@ -50,8 +51,9 @@ namespace ALSProject
         
         private void btnMenu_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
             this.Hide();
+            if (MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         private void alsButton1_Click(object sender, EventArgs e)

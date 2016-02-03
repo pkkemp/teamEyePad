@@ -14,26 +14,26 @@ namespace ALSProject
 {
     public partial class TextToSpeech : Form
     {
-        private new Form Parent;
-        SpeechSynthesizer speaker;
-        bool predictLock = false; //this prevents the textbox words from being overwritten constantly
+        protected SpeechSynthesizer speaker;
         private ClearTextConfirmation clearTextConfirmation;
 
-        public TextToSpeech(Form parent, SpeechSynthesizer voice)
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
+
+        public TextToSpeech(SpeechSynthesizer voice)
         {
             InitializeComponent();
-            this.Parent = parent;
 
             // this.alsKeyboard.setRemainingVariables();
             clearTextConfirmation = new ClearTextConfirmation(this);
             //this.alsKeyboard.setupPreditionBox();
 
             speaker = voice;
-            
+
             btnCallouts.setFontSize();
             btnMenu.setFontSize();
             btnSpeak.setFontSize();
-            
+
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) =>
             {
@@ -60,8 +60,9 @@ namespace ALSProject
 
         protected void btnMenu_Click(object sender, EventArgs e)
         {
-            Parent.Show();
-            this.Hide();
+            Hide();
+            if(MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         protected string getCurrentSentence()
@@ -90,7 +91,7 @@ namespace ALSProject
 
             return sentence;
         }
-        
+
         protected void btnClear_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
@@ -114,7 +115,8 @@ namespace ALSProject
         {
             foreach (Control c in coll)
             {
-                c.MouseClick += (sender, e) => {
+                c.MouseClick += (sender, e) =>
+                {
                     updateCursor();
                 };
                 initControlsRecursive(c.Controls);
@@ -131,7 +133,7 @@ namespace ALSProject
             alsKeyboard.SetTextBoxFocus();
             alsKeyboard.SetSelection(alsKeyboard.GetText().Length, 0);
         }
-        
+
         public string GetText()
         {
             return alsKeyboard.GetText();

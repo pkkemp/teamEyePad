@@ -14,21 +14,21 @@ namespace ALSProject
 {
     public partial class QuitForm : Form
     {
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
 
-        Form parentForm;
-
-        public QuitForm(Form parent)
+        public QuitForm()
         {
             InitializeComponent();
-            parentForm = parent;
             yesBut.dwellTimeInterval = 100;
             yesBut.btnType = ALSButton.ButtonType.immutable;
         }
         
         private void noBut_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
-            this.Hide();
+            Hide();
+            if(MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         private void yesBut_Click(object sender, EventArgs e)

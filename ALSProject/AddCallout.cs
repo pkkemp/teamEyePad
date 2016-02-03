@@ -13,7 +13,7 @@ namespace ALSProject
 {
     public partial class AddCallout : TextToSpeech
     {
-        public AddCallout(Form parent, SpeechSynthesizer voice) : base (parent, voice)
+        public AddCallout(Form parent, SpeechSynthesizer voice) : base (voice)
         {
             btnSpeak.Visible = false;
             

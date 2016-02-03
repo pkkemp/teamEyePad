@@ -34,7 +34,7 @@ namespace ALSProject
 
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
-        
+
         public Form self { get; set; }
         private BECM becm;
         private CVInterface tobiiInt;
@@ -74,13 +74,13 @@ namespace ALSProject
             voice.Volume = 100;
             voice.SelectVoiceByHints(VoiceGender.Male);
 
-            texttospeech = new TextToSpeech(this, voice);
-            notebook = new Notebook(this, voice);
+            texttospeech = new TextToSpeech(voice);
+            notebook = new Notebook(voice);
             callout = new Callout(this, voice);
-            settingsScreen = new SettingsForm(this);
-            quitScreen = new QuitForm(this);
-            browser = new Browser(this);
-            email = new Email(this);
+            settingsScreen = new SettingsForm();
+            quitScreen = new QuitForm();
+            browser = new Browser();
+            email = new Email();
 
             texttospeech.Visible = false;
             notebook.Visible = false;
@@ -88,6 +88,15 @@ namespace ALSProject
             settingsScreen.Visible = false;
             browser.Visible = false;
             email.Visible = false;
+
+            texttospeech.MainMenu_Click += MainMenu_Show;
+            notebook.MainMenu_Click += MainMenu_Show;
+            settingsScreen.MainMenu_Click += MainMenu_Show;
+            quitScreen.MainMenu_Click += MainMenu_Show;
+            browser.MainMenu_Click += MainMenu_Show;
+            email.MainMenu_Click += MainMenu_Show;
+
+            settingsScreen.ToggleKeyboard += SettingsScreen_ToggleKeyboard;
 
             texttospeech.Icon = Properties.Resources.icon;
             notebook.Icon = Properties.Resources.icon;
@@ -110,7 +119,7 @@ namespace ALSProject
             }
 
             Rectangle resolution = Screen.PrimaryScreen.Bounds;
-            if(resolution.Width < 840 || resolution.Height < 580)
+            if (resolution.Width < 840 || resolution.Height < 580)
             {
                 MessageBox.Show("You are using a computer with a screen resolution less than recommended. Undesired results may incur.");
             }
@@ -120,6 +129,19 @@ namespace ALSProject
             closeTimer.Enabled = true;
             closeTimer.Interval = 1000;
             closeTimer.Tick += new EventHandler(closeTimeEvent);
+        }
+
+        private void SettingsScreen_ToggleKeyboard(bool isQwerty)
+        {
+            texttospeech.makeKeyboard(isQwerty);
+            callout.GetAddCallout().makeKeyboard(isQwerty);
+            browser.makeKeyboard(isQwerty);
+            notebook.GetNotepage().makeKeyboard(isQwerty);
+        }
+
+        private void MainMenu_Show(object sender, EventArgs e)
+        {
+            this.Show();
         }
 
         private void closeTimeEvent(object sender, EventArgs e)
@@ -155,12 +177,12 @@ namespace ALSProject
             callout.Show();
             texttospeech.Hide();
         }
-        
+
         public void OpenTTS()
         {
             texttospeech.Show();
         }
-        
+
         public void initBECM()
         {
             becm = new BECM();
@@ -320,18 +342,10 @@ namespace ALSProject
 
         public static void SetVoiceSpeed(int speed)
         {
-            if(speed >= -10 && speed <= 10)
+            if (speed >= -10 && speed <= 10)
             {
                 voice.Rate = speed;
             }
-        }
-
-        public void SetKeyboard(bool isQwerty)
-        {
-            texttospeech.makeKeyboard(isQwerty);
-            callout.GetAddCallout().makeKeyboard(isQwerty);
-            browser.makeKeyboard(isQwerty);
-            notebook.GetNotepage().makeKeyboard(isQwerty);
         }
 
         private Keyboard GetNewKeyboard(bool isQwerrty)
