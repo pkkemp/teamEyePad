@@ -22,6 +22,9 @@ namespace ALSProject
         };
 
         private KeyboardType keyboardType;
+        private const string symbols1 = ",!?,:;'\"";
+        private const string symbols2 = "@$%^&*+-=;";
+        private const string symbols3 = "()[]{}|\\/";
 
         public KeyboardControl2() : base()
         {
@@ -33,7 +36,7 @@ namespace ALSProject
             
             string[,] letters = { { "abc\ndef", "ghi\njkl", "mnop\nqrs", "tuvw\nxyz", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "ABC\nDEF", "GHI\nJKL", "MNOP\nQRS", "TUVW\nXYZ", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
-                                  { "0", "1-9", ",!?,:;'\"", "@$%^&*+-=", "()[]{}|\\/", "abc", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "0", "1-9", symbols1, symbols2, symbols3, "abc", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "a", "b", "c", "d", "e", "f", "", "", "", "Back"},
                                   { "g", "h", "i", "j", "k", "l", "", "", "", "Back"},
                                   { "m", "n", "o", "p", "q", "r", "s", "", "", "Back"},
@@ -145,13 +148,13 @@ namespace ALSProject
                 case "1-9":
                     keyboardType = KeyboardType._1TO9;
                     break;
-                case ",!?":
+                case symbols1:
                     keyboardType = KeyboardType.Punctuation;
                     break;
-                case "@#$":
+                case symbols2:
                     keyboardType = KeyboardType.Symbols;
                     break;
-                case "[({":
+                case symbols3:
                     keyboardType = KeyboardType.Symbols2;
                     break;
                 case "Back":
