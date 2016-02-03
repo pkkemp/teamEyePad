@@ -25,7 +25,6 @@ namespace ALSProject
         
         public delegate void KeyPressed(object sender, EventArgs e);
         public event KeyPressed OnPressed;
-        //public delegate void btnRight_Click(object sender, EventArgs e);
 
         public Keyboard()
         {
@@ -234,14 +233,16 @@ namespace ALSProject
             var selectionStart = _textBox.SelectionStart;
             if (match.Success)
             {
-                _textBox.Text = text.Substring(0, match.Index) + _textBox.Text.Substring(_textBox.SelectionStart);
-                _textBox.SelectionStart = selectionStart - match.Length;
+                _textBox.Text = text.Substring(0, match.Index) + " " + _textBox.Text.Substring(_textBox.SelectionStart);
+                _textBox.SelectionStart = selectionStart - match.Length + 1;
             }
             else
             {
                 _textBox.Text = _textBox.Text.Substring(_textBox.SelectionStart);
                 _textBox.SelectionStart = 0;
             }
+            ResetPrediction();
+            Populate_Predictkeys();
         }
 
         protected void Backspace(object sender, EventArgs e)
@@ -252,6 +253,8 @@ namespace ALSProject
                 _textBox.Text = _textBox.Text.Substring(0, selectionStart - 1) + _textBox.Text.Substring(selectionStart);
 
                 _textBox.SelectionStart = selectionStart - 1;
+                ResetPrediction();
+                Populate_Predictkeys();
             }
         }
 
