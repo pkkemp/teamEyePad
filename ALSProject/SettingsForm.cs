@@ -18,14 +18,15 @@ namespace ALSProject
         ALSButton btnToggleDecay;
         ALSButton btnAbout;
         Slider sldrVoiceSpeed;
+        frmAbout frmAboutPage;
         bool isQwerty = false;  //Shows if the program's keyboards are qwerty or large button 
-        //TODO: make a setting for keyboard button speed vs all ALSButton speed
+
 
         public SettingsForm(Form pForm)
         {
             InitializeComponent();
             parentForm = pForm;
-            
+
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
             btnAlarm.setFontSize();
@@ -54,19 +55,39 @@ namespace ALSProject
             btnAbout = new ALSButton();
             btnAbout.Text = "About";
             btnAbout.Size = btnBack.Size;
+            btnAbout.Click += BtnAbout_Click;
             Controls.Add(btnAbout);
 
             sldrVoiceSpeed = new Slider("Voice Speed");
             sldrVoiceSpeed.BtnRight_Click += SldrVoiceSpeed_Btn_Click;
             sldrVoiceSpeed.BtnLeft_Click += SldrVoiceSpeed_Btn_Click;
             Controls.Add(sldrVoiceSpeed);
-            
+
             sldrDwellTime.BtnRight_Click += SldrDwellTime_Btn_Click;
             sldrDwellTime.BtnLeft_Click += SldrDwellTime_Btn_Click;
             sldrKeyboard.BtnLeft_Click += SldrKeyboard_Btn_Click;
             sldrKeyboard.BtnRight_Click += SldrKeyboard_Btn_Click;
 
+            frmAboutPage = new frmAbout();
+            frmAboutPage.VisibleChanged += FrmAboutPage_VisibleChanged;
+
             updateSldrDwellTime();
+        }
+
+        private void FrmAboutPage_VisibleChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!((Form)sender).Visible)
+                    this.Show();
+            }
+            catch (Exception) { }
+        }
+
+        private void BtnAbout_Click(object sender, EventArgs e)
+        {
+            frmAboutPage.Show();
+            this.Hide();
         }
 
         private void SldrVoiceSpeed_Btn_Click(object sender, EventArgs e)
@@ -89,7 +110,7 @@ namespace ALSProject
         {
             MainMenu.showLockScreen();
         }
-        
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             parentForm.Show();
@@ -123,7 +144,7 @@ namespace ALSProject
             btnToggleDecay.Location = new Point(MainMenu.GAP + btnToggleKeyboard.Right, MainMenu.GAP);
             btnLock.Location = new Point(MainMenu.GAP + btnToggleDecay.Right, MainMenu.GAP);
             btnBack.Location = new Point(MainMenu.GAP + btnLock.Right, MainMenu.GAP);
-            
+
             int sliderHeight = (Height - MainMenu.GAP * 4 - btnAlarm.Bottom) / 3;
             sldrDwellTime.Size = new Size(Width - 2 * MainMenu.GAP, sliderHeight);
             sldrKeyboard.Size = sldrDwellTime.Size;
@@ -133,7 +154,7 @@ namespace ALSProject
             sldrKeyboard.Location = new Point(MainMenu.GAP, sldrDwellTime.Bottom + MainMenu.GAP);
             sldrVoiceSpeed.Location = new Point(MainMenu.GAP, sldrKeyboard.Bottom + MainMenu.GAP);
         }
-        
+
         private void updateSldrKeyboard()
         {
             ALSButton.setTimerSpeed(sldrKeyboard.value, ALSButton.ButtonType.key);

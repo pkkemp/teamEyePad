@@ -28,12 +28,13 @@ namespace ALSProject
             btnSpeak.setFontSize();
             btnMenu.setFontSize();
             btnCallouts.setFontSize();
+
+            alsKeyboard.setClearConfirmation(false);
         }
 
         private void AddCallout_Resize(object sender, EventArgs e)
         {
-            //btnCallouts.Location = new Point(this.Width - btnCallouts.Width - 2 * UI.GAP, btnMenu.Top);
-            //alsKeyboard.SetTextBoxSize(new Size(btnCallouts.Location.X, alsAlarm1.Size.Height));
+
         }
 
         public ALSButton getSaveButton()

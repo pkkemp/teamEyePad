@@ -59,7 +59,6 @@
             this.btnCallouts.TabIndex = 8;
             this.btnCallouts.Text = "Callouts";
             this.btnCallouts.UseVisualStyleBackColor = false;
-            this.btnCallouts.Click += new System.EventHandler(this.btnCallouts_Click);
             // 
             // btnSpeak
             // 

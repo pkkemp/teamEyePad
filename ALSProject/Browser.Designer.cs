@@ -152,7 +152,6 @@
             this.alsAlarm1.Size = new System.Drawing.Size(112, 110);
             this.alsAlarm1.TabIndex = 0;
             this.alsAlarm1.UseVisualStyleBackColor = false;
-            this.alsAlarm1.Click += new System.EventHandler(this.alsAlarm1_Click);
             // 
             // Browser
             // 

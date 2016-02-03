@@ -36,6 +36,7 @@ namespace ALSProject
             this.title = new Label();
             this.title.Text = title;
             this.title.Font = this.Font;
+            this.title.ForeColor = Color.AntiqueWhite;
             Controls.Add(this.title);
 
             btnLeft = new ALSButton();
@@ -108,8 +109,8 @@ namespace ALSProject
             Graphics gr = this.CreateGraphics();
             gr.Clear(sliderColor);
             gr.FillRectangle(new SolidBrush(Color.FromArgb(255, 32, 32, 32)), new Rectangle(0, 0, Width, Height));
-            gr.FillRectangle(Brushes.Blue, bounds);
-            gr.FillRectangle(Brushes.Red, slideBox);
+            gr.FillRectangle(Brushes.SlateGray, bounds);
+            gr.FillRectangle(Brushes.AntiqueWhite, slideBox);
         }
 
         private void Slider_Resize(object sender, EventArgs e)

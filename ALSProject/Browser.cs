@@ -15,7 +15,6 @@ namespace ALSProject
         private Form parentForm;
         private int scrollPoint = 0;
         private const int SCROLL_INCREMENT = 100;
-        private TextBox keyboardTextBox;
         private MouseRectangle mouseBox;
         private string tempHomepage = "http://www.facebook.com";
         private Timer timer;
@@ -33,11 +32,10 @@ namespace ALSProject
 
             mouseBox = new MouseRectangle(this);
             keyboard.HideTextBox();
-            keyboardTextBox = keyboard.GetTextBox();
-            keyboardTextBox.TextChanged += new System.EventHandler(this.pressKey);
+            
+            keyboard.OnPressed += Press_Key;
+            
             winBrowse.Navigate(tempHomepage);
-
-
         }
 
         private void timerEvent(object sender, EventArgs e)
@@ -45,18 +43,11 @@ namespace ALSProject
             mouseBox.setClickmode(winBrowse.getMouseOver());
         }
 
-        private void pressKey(object sender, EventArgs e)
+        private void Press_Key(object sender, EventArgs e)
         {
-            if (keyboardTextBox != null && keyboardTextBox.Text != "")
-                System.Windows.Forms.SendKeys.Send(keyboardTextBox.Text[keyboardTextBox.TextLength - 1] + "");
+            SendKeys.Send(keyboard.GetMostRecentEntry());
         }
-
-        private void alsAlarm1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
+        
         private void btnMenu_Click(object sender, EventArgs e)
         {
             parentForm.Show();
@@ -105,7 +96,7 @@ namespace ALSProject
         {
             Controls.Remove(keyboard);
             if (isQwerty) //this variable is declared in the designer code so it might be automatically changed and break
-                keyboard = new KeyboardControl3(this); 
+                keyboard = new KeyboardControl3(this);
             else
                 keyboard = new KeyboardControl2(this);
             keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);

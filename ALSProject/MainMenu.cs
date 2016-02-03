@@ -84,11 +84,17 @@ namespace ALSProject
 
             texttospeech.Visible = false;
             notebook.Visible = false;
-            texttospeech.Visible = false;
             callout.Visible = false;
             settingsScreen.Visible = false;
             browser.Visible = false;
             email.Visible = false;
+
+            texttospeech.Icon = Properties.Resources.icon;
+            notebook.Icon = Properties.Resources.icon;
+            callout.Icon = Properties.Resources.icon;
+            settingsScreen.Icon = Properties.Resources.icon;
+            browser.Icon = Properties.Resources.icon;
+            email.Icon = Properties.Resources.icon;
 
             this.VisibleChanged += UI_VisibleChanged;
 
@@ -341,6 +347,4 @@ namespace ALSProject
             this.Hide();
         }
     }
-
-
 }

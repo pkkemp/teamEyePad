@@ -80,15 +80,7 @@ namespace ALSProject
             _lock.Click += _lock_Click;
 
             initControlsRecursive(this.Controls);
-
-            var keys = keyboard.GetKeyboard();
-            foreach (var key in keys)
-                if (key.Text.Equals("Clear"))
-                {
-                    key.Click -= keyboard.Clear;
-                    key.Click += Clear_Click;
-                }
-
+            keyboard.setClearConfirmation(true);
         }
 
         private void _lock_Click(object sender, EventArgs e)

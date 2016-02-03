@@ -129,6 +129,8 @@ namespace ALSProject
                     if ((pageNum + 1) * NUM_NOTES > phrases.Count + 1)
                         topRowButtons[3].Enabled = false;
                 }
+                else
+                    NewNote_Click(sender, e);
             }
             //Set Cursor at end
             notepage.setCursorAtEnd();
@@ -153,7 +155,7 @@ namespace ALSProject
             Console.WriteLine(str);
             if (str != "" && str != null)
             {
-                phrases.Add(str);
+                phrases.Insert(0, str);
                 if ((pageNum + 1) * NUM_NOTES <= phrases.Count)
                     topRowButtons[3].Enabled = true;
 

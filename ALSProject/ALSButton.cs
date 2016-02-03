@@ -19,6 +19,9 @@ namespace ALSProject
     {
         public enum ButtonType { key, normal, immutable };
 
+        public delegate void Clear_Click (object sender, EventArgs args);
+        public event Clear_Click ClearClick;
+        
         public ButtonType btnType
         {
             get; set;
@@ -37,7 +40,6 @@ namespace ALSProject
             }
             set
             {
-                //btnType = ButtonType.immutable;
                 dwellTimer.Interval = value;
             }
         }
@@ -142,8 +144,16 @@ namespace ALSProject
             if (!clicked)
             {
                 clicked = true;
-                //Invalidate();                   //Clears anything created by the graphics object
                 heightCounter = 0;
+
+                if (sender != null && sender is ALSButton && ClearClick != null)
+                {
+                    ALSButton button = (ALSButton)sender;
+                    if(button.Text.Equals("Clear"))
+                    {
+                        ClearClick(this, e);
+                    }
+                }
 
                 //reset
                 dwellTimer.Stop();
