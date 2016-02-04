@@ -17,6 +17,9 @@ namespace ALSProject
         private MouseRectangle mouseBox;
         private string tempHomepage = "http://www.facebook.com";
         private Timer timer;
+        private bool isFullScreen;
+        private ALSBrowserCntrl winBrowse;
+        private Keyboard keyboard;
 
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
@@ -32,10 +35,9 @@ namespace ALSProject
             timer.Enabled = true;
 
             mouseBox = new MouseRectangle(this);
-            keyboard.HideTextBox();
-            
-            keyboard.OnPressed += Press_Key;
-            
+            isFullScreen = false;
+            makeKeyboard(false);
+
             winBrowse.Navigate(tempHomepage);
         }
 
@@ -48,7 +50,7 @@ namespace ALSProject
         {
             SendKeys.Send(keyboard.GetMostRecentEntry());
         }
-        
+
         private void btnMenu_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -80,11 +82,9 @@ namespace ALSProject
             winBrowse.GoBack();
         }
 
-        private ALSBrowserCntrl winBrowse;
         private void initBrowser()
         {
             winBrowse = new ALSBrowserCntrl(this);
-            this.winBrowse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.winBrowse.Location = new System.Drawing.Point(129, 12);
             this.winBrowse.MinimumSize = new System.Drawing.Size(20, 20);
             this.winBrowse.Name = "winBrowse";
@@ -101,24 +101,51 @@ namespace ALSProject
                 keyboard = new KeyboardControl3(this);
             else
                 keyboard = new KeyboardControl2(this);
+
+
+            //this.keyboard.BackColor = System.Drawing.Color.Black;
+           
+
+            keyboard.OnPressed += Press_Key;
             keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
             keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
-            //TextToSpeech_Resize(this, null);
             keyboard.HideTextBox();
-            //keyboard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Bottom;
-            Invalidate();
+            this.Controls.Add(this.keyboard);
         }
 
         private void Browser_Resize(object sender, EventArgs e)
         {
-            keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
-            keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
-            this.btnMenu.setFontSize();
-            this.btnBack.setFontSize();
-            this.btnScrollDown.setFontSize();
-            this.btnScrollUp.setFontSize();
-            this.btnGo.setFontSize();
-            this.btnMenu.Text = "Main\nMenu";
+            setBrowserSize();
+            keyboard.Location = new Point(winBrowse.Left, winBrowse.Bottom + MainMenu.GAP);
+            keyboard.Size = new Size(winBrowse.Width, Height - keyboard.Top - MainMenu.GAP);   
+        }
+
+        private void btnKeyboard_Click(object sender, EventArgs e)
+        {
+            isFullScreen = !isFullScreen;
+            setBrowserSize();
+            if (isFullScreen)
+            {
+                keyboard.Visible = false;
+                btnKeyboard.Text = "Show\nKeyboard";
+            }
+            else
+            {
+                keyboard.Visible = true;
+                btnKeyboard.Text = "Fullscreen";
+            }
+        }
+
+        private void setBrowserSize()
+        {
+            if(isFullScreen)
+            {
+                winBrowse.Size = new Size(Width - winBrowse.Left - MainMenu.GAP, this.Height - MainMenu.GAP * 2);
+            }
+            else
+            {
+                winBrowse.Size = new Size(Width - winBrowse.Left - MainMenu.GAP, this.Height / 2 - MainMenu.GAP);
+            }
         }
     }
 }

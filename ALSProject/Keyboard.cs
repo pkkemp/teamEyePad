@@ -22,7 +22,7 @@ namespace ALSProject
         protected ALSKey[,] keyboard;
         protected List<string> predictionWords;
         protected string mostRecentEntry;
-        
+
         public delegate void KeyPressed(object sender, EventArgs e);
         public event KeyPressed OnPressed;
 
@@ -138,7 +138,7 @@ namespace ALSProject
         {
             return _textBox.Text;
         }
-        
+
         public void HideTextBox()
         {
             _textBox.Hide();
@@ -179,7 +179,7 @@ namespace ALSProject
                 btn.Text = "";
             }
         }
-        
+
         protected void Populate_Predictkeys()
         {
             string lastWord = "";
@@ -225,7 +225,7 @@ namespace ALSProject
                 }
             }
         }
-        
+
         protected void DeleteWord(object sender, EventArgs e)
         {
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
@@ -273,6 +273,8 @@ namespace ALSProject
 
         protected void TypeCharacter(object sender, EventArgs e)
         {
+            if (!(sender is ALSButton))
+                return;
             ALSButton button = (ALSButton)sender;
 
             switch (button.Text)
@@ -300,7 +302,14 @@ namespace ALSProject
                         Insert(button.Text);
                     break;
             }
-            this.Populate_Predictkeys();
+
+            var isPunctuation = Regex.Match(button.Text, @"[\p{P}^+=|]");
+
+            if (!isPunctuation.Success && button.Text.Length > 0)
+            {
+                this.Populate_Predictkeys();
+                MessageBox.Show("!");
+            }
         }
 
         private ALSKey[,] GetKeyboard()
@@ -337,7 +346,7 @@ namespace ALSProject
                 OnPressed(this, EventArgs.Empty);
 
         }
-        
+
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
 
         private void InitializeComponent()
