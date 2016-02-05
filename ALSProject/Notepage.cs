@@ -14,7 +14,6 @@ namespace ALSProject
 {
     public partial class Notepage : Form
     {
-        private SpeechSynthesizer voice;
         Keyboard keyboard;
 
         const int MENU_BUTTON_SIZE = 140;
@@ -26,10 +25,9 @@ namespace ALSProject
         public delegate void BackClick(object sender, EventArgs args);
         public event BackClick Back_Click;
 
-        public Notepage(SpeechSynthesizer voice)
+        public Notepage()
         {
             InitializeComponent();
-            this.voice = voice;
 
             this.WindowState = FormWindowState.Maximized;
 
@@ -169,12 +167,11 @@ namespace ALSProject
 
         private void Speak_Click(object sender, EventArgs e)
         {
-            voice.SpeakAsyncCancelAll();
             int kStart = keyboard.GetSelectionStart();
             if (kStart == keyboard.GetText().Length)
-                voice.SpeakAsync(keyboard.GetText());
+                MainMenu.Speak(keyboard.GetText());
             else
-                voice.SpeakAsync(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
+                MainMenu.Speak(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
         }
 
         private void Notepage_KeyPress(object sender, KeyPressEventArgs e)

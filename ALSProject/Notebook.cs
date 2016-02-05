@@ -23,7 +23,6 @@ namespace ALSProject
         protected const int NUM_NOTES = 6;
         protected bool isEditMode;
         protected int pageNum = 0;
-        SpeechSynthesizer speaker;
         private int indexBeingEdited;       //-1 means it's not being used
 
         Notepage notepage;
@@ -31,14 +30,11 @@ namespace ALSProject
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
-        public Notebook(SpeechSynthesizer voice)
+        public Notebook()
         {
             InitializeComponent();
             
-            //setup speech
-            speaker = voice;
-
-            notepage = new Notepage(speaker);
+            notepage = new Notepage();
 
             indexBeingEdited = -1;
 

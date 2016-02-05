@@ -74,9 +74,9 @@ namespace ALSProject
             voice.Volume = 100;
             voice.SelectVoiceByHints(VoiceGender.Male);
 
-            texttospeech = new TextToSpeech(voice);
-            notebook = new Notebook(voice);
-            callout = new Callout(this, voice);
+            texttospeech = new TextToSpeech();
+            notebook = new Notebook();
+            callout = new Callout();
             settingsScreen = new SettingsForm();
             quitScreen = new QuitForm();
             browser = new Browser();
@@ -91,6 +91,7 @@ namespace ALSProject
 
             texttospeech.MainMenu_Click += MainMenu_Show;
             notebook.MainMenu_Click += MainMenu_Show;
+            callout.MainMenu_Click += MainMenu_Show;
             settingsScreen.MainMenu_Click += MainMenu_Show;
             quitScreen.MainMenu_Click += MainMenu_Show;
             browser.MainMenu_Click += MainMenu_Show;
@@ -106,8 +107,7 @@ namespace ALSProject
             email.Icon = Properties.Resources.icon;
 
             this.VisibleChanged += UI_VisibleChanged;
-
-            texttospeech.getCalloutBtn().Click += new System.EventHandler(this.openCallouts);
+            
             settingsScreen.btnResetCallouts.Click += new System.EventHandler(this.resetCallouts);
 
             foreach (ALSButton btn in callout.getMenuBtns())
@@ -190,7 +190,6 @@ namespace ALSProject
 
         private void User_Interface_Load(object sender, EventArgs e)
         {
-            drawButtons(sender, e);
             resizeScreen();
         }
 
@@ -203,19 +202,6 @@ namespace ALSProject
         {
             Application.Exit();
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void drawButtons(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         private void alsButton4_Click(object sender, EventArgs e)
         {
@@ -346,6 +332,12 @@ namespace ALSProject
             {
                 voice.Rate = speed;
             }
+        }
+
+        public static void Speak(string text)
+        {
+            voice.SpeakAsyncCancelAll();
+            voice.SpeakAsync(text);
         }
 
         private Keyboard GetNewKeyboard(bool isQwerrty)

@@ -14,22 +14,19 @@ namespace ALSProject
 {
     public partial class TextToSpeech : Form
     {
-        protected SpeechSynthesizer speaker;
         private ClearTextConfirmation clearTextConfirmation;
 
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
-        public TextToSpeech(SpeechSynthesizer voice)
+        public TextToSpeech()
         {
             InitializeComponent();
 
             // this.alsKeyboard.setRemainingVariables();
             clearTextConfirmation = new ClearTextConfirmation(this);
             //this.alsKeyboard.setupPreditionBox();
-
-            speaker = voice;
-
+            
             btnCallouts.setFontSize();
             btnMenu.setFontSize();
             btnSpeak.setFontSize();
@@ -48,17 +45,12 @@ namespace ALSProject
             alsKeyboard.setClearConfirmation(true);
         }
 
-        public ALSButton getCalloutBtn()
-        {
-            return btnCallouts;
-        }
-
         protected void predictReset()
         {
             this.alsKeyboard.ResetPrediction();
         }
 
-        protected void btnMenu_Click(object sender, EventArgs e)
+        protected virtual void btnMenu_Click(object sender, EventArgs e)
         {
             Hide();
             if(MainMenu_Click != null)
@@ -105,10 +97,9 @@ namespace ALSProject
             this.Enabled = true;
         }
 
-        private void btnSpeak_Click(object sender, EventArgs e)
+        protected void btnSpeak_Click(object sender, EventArgs e)
         {
-            speaker.SpeakAsyncCancelAll();
-            speaker.SpeakAsync(alsKeyboard.GetText());
+            MainMenu.Speak(alsKeyboard.GetText());
         }
 
         private void initControlsRecursive(System.Windows.Forms.Control.ControlCollection coll)
