@@ -16,13 +16,13 @@ namespace ALSProject
         public delegate void CalloutsClick(object sender, EventArgs args);
         public event CalloutsClick Callouts_Click;
 
-        public AddCallout() : base ()
+        public AddCallout() : base()
         {
             btnSpeak.Visible = false;
-            
+
             btnMenu.Text = "Exit\nwithout\nsaving";
             btnCallouts.Text = "Save";
-            
+
             btnCallouts.Size = new Size(btnMenu.Size.Width, btnMenu.Size.Height);
 
             alsKeyboard.SetTextBoxLocation(new Point(alsAlarm1.Right + MainMenu.GAP, alsAlarm1.Top));
@@ -37,19 +37,18 @@ namespace ALSProject
 
         private void AddCallout_Resize(object sender, EventArgs e)
         {
-            
+
         }
 
 
         protected override void btnMenu_Click(object sender, EventArgs e)
         {
             Hide();
-            if(Callouts_Click != null)
+            if (Callouts_Click != null)
                 Callouts_Click(this, e);
-    }
-    //btn
+        }
 
-    public ALSButton getSaveButton()
+        public ALSButton getSaveButton()
         {
             return btnCallouts;
         }

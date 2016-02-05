@@ -2,7 +2,6 @@ Wipe my Eyes
 Adjust my head to the left
 Adjust my head to the right
 Adjust my head up
-Adjust my head down
 Sit my chair up
-Recline my chair
-
+O
+P

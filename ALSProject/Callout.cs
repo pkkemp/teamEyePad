@@ -107,12 +107,12 @@ namespace ALSProject
                     callouts[i, j].BackgroundImageLayout = ImageLayout.Zoom;
                     callouts[i, j].Visible = false;
                 }
-
-            flipToPage(0);
+            refreshCalloutList();
         }
 
         private void Ac_Callouts_Click(object sender, EventArgs args)
         {
+            flipToPage(pageNum);
             this.Show();
         }
 
@@ -228,6 +228,9 @@ namespace ALSProject
 
             pageNum = num;
 
+            getMenuBtns()[2].Enabled = pageNum == 0 ? false : true;
+            getMenuBtns()[3].Enabled = pageNum == (phrases.Count-1) / NUM_CALLOUTS ? false : true;
+
             for (int i = 0; i < NUM_CALLOUTS; i++)
             {
                 try { callouts[0, i].Text = phrases[i + num * NUM_CALLOUTS]; }
@@ -245,7 +248,7 @@ namespace ALSProject
             }
             else
             {
-                
+
             }
         }
 
@@ -293,12 +296,12 @@ namespace ALSProject
         {
             return topRowButtons;
         }
-
-
+        
         private void Callout_Load(object sender, EventArgs e)
         {
             ResizeButtons();
         }
+
         private void edit_Click(object sender, EventArgs e)
         {
             isEditMode = !isEditMode;
