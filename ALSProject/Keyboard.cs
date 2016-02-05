@@ -308,7 +308,6 @@ namespace ALSProject
             if (!isPunctuation.Success && button.Text.Length > 0)
             {
                 this.Populate_Predictkeys();
-                MessageBox.Show("!");
             }
         }
 

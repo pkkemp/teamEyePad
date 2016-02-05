@@ -97,15 +97,11 @@ namespace ALSProject
         public void makeKeyboard(bool isQwerty)
         {
             Controls.Remove(keyboard);
-            if (isQwerty) //this variable is declared in the designer code so it might be automatically changed and break
+            if (isQwerty)
                 keyboard = new KeyboardControl3(this);
             else
                 keyboard = new KeyboardControl2(this);
-
-
-            //this.keyboard.BackColor = System.Drawing.Color.Black;
-           
-
+            
             keyboard.OnPressed += Press_Key;
             keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
             keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
@@ -115,6 +111,25 @@ namespace ALSProject
 
         private void Browser_Resize(object sender, EventArgs e)
         {
+            int numButtons = 8;
+            alsAlarm1.Size = new Size(Width / 6, (Height - MainMenu.GAP * (numButtons + 1)) / numButtons);
+            btnMenu.Size = alsAlarm1.Size;
+            txtUrl.Size = alsAlarm1.Size;
+            btnGo.Size = alsAlarm1.Size;
+            btnScrollDown.Size = alsAlarm1.Size;
+            btnScrollUp.Size = alsAlarm1.Size;
+            btnBack.Size = alsAlarm1.Size;
+            btnKeyboard.Size = alsAlarm1.Size;
+
+            btnBack.Location = new Point(MainMenu.GAP, btnKeyboard.Bottom + MainMenu.GAP);
+            txtUrl.Location = new Point(MainMenu.GAP, btnMenu.Bottom + MainMenu.GAP);
+            btnGo.Location = new Point(MainMenu.GAP, txtUrl.Bottom + MainMenu.GAP);
+            btnScrollDown.Location = new Point(MainMenu.GAP, btnGo.Bottom + MainMenu.GAP);
+            btnScrollUp.Location = new Point(MainMenu.GAP, btnScrollDown.Bottom + MainMenu.GAP);
+            btnKeyboard.Location = new Point(MainMenu.GAP, btnScrollUp.Bottom + MainMenu.GAP);
+            btnMenu.Location = new Point(MainMenu.GAP, alsAlarm1.Bottom + MainMenu.GAP);
+
+            winBrowse.Location = new Point(alsAlarm1.Right + MainMenu.GAP, MainMenu.GAP);
             setBrowserSize();
             keyboard.Location = new Point(winBrowse.Left, winBrowse.Bottom + MainMenu.GAP);
             keyboard.Size = new Size(winBrowse.Width, Height - keyboard.Top - MainMenu.GAP);   
