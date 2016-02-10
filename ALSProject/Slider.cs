@@ -40,12 +40,12 @@ namespace ALSProject
             Controls.Add(this.title);
 
             btnLeft = new ALSButton();
-            btnLeft.Text = "<";
+            btnLeft.Text = "Slower";
             btnLeft.Click += BtnLeft_Click1;
             Controls.Add(btnLeft);
 
             btnRight = new ALSButton();
-            btnRight.Text = ">";
+            btnRight.Text = "Faster";
             btnRight.Click += BtnRight_Click1;
             Controls.Add(btnRight);
         }
