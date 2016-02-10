@@ -36,5 +36,10 @@ namespace ALSProject
             CVInterface.PleaseStop();
             Application.Exit();
         }
+
+        private void QuitForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

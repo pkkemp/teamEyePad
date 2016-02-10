@@ -177,6 +177,11 @@ namespace ALSProject
             ALSButton.toggleDecay();
             ((ALSButton)sender).Text = ALSButton.getDecay() ? "Prevent\nDecay" : "Allow\nDecay";
         }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 
     public class SettingsEventArgs : EventArgs

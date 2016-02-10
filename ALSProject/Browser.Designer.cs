@@ -178,6 +178,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Browser";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Browser_FormClosed);
             this.Resize += new System.EventHandler(this.Browser_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -352,5 +352,10 @@ namespace ALSProject
             email.Show();
             this.Hide();
         }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

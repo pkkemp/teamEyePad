@@ -52,7 +52,7 @@
             this.btnCallouts.dwellTimeInterval = 15;
             this.btnCallouts.FlatAppearance.BorderSize = 0;
             this.btnCallouts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnCallouts.Font = new System.Drawing.Font("Microsoft Sans Serif", 23.05569F);
             this.btnCallouts.Location = new System.Drawing.Point(722, 12);
             this.btnCallouts.Name = "btnCallouts";
             this.btnCallouts.Size = new System.Drawing.Size(143, 140);
@@ -67,7 +67,7 @@
             this.btnSpeak.dwellTimeInterval = 15;
             this.btnSpeak.FlatAppearance.BorderSize = 0;
             this.btnSpeak.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSpeak.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnSpeak.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.27743F);
             this.btnSpeak.Location = new System.Drawing.Point(143, 12);
             this.btnSpeak.Name = "btnSpeak";
             this.btnSpeak.Size = new System.Drawing.Size(132, 140);
@@ -101,7 +101,7 @@
             this.btnMenu.dwellTimeInterval = 15;
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
+            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 31.70997F);
             this.btnMenu.Location = new System.Drawing.Point(871, 12);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(141, 140);
@@ -124,6 +124,7 @@
             this.Name = "TextToSpeech";
             this.Text = "Text to Speech";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.TextToSpeech_Load);
             this.Resize += new System.EventHandler(this.TextToSpeech_Resize);
             this.ResumeLayout(false);
 

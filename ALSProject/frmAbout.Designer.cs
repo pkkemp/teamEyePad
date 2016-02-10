@@ -40,6 +40,7 @@
             this.Name = "frmAbout";
             this.Text = "frmAbout";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAbout_FormClosing);
             this.Resize += new System.EventHandler(this.frmAbout_Resize);
             this.ResumeLayout(false);
 

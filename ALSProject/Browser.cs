@@ -162,5 +162,10 @@ namespace ALSProject
                 winBrowse.Size = new Size(Width - winBrowse.Left - MainMenu.GAP, this.Height / 2 - MainMenu.GAP);
             }
         }
+
+        private void Browser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

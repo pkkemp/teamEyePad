@@ -379,6 +379,7 @@ namespace ALSProject
             }
 
             filestream.Close();
+            Application.Exit();
         }
 
         public AddCallout GetAddCallout()

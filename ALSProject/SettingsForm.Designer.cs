@@ -31,11 +31,9 @@ namespace ALSProject
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.sldrDwellTime = new ALSProject.Slider("Dwell Time");
             this.btnResetCallouts = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSAlarm();
             this.btnBack = new ALSProject.ALSButton();
-            this.sldrKeyboard = new ALSProject.Slider("Keyboard Dwell Time");
             this.SuspendLayout();
             // 
             // label1
@@ -147,6 +145,7 @@ namespace ALSProject
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Resize += new System.EventHandler(this.SettingsForm_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -33,6 +33,7 @@
             // 
             // confirmation1
             // 
+            this.confirmation1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.confirmation1.Location = new System.Drawing.Point(13, 13);
             this.confirmation1.Name = "confirmation1";
             this.confirmation1.Size = new System.Drawing.Size(639, 328);
@@ -48,6 +49,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ClearTextConfirmation";
             this.Text = "ClearTextConfirmation";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClearTextConfirmation_FormClosed);
             this.ResumeLayout(false);
 
         }

@@ -57,7 +57,7 @@
             this.btnScrollDown.dwellTimeInterval = 100;
             this.btnScrollDown.FlatAppearance.BorderSize = 0;
             this.btnScrollDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScrollDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnScrollDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 38.68658F);
             this.btnScrollDown.Location = new System.Drawing.Point(12, 270);
             this.btnScrollDown.Name = "btnScrollDown";
             this.btnScrollDown.Size = new System.Drawing.Size(171, 110);
@@ -73,7 +73,7 @@
             this.btnScrollUp.dwellTimeInterval = 100;
             this.btnScrollUp.FlatAppearance.BorderSize = 0;
             this.btnScrollUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScrollUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnScrollUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnScrollUp.Location = new System.Drawing.Point(12, 154);
             this.btnScrollUp.Name = "btnScrollUp";
             this.btnScrollUp.Size = new System.Drawing.Size(171, 110);
@@ -89,7 +89,7 @@
             this.btnMenu.dwellTimeInterval = 100;
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.84653F);
             this.btnMenu.Location = new System.Drawing.Point(865, 12);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(147, 143);
@@ -107,7 +107,7 @@
             this.btnAlarm.dwellTimeInterval = 100;
             this.btnAlarm.FlatAppearance.BorderSize = 0;
             this.btnAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnAlarm.Location = new System.Drawing.Point(12, 12);
             this.btnAlarm.Name = "btnAlarm";
             this.btnAlarm.Size = new System.Drawing.Size(171, 136);
@@ -147,6 +147,7 @@
             this.Name = "Email";
             this.Text = "Email";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Email_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

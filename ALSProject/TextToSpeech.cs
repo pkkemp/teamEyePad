@@ -154,5 +154,10 @@ namespace ALSProject
             TextToSpeech_Resize(this, EventArgs.Empty);
             Invalidate();
         }
+
+        private void TextToSpeech_Load(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

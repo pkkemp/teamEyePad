@@ -82,5 +82,10 @@ namespace ALSProject
 
             lbl.Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
+
+        private void frmAbout_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

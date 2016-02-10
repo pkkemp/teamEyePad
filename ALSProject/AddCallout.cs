@@ -52,5 +52,10 @@ namespace ALSProject
         {
             return btnCallouts;
         }
+
+        private void AddCallout_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

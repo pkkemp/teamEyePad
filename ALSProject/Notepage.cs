@@ -236,6 +236,11 @@ namespace ALSProject
             keyboard.SetTextBoxFocus();
         }
 
+        private void Notepage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
         public string getText()
         {
             return keyboard.GetText();

@@ -49,5 +49,10 @@ namespace ALSProject
             parent.Focus();
             Visible = false;
         }
+
+        private void ClearTextConfirmation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

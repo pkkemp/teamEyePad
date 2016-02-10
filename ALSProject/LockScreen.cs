@@ -45,5 +45,10 @@ namespace ALSProject
         {
             this.Visible = false;
         }
+
+        private void LockScreen_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
