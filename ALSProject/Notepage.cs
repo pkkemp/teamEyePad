@@ -25,13 +25,16 @@ namespace ALSProject
         public delegate void BackClick(object sender, EventArgs args);
         public event BackClick Back_Click;
 
-        public Notepage()
+        public Notepage(bool isQwerty)
         {
             InitializeComponent();
 
             this.WindowState = FormWindowState.Maximized;
 
-            keyboard = new KeyboardControl3(this);
+            if (isQwerty)
+                keyboard = new KeyboardControl3();
+            else
+                keyboard = new KeyboardControl2();
 
             alarm = new ALSAlarm();
             speak = new ALSButton();
@@ -268,9 +271,9 @@ namespace ALSProject
         {
             Controls.Remove(keyboard);
             if (isQwerty)
-                keyboard = new KeyboardControl3(this);
+                keyboard = new KeyboardControl3();
             else
-                keyboard = new KeyboardControl2(this);
+                keyboard = new KeyboardControl2();
             Notepage_Resize(this, null);
             Invalidate();
         }

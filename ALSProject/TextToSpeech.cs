@@ -147,9 +147,9 @@ namespace ALSProject
         {
             this.Controls.Remove(alsKeyboard);
             if (isQwerty)
-                alsKeyboard = new KeyboardControl3(this);
+                alsKeyboard = new KeyboardControl3();
             else
-                alsKeyboard = new KeyboardControl2(this);
+                alsKeyboard = new KeyboardControl2();
             alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             TextToSpeech_Resize(this, EventArgs.Empty);
             Invalidate();

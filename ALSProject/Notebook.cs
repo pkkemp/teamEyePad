@@ -30,11 +30,11 @@ namespace ALSProject
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
-        public Notebook()
+        public Notebook(bool isQwerty)
         {
             InitializeComponent();
             
-            notepage = new Notepage();
+            notepage = new Notepage(isQwerty);
 
             indexBeingEdited = -1;
 

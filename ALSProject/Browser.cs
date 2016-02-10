@@ -98,9 +98,9 @@ namespace ALSProject
         {
             Controls.Remove(keyboard);
             if (isQwerty)
-                keyboard = new KeyboardControl3(this);
+                keyboard = new KeyboardControl3();
             else
-                keyboard = new KeyboardControl2(this);
+                keyboard = new KeyboardControl2();
             
             keyboard.OnPressed += Press_Key;
             keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);

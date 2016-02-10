@@ -338,12 +338,11 @@ namespace ALSProject
             int selectionStart = _textBox.SelectionStart;
 
             _textBox.Text = _textBox.Text.Substring(0, selectionStart) + text + _textBox.Text.Substring(selectionStart);
-            _textBox.SelectionStart += text.Length;
+            _textBox.SelectionStart = selectionStart + text.Length;
 
             mostRecentEntry = text;
             if (OnPressed != null)
                 OnPressed(this, EventArgs.Empty);
-
         }
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
