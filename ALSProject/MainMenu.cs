@@ -262,6 +262,7 @@ namespace ALSProject
 
         private void ttsBut_Click(object sender, EventArgs e)
         {
+            throw new Exception();
             texttospeech.Show();
             this.Hide();
         }
@@ -305,6 +306,7 @@ namespace ALSProject
         private void UI_FormClosed(object sender, FormClosedEventArgs e)
         {
             CVInterface.PleaseStop();
+            
             Application.Exit();
 
         }

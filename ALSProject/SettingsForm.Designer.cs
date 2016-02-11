@@ -34,6 +34,8 @@ namespace ALSProject
             this.btnResetCallouts = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSAlarm();
             this.btnBack = new ALSProject.ALSButton();
+            this.sldrDwellTime = new ALSProject.Slider("Dwell Time");
+            this.sldrKeyboard = new ALSProject.Slider("Keyboard Dwell Time");
             this.SuspendLayout();
             // 
             // label1

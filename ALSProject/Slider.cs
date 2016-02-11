@@ -54,7 +54,6 @@ namespace ALSProject
         public void BtnLeft_Click1(object sender, EventArgs e)
         {
             UpdatePos(direction.LEFT);
-            MessageBox.Show(BackColor.ToString());
             if (BtnLeft_Click != null)
                 BtnLeft_Click(this, e);
         }
