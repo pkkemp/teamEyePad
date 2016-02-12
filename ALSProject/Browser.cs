@@ -17,7 +17,7 @@ namespace ALSProject
         private const int SCROLL_INCREMENT = 100;
         private TextBox keyboardTextBox;
         private MouseRectangle mouseBox;
-        private string tempHomepage = "http://www.facebook.com";
+        private string tempHomepage = "http://www.google.com";
         private Timer timer;
 
         public Browser(Form parent)

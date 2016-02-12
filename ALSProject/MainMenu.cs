@@ -61,7 +61,17 @@ namespace ALSProject
             lockScreen = new LockScreen();
 
             //Temp code
-            tobiiInt = new CVInterface();
+            try {
+                tobiiInt = new CVInterface();
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                MessageBox.Show("Tobii not installed correctly. Please check your installation and try again.");
+                try { CVInterface.PleaseStop(); } catch { }
+                Application.Exit();
+            }
+
+
             eyeTrackingThread = new Thread(tobiiInt.StartEyeTracking);
             eyeTrackingThread.Name = "Eye Tracking Thread";
             eyeTrackingThread.Start();
