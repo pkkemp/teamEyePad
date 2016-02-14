@@ -28,7 +28,7 @@ namespace ALSProject
         private const string lLetters1 = "abcde\nfghi";
         private const string lLetters2 = "jklmn\nopqr";
         private const string lLetters3 = "stuv\nwxyz";
-        private const string symbols1 = ",!?,:;'\"";
+        private const string symbols1 = ".!?,:;'\"";
         private const string symbols2 = "@$%^&*+-=;";
         private const string symbols3 = "()[]{}|\\/";
 
@@ -67,9 +67,9 @@ namespace ALSProject
                     {
                         case 0:
                         case 1:
-                            if (j < 4 || j == 5)
+                            if (j < 3 || j == 5)
                                 keyboard[i, j].Click += NavigateKeyboard;
-                            else if (j == 4 || j == 6)
+                            else if (j == 3 || j == 4 || j == 6)
                                 keyboard[i, j].Click += TypeCharacter;
                             else if (j == 7)
                                 keyboard[i, j].Click += Backspace;

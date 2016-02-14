@@ -106,7 +106,7 @@ namespace ALSProject
             var match = Regex.Match(content, @"\s*\S+\s+");
             if (match.Success)
             {
-                keyboard.SetSelection(match.Index + match.Length, 0);
+                keyboard.SetSelection(keyboard.GetSelectionStart() + match.Index + match.Length, 0);
             }
             else
             {

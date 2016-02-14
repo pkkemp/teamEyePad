@@ -29,8 +29,8 @@ namespace ALSProject
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
-        public delegate void CalloutsClick(object sender, EventArgs args);
-        public event CalloutsClick Callouts_Click;
+        public delegate void TTSClick(object sender, EventArgs args);
+        public event TTSClick TextToSpeech_Click;
 
         public Callout()
         {
@@ -59,7 +59,7 @@ namespace ALSProject
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
-            topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
+            topRowButtons[4].Click += new System.EventHandler(this.btnTextToSpeech_Click);
             topRowButtons[5].Click += new System.EventHandler(this.btnMainMenu_Click);
             ac.getSaveButton().Click += new EventHandler(this.addToList);
 
@@ -211,12 +211,6 @@ namespace ALSProject
             flipToPage(pageNum);
         }
 
-        private void Callout_Click(object sender, EventArgs e)
-        {
-            if (Callouts_Click != null)
-                Callouts_Click(this, e);
-        }
-
         private void flipToPage(int num)
         {
             if (num < 0)
@@ -229,7 +223,7 @@ namespace ALSProject
             pageNum = num;
 
             getMenuBtns()[2].Enabled = pageNum == 0 ? false : true;
-            getMenuBtns()[3].Enabled = pageNum == (phrases.Count-1) / NUM_CALLOUTS ? false : true;
+            getMenuBtns()[3].Enabled = pageNum == (phrases.Count - 1) / NUM_CALLOUTS ? false : true;
 
             for (int i = 0; i < NUM_CALLOUTS; i++)
             {
@@ -239,7 +233,7 @@ namespace ALSProject
 
         }
 
-        private void TextToSpeech_Click(object sender, EventArgs e)
+        private void btnTextToSpeech_Click(object sender, EventArgs e)
         {
             if (isEditMode)
             {
@@ -248,6 +242,9 @@ namespace ALSProject
             }
             else
             {
+                Hide();
+                if (TextToSpeech_Click != null)
+                    TextToSpeech_Click(this, e);
 
             }
         }
@@ -296,7 +293,7 @@ namespace ALSProject
         {
             return topRowButtons;
         }
-        
+
         private void Callout_Load(object sender, EventArgs e)
         {
             ResizeButtons();

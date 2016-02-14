@@ -18,6 +18,8 @@ namespace ALSProject
 
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
+        public delegate void CalloutsClick(object sender, EventArgs args);
+        public event CalloutsClick Callouts_Click;
 
         public TextToSpeech()
         {
@@ -155,9 +157,11 @@ namespace ALSProject
             Invalidate();
         }
 
-        private void TextToSpeech_Load(object sender, EventArgs e)
+        protected void btnCallouts_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Hide();
+            if (Callouts_Click != null)
+                Callouts_Click(this, e);
         }
     }
 }

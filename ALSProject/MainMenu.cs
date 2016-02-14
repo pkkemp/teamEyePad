@@ -97,6 +97,9 @@ namespace ALSProject
             browser.MainMenu_Click += MainMenu_Show;
             email.MainMenu_Click += MainMenu_Show;
 
+            texttospeech.Callouts_Click += Callouts_Show;
+            callout.TextToSpeech_Click += TextToSpeech_Show;
+
             settingsScreen.ToggleKeyboard += SettingsScreen_ToggleKeyboard;
 
             texttospeech.Icon = Properties.Resources.icon;
@@ -130,13 +133,23 @@ namespace ALSProject
             closeTimer.Interval = 1000;
             closeTimer.Tick += new EventHandler(closeTimeEvent);
         }
-
+        
         private void SettingsScreen_ToggleKeyboard(bool isQwerty)
         {
             texttospeech.makeKeyboard(isQwerty);
             callout.GetAddCallout().makeKeyboard(isQwerty);
             browser.makeKeyboard(isQwerty);
             notebook.GetNotepage().makeKeyboard(isQwerty);
+        }
+
+        private void Callouts_Show(object sender, EventArgs args)
+        {
+            callout.Show();
+        }
+
+        private void TextToSpeech_Show(object sender, EventArgs args)
+        {
+            texttospeech.Show();
         }
 
         private void MainMenu_Show(object sender, EventArgs e)
@@ -262,10 +275,9 @@ namespace ALSProject
 
         private void ttsBut_Click(object sender, EventArgs e)
         {
-            throw new Exception();
             texttospeech.Show();
             this.Hide();
-        }
+       }
 
         private void resizeScreen()
         {

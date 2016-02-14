@@ -13,9 +13,6 @@ namespace ALSProject
 {
     public partial class AddCallout : TextToSpeech
     {
-        public delegate void CalloutsClick(object sender, EventArgs args);
-        public event CalloutsClick Callouts_Click;
-
         public AddCallout() : base()
         {
             btnSpeak.Visible = false;
@@ -43,9 +40,7 @@ namespace ALSProject
 
         protected override void btnMenu_Click(object sender, EventArgs e)
         {
-            Hide();
-            if (Callouts_Click != null)
-                Callouts_Click(this, e);
+            btnCallouts_Click(sender, e);
         }
 
         public ALSButton getSaveButton()

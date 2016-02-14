@@ -101,12 +101,12 @@ namespace ALSProject
                 keyboard = new KeyboardControl3();
             else
                 keyboard = new KeyboardControl2();
-            
+
+            this.Controls.Add(this.keyboard);
             keyboard.OnPressed += Press_Key;
             keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
             keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
             keyboard.HideTextBox();
-            this.Controls.Add(this.keyboard);
         }
 
         private void Browser_Resize(object sender, EventArgs e)

@@ -59,6 +59,7 @@
             this.btnCallouts.TabIndex = 8;
             this.btnCallouts.Text = "Callouts";
             this.btnCallouts.UseVisualStyleBackColor = false;
+            this.btnCallouts.Click += new System.EventHandler(this.btnCallouts_Click);
             // 
             // btnSpeak
             // 
@@ -124,7 +125,6 @@
             this.Name = "TextToSpeech";
             this.Text = "Text to Speech";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.TextToSpeech_Load);
             this.Resize += new System.EventHandler(this.TextToSpeech_Resize);
             this.ResumeLayout(false);
 
