@@ -15,7 +15,7 @@ namespace ALSProject
         private int scrollPoint = 0;
         private const int SCROLL_INCREMENT = 100;
         private MouseRectangle mouseBox;
-        private string tempHomepage = "http://www.facebook.com";
+        private string homepage = "http://www.facebook.com";
         private Timer timer;
         private bool isFullScreen;
         private ALSBrowserCntrl winBrowse;
@@ -38,7 +38,7 @@ namespace ALSProject
             isFullScreen = false;
             makeKeyboard(false);
 
-            winBrowse.Navigate(tempHomepage);
+            winBrowse.Navigate(homepage);
         }
 
         private void timerEvent(object sender, EventArgs e)
@@ -121,13 +121,13 @@ namespace ALSProject
             btnBack.Size = alsAlarm1.Size;
             btnKeyboard.Size = alsAlarm1.Size;
 
-            btnBack.Location = new Point(MainMenu.GAP, btnKeyboard.Bottom + MainMenu.GAP);
+            btnMenu.Location = new Point(MainMenu.GAP, alsAlarm1.Bottom + MainMenu.GAP);
             txtUrl.Location = new Point(MainMenu.GAP, btnMenu.Bottom + MainMenu.GAP);
             btnGo.Location = new Point(MainMenu.GAP, txtUrl.Bottom + MainMenu.GAP);
             btnScrollDown.Location = new Point(MainMenu.GAP, btnGo.Bottom + MainMenu.GAP);
             btnScrollUp.Location = new Point(MainMenu.GAP, btnScrollDown.Bottom + MainMenu.GAP);
             btnKeyboard.Location = new Point(MainMenu.GAP, btnScrollUp.Bottom + MainMenu.GAP);
-            btnMenu.Location = new Point(MainMenu.GAP, alsAlarm1.Bottom + MainMenu.GAP);
+            btnBack.Location = new Point(MainMenu.GAP, btnKeyboard.Bottom + MainMenu.GAP);
 
             winBrowse.Location = new Point(alsAlarm1.Right + MainMenu.GAP, MainMenu.GAP);
             setBrowserSize();

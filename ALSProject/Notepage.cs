@@ -215,7 +215,6 @@ namespace ALSProject
             alarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             speak.Location = new Point(MainMenu.GAP + alarm.Right, MainMenu.GAP);
             keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
-
         }
 
         private void Notepage_Resize(object sender, EventArgs e)
