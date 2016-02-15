@@ -15,13 +15,14 @@ namespace ALSProject
     public partial class TextToSpeech : Form
     {
         private ClearTextConfirmation clearTextConfirmation;
+        protected Keyboard alsKeyboard;
 
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
         public delegate void CalloutsClick(object sender, EventArgs args);
         public event CalloutsClick Callouts_Click;
 
-        public TextToSpeech()
+        public TextToSpeech(bool isQwerty)
         {
             InitializeComponent();
 
@@ -40,7 +41,13 @@ namespace ALSProject
                 //*TODO Delete temporary code
                 getCurrentSentence();
             };
+            
+            if (isQwerty)
+                alsKeyboard = new KeyboardControl2();
+            else
+                alsKeyboard = new KeyboardControl3();
 
+            this.Controls.Add(this.alsKeyboard);
             alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             alsKeyboard.SendToBack();
 

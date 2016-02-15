@@ -13,7 +13,7 @@ namespace ALSProject
 {
     public partial class AddCallout : TextToSpeech
     {
-        public AddCallout() : base()
+        public AddCallout(bool isQwerty) : base(isQwerty)
         {
             btnSpeak.Visible = false;
 

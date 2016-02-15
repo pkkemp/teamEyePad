@@ -32,11 +32,11 @@ namespace ALSProject
         public delegate void TTSClick(object sender, EventArgs args);
         public event TTSClick TextToSpeech_Click;
 
-        public Callout()
+        public Callout(bool isQwerty)
         {
             InitializeComponent();
 
-            ac = new AddCallout();
+            ac = new AddCallout(isQwerty);
             ac.Callouts_Click += Ac_Callouts_Click;
             //setup  callout list
             phrases = new List<String>();

@@ -29,20 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextToSpeech));
-            this.alsKeyboard = new ALSProject.KeyboardControl2();
             this.btnCallouts = new ALSProject.ALSButton();
             this.btnSpeak = new ALSProject.ALSButton();
             this.alsAlarm1 = new ALSProject.ALSAlarm();
             this.btnMenu = new ALSProject.ALSButton();
             this.SuspendLayout();
-            // 
-            // alsKeyboard
-            // 
-            this.alsKeyboard.BackColor = System.Drawing.Color.Black;
-            this.alsKeyboard.Location = new System.Drawing.Point(13, 158);
-            this.alsKeyboard.Name = "alsKeyboard";
-            this.alsKeyboard.Size = new System.Drawing.Size(606, 369);
-            this.alsKeyboard.TabIndex = 9;
             // 
             // btnCallouts
             // 
@@ -116,7 +107,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.alsKeyboard);
             this.Controls.Add(this.btnCallouts);
             this.Controls.Add(this.btnSpeak);
             this.Controls.Add(this.alsAlarm1);
@@ -135,6 +125,5 @@
         protected ALSAlarm alsAlarm1;
         protected ALSButton btnSpeak;
         protected ALSButton btnCallouts;
-        protected Keyboard alsKeyboard;
     }
 }

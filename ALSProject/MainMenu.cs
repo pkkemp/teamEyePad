@@ -74,9 +74,9 @@ namespace ALSProject
             voice.Volume = 100;
             voice.SelectVoiceByHints(VoiceGender.Male);
 
-            texttospeech = new TextToSpeech();
+            texttospeech = new TextToSpeech(true);
             notebook = new Notebook(true);      //TODO: change to get from settings
-            callout = new Callout();
+            callout = new Callout(true);
             settingsScreen = new SettingsForm();
             quitScreen = new QuitForm();
             browser = new Browser();
