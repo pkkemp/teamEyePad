@@ -13,6 +13,13 @@ namespace ALSProject
 {
     public partial class Email : Form
     {
+
+        protected ALSButton[,] notes;
+        protected const int EDIT_BUTTON_WIDTH = 100;
+        protected const int NUM_NOTES = 6;
+        protected bool isEditMode;
+        protected int pageNum = 0;
+
         EmailClient client;
 
         public delegate void MainMenuClick(object sender, EventArgs args);
