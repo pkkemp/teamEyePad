@@ -50,7 +50,7 @@
             this.btnQuit.dwellTimeInterval = 15;
             this.btnQuit.FlatAppearance.BorderSize = 0;
             this.btnQuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnQuit.ForeColor = System.Drawing.Color.Blue;
             this.btnQuit.Location = new System.Drawing.Point(700, 518);
             this.btnQuit.Name = "btnQuit";
@@ -70,7 +70,7 @@
             this.setBut.dwellTimeInterval = 15;
             this.setBut.FlatAppearance.BorderSize = 0;
             this.setBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.setBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.setBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.setBut.ForeColor = System.Drawing.Color.Blue;
             this.setBut.Location = new System.Drawing.Point(356, 518);
             this.setBut.Name = "setBut";
@@ -88,7 +88,7 @@
             this.btnBrowser.dwellTimeInterval = 15;
             this.btnBrowser.FlatAppearance.BorderSize = 0;
             this.btnBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnBrowser.Location = new System.Drawing.Point(12, 518);
             this.btnBrowser.Name = "btnBrowser";
             this.btnBrowser.Size = new System.Drawing.Size(312, 248);
@@ -109,7 +109,7 @@
             this.alsButton4.dwellTimeInterval = 15;
             this.alsButton4.FlatAppearance.BorderSize = 0;
             this.alsButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.alsButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.alsButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.alsButton4.ForeColor = System.Drawing.Color.Blue;
             this.alsButton4.Location = new System.Drawing.Point(700, 264);
             this.alsButton4.Name = "alsButton4";
@@ -129,7 +129,7 @@
             this.btnEmail.dwellTimeInterval = 15;
             this.btnEmail.FlatAppearance.BorderSize = 0;
             this.btnEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnEmail.Location = new System.Drawing.Point(356, 264);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(312, 248);
@@ -149,7 +149,7 @@
             this.btnMin.dwellTimeInterval = 15;
             this.btnMin.FlatAppearance.BorderSize = 0;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnMin.Location = new System.Drawing.Point(12, 264);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(312, 248);
@@ -168,7 +168,7 @@
             this.btnNotebook.dwellTimeInterval = 15;
             this.btnNotebook.FlatAppearance.BorderSize = 0;
             this.btnNotebook.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNotebook.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnNotebook.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnNotebook.Location = new System.Drawing.Point(700, 10);
             this.btnNotebook.Name = "btnNotebook";
             this.btnNotebook.Size = new System.Drawing.Size(312, 248);
@@ -187,7 +187,7 @@
             this.btnTTS.dwellTimeInterval = 15;
             this.btnTTS.FlatAppearance.BorderSize = 0;
             this.btnTTS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnTTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnTTS.ForeColor = System.Drawing.Color.Blue;
             this.btnTTS.Location = new System.Drawing.Point(356, 10);
             this.btnTTS.Name = "btnTTS";
@@ -206,7 +206,7 @@
             this.btnAlarm.dwellTimeInterval = 15;
             this.btnAlarm.FlatAppearance.BorderSize = 0;
             this.btnAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnAlarm.ForeColor = System.Drawing.Color.Blue;
             this.btnAlarm.Location = new System.Drawing.Point(12, 10);
             this.btnAlarm.Name = "btnAlarm";
@@ -237,6 +237,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UI_FormClosed);
             this.Load += new System.EventHandler(this.User_Interface_Load);
             this.ResumeLayout(false);

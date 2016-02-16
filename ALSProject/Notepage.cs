@@ -14,8 +14,6 @@ namespace ALSProject
 {
     public partial class Notepage : Form
     {
-        private Form parentForm;
-        private SpeechSynthesizer voice;
         Keyboard keyboard;
 
         const int MENU_BUTTON_SIZE = 140;
@@ -24,15 +22,19 @@ namespace ALSProject
         ALSButton up, left, right, down, backWord, forwardWord;
         ALSButton _lock;
 
-        public Notepage(Form parent, SpeechSynthesizer voice)
+        public delegate void BackClick(object sender, EventArgs args);
+        public event BackClick Back_Click;
+
+        public Notepage(bool isQwerty)
         {
             InitializeComponent();
-            this.parentForm = parent;
-            this.voice = voice;
 
             this.WindowState = FormWindowState.Maximized;
 
-            keyboard = new KeyboardControl3(this);
+            if (isQwerty)
+                keyboard = new KeyboardControl3();
+            else
+                keyboard = new KeyboardControl2();
 
             alarm = new ALSAlarm();
             speak = new ALSButton();
@@ -58,7 +60,7 @@ namespace ALSProject
             Controls.Add(_lock);
 
             speak.Click += new EventHandler(Speak_Click);
-            back.Click += new EventHandler(Back_Click);
+            back.Click += new EventHandler(btnBack_Click);
             up.Click += new EventHandler(Up_Click);
             left.Click += new EventHandler(Left_Click);
             right.Click += new EventHandler(Right_Click);
@@ -80,15 +82,7 @@ namespace ALSProject
             _lock.Click += _lock_Click;
 
             initControlsRecursive(this.Controls);
-
-            var keys = keyboard.GetKeyboard();
-            foreach (var key in keys)
-                if (key.Text.Equals("Clear"))
-                {
-                    key.Click -= keyboard.Clear;
-                    key.Click += Clear_Click;
-                }
-
+            keyboard.setClearConfirmation(true);
         }
 
         private void _lock_Click(object sender, EventArgs e)
@@ -112,7 +106,7 @@ namespace ALSProject
             var match = Regex.Match(content, @"\s*\S+\s+");
             if (match.Success)
             {
-                keyboard.SetSelection(match.Index + match.Length, 0);
+                keyboard.SetSelection(keyboard.GetSelectionStart() + match.Index + match.Length, 0);
             }
             else
             {
@@ -130,12 +124,10 @@ namespace ALSProject
             if (match.Success)
             {
                 keyboard.SetSelection(match.Index, 0);
-                //txtContect.SelectionStart = match.Index;
             }
             else
             {
                 keyboard.SetSelection(0, 0);
-                //txtContect.SelectionStart = 0;
             }
         }
 
@@ -169,22 +161,22 @@ namespace ALSProject
             SendKeys.Send("{UP}");
         }
 
-        private void Back_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
+            if(Back_Click != null)
+                Back_Click(this, e);
             this.Hide();
         }
 
         private void Speak_Click(object sender, EventArgs e)
         {
-            voice.SpeakAsyncCancelAll();
             int kStart = keyboard.GetSelectionStart();
             if (kStart == keyboard.GetText().Length)
-                voice.SpeakAsync(keyboard.GetText());
+                MainMenu.Speak(keyboard.GetText());
             else
-                voice.SpeakAsync(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
+                MainMenu.Speak(keyboard.GetText().Substring(keyboard.GetSelectionStart()));
         }
-        
+
         private void Notepage_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Type printable characters in text box
@@ -219,7 +211,7 @@ namespace ALSProject
             down.Size = new Size(ARROW_KEY_SIZE, ARROW_KEY_SIZE);
             backWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
             forwardWord.Size = new Size((int)(ARROW_KEY_SIZE * 1.5), ARROW_KEY_SIZE);
-            
+
             alarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             speak.Location = new Point(MainMenu.GAP + alarm.Right, MainMenu.GAP);
             keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
@@ -242,6 +234,11 @@ namespace ALSProject
             keyboard.Size = new Size(left.Location.X - MainMenu.GAP * 2, this.Height - 2 * MainMenu.GAP);
 
             keyboard.SetTextBoxFocus();
+        }
+
+        private void Notepage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
         public string getText()
@@ -279,9 +276,9 @@ namespace ALSProject
         {
             Controls.Remove(keyboard);
             if (isQwerty)
-                keyboard = new KeyboardControl3(this);
+                keyboard = new KeyboardControl3();
             else
-                keyboard = new KeyboardControl2(this);
+                keyboard = new KeyboardControl2();
             Notepage_Resize(this, null);
             Invalidate();
         }

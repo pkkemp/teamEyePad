@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +9,7 @@ using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ALSProject
 {
@@ -23,20 +24,20 @@ namespace ALSProject
         protected const int NUM_CALLOUTS = 6;
         protected bool isEditMode;
         protected int pageNum = 0;
-        SpeechSynthesizer speaker;
         AddCallout ac;
-        Form Parent;
 
-        public Callout(Form parent, SpeechSynthesizer voice)
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
+
+        public delegate void TTSClick(object sender, EventArgs args);
+        public event TTSClick TextToSpeech_Click;
+
+        public Callout()
         {
             InitializeComponent();
 
-            this.Parent = parent;
-            //setup speech
-            speaker = voice;
-
-            ac = new AddCallout(this, speaker);
-
+            ac = new AddCallout();
+            ac.Callouts_Click += Ac_Callouts_Click;
             //setup  callout list
             phrases = new List<String>();
             populateList();
@@ -58,8 +59,8 @@ namespace ALSProject
             topRowButtons[1].Click += new System.EventHandler(this.edit_Click);
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
-            topRowButtons[4].Click += new System.EventHandler(this.TextToSpeech_Click);
-            topRowButtons[5].Click += new System.EventHandler(this.MainMenu_Click);
+            topRowButtons[4].Click += new System.EventHandler(this.btnTextToSpeech_Click);
+            topRowButtons[5].Click += new System.EventHandler(this.btnMainMenu_Click);
             ac.getSaveButton().Click += new EventHandler(this.addToList);
 
             foreach (ALSButton btn in topRowButtons)
@@ -106,14 +107,20 @@ namespace ALSProject
                     callouts[i, j].BackgroundImageLayout = ImageLayout.Zoom;
                     callouts[i, j].Visible = false;
                 }
-
-            flipToPage(0);
+            refreshCalloutList();
         }
 
-        private void MainMenu_Click(object sender, EventArgs e)
+        private void Ac_Callouts_Click(object sender, EventArgs args)
         {
-            this.Parent.Visible = true;
+            flipToPage(pageNum);
+            this.Show();
+        }
+
+        private void btnMainMenu_Click(object sender, EventArgs e)
+        {
             this.Visible = false;
+            if (MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         private int getNum(String str)
@@ -137,8 +144,7 @@ namespace ALSProject
         private void speakCallout(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
-            speaker.SpeakAsyncCancelAll();
-            speaker.Speak(btn.Text);
+            MainMenu.Speak(btn.Text);
         }
 
         private void refreshCalloutList()
@@ -205,11 +211,6 @@ namespace ALSProject
             flipToPage(pageNum);
         }
 
-        private void Callout_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void flipToPage(int num)
         {
             if (num < 0)
@@ -221,6 +222,9 @@ namespace ALSProject
 
             pageNum = num;
 
+            getMenuBtns()[2].Enabled = pageNum == 0 ? false : true;
+            getMenuBtns()[3].Enabled = pageNum == (phrases.Count - 1) / NUM_CALLOUTS ? false : true;
+
             for (int i = 0; i < NUM_CALLOUTS; i++)
             {
                 try { callouts[0, i].Text = phrases[i + num * NUM_CALLOUTS]; }
@@ -229,7 +233,7 @@ namespace ALSProject
 
         }
 
-        private void TextToSpeech_Click(object sender, EventArgs e)
+        private void btnTextToSpeech_Click(object sender, EventArgs e)
         {
             if (isEditMode)
             {
@@ -238,7 +242,10 @@ namespace ALSProject
             }
             else
             {
-                ((MainMenu)this.Parent).OpenTTS();
+                Hide();
+                if (TextToSpeech_Click != null)
+                    TextToSpeech_Click(this, e);
+
             }
         }
 
@@ -287,11 +294,11 @@ namespace ALSProject
             return topRowButtons;
         }
 
-
         private void Callout_Load(object sender, EventArgs e)
         {
             ResizeButtons();
         }
+
         private void edit_Click(object sender, EventArgs e)
         {
             isEditMode = !isEditMode;
@@ -316,7 +323,7 @@ namespace ALSProject
             if (isEditMode)
             {
                 int buttonHeight = (Height - topRowButtons[0].Bottom - MainMenu.GAP * (1 + callouts.GetLength(1))) / callouts.GetLength(1);
-                
+
                 for (int i = 0; i < callouts.GetLength(0); i++)
                     for (int j = 0; j < callouts.GetLength(1); j++)
                     {
@@ -369,6 +376,7 @@ namespace ALSProject
             }
 
             filestream.Close();
+            Application.Exit();
         }
 
         public AddCallout GetAddCallout()
@@ -376,6 +384,4 @@ namespace ALSProject
             return ac;
         }
     }
-
-
 }

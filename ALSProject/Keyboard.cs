@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,7 +9,6 @@ using System.Windows.Forms;
 
 namespace ALSProject
 {
-
     //this shouldn't be abstract. When drawing a KeyboardControl2, it does not instantiate the child class. It instantiates this class
     //and draws on it according to the child class specifications. It is causing the error for keyboardControl2 design view. 
     //I'm leaving it because it isn't causing a problem and fixing it is a low priority, but for general polish and correct design
@@ -22,6 +21,10 @@ namespace ALSProject
         protected PresagePredictor presage = new PresagePredictor();
         protected ALSKey[,] keyboard;
         protected List<string> predictionWords;
+        protected string mostRecentEntry;
+
+        public delegate void KeyPressed(object sender, EventArgs e);
+        public event KeyPressed OnPressed;
 
         public Keyboard()
         {
@@ -50,43 +53,46 @@ namespace ALSProject
             if (key.Text.Length == 0)
                 return;
 
-            //Remove typed characters
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
             var match = Regex.Match(text, @"\S+\s*$");
-            bool firstCapitolized = false, allCapitolized = false;
 
-            firstCapitolized = char.IsUpper(match.Value[0]);
-            if (match.Value.Length > 1)
-                allCapitolized = char.IsUpper(text[1]);
             string newWord;
             int charactersAfterCaret = _textBox.TextLength - _textBox.SelectionStart;
+
             if (match.Value.Contains(" "))
             {
-                newWord = key.Text;
-                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + _textBox.Text.Substring(_textBox.SelectionStart);
-            }
-            else if (match.Index == 0)
-            {
-                newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
-                _textBox.Text = newWord + _textBox.Text.Substring(_textBox.SelectionStart);
+                if (needsCapitalization())
+                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                else
+                    newWord = key.Text;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
             }
             else
             {
-                newWord = allCapitolized ? key.Text.ToUpper() :
-                    firstCapitolized ? key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1) :
-                                                key.Text;
-                _textBox.Text = text.Substring(0, match.Index) + newWord + _textBox.Text.Substring(_textBox.SelectionStart);
-            }
-            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret;
-            
-            predictionWords.Clear();
-            ResetPrediction();
+                //Remove typed characters
+                int numCharactersToRemove = 0;
+                for (int i = 0; i < text.Length; i++)
+                    if (text.ToLower()[i].Equals(key.Text.ToLower()[i]))
+                        numCharactersToRemove++;
+                    else
+                        break;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart - numCharactersToRemove) + _textBox.Text.Substring(_textBox.SelectionStart);
 
+                if (needsCapitalization())
+                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                else
+                    newWord = key.Text;
+
+                _textBox.Text = text.Substring(0, match.Index) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
+            }
+            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret + 1;
+
+            ResetPrediction();
+            Populate_Predictkeys();
         }
 
-        public void Clear(object sender, EventArgs e)
+        protected void Clear(object sender, EventArgs e)
         {
-
             if (_confirmClear)
             {
                 Parent.Enabled = false;
@@ -133,11 +139,6 @@ namespace ALSProject
             return _textBox.Text;
         }
 
-        public TextBox GetTextBox()
-        {
-            return _textBox;
-        }
-
         public void HideTextBox()
         {
             _textBox.Hide();
@@ -170,6 +171,7 @@ namespace ALSProject
 
         public void ResetPrediction()
         {
+            predictionWords.Clear();
             presage.reset();
 
             foreach (ALSButton btn in predictionKeys)
@@ -178,26 +180,14 @@ namespace ALSProject
             }
         }
 
-        public ALSButton[] GetPredictKeys()
-        {
-            return predictionKeys;
-        }
-
-        public void PredictType(string key)
-        {
-            //boxPredict.tType(key);
-        }
-
         protected void Populate_Predictkeys()
         {
             string lastWord = "";
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
-            var match = Regex.Match(text, @"[.!?]^[.!?]*$");
-
-            //var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
+            var match = Regex.Match(text, @"[.!?][^.!?]*$");
 
             if (match.Success)
-                lastWord = text.Substring(match.Index);
+                lastWord = match.Length > 1 ? text.Substring(match.Index + 1) : "";
             else
                 lastWord = text;
 
@@ -236,23 +226,33 @@ namespace ALSProject
             }
         }
 
-        // This is wrong. If the caret is in the middle of the word, it only deletes the text before the caret, 
-        // whereas it should also delete the text after the caret
         protected void DeleteWord(object sender, EventArgs e)
         {
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
             var match = Regex.Match(text, @"\s+\S+\s*$");
-
+            var selectionStart = _textBox.SelectionStart;
+            int numCharacterToDelete;
             if (match.Success)
             {
-                _textBox.Text = text.Substring(1, match.Index) + _textBox.Text.Substring(_textBox.SelectionStart);
-                _textBox.SelectionStart = text.Length;
+                _textBox.Text = text.Substring(0, match.Index) + " " + _textBox.Text.Substring(_textBox.SelectionStart);
+                numCharacterToDelete = selectionStart - match.Length + 1;
+                _textBox.SelectionStart = selectionStart - match.Length + 1;
             }
             else
             {
+                numCharacterToDelete = _textBox.SelectionStart;
                 _textBox.Text = _textBox.Text.Substring(_textBox.SelectionStart);
-                _textBox.SelectionStart = _textBox.TextLength;
+                _textBox.SelectionStart = 0;
             }
+
+            mostRecentEntry = "";
+            for (int i = 0; i < numCharacterToDelete; i++)
+                mostRecentEntry += "\b";
+            if (OnPressed != null)
+                OnPressed(this, EventArgs.Empty);
+
+            ResetPrediction();
+            Populate_Predictkeys();
         }
 
         protected void Backspace(object sender, EventArgs e)
@@ -260,34 +260,89 @@ namespace ALSProject
             if (_textBox.Text.Length > 0)
             {
                 int selectionStart = _textBox.SelectionStart;
-                if (selectionStart == _textBox.Text.Length)
-                    _textBox.Text = _textBox.Text.Substring(0, selectionStart - 1);
-                else
-                    _textBox.Text = _textBox.Text.Substring(0, selectionStart - 1) + _textBox.Text.Substring(selectionStart);
+                _textBox.Text = _textBox.Text.Substring(0, selectionStart - 1) + _textBox.Text.Substring(selectionStart);
 
                 _textBox.SelectionStart = selectionStart - 1;
+                ResetPrediction();
+                Populate_Predictkeys();
             }
+            mostRecentEntry = "\b";
+            if (OnPressed != null)
+                OnPressed(this, EventArgs.Empty);
         }
 
         protected void TypeCharacter(object sender, EventArgs e)
         {
+            if (!(sender is ALSButton))
+                return;
             ALSButton button = (ALSButton)sender;
-            int selectionStart = _textBox.SelectionStart;
-            if (button.Text.Equals("Space"))
-                _textBox.Text = _textBox.Text.Substring(0, selectionStart) + " " + _textBox.Text.Substring(selectionStart);
-            else if (button.Text.Equals("&&"))
-                _textBox.Text = _textBox.Text.Substring(0, selectionStart) + "&" + _textBox.Text.Substring(selectionStart);
-            else
-                _textBox.Text = _textBox.Text.Substring(0, selectionStart) + button.Text + _textBox.Text.Substring(selectionStart);
 
-            _textBox.SelectionStart = selectionStart + 1;
+            switch (button.Text)
+            {
+                case "Space":
+                    Insert(" ");
+                    break;
+                case "&&":
+                    Insert("&");
+                    break;
+                case ".":
+                case "!":
+                case "?":
+                case ",":
+                    string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+                    var match = Regex.Match(text, @"\s*$");
+                    _textBox.SelectionStart -= match.Length;
+                    Insert(button.Text);
+                    ResetPrediction();
+                    break;
+                default:
+                    if (needsCapitalization())
+                        Insert(button.Text.ToUpper());
+                    else
+                        Insert(button.Text);
+                    break;
+            }
 
-            this.Populate_Predictkeys();
+            var isPunctuation = Regex.Match(button.Text, @"[\p{P}^+=|]");
+
+            if (!isPunctuation.Success && button.Text.Length > 0)
+            {
+                this.Populate_Predictkeys();
+            }
         }
 
-        public ALSKey[,] GetKeyboard()
+        private ALSKey[,] GetKeyboard()
         {
             return keyboard;
+        }
+
+        public string GetMostRecentEntry()
+        {
+            return mostRecentEntry;
+        }
+
+        private bool needsCapitalization()
+        {
+            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+            var match = Regex.Match(text, @"[.!?]\s*$");
+            if (match.Success)
+                return true;
+            match = Regex.Match(text, @"^\s*$");
+            if (match.Success)
+                return true;
+            return false;
+        }
+
+        private void Insert(string text)
+        {
+            int selectionStart = _textBox.SelectionStart;
+
+            _textBox.Text = _textBox.Text.Substring(0, selectionStart) + text + _textBox.Text.Substring(selectionStart);
+            _textBox.SelectionStart = selectionStart + text.Length;
+
+            mostRecentEntry = text;
+            if (OnPressed != null)
+                OnPressed(this, EventArgs.Empty);
         }
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);

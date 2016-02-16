@@ -14,30 +14,24 @@ namespace ALSProject
 {
     public partial class TextToSpeech : Form
     {
-        private new Form Parent;
-        SpeechSynthesizer speaker;
-        bool predictLock = false; //this prevents the textbox words from being overwritten constantly
         private ClearTextConfirmation clearTextConfirmation;
 
-        public TextToSpeech(Form parent, SpeechSynthesizer voice)
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
+        public delegate void CalloutsClick(object sender, EventArgs args);
+        public event CalloutsClick Callouts_Click;
+
+        public TextToSpeech()
         {
             InitializeComponent();
-            this.Parent = parent;
 
             // this.alsKeyboard.setRemainingVariables();
             clearTextConfirmation = new ClearTextConfirmation(this);
             //this.alsKeyboard.setupPreditionBox();
-
-            speaker = voice;
             
             btnCallouts.setFontSize();
             btnMenu.setFontSize();
             btnSpeak.setFontSize();
-
-            foreach (ALSButton btn in alsKeyboard.GetPredictKeys())
-            {
-                btn.Click += new System.EventHandler(this.keypad_Click);
-            }
 
             initControlsRecursive(this.Controls);
             this.MouseClick += (sender, e) =>
@@ -50,42 +44,7 @@ namespace ALSProject
             alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             alsKeyboard.SendToBack();
 
-            var keys = alsKeyboard.GetKeyboard();
-            foreach (var key in keys)
-                if (key.Text.Equals("Clear"))
-                {
-                    key.Click -= alsKeyboard.Clear;
-                    key.Click += Clear_Click;
-                }
-        }
-
-        public ALSButton getCalloutBtn()
-        {
-            return btnCallouts;
-        }
-
-        private void keypad_Click(object sender, EventArgs e)
-        {
-
-            //String word = ((ALSButton)sender).Text;
-
-            //if (!predictLock)
-            //{
-            //    key_DeleteWord(sender, e);
-            //    predictLock = true;
-            //}
-
-            //if (textBox1.Text == "" || textBox1.Text[textBox1.Text.Length - 1].ToString() == " ")
-            //{
-            //    textBox1.Text += word + " ";
-            //}
-            //else
-            //{
-            //    textBox1.Text += " " + word + " ";
-            //}
-
-            //predictReset();
-
+            alsKeyboard.setClearConfirmation(true);
         }
 
         protected void predictReset()
@@ -93,10 +52,11 @@ namespace ALSProject
             this.alsKeyboard.ResetPrediction();
         }
 
-        protected void btnMenu_Click(object sender, EventArgs e)
+        protected virtual void btnMenu_Click(object sender, EventArgs e)
         {
-            Parent.Show();
-            this.Hide();
+            Hide();
+            if(MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         protected string getCurrentSentence()
@@ -123,40 +83,9 @@ namespace ALSProject
                 System.Diagnostics.Debug.WriteLine(Text.Substring(secondHalf.Index, secondHalf.Length));
             }
 
-            //
-            //if (match2.Success)
-            //{
-            //    sentence = textBox1.Text.Substring(match2.Index, textBox1.Text.Length-1);
-            //}
-
-            //Console.WriteLine("Current sentence = " + sentence + " ||..");
             return sentence;
         }
 
-        private void Clear_Click(object sender, EventArgs e)
-        {
-            this.Enabled = false;
-            ClearTextConfirmation confirm = new ClearTextConfirmation(this);
-            confirm.Visible = true;
-        }
-
-        protected void key_DeleteWord(object sender, EventArgs e)
-        {
-            string text = alsKeyboard.GetText();
-
-            var match = Regex.Match(text, @"\w+\s*$");
-            var match2 = Regex.Match(text, @"\w+\p{P}+\s*$");
-            if (match.Success)
-            {
-                alsKeyboard.SetText(text.Substring(0, match.Index));
-            }
-            else if (match2.Success)
-            {
-                alsKeyboard.SetText(text.Substring(0, match2.Index));
-            }
-            predictReset();
-        }
-        
         protected void btnClear_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
@@ -170,17 +99,17 @@ namespace ALSProject
             this.Enabled = true;
         }
 
-        private void btnSpeak_Click(object sender, EventArgs e)
+        protected void btnSpeak_Click(object sender, EventArgs e)
         {
-            speaker.SpeakAsyncCancelAll();
-            speaker.SpeakAsync(alsKeyboard.GetText());
+            MainMenu.Speak(alsKeyboard.GetText());
         }
 
         private void initControlsRecursive(System.Windows.Forms.Control.ControlCollection coll)
         {
             foreach (Control c in coll)
             {
-                c.MouseClick += (sender, e) => {
+                c.MouseClick += (sender, e) =>
+                {
                     updateCursor();
                 };
                 initControlsRecursive(c.Controls);
@@ -196,26 +125,6 @@ namespace ALSProject
         {
             alsKeyboard.SetTextBoxFocus();
             alsKeyboard.SetSelection(alsKeyboard.GetText().Length, 0);
-        }
-
-        protected void alsButton3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void alsButton2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void alsButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnCallouts_Click(object sender, EventArgs e)
-        {
-
         }
 
         public string GetText()
@@ -240,12 +149,19 @@ namespace ALSProject
         {
             this.Controls.Remove(alsKeyboard);
             if (isQwerty)
-                alsKeyboard = new KeyboardControl3(this);
+                alsKeyboard = new KeyboardControl3();
             else
-                alsKeyboard = new KeyboardControl2(this);
+                alsKeyboard = new KeyboardControl2();
             alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
-            TextToSpeech_Resize(this, null);
+            TextToSpeech_Resize(this, EventArgs.Empty);
             Invalidate();
+        }
+
+        protected void btnCallouts_Click(object sender, EventArgs e)
+        {
+            Hide();
+            if (Callouts_Click != null)
+                Callouts_Click(this, e);
         }
     }
 }

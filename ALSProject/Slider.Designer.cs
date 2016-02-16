@@ -1,4 +1,4 @@
-﻿namespace ALSProject
+namespace ALSProject
 {
     partial class Slider
     {
@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Name = "Slider";
             this.Size = new System.Drawing.Size(821, 58);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Slider_Paint);

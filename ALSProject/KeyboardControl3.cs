@@ -65,12 +65,7 @@ namespace ALSProject
                 }
             }
         }
-
-        public KeyboardControl3(Form parentForm) : this()
-        {
-            this.Parent = parentForm;
-        }
-
+        
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;

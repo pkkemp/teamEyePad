@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -19,6 +19,9 @@ namespace ALSProject
     {
         public enum ButtonType { key, normal, immutable };
 
+        public delegate void Clear_Click (object sender, EventArgs args);
+        public event Clear_Click ClearClick;
+        
         public ButtonType btnType
         {
             get; set;
@@ -37,7 +40,6 @@ namespace ALSProject
             }
             set
             {
-                //btnType = ButtonType.immutable;
                 dwellTimer.Interval = value;
             }
         }
@@ -60,6 +62,13 @@ namespace ALSProject
 
             alsButtons.Add(this);
             btnType = ButtonType.normal;
+
+            TextChanged += ALSButton_TextChanged;
+        }
+
+        private void ALSButton_TextChanged(object sender, EventArgs e)
+        {
+            setFontSize();
         }
 
         private void decayTimer_Tick(object sender, EventArgs e)
@@ -98,7 +107,6 @@ namespace ALSProject
             }
             if (heightCounter > this.Height)
             {
-                heightCounter = 0;
                 this.PerformClick();
             }
             else
@@ -136,15 +144,20 @@ namespace ALSProject
             if (!clicked)
             {
                 clicked = true;
-                Invalidate();                   //Clears anything created by the graphics object
-                dwellTimer.Enabled = true;
-                decayTimer.Stop();
                 heightCounter = 0;
+
+                if (sender != null && sender is ALSButton && ClearClick != null)
+                {
+                    ALSButton button = (ALSButton)sender;
+                    if(button.Text.Equals("Clear"))
+                    {
+                        ClearClick(this, e);
+                    }
+                }
 
                 //reset
                 dwellTimer.Stop();
-                dwellTimer.Start();
-                this.Refresh();
+                decayTimer.Stop();
             }
         }
 
@@ -171,8 +184,7 @@ namespace ALSProject
             float WidthScaleRatio = (Width - 18) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
-
-            //Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 8));
+            
             Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
 

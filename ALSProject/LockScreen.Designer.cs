@@ -40,6 +40,7 @@
             this.Name = "LockScreen";
             this.Text = "LockScreen";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LockScreen_FormClosing);
             this.ResumeLayout(false);
 
         }

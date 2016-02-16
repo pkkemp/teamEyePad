@@ -148,6 +148,9 @@
             this.Name = "Email";
             this.Text = "Email";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Email_FormClosing);
+
+
             this.ResumeLayout(false);
             this.PerformLayout();
 

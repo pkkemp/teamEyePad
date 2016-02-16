@@ -40,7 +40,8 @@ namespace presage
         // A constructor is needed for serialization when an 
         // exception propagates from a remoting server to the client.  
         protected PresageException(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) { }
+            System.Runtime.Serialization.StreamingContext context)
+        { }
     }
 
     public class Presage : IPresage
@@ -137,7 +138,7 @@ namespace presage
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool SetDllDirectory(string lpPathName);
-        
+
 
         public delegate string callback_get_past_stream_t();
         public delegate string callback_get_future_stream_t();
@@ -192,11 +193,11 @@ namespace presage
                     throw new PresageException(String.Format("presage_new_with_config() error code: {0}", rc));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
-            
+
         }
 
         ~Presage()
@@ -205,7 +206,7 @@ namespace presage
             {
                 presage_free(prsg);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         public unsafe string[] predict()
@@ -215,34 +216,35 @@ namespace presage
             IntPtr prediction;
 
             // call presage_predict
-            try {
+            try
+            {
                 int rc = presage_predict(prsg, out prediction);
                 if (rc != 0)
                 {
                     throw new PresageException(String.Format("presage_predict() error code: {0}", rc));
                 }
 
-            if (prediction != null)
-            {
-                char** ptr_to_ptr_to_char = (char**) prediction.ToPointer();
-
-                for (int i = 0; ptr_to_ptr_to_char[i] != null; ++i)
+                if (prediction != null)
                 {
-                    char* ptr_to_char = (char*) ptr_to_ptr_to_char[i];
-                    IntPtr str_ptr = new IntPtr(ptr_to_char);
-                    string str = Marshal.PtrToStringAnsi(str_ptr);
-                    result.Add(str);
+                    char** ptr_to_ptr_to_char = (char**)prediction.ToPointer();
+
+                    for (int i = 0; ptr_to_ptr_to_char[i] != null; ++i)
+                    {
+                        char* ptr_to_char = (char*)ptr_to_ptr_to_char[i];
+                        IntPtr str_ptr = new IntPtr(ptr_to_char);
+                        string str = Marshal.PtrToStringAnsi(str_ptr);
+                        result.Add(str);
+                    }
+
                 }
- 
-            }
 
-            // free prediction
-            presage_free_string_array(prediction);
+                // free prediction
+                presage_free_string_array(prediction);
 
-            return result.ToArray();
+                return result.ToArray();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new string[] { "" };
             }
@@ -270,14 +272,14 @@ namespace presage
             bool result;
 
             IntPtr int_ptr;
-            
+
             int rc = presage_context_change(prsg, out int_ptr);
             if (rc != 0)
             {
                 throw new PresageException(String.Format("presage_context_change() error code: {0}", rc));
             }
 
-            result = ! int_ptr.Equals(0);
+            result = !int_ptr.Equals(0);
 
             return result;
         }
@@ -374,7 +376,7 @@ namespace presage
             }
             catch (System.IO.IOException ex)
             {
-                System.Console.WriteLine("Caught exception: {0}", ex.ToString()); 
+                System.Console.WriteLine("Caught exception: {0}", ex.ToString());
                 result = string.Empty;
             }
             catch (NullReferenceException ex)

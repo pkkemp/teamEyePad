@@ -79,5 +79,27 @@ namespace ALSProject
 
         }
 
+        private void Email_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+   
+/* public partial class Email : Form
+    {
+        EmailClient client;
+
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
+
+
+            /* // why did you do this this way
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            Hide();
+            if (MainMenu_Click != null)
+                MainMenu_Click(this, e);
+        }*/
+
+       
     }
 }

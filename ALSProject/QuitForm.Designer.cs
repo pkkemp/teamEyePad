@@ -39,12 +39,14 @@
             this.yesBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.yesBut.BackgroundImage = global::ALSProject.Properties.Resources.checkmark;
             this.yesBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.yesBut.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.yesBut.dwellTimeInterval = 50;
             this.yesBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.yesBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.yesBut.Location = new System.Drawing.Point(12, 143);
             this.yesBut.Name = "yesBut";
             this.yesBut.Size = new System.Drawing.Size(312, 248);
             this.yesBut.TabIndex = 4;
-            this.yesBut.dwellTimeInterval = 50;
             this.yesBut.UseVisualStyleBackColor = false;
             this.yesBut.Click += new System.EventHandler(this.yesBut_Click);
             // 
@@ -54,12 +56,14 @@
             this.noBut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.noBut.BackgroundImage = global::ALSProject.Properties.Resources.minus;
             this.noBut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.noBut.btnType = ALSProject.ALSButton.ButtonType.normal;
+            this.noBut.dwellTimeInterval = 15;
             this.noBut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.noBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.noBut.Location = new System.Drawing.Point(330, 143);
             this.noBut.Name = "noBut";
             this.noBut.Size = new System.Drawing.Size(312, 248);
             this.noBut.TabIndex = 5;
-            this.noBut.dwellTimeInterval = 15;
             this.noBut.UseVisualStyleBackColor = false;
             this.noBut.Click += new System.EventHandler(this.noBut_Click);
             // 
@@ -89,6 +93,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "QuitForm";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuitForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

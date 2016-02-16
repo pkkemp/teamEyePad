@@ -23,22 +23,18 @@ namespace ALSProject
         protected const int NUM_NOTES = 6;
         protected bool isEditMode;
         protected int pageNum = 0;
-        SpeechSynthesizer speaker;
         private int indexBeingEdited;       //-1 means it's not being used
 
         Notepage notepage;
 
-        private Form parentForm;
+        public delegate void MainMenuClick(object sender, EventArgs args);
+        public event MainMenuClick MainMenu_Click;
 
-        public Notebook(Form parent, SpeechSynthesizer voice)
+        public Notebook(bool isQwerty)
         {
             InitializeComponent();
-
-            parentForm = parent;
-            //setup speech
-            speaker = voice;
-
-            notepage = new Notepage(this, speaker);
+            
+            notepage = new Notepage(isQwerty);
 
             indexBeingEdited = -1;
 
@@ -64,10 +60,11 @@ namespace ALSProject
             topRowButtons[2].Click += new System.EventHandler(this.pageLeft);
             topRowButtons[3].Click += new System.EventHandler(this.pageRight);
             topRowButtons[4].Click += new System.EventHandler(this.NewNote_Click);
-            topRowButtons[5].Click += new System.EventHandler(this.MainMenu_Click);
+            topRowButtons[5].Click += new System.EventHandler(this.btnMainMenu_Click);
 
-            notepage.getBackBtn().Click += new System.EventHandler(this.addToList);
+            notepage.getBackBtn().Click += new System.EventHandler(this.Notebook_Show);
             //notepage.getSaveButton().Click += new EventHandler(this.addToList); // there is no save button...
+            notepage.Back_Click += Notepage_Back_Click;
 
             topRowButtons[2].Enabled = false;
             if (NUM_NOTES > phrases.Count)
@@ -112,6 +109,11 @@ namespace ALSProject
             flipToPage(0);
         }
 
+        private void Notepage_Back_Click(object sender, EventArgs args)
+        {
+            this.Show();
+        }
+
         private void EditNote(object sender, EventArgs e)
         {
             ALSButton btn = (ALSButton)sender;
@@ -129,15 +131,18 @@ namespace ALSProject
                     if ((pageNum + 1) * NUM_NOTES > phrases.Count + 1)
                         topRowButtons[3].Enabled = false;
                 }
+                else
+                    NewNote_Click(sender, e);
             }
             //Set Cursor at end
             notepage.setCursorAtEnd();
         }
 
-        private void MainMenu_Click(object sender, EventArgs e)
+        private void btnMainMenu_Click(object sender, EventArgs e)
         {
-            parentForm.Show();
             this.Hide();
+            if (MainMenu_Click != null)
+                MainMenu_Click(this, e);
         }
 
         private int getNum(String str)
@@ -147,13 +152,14 @@ namespace ALSProject
             return num;
         }
 
-        private void addToList(object sender, EventArgs e)
+        private void Notebook_Show(object sender, EventArgs e)
         {
+            this.Show();
             string str = notepage.getText();
             Console.WriteLine(str);
             if (str != "" && str != null)
             {
-                phrases.Add(str);
+                phrases.Insert(0, str);
                 if ((pageNum + 1) * NUM_NOTES <= phrases.Count)
                     topRowButtons[3].Enabled = true;
 
@@ -333,14 +339,6 @@ namespace ALSProject
 
         private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            //I'm pretty sure this is redundant in most cases. If we want to do this we need to make sure it only happens when the program is being closed by an outside operation
-            /*if(indexBeingEdited != -1)
-            {
-                phrases.Insert(0, notepage.getText());
-            }*/
-
-
             StreamWriter filestream = new StreamWriter(File.Open("Notes.txt", FileMode.Create));
             for (int i = 0; i < phrases.Count; i++)
             {
@@ -348,6 +346,7 @@ namespace ALSProject
             }
 
             filestream.Close();
+            Application.Exit();
         }
 
         private void Notebook_Load(object sender, EventArgs e)

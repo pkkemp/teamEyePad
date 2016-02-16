@@ -16,36 +16,43 @@ namespace ALSProject
         private enum KeyboardType
         {
             Lowercase, Uppercase, Characters,
-            aTOf, gTOn, nTOs, tTOz,
-            ATOF, GTON, NTOS, TTOZ,
+            aTOi, jTOr, sTOz,
+            ATOI, JTOR, STOZ,
             _1TO9, Punctuation, Symbols, Symbols2
         };
 
         private KeyboardType keyboardType;
+        private const string uLetters1 = "ABCDE\nFGHI";
+        private const string uLetters2 = "JKLMN\nOPQR";
+        private const string uLetters3 = "STUV\nXYZ";
+        private const string lLetters1 = "abcde\nfghi";
+        private const string lLetters2 = "jklmn\nopqr";
+        private const string lLetters3 = "stuv\nwxyz";
+        private const string symbols1 = ".!?,:;'\"";
+        private const string symbols2 = "@$%^&*+-=;";
+        private const string symbols3 = "()[]{}|\\/";
 
         public KeyboardControl2() : base()
         {
             InitializeComponent();
 
             keyboardType = KeyboardType.Lowercase;
-
-            keyboard = new ALSKey[15, 10];
             
-            string[,] letters = { { "abc\ndef", "ghi\njkl", "mnop\nqrs", "tuvw\nxyz", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
-                                  { "ABC\nDEF", "GHI\nJKL", "MNOP\nQRS", "TUVW\nXYZ", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
-                                  { "0", "1-9", ",!?,:;'\"", "@$%^&*+-=", "()[]{}|\\/", "abc", "Space", "Backspace", "Delete Word", "Clear"},
-                                  { "a", "b", "c", "d", "e", "f", "", "", "", "Back"},
-                                  { "g", "h", "i", "j", "k", "l", "", "", "", "Back"},
-                                  { "m", "n", "o", "p", "q", "r", "s", "", "", "Back"},
-                                  { "t", "u", "v", "w", "x", "y", "z", "", "", "Back"},
-                                  { "A", "B", "C", "D", "E", "F", "", "", "", "Back"},
-                                  { "G", "H", "I", "J", "K", "L", "", "", "", "Back"},
-                                  { "M", "N", "O", "P", "Q", "R", "S", "", "", "Back"},
-                                  { "T", "U", "V", "W", "X", "Y", "Z", "", "", "Back"},
+            string[,] letters = { { lLetters1, lLetters2, lLetters3, "?", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { uLetters1, uLetters2, uLetters3, "?", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "0", "1-9", symbols1, symbols2, symbols3, "abc", "Space", "Backspace", "Delete Word", "Clear"},
+                                  { "a", "b", "c", "d", "e", "f", "g", "h", "i", "Back"},
+                                  { "j", "k", "l", "m", "n", "o", "p", "q", "r", "Back"},
+                                  { "s", "t", "u", "v", "w", "x", "y", "z", "", "Back"},
+                                  { "A", "B", "C", "D", "E", "F", "G", "H", "I", "Back"},
+                                  { "J", "K", "L", "M", "N", "O", "P", "Q", "R", "Back"},
+                                  { "S", "T", "U", "V", "W", "X", "Y", "Z", "", "Back"},
                                   { "1", "2", "3", "4", "5", "6", "7", "8", "9", "Back"},
                                   { ".", "!", "?", ",", ":", ";", "'", "\"", "", "Back"},
                                   { "@", "$", "%", "^", "&&", "*", "+", "-", "=", "Back"},
                                   { "(", ")", "[", "]", "{", "}", "|", "\\", "/", "Back"} };
+
+            keyboard = new ALSKey[letters.GetLength(0), letters.GetLength(1)];
 
             for (int i = 0; i < keyboard.GetLength(0); i++)
             {
@@ -60,9 +67,9 @@ namespace ALSProject
                     {
                         case 0:
                         case 1:
-                            if (j < 4 || j == 5)
+                            if (j < 3 || j == 5)
                                 keyboard[i, j].Click += NavigateKeyboard;
-                            else if (j == 4 || j == 6)
+                            else if (j == 3 || j == 4 || j == 6)
                                 keyboard[i, j].Click += TypeCharacter;
                             else if (j == 7)
                                 keyboard[i, j].Click += Backspace;
@@ -98,11 +105,6 @@ namespace ALSProject
                 }
             }
         }
-
-        public KeyboardControl2(Form parentForm) : this()
-        {
-            this.Parent = parentForm;
-        }
         
         private void NavigateKeyboard(object sender, EventArgs e)
         {
@@ -118,50 +120,56 @@ namespace ALSProject
                 case "123":
                     keyboardType = KeyboardType.Characters;
                     break;
-                case "abc\ndef":
-                    keyboardType = KeyboardType.aTOf;
+                case lLetters1:
+                    keyboardType = KeyboardType.aTOi;
                     break;
-                case "ghi\njkl":
-                    keyboardType = KeyboardType.gTOn;
+                case lLetters2:
+                    keyboardType = KeyboardType.jTOr;
                     break;
-                case "mnop\nqrs":
-                    keyboardType = KeyboardType.nTOs;
+                case lLetters3:
+                    keyboardType = KeyboardType.sTOz;
                     break;
-                case "tuvw\nxyz":
-                    keyboardType = KeyboardType.tTOz;
+                case uLetters1:
+                    keyboardType = KeyboardType.ATOI;
                     break;
-                case "ABC\nDEF":
-                    keyboardType = KeyboardType.ATOF;
+                case uLetters2:
+                    keyboardType = KeyboardType.JTOR;
                     break;
-                case "GHI\nJKL":
-                    keyboardType = KeyboardType.GTON;
-                    break;
-                case "MNOP\nQRS":
-                    keyboardType = KeyboardType.NTOS;
-                    break;
-                case "TUVW\nXYZ":
-                    keyboardType = KeyboardType.TTOZ;
+                case uLetters3:
+                    keyboardType = KeyboardType.STOZ;
                     break;
                 case "1-9":
                     keyboardType = KeyboardType._1TO9;
                     break;
-                case ",!?":
+                case symbols1:
                     keyboardType = KeyboardType.Punctuation;
                     break;
-                case "@#$":
+                case symbols2:
                     keyboardType = KeyboardType.Symbols;
                     break;
-                case "[({":
+                case symbols3:
                     keyboardType = KeyboardType.Symbols2;
                     break;
                 case "Back":
-                    int tempKT = (int)keyboardType;
-                    if (tempKT >= 3 && tempKT <= 6)
-                        keyboardType = KeyboardType.Lowercase;
-                    else if (tempKT >= 7 && tempKT <= 10)
-                        keyboardType = KeyboardType.Uppercase;
-                    else
-                        keyboardType = KeyboardType.Characters;
+                    switch(keyboardType)
+                    {
+                        case KeyboardType.aTOi:
+                        case KeyboardType.jTOr:
+                        case KeyboardType.sTOz:
+                            keyboardType = KeyboardType.Lowercase;
+                            break;
+                        case KeyboardType.ATOI:
+                        case KeyboardType.JTOR:
+                        case KeyboardType.STOZ:
+                            keyboardType = KeyboardType.Uppercase;
+                            break;
+                        case KeyboardType._1TO9:
+                        case KeyboardType.Punctuation:
+                        case KeyboardType.Symbols:
+                        case KeyboardType.Symbols2:
+                            keyboardType = KeyboardType.Characters;
+                            break;
+                    }
                     break;
                 default:
                     if (button.Text.Length > 0)
@@ -186,25 +194,6 @@ namespace ALSProject
             for (int i = 0; i < keyboard.GetLength(1); i++)
                 keyboard[(int)keyboardType, i].BringToFront();
         }
-        /*
-        public void Populate_Predictkeys()
-        {
-            String lastWord = "";
-
-            var match = Regex.Match(_textBox.Text, @"\s+\S+\s*$");
-
-            if (match.Success)
-                lastWord = _textBox.Text.Substring(0, match.Index);
-            else
-                lastWord = "";
-
-            String[] predictions = presage.getPredictions(lastWord);
-
-            for (int i = 0; i < predictions.Length; i++)
-            {
-                predictionKeys[i].Text = predictions[i];
-            }
-        }*/
 
         protected override void Keyboard_Resize(object sender, EventArgs e)
         {
@@ -220,7 +209,6 @@ namespace ALSProject
                 button.Size = new Size(buttonWidth, buttonHeight);
 
             foreach (ALSButton button in predictionKeys)
-                // button.Size = new Size(buttonHeight, buttonWidth);
                 button.Size = new Size(buttonWidth, buttonHeight);
 
             //Set button locations

@@ -13,13 +13,13 @@ namespace ALSProject
 {
     public partial class AddCallout : TextToSpeech
     {
-        public AddCallout(Form parent, SpeechSynthesizer voice) : base (parent, voice)
+        public AddCallout() : base()
         {
             btnSpeak.Visible = false;
-            
+
             btnMenu.Text = "Exit\nwithout\nsaving";
             btnCallouts.Text = "Save";
-            
+
             btnCallouts.Size = new Size(btnMenu.Size.Width, btnMenu.Size.Height);
 
             alsKeyboard.SetTextBoxLocation(new Point(alsAlarm1.Right + MainMenu.GAP, alsAlarm1.Top));
@@ -28,17 +28,29 @@ namespace ALSProject
             btnSpeak.setFontSize();
             btnMenu.setFontSize();
             btnCallouts.setFontSize();
+
+            alsKeyboard.setClearConfirmation(false);
         }
 
         private void AddCallout_Resize(object sender, EventArgs e)
         {
-            //btnCallouts.Location = new Point(this.Width - btnCallouts.Width - 2 * UI.GAP, btnMenu.Top);
-            //alsKeyboard.SetTextBoxSize(new Size(btnCallouts.Location.X, alsAlarm1.Size.Height));
+
+        }
+
+
+        protected override void btnMenu_Click(object sender, EventArgs e)
+        {
+            btnCallouts_Click(sender, e);
         }
 
         public ALSButton getSaveButton()
         {
             return btnCallouts;
+        }
+
+        private void AddCallout_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

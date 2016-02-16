@@ -28,7 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCallout));
             this.SuspendLayout();
+            // 
+            // btnMenu
+            // 
+            this.btnMenu.FlatAppearance.BorderSize = 0;
+            // 
+            // alsAlarm1
+            // 
+            this.alsAlarm1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("alsAlarm1.BackgroundImage")));
+            this.alsAlarm1.FlatAppearance.BorderSize = 0;
+            // 
+            // btnSpeak
+            // 
+            this.btnSpeak.FlatAppearance.BorderSize = 0;
+            // 
+            // btnCallouts
+            // 
+            this.btnCallouts.FlatAppearance.BorderSize = 0;
+            // 
+            // alsKeyboard
+            // 
+            this.alsKeyboard.Size = new System.Drawing.Size(264, 241);
             // 
             // AddCallout
             // 
@@ -36,10 +58,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddCallout";
             this.Text = "Add Callout";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddCallout_FormClosing);
             this.Resize += new System.EventHandler(this.AddCallout_Resize);
             this.ResumeLayout(false);
 
