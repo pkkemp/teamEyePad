@@ -96,6 +96,7 @@ namespace ALSProject
             quitScreen.MainMenu_Click += MainMenu_Show;
             browser.MainMenu_Click += MainMenu_Show;
             email.MainMenu_Click += MainMenu_Show;
+            texttospeech.GetBtnCallout().Click += new System.EventHandler(this.openCallouts);
 
             texttospeech.Callouts_Click += Callouts_Show;
             callout.TextToSpeech_Click += TextToSpeech_Show;

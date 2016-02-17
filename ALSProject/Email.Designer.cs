@@ -46,6 +46,7 @@
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ReadOnly = true;
+            this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtBody.Size = new System.Drawing.Size(670, 368);
             this.txtBody.TabIndex = 6;
             // 
@@ -57,7 +58,7 @@
             this.btnScrollDown.dwellTimeInterval = 100;
             this.btnScrollDown.FlatAppearance.BorderSize = 0;
             this.btnScrollDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScrollDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 38.68658F);
+            this.btnScrollDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnScrollDown.Location = new System.Drawing.Point(12, 270);
             this.btnScrollDown.Name = "btnScrollDown";
             this.btnScrollDown.Size = new System.Drawing.Size(171, 110);
@@ -89,7 +90,7 @@
             this.btnMenu.dwellTimeInterval = 100;
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.84653F);
+            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnMenu.Location = new System.Drawing.Point(865, 12);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(147, 143);
@@ -148,6 +149,8 @@
             this.Text = "Email";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Email_FormClosing);
+
+
             this.ResumeLayout(false);
             this.PerformLayout();
 

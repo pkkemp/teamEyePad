@@ -170,5 +170,10 @@ namespace ALSProject
             if (Callouts_Click != null)
                 Callouts_Click(this, e);
         }
+
+        public ALSButton GetBtnCallout()
+        {
+            return btnCallouts;
+        }
     }
 }
