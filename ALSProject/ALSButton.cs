@@ -19,9 +19,9 @@ namespace ALSProject
     {
         public enum ButtonType { key, normal, immutable };
 
-        public delegate void Clear_Click (object sender, EventArgs args);
+        public delegate void Clear_Click(object sender, EventArgs args);
         public event Clear_Click ClearClick;
-        
+
         public ButtonType btnType
         {
             get; set;
@@ -149,7 +149,7 @@ namespace ALSProject
                 if (sender != null && sender is ALSButton && ClearClick != null)
                 {
                     ALSButton button = (ALSButton)sender;
-                    if(button.Text.Equals("Clear"))
+                    if (button.Text.Equals("Clear"))
                     {
                         ClearClick(this, e);
                     }
@@ -170,6 +170,7 @@ namespace ALSProject
                 if (btn.btnType.Equals(buttonType))
                 {
                     btn.dwellTimer.Interval = Math.Max((int)(speed * 7), 1);
+                    btn.decayTimer.Interval = btn.dwellTimer.Interval * 3;
                 }
             }
         }
@@ -184,7 +185,7 @@ namespace ALSProject
             float WidthScaleRatio = (Width - 18) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
-            
+
             Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
 
