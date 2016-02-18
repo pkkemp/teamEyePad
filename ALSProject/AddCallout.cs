@@ -29,6 +29,7 @@ namespace ALSProject
             btnMenu.setFontSize();
             btnCallouts.setFontSize();
 
+            if(isQwerty)
             alsKeyboard.setClearConfirmation(false);
         }
 

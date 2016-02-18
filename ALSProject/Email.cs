@@ -14,19 +14,12 @@ namespace ALSProject
     public partial class Email : Form //this is the GUI part of e-mail
     {
 
-        protected ALSButton[,] notes;
-        protected const int EDIT_BUTTON_WIDTH = 100;
-        protected const int NUM_NOTES = 6;
-        protected bool isEditMode;
-        protected int pageNum = 0;
 
         EmailClient client;
 
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
-
-
-        // why did you do this this way
+        
         private void btnMenu_Click(object sender, EventArgs e)
         {
             Hide();

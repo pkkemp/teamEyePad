@@ -50,7 +50,7 @@ namespace ALSProject
         SettingsForm settingsScreen;
         QuitForm quitScreen;
         Browser browser;
-        Email email;
+        Email2 email;
 
         Timer closeTimer;
 
@@ -80,7 +80,7 @@ namespace ALSProject
             settingsScreen = new SettingsForm();
             quitScreen = new QuitForm();
             browser = new Browser();
-            email = new Email();
+            email = new Email2();
 
             texttospeech.Visible = false;
             notebook.Visible = false;

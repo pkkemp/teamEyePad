@@ -115,6 +115,12 @@
       <DependentUpon>Confirmation.cs</DependentUpon>
     </Compile>
     <Compile Include="CVInterface.cs" />
+    <Compile Include="DeleteEmailConfirmation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteEmailConfirmation.Designer.cs">
+      <DependentUpon>DeleteEmailConfirmation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Email.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,12 +131,24 @@
       <DependentUpon>Email.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Email2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Email2.Designer.cs">
+      <DependentUpon>Email2.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmailClient.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmailLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmailLogin.Designer.cs">
+      <DependentUpon>frmEmailLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
@@ -248,11 +266,20 @@
     <EmbeddedResource Include="Confirmation.resx">
       <DependentUpon>Confirmation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DeleteEmailConfirmation.resx">
+      <DependentUpon>DeleteEmailConfirmation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Email.resx">
       <DependentUpon>Email.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Email2.resx">
+      <DependentUpon>Email2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmailLogin.resx">
+      <DependentUpon>frmEmailLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Keyboard.resx">
       <DependentUpon>Keyboard.cs</DependentUpon>
