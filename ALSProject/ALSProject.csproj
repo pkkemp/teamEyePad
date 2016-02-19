@@ -108,6 +108,12 @@
     <Compile Include="ClearTextConfirmation.Designer.cs">
       <DependentUpon>ClearTextConfirmation.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComposeEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComposeEmail.Designer.cs">
+      <DependentUpon>ComposeEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Confirmation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -221,6 +227,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewEmail.Designer.cs">
+      <DependentUpon>ViewEmail.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EyeXFramework, Version=1.5.466.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=x86">
@@ -262,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClearTextConfirmation.resx">
       <DependentUpon>ClearTextConfirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComposeEmail.resx">
+      <DependentUpon>ComposeEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Confirmation.resx">
       <DependentUpon>Confirmation.cs</DependentUpon>
@@ -312,6 +327,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewEmail.resx">
+      <DependentUpon>ViewEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
