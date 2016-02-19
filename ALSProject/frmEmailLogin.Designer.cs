@@ -43,6 +43,7 @@
             this.Text = "frmEmailLogin";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmEmailLogin_FormClosed);
+            this.Resize += new System.EventHandler(this.frmEmailLogin_Resize);
             this.ResumeLayout(false);
 
         }

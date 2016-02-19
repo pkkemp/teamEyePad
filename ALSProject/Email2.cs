@@ -25,6 +25,7 @@ namespace ALSProject
         ListBox lbEmails;
 
         DeleteEmailConfirmation frmDeleteEmail;
+        frmEmailLogin frmEmailLogin;
 
         protected int pageNum = 0;
 
@@ -41,6 +42,10 @@ namespace ALSProject
             frmDeleteEmail = new DeleteEmailConfirmation();
             frmDeleteEmail.Visible = false;
             frmDeleteEmail.DeleteEmail_Click += FrmDeleteEmail_DeleteEmail_Click;
+
+            frmEmailLogin = new frmEmailLogin();
+            frmEmailLogin.Visible = false;
+            frmEmailLogin.Cancel_Click += Show;
         }
 
         private void Email2_Resize(object sender, EventArgs e)
@@ -62,7 +67,7 @@ namespace ALSProject
             setToRightOf(btnMainMenu, btnDelete);
 
             //Right side buttons
-            int sideButtonHeight = (Height - MainMenu.GAP * 5) / 4;
+            int sideButtonHeight = (Height - btnMainMenu.Bottom - MainMenu.GAP * 4) / 3;
             sideButtonHeight = Math.Min(btnWidth, sideButtonHeight);
 
             btnMoveUp.Size = new Size(sideButtonHeight, sideButtonHeight);
@@ -171,7 +176,8 @@ namespace ALSProject
 
         private void BtnSwitchAccount_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            frmEmailLogin temp = new frmEmailLogin();
+            temp.Show();
         }
 
         private void BtnCompose_Click(object sender, EventArgs e)
@@ -243,6 +249,11 @@ namespace ALSProject
                 lbEmails.SelectedIndex = temp;
             else
                 lbEmails.SelectedIndex = temp - 1;
+        }
+
+        private void Show(object sender, EventArgs e)
+        {
+            Show();
         }
     }
 }
