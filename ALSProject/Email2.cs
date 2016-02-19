@@ -27,6 +27,7 @@ namespace ALSProject
         DeleteEmailConfirmation frmDeleteEmail;
         frmEmailLogin frmEmailLogin;
         ComposeEmail frmComposeEmail;
+        ViewEmail frmViewEmail;
 
         protected int pageNum = 0;
 
@@ -51,6 +52,9 @@ namespace ALSProject
             frmComposeEmail = new ComposeEmail();
             frmComposeEmail.Cancel_Click += Show;
             frmComposeEmail.Send_Click += Show;
+
+            frmViewEmail = new ViewEmail();
+            frmViewEmail.Back_Click += Show;
         }
 
         private void Email2_Resize(object sender, EventArgs e)
@@ -229,7 +233,7 @@ namespace ALSProject
 
         private void BtnSelect_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            frmViewEmail.Show();
         }
 
         private void LbEmails_SelectedIndexChanged(object sender, EventArgs e)
