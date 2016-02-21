@@ -144,6 +144,12 @@
       <DependentUpon>Email2.cs</DependentUpon>
     </Compile>
     <Compile Include="EmailClient.cs" />
+    <Compile Include="EmailResponseType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmailResponseType.Designer.cs">
+      <DependentUpon>EmailResponseType.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Email2.resx">
       <DependentUpon>Email2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmailResponseType.resx">
+      <DependentUpon>EmailResponseType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>

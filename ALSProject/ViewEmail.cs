@@ -16,6 +16,8 @@ namespace ALSProject
         ALSButton btnRespond, btnPageUp, btnUp, btnDown, btnPageDown, btnBack;
         ALSTextbox tbEmail;
 
+        EmailResponseType frmRespond;
+
         public delegate void Event(object sender, EventArgs args);
         public event Event Back_Click;
 
@@ -23,6 +25,8 @@ namespace ALSProject
         {
             InitializeComponent();
             InitializeControls();
+
+            frmRespond = new EmailResponseType();
         }
 
         private void InitializeControls()
@@ -83,7 +87,8 @@ namespace ALSProject
 
         private void BtnRespond_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            frmRespond.Show();
+            Hide();
         }
 
         private void ViewEmail_FormClosing(object sender, FormClosingEventArgs e)
