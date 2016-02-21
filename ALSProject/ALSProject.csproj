@@ -417,6 +417,8 @@
     <None Include="Resources\Lock.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Unlock.png" />
+    <None Include="Resources\browser.png" />
     <Content Include="Resources\favicon.ico" />
     <None Include="Resources\icon.ico" />
     <None Include="Resources\icon.gif" />

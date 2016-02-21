@@ -84,6 +84,8 @@
             // 
             this.btnBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBrowser.BackgroundImage = global::ALSProject.Properties.Resources.browser;
+            this.btnBrowser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnBrowser.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnBrowser.dwellTimeInterval = 15;
             this.btnBrowser.FlatAppearance.BorderSize = 0;
@@ -93,7 +95,6 @@
             this.btnBrowser.Name = "btnBrowser";
             this.btnBrowser.Size = new System.Drawing.Size(312, 248);
             this.btnBrowser.TabIndex = 8;
-            this.btnBrowser.Text = "Browser";
             this.btnBrowser.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnBrowser.UseVisualStyleBackColor = false;
             this.btnBrowser.Click += new System.EventHandler(this.btnBrowser_Click);
