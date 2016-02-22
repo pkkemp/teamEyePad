@@ -31,6 +31,8 @@ namespace ALSProject
 
         protected int pageNum = 0;
 
+        public object Zoom { get; private set; }
+
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
@@ -117,8 +119,12 @@ namespace ALSProject
             btnDelete.Text = "Delete";
             btnMainMenu.Text = "Main\nMenu";
 
-            btnMoveUp.Text = "^";
-            btnMoveDown.Text = "V";
+            //btnMoveUp.Text = "^";
+            //btnMoveDown.Text = "V";
+            btnMoveUp.BackgroundImage = Properties.Resources.UpArrow;
+            btnMoveUp.BackgroundImageLayout = ImageLayout.Zoom;
+            btnMoveDown.BackgroundImage = Properties.Resources.DownArrow;
+            btnMoveDown.BackgroundImageLayout = ImageLayout.Zoom;
             btnSelect.Text = "Select";
 
             lbEmails.Font = new Font(lbEmails.Font.FontFamily, 20);
