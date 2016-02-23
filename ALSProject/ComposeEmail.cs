@@ -40,7 +40,7 @@ namespace ALSProject
             txtBody = new ALSTextbox();
             btnCancel = new ALSButton();
             btnSend = new ALSButton();
-            keyboard = new KeyboardControl2(); //
+            keyboard = new KeyboardControl2();
 
             lblTo.Text = "To:";
             lblFrom.Text = "From:";
@@ -63,6 +63,9 @@ namespace ALSProject
             btnSend.Click += BtnSend_Click;
 
             keyboard.HideTextBox();
+            txtTo.Multiline = true;
+            txtFrom.Multiline = true;
+            txtBody.Multiline = true;
         }
 
         private void BtnSend_Click(object sender, EventArgs e)

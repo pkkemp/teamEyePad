@@ -61,6 +61,8 @@ namespace ALSProject
             Controls.Add(btnPageDown);
             Controls.Add(btnBack);
             Controls.Add(tbEmail);
+
+            tbEmail.Multiline = true;
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
