@@ -25,10 +25,8 @@ namespace ALSProject
         public TextToSpeech(bool isQwerty)
         {
             InitializeComponent();
-
-            // this.alsKeyboard.setRemainingVariables();
-            clearTextConfirmation = new ClearTextConfirmation(this);
-            //this.alsKeyboard.setupPreditionBox();
+            
+            clearTextConfirmation = new ClearTextConfirmation();
             
             btnCallouts.setFontSize();
             btnMenu.setFontSize();

@@ -93,7 +93,7 @@ namespace ALSProject
         private void Clear_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            ClearTextConfirmation confirm = new ClearTextConfirmation(this);
+            ClearTextConfirmation confirm = new ClearTextConfirmation();
             confirm.Visible = true;
         }
 

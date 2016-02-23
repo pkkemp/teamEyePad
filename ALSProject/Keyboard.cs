@@ -23,16 +23,21 @@ namespace ALSProject
         protected List<string> predictionWords;
         protected string mostRecentEntry;
 
-        public delegate void KeyPressed(object sender, EventArgs e);
-        public event KeyPressed OnPressed;
+        protected ClearTextConfirmation frmClearTextConfirmation;
+
+        public delegate void Event(object sender, EventArgs e);
+        public event Event OnPressed;
+        public event Event ClearText_Click;
 
         public Keyboard()
         {
             _textBox = new TextBox();
             _textBox.Font = new Font(_textBox.Font.FontFamily, 24);
             _textBox.Multiline = true;
-
             Controls.Add(_textBox);
+
+            frmClearTextConfirmation = new ClearTextConfirmation();
+            frmClearTextConfirmation.ClearText_Click += FrmClearTextConfirmation_ClearText_Click;
 
             predictionKeys = new ALSButton[5];
             predictionWords = new List<string>();
@@ -45,6 +50,12 @@ namespace ALSProject
                 predictionKeys[i].Click += new System.EventHandler(this.Predictionkey_Click);
             }
             this.Resize += new System.EventHandler(this.Keyboard_Resize);
+        }
+
+        private void FrmClearTextConfirmation_ClearText_Click(bool confirm)
+        {
+            if (confirm)
+                ClearText();
         }
 
         public void Predictionkey_Click(object sender, EventArgs e)
@@ -95,12 +106,11 @@ namespace ALSProject
         {
             if (_confirmClear)
             {
-                Parent.Enabled = false;
-                ClearTextConfirmation confirm = new ClearTextConfirmation((Form)Parent);
-                confirm.Visible = true;
+                frmClearTextConfirmation.Show();
             }
             else
-                _textBox.Text = "";
+                ClearText();
+                
         }
 
         public void SetText(string text)
@@ -178,6 +188,13 @@ namespace ALSProject
             {
                 btn.Text = "";
             }
+        }
+
+        protected void ClearText()
+        {
+            _textBox.Text = "";
+            if (ClearText_Click != null)
+                ClearText_Click(this, EventArgs.Empty);
         }
 
         protected void Populate_Predictkeys()
