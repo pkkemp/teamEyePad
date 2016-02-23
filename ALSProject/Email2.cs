@@ -31,10 +31,12 @@ namespace ALSProject
 
         protected int pageNum = 0;
 
+        public object Zoom { get; private set; }
+
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
-        public Email2()
+        public Email2(bool isQwerty)
         {
             InitializeComponent();
             InitializeControls();
@@ -45,16 +47,31 @@ namespace ALSProject
             frmDeleteEmail.Visible = false;
             frmDeleteEmail.DeleteEmail_Click += FrmDeleteEmail_DeleteEmail_Click;
 
-            frmEmailLogin = new frmEmailLogin();
+            frmEmailLogin = new frmEmailLogin(isQwerty);
             frmEmailLogin.Visible = false;
             frmEmailLogin.Cancel_Click += Show;
 
-            frmComposeEmail = new ComposeEmail();
+            frmComposeEmail = new ComposeEmail(isQwerty);
             frmComposeEmail.Cancel_Click += Show;
             frmComposeEmail.Send_Click += Show;
 
             frmViewEmail = new ViewEmail();
             frmViewEmail.Back_Click += Show;
+        }
+
+        public void SetKeyboard(bool isQwerty)
+        {
+            Keyboard k;
+            if (isQwerty)
+                k = new KeyboardControl3();
+            else
+                k = new KeyboardControl2();
+            frmEmailLogin.SetKeyboard(k);
+            if (isQwerty)
+                k = new KeyboardControl3();
+            else
+                k = new KeyboardControl2();
+            frmComposeEmail.SetKeyboard(k);
         }
 
         private void Email2_Resize(object sender, EventArgs e)
@@ -117,8 +134,12 @@ namespace ALSProject
             btnDelete.Text = "Delete";
             btnMainMenu.Text = "Main\nMenu";
 
-            btnMoveUp.Text = "^";
-            btnMoveDown.Text = "V";
+            //btnMoveUp.Text = "^";
+            //btnMoveDown.Text = "V";
+            btnMoveUp.BackgroundImage = Properties.Resources.UpArrow;
+            btnMoveUp.BackgroundImageLayout = ImageLayout.Zoom;
+            btnMoveDown.BackgroundImage = Properties.Resources.DownArrow;
+            btnMoveDown.BackgroundImageLayout = ImageLayout.Zoom;
             btnSelect.Text = "Select";
 
             lbEmails.Font = new Font(lbEmails.Font.FontFamily, 20);
@@ -185,8 +206,7 @@ namespace ALSProject
 
         private void BtnSwitchAccount_Click(object sender, EventArgs e)
         {
-            frmEmailLogin temp = new frmEmailLogin();
-            temp.Show();
+            frmEmailLogin.Show();
         }
 
         private void BtnCompose_Click(object sender, EventArgs e)

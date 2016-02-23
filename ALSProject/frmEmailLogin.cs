@@ -19,18 +19,27 @@ namespace ALSProject
         private ALSTextbox txtButton;
         private ALSTextbox txtPassword;
         private Keyboard keyboard;
-        
+
         public delegate void Back(object sender, EventArgs args);
         public event Back Cancel_Click;
         public event Back Login_Click;
 
-        public frmEmailLogin()
+        public frmEmailLogin(bool isQwerty)
         {
             InitializeComponent();
-            InitializeControls();
+            InitializeControls(isQwerty);
         }
 
-        private void InitializeControls()
+        public void SetKeyboard(Keyboard k)
+        {
+            Controls.Remove(keyboard);
+            keyboard = k;
+            keyboard.HideTextBox();
+            Controls.Add(keyboard);
+            frmEmailLogin_Resize(this, EventArgs.Empty);
+        }
+
+        private void InitializeControls(bool isQwerty)
         {
             btnAlarm = new ALSAlarm();
             btnLogout = new ALSButton();
@@ -38,7 +47,10 @@ namespace ALSProject
             btnLogin = new ALSButton();
             txtButton = new ALSTextbox();
             txtPassword = new ALSTextbox();
-            keyboard = new KeyboardControl2();
+            if (isQwerty)
+                keyboard = new KeyboardControl3();
+            else
+                keyboard = new KeyboardControl2();
 
             btnLogout.Text = "Log\nOut";
             btnCancel.Text = "Cancel";

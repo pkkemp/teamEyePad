@@ -23,13 +23,22 @@ namespace ALSProject
         public event Event Cancel_Click;
         public event Event Send_Click;
 
-        public ComposeEmail()
+        public ComposeEmail(bool isQwerty)
         {
             InitializeComponent();
-            InitializeControls();
+            InitializeControls(isQwerty);
         }
 
-        private void InitializeControls()
+        public void SetKeyboard(Keyboard k)
+        {
+            Controls.Remove(keyboard);
+            keyboard = k;
+            keyboard.HideTextBox();
+            Controls.Add(keyboard);
+            ComposeEmail_Resize(this, EventArgs.Empty);
+        }
+
+        private void InitializeControls(bool isQwerty)
         {
             btnAlarm = new ALSAlarm();
             lblTo = new Label();
@@ -40,7 +49,11 @@ namespace ALSProject
             txtBody = new ALSTextbox();
             btnCancel = new ALSButton();
             btnSend = new ALSButton();
-            keyboard = new KeyboardControl2();
+
+            if (isQwerty)
+                keyboard = new KeyboardControl3();
+            else
+                keyboard = new KeyboardControl2();
 
             lblTo.Text = "To:";
             lblFrom.Text = "From:";
