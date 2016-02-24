@@ -209,6 +209,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EyeX\x86\EyeXFramework.dll</HintPath>
     </Reference>
+    <Reference Include="S22.Imap, Version=2.3.4642.27187, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\S22.Imap.2.3.2\lib\net40\S22.Imap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -300,6 +304,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\chatbubbles.png" />
   </ItemGroup>
   <ItemGroup>
