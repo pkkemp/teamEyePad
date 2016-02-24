@@ -126,6 +126,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmailClient.cs" />
+    <Compile Include="EmailMessage.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
