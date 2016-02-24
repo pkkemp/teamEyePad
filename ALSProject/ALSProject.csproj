@@ -144,6 +144,7 @@
       <DependentUpon>Email2.cs</DependentUpon>
     </Compile>
     <Compile Include="EmailClient.cs" />
+    <Compile Include="EmailFactory.cs" />
     <Compile Include="EmailResponseType.cs">
       <SubType>Form</SubType>
     </Compile>

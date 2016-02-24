@@ -41,17 +41,25 @@ namespace ALSProject
 
         private void BtnForward_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Respond(ComposeEmail.EmailType.Forward);
         }
 
         private void BtnReplyAll_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Respond(ComposeEmail.EmailType.ReplyAll);
         }
 
         private void BtnReply_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Respond(ComposeEmail.EmailType.Reply);
+        }
+
+        private void Respond(ComposeEmail.EmailType type)
+        {
+            ComposeEmail compose = EmailFactory.GetComposeEmail();
+            compose.SetEmailType(type);
+            compose.Show();
+            Hide();
         }
 
         private void EmailResponseType_Resize(object sender, EventArgs e)

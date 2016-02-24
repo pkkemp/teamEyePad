@@ -51,7 +51,7 @@ namespace ALSProject
             frmEmailLogin.Visible = false;
             frmEmailLogin.Cancel_Click += Show;
 
-            frmComposeEmail = new ComposeEmail(isQwerty);
+            frmComposeEmail = EmailFactory.GetComposeEmail();
             frmComposeEmail.Cancel_Click += Show;
             frmComposeEmail.Send_Click += Show;
 

@@ -19,6 +19,9 @@ namespace ALSProject
         ALSButton btnSend;
         Keyboard keyboard;
 
+        public enum EmailType { Compose, Reply, ReplyAll, Forward };
+        private EmailType type;
+
         public delegate void Event(object sender, EventArgs args);
         public event Event Cancel_Click;
         public event Event Send_Click;
@@ -36,6 +39,11 @@ namespace ALSProject
             keyboard.HideTextBox();
             Controls.Add(keyboard);
             ComposeEmail_Resize(this, EventArgs.Empty);
+        }
+
+        public void SetEmailType(EmailType type)
+        {
+            this.type = type;
         }
 
         private void InitializeControls(bool isQwerty)
@@ -122,6 +130,8 @@ namespace ALSProject
 
             txtBody.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight);
             keyboard.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight * 2);
+
+            MessageBox.Show(type + "");
         }
 
         private void ComposeEmail_FormClosing(object sender, FormClosingEventArgs e)
