@@ -144,9 +144,7 @@
       <DependentUpon>Email2.cs</DependentUpon>
     </Compile>
     <Compile Include="EmailClient.cs" />
-<<<<<<< HEAD
     <Compile Include="EmailMessage.cs" />
-=======
     <Compile Include="EmailFactory.cs" />
     <Compile Include="EmailResponseType.cs">
       <SubType>Form</SubType>
@@ -154,7 +152,6 @@
     <Compile Include="EmailResponseType.Designer.cs">
       <DependentUpon>EmailResponseType.cs</DependentUpon>
     </Compile>
->>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
