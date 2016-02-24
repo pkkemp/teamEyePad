@@ -25,7 +25,7 @@ namespace ALSProject
             Controls.Add(alarm);
 
             _lock.Click += new System.EventHandler(this.Lock_Click);
-            _lock.BackgroundImage = Properties.Resources.Lock;
+            _lock.BackgroundImage = Properties.Resources.Unlock;
             _lock.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 
             Resize += this.Resize_LockScreen;

@@ -58,32 +58,34 @@
             // btnScrollDown
             // 
             this.btnScrollDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnScrollDown.BackgroundImage = global::ALSProject.Properties.Resources.DownArrow;
+            this.btnScrollDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnScrollDown.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnScrollDown.dwellTimeInterval = 100;
             this.btnScrollDown.FlatAppearance.BorderSize = 0;
             this.btnScrollDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScrollDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 45.35199F);
+            this.btnScrollDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnScrollDown.Location = new System.Drawing.Point(12, 496);
             this.btnScrollDown.Name = "btnScrollDown";
             this.btnScrollDown.Size = new System.Drawing.Size(112, 94);
             this.btnScrollDown.TabIndex = 8;
-            this.btnScrollDown.Text = "\\/";
             this.btnScrollDown.UseVisualStyleBackColor = false;
             this.btnScrollDown.Click += new System.EventHandler(this.btnScrollDown_Click);
             // 
             // btnScrollUp
             // 
             this.btnScrollUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnScrollUp.BackgroundImage = global::ALSProject.Properties.Resources.UpArrow;
+            this.btnScrollUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnScrollUp.btnType = ALSProject.ALSButton.ButtonType.normal;
             this.btnScrollUp.dwellTimeInterval = 100;
             this.btnScrollUp.FlatAppearance.BorderSize = 0;
             this.btnScrollUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScrollUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 45.35199F);
+            this.btnScrollUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F);
             this.btnScrollUp.Location = new System.Drawing.Point(12, 396);
             this.btnScrollUp.Name = "btnScrollUp";
             this.btnScrollUp.Size = new System.Drawing.Size(112, 94);
             this.btnScrollUp.TabIndex = 7;
-            this.btnScrollUp.Text = "/\\";
             this.btnScrollUp.UseVisualStyleBackColor = false;
             this.btnScrollUp.Click += new System.EventHandler(this.btnScrollUp_Click);
             // 

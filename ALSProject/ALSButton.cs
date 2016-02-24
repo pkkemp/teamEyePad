@@ -19,15 +19,15 @@ namespace ALSProject
     {
         public enum ButtonType { key, normal, immutable };
 
-        public delegate void Clear_Click (object sender, EventArgs args);
+        public delegate void Clear_Click(object sender, EventArgs args);
         public event Clear_Click ClearClick;
-        
+
         public ButtonType btnType
         {
             get; set;
         }
 
-        int heightCounter;
+        double heightCounter;
         private static bool isDecay;
         protected Timer dwellTimer, decayTimer;
         protected bool clicked = false; //prevents rapid clicks
@@ -73,14 +73,15 @@ namespace ALSProject
 
         private void decayTimer_Tick(object sender, EventArgs e)
         {
+            double addHeight = Height / heightDivider;
             if (firstTime)
             {
-                CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter + Height / heightDivider, this.Width, Height));
+                CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)heightCounter + (int)addHeight, this.Width, Height));
                 firstTime = false;
             }
             else
             {
-                Invalidate(new Rectangle(0, this.Height - heightCounter, Width, Height / heightDivider));
+                Invalidate(new Rectangle(0, this.Height - (int)heightCounter, Width, (int)addHeight));
             }
             if (heightCounter <= 0)
             {
@@ -89,29 +90,24 @@ namespace ALSProject
             }
             else
             {
-                heightCounter -= this.Height / heightDivider;
+                heightCounter -= addHeight;
             }
         }
 
         private bool firstTime = true;
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
-            if (firstTime)
-            {
-                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, heightCounter));
-                firstTime = false;
-            }
-            else
-            {
-                this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - heightCounter, this.Width, this.Height / heightDivider));
-            }
+            double tempHeightCounter = heightCounter + (1.0* Height) / heightDivider;
+
+            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter - (int) heightCounter));
+
             if (heightCounter > this.Height)
             {
                 this.PerformClick();
             }
             else
             {
-                heightCounter += this.Height / heightDivider;
+                heightCounter = tempHeightCounter;
             }
         }
 
@@ -149,7 +145,7 @@ namespace ALSProject
                 if (sender != null && sender is ALSButton && ClearClick != null)
                 {
                     ALSButton button = (ALSButton)sender;
-                    if(button.Text.Equals("Clear"))
+                    if (button.Text.Equals("Clear"))
                     {
                         ClearClick(this, e);
                     }
@@ -170,6 +166,7 @@ namespace ALSProject
                 if (btn.btnType.Equals(buttonType))
                 {
                     btn.dwellTimer.Interval = Math.Max((int)(speed * 7), 1);
+                    btn.decayTimer.Interval = btn.dwellTimer.Interval * 3;
                 }
             }
         }
@@ -184,7 +181,7 @@ namespace ALSProject
             float WidthScaleRatio = (Width - 18) / RealSize.Width;
             float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
             float ScaleFontSize = Font.Size * ScaleRatio;
-            
+
             Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
 

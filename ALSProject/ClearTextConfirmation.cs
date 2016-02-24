@@ -12,12 +12,11 @@ namespace ALSProject
 {
     public partial class ClearTextConfirmation : Form
     {
-        Form parent;
+        public delegate void Event(bool confirm);
+        public event Event ClearText_Click;
 
-        public ClearTextConfirmation(Form parent)
+        public ClearTextConfirmation()
         {
-            this.parent = parent;
-
             InitializeComponent();
             confirmation1.Cancel.Click += new EventHandler(Cancel);
             confirmation1.Confirm.Click += new EventHandler(Confirm);
@@ -25,29 +24,16 @@ namespace ALSProject
 
         private void Cancel(object sender, EventArgs e)
         {
-            parent.Visible = true;
-            parent.Enabled = true;
-            Visible = false;
+            Hide();
+            if (ClearText_Click != null)
+                ClearText_Click(false);
         }
 
         private void Confirm(object sender, EventArgs e)
         {
-            if (parent is Notepage)
-            {
-                ((Notepage)parent).ClearText();
-            }
-            else if (parent is TextToSpeech)
-            {
-                ((TextToSpeech)parent).ClearText();
-            }
-            else if (parent is AddCallout)
-            {
-                ((AddCallout)parent).ClearText();
-            }
-            parent.Visible = true;
-            parent.Enabled = true;
-            parent.Focus();
-            Visible = false;
+            Hide();
+            if (ClearText_Click != null)
+                ClearText_Click(true);
         }
 
         private void ClearTextConfirmation_FormClosed(object sender, FormClosedEventArgs e)

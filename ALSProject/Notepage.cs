@@ -93,7 +93,7 @@ namespace ALSProject
         private void Clear_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
-            ClearTextConfirmation confirm = new ClearTextConfirmation(this);
+            ClearTextConfirmation confirm = new ClearTextConfirmation();
             confirm.Visible = true;
         }
 
@@ -163,7 +163,7 @@ namespace ALSProject
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            if(Back_Click != null)
+            if (Back_Click != null)
                 Back_Click(this, e);
             this.Hide();
         }
@@ -229,9 +229,8 @@ namespace ALSProject
             keyboard.SetTextBoxLocation(new Point(2 * MENU_BUTTON_SIZE + MainMenu.GAP * 2, speak.Top));
             _lock.Location = new Point(back.Left, MENU_BUTTON_SIZE + 2 * MainMenu.GAP);
 
-            keyboard.SetTextBoxSize(new Size(back.Left - MENU_BUTTON_SIZE * 2 - MainMenu.GAP * 4, MENU_BUTTON_SIZE));
             keyboard.Size = new Size(left.Location.X - MainMenu.GAP * 2, this.Height - 2 * MainMenu.GAP);
-
+            keyboard.SetTextBoxSize(new Size(keyboard.Right - 2 * MENU_BUTTON_SIZE - 3 * MainMenu.GAP, MENU_BUTTON_SIZE));
             keyboard.SetTextBoxFocus();
         }
 

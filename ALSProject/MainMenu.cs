@@ -50,7 +50,7 @@ namespace ALSProject
         SettingsForm settingsScreen;
         QuitForm quitScreen;
         Browser browser;
-        Email email;
+        Email2 email;
 
         Timer closeTimer;
 
@@ -80,7 +80,7 @@ namespace ALSProject
             settingsScreen = new SettingsForm();
             quitScreen = new QuitForm();
             browser = new Browser();
-            email = new Email();
+            email = new Email2(true);
 
             texttospeech.Visible = false;
             notebook.Visible = false;
@@ -141,6 +141,7 @@ namespace ALSProject
             callout.GetAddCallout().makeKeyboard(isQwerty);
             browser.makeKeyboard(isQwerty);
             notebook.GetNotepage().makeKeyboard(isQwerty);
+            email.SetKeyboard(isQwerty);
         }
 
         private void Callouts_Show(object sender, EventArgs args)

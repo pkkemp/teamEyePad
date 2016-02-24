@@ -108,6 +108,12 @@
     <Compile Include="ClearTextConfirmation.Designer.cs">
       <DependentUpon>ClearTextConfirmation.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComposeEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComposeEmail.Designer.cs">
+      <DependentUpon>ComposeEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Confirmation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +121,12 @@
       <DependentUpon>Confirmation.cs</DependentUpon>
     </Compile>
     <Compile Include="CVInterface.cs" />
+    <Compile Include="DeleteEmailConfirmation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteEmailConfirmation.Designer.cs">
+      <DependentUpon>DeleteEmailConfirmation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Email.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,13 +137,35 @@
       <DependentUpon>Email.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Email2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Email2.Designer.cs">
+      <DependentUpon>Email2.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmailClient.cs" />
+<<<<<<< HEAD
     <Compile Include="EmailMessage.cs" />
+=======
+    <Compile Include="EmailFactory.cs" />
+    <Compile Include="EmailResponseType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmailResponseType.Designer.cs">
+      <DependentUpon>EmailResponseType.cs</DependentUpon>
+    </Compile>
+>>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmailLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmailLogin.Designer.cs">
+      <DependentUpon>frmEmailLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
@@ -204,6 +238,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewEmail.Designer.cs">
+      <DependentUpon>ViewEmail.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EyeXFramework, Version=1.5.466.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=x86">
@@ -250,14 +290,29 @@
     <EmbeddedResource Include="ClearTextConfirmation.resx">
       <DependentUpon>ClearTextConfirmation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ComposeEmail.resx">
+      <DependentUpon>ComposeEmail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Confirmation.resx">
       <DependentUpon>Confirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteEmailConfirmation.resx">
+      <DependentUpon>DeleteEmailConfirmation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Email.resx">
       <DependentUpon>Email.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Email2.resx">
+      <DependentUpon>Email2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmailResponseType.resx">
+      <DependentUpon>EmailResponseType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmailLogin.resx">
+      <DependentUpon>frmEmailLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Keyboard.resx">
       <DependentUpon>Keyboard.cs</DependentUpon>
@@ -290,6 +345,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewEmail.resx">
+      <DependentUpon>ViewEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +436,10 @@
     <None Include="Resources\Lock.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\UpArrow.png" />
+    <None Include="Resources\Unlock.png" />
+    <None Include="Resources\browser.png" />
+    <None Include="Resources\DownArrow.png" />
     <Content Include="Resources\favicon.ico" />
     <None Include="Resources\icon.ico" />
     <None Include="Resources\icon.gif" />

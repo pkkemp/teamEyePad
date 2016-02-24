@@ -21,8 +21,8 @@ namespace ALSProject
         private ALSBrowserCntrl winBrowse;
         private Keyboard keyboard;
 
-        public delegate void MainMenuClick(object sender, EventArgs args);
-        public event MainMenuClick MainMenu_Click;
+        public delegate void Event(object sender, EventArgs args);
+        public event Event MainMenu_Click;
 
         public Browser()
         {
@@ -39,6 +39,12 @@ namespace ALSProject
             makeKeyboard(false);
 
             winBrowse.Navigate(homepage);
+            keyboard.ClearText_Click += Keyboard_ClearText_Click;
+        }
+
+        private void Keyboard_ClearText_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void timerEvent(object sender, EventArgs e)
