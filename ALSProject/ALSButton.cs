@@ -97,9 +97,17 @@ namespace ALSProject
 
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
-            double tempHeightCounter = heightCounter + (1.0* Height) / heightDivider;
+            double tempHeightCounter = heightCounter + (1.0 * Height) / heightDivider;
 
-            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter - (int) heightCounter));
+            if (firstTime)
+            {
+                CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter));
+                firstTime = false;
+            }
+            else
+            {
+                CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter - (int)heightCounter));
+            }
 
             if (heightCounter > this.Height)
             {
