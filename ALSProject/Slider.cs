@@ -28,11 +28,15 @@ namespace ALSProject
         // Create event
         public event btnRight_Click BtnRight_Click;
         public event btnLeft_Click BtnLeft_Click;
-        
-        public Slider(string title)
+
+        public Slider(string title) : this(title, 5) { }
+
+        public Slider(string title, double value)
         {
             InitializeComponent();
             initSlider(1, 0, 10);
+            if(value >= minAmount && value <= maxAmount)
+                this.value = value;
             this.title = new Label();
             this.title.Text = title;
             this.title.Font = this.Font;
@@ -48,9 +52,10 @@ namespace ALSProject
             btnRight.Text = "Faster";
             btnRight.Click += BtnRight_Click1;
             Controls.Add(btnRight);
+
         }
-        
-        
+
+
         public void BtnLeft_Click1(object sender, EventArgs e)
         {
             UpdatePos(direction.LEFT);

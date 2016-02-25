@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item>
+  <name>Settings</name>
+  <keyboard>Qwerty</keyboard>
+  <decay>No Decay</decay>
+  <dwellTime>10</dwellTime>
+  <keyboardDwellTime>0</keyboardDwellTime>
+  <voiceSpeed>0</voiceSpeed>
+</item>
