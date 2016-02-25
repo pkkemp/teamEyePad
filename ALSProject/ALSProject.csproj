@@ -144,6 +144,7 @@
       <DependentUpon>Email2.cs</DependentUpon>
     </Compile>
     <Compile Include="EmailClient.cs" />
+    <Compile Include="EmailMessage.cs" />
     <Compile Include="EmailFactory.cs" />
     <Compile Include="EmailResponseType.cs">
       <SubType>Form</SubType>
@@ -245,6 +246,10 @@
     <Reference Include="EyeXFramework, Version=1.5.466.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EyeX\x86\EyeXFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="S22.Imap, Version=2.3.4642.27187, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\S22.Imap.2.3.2\lib\net40\S22.Imap.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -355,6 +360,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\chatbubbles.png" />
   </ItemGroup>
   <ItemGroup>

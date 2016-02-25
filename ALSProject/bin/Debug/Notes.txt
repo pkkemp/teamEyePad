@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+askdlfjoa siejfoajwefojwoe fjwef jwoeij we f iojwef iowefio wojie foijweofioij wefoij we oijfoijw e foijwe foiwejoif owijef ojiwef oijwe fojiweoij fwoji efoij we fe
+=======
 <<<<<<< HEAD j
 Yyyyyyyuupppppppppppppppppppppppppppppp
 =======
@@ -6,4 +9,5 @@ Helo
 >>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
 H
 Pres
+>>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
 Had 

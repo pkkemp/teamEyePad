@@ -47,13 +47,9 @@ namespace ALSProject
 
             //this code block adds the messages returned by the server to the text box. This is just for debugging purposes.
 
-            foreach (String s in client.getMailHistory())
-            {
-                txtBody.Text += s + "\n";
-            }
 
             //this whole section is looking for the encoded part of the body and the tries to decode it. 
-            int index = txtBody.Text.IndexOf("base64") + 10;
+            /*int index = txtBody.Text.IndexOf("base64") + 10;
             String message = txtBody.Text.Substring(index, txtBody.TextLength - index);
 
 
@@ -75,7 +71,7 @@ namespace ALSProject
             message = Convert.FromBase64String(test).ToString();
 
             //adds the content of the message to the end of the textbox.
-            txtBody.Text += "\n" + message;
+            txtBody.Text += "\n" + message;*/
 
 
         }
