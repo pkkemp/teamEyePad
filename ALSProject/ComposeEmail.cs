@@ -91,7 +91,9 @@ namespace ALSProject
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
-            //Do stuff
+            EmailMessage message = new EmailMessage(txtFrom.Text, txtBody.Text, txtTo.Text, txtFrom.Text, new DateTime());
+            EmailClient Client = EmailFactory.GetEmailClient();
+            Client.sendMessage(message);
             Hide();
             if (Send_Click != null)
                 Send_Click(this, e);

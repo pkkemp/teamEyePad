@@ -29,6 +29,9 @@ namespace ALSProject
         ComposeEmail frmComposeEmail;
         ViewEmail frmViewEmail;
 
+        EmailClient Client;
+        List<EmailMessage> Messages;
+
         protected int pageNum = 0;
 
         public object Zoom { get; private set; }
@@ -40,9 +43,15 @@ namespace ALSProject
         {
             InitializeComponent();
             InitializeControls();
-
+            InitializeForms(isQwerty);
+            
             Resize += Email2_Resize;
 
+            BtnRefresh_Click(this, EventArgs.Empty);
+        }
+
+        private void InitializeForms(bool isQwerty)
+        {
             frmDeleteEmail = new DeleteEmailConfirmation();
             frmDeleteEmail.Visible = false;
             frmDeleteEmail.DeleteEmail_Click += FrmDeleteEmail_DeleteEmail_Click;
@@ -215,7 +224,11 @@ namespace ALSProject
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            EmailClient ec = EmailFactory.GetEmailClient();
+            ec.retrieveMail();
+
+            Messages = ec.getMailHistory();
+            refreshMessages();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -277,6 +290,15 @@ namespace ALSProject
                 lbEmails.SelectedIndex = temp;
             else
                 lbEmails.SelectedIndex = temp - 1;
+        }
+        
+        private void refreshMessages()
+        {
+            lbEmails.Items.Clear();
+            foreach (EmailMessage message in Messages)
+            {
+                lbEmails.Items.Add(message.body);
+            }
         }
 
         private void Show(object sender, EventArgs e)

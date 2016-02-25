@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ALSProject
 {
 
-    class EmailMessage
+    public class EmailMessage
     {
 
         public EmailMessage(String subject, String body, String destinationAddress, String sourceAddress, DateTime date)
@@ -22,19 +22,19 @@ namespace ALSProject
 
         DateTime date { get; }
 
-        String subject
+        public String subject
         {
             get; 
         }
-        String body
+        public String body
         {
             get; 
         }
-        String destinationAddress
+        public String destinationAddress
         {
             get; 
         }
-        String sourceAddress
+        public String sourceAddress
         {
             get;
         }
