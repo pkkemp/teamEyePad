@@ -28,8 +28,8 @@ namespace ALSProject
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
-        public delegate void ChangeKeyboard_Click(bool isQwerty);
-        public event ChangeKeyboard_Click ToggleKeyboard;
+        public delegate void ChangeKeyboardClick(Keyboard k);
+        public event ChangeKeyboardClick SetKeyboard;
 
         public SettingsForm()
         {
@@ -40,13 +40,11 @@ namespace ALSProject
             voiceSpeed = -1;
             try
             {
-                //XDocument doc = XDocument.Load();
                 XmlDataDocument doc = new XmlDataDocument();
-                //var doc = new XmlDocument();
                 FileStream fs = new FileStream("settings.xml", FileMode.Open, FileAccess.Read);
                 doc.Load(fs);
 
-                XmlNode xmlnode = doc.FirstChild; //doc.GetElementsByTagName("wrench");
+                XmlNode xmlnode = doc.FirstChild;
                 xmlnode = xmlnode.NextSibling;
                
                 isQwerty = xmlnode["keyboard"].InnerText.Equals("Qwerty");
@@ -56,9 +54,7 @@ namespace ALSProject
                 voiceSpeed = Convert.ToInt32(xmlnode["voiceSpeed"].InnerText);
             }
             catch (Exception) {}
-
             
-
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
             btnAlarm.setFontSize();
@@ -75,7 +71,7 @@ namespace ALSProject
             btnToggleKeyboard = new ALSButton();
             btnToggleKeyboard.Text = isQwerty ? "Large\nButton\nKeyboard" :"Qwerty\nKeyboard";
             btnToggleKeyboard.Size = btnBack.Size;
-            btnToggleKeyboard.Click += Toggle_Click;
+            btnToggleKeyboard.Click += ChangeKeyboard_Click;
             Controls.Add(btnToggleKeyboard);
 
             btnToggleDecay = new ALSButton();
@@ -117,11 +113,19 @@ namespace ALSProject
             frmAboutPage = new frmAbout();
             frmAboutPage.VisibleChanged += FrmAboutPage_VisibleChanged;
 
-            updateSldrDwellTime();
-
+            
             dwellTime = sldrDwellTime.value;
             keyboardDwellTime = sldrDwellTime.value;
             voiceSpeed = sldrVoiceSpeed.value;
+        }
+
+        public void ApplySettings()
+        {
+            updateSldrDwellTime();
+            updateSldrKeyboard();
+            updateVoiceSpeed();
+            BroadcastKeyboard();
+            ALSButton.setDecay(isDecay);
         }
 
         private void FrmAboutPage_VisibleChanged(object sender, EventArgs e)
@@ -143,7 +147,7 @@ namespace ALSProject
         private void SldrVoiceSpeed_Btn_Click(object sender, EventArgs e)
         {
             voiceSpeed = sldrVoiceSpeed.value;
-            MainMenu.SetVoiceSpeed((int)(voiceSpeed + .5) - 4);
+            updateVoiceSpeed();
         }
 
         private void SldrKeyboard_Btn_Click(object sender, EventArgs e)
@@ -173,6 +177,12 @@ namespace ALSProject
         private void updateSldrDwellTime()
         {
             ALSButton.setTimerSpeed(sldrDwellTime.value, ALSButton.ButtonType.normal);
+        }
+
+        private void updateVoiceSpeed()
+        {
+            MainMenu.SetVoiceSpeed((int)(voiceSpeed + .5) - 4);
+
         }
 
         private void SettingsForm_Resize(object sender, EventArgs e)
@@ -212,12 +222,22 @@ namespace ALSProject
             ALSButton.setTimerSpeed(sldrKeyboard.value, ALSButton.ButtonType.key);
         }
 
-        private void Toggle_Click(object sender, EventArgs e)
+        private void ChangeKeyboard_Click(object sender, EventArgs e)
         {
             isQwerty = !isQwerty;
-            if (ToggleKeyboard != null)
-                ToggleKeyboard(isQwerty);
-            ((ALSButton)sender).Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
+            btnToggleKeyboard.Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
+            BroadcastKeyboard();
+        }
+
+        private void BroadcastKeyboard()
+        {
+            if (SetKeyboard != null)
+            {
+                if (isQwerty)
+                    SetKeyboard(new KeyboardControl3());
+                else
+                    SetKeyboard(new KeyboardControl2());
+            }
         }
 
         private void btnDecay_Click(object sender, EventArgs e)
@@ -231,11 +251,11 @@ namespace ALSProject
         {
             try
             {
-                // Create the XmlDocument.
+                // Create the XmlDocument
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml("<item><name>Settings</name></item>");
 
-                // Add a price element.
+                // Add elements
                 XmlElement keyboard = doc.CreateElement("keyboard");
                 keyboard.InnerText = isQwerty ? "Qwerty" : "Large Button";
                 doc.DocumentElement.AppendChild(keyboard);
@@ -259,7 +279,7 @@ namespace ALSProject
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Indent = true;
 
-                // Save the document to a file and auto-indent the output.
+                // Save the document to a file and auto-indent the output
                 XmlWriter writer = XmlWriter.Create("settings.xml", settings);
                 doc.Save(writer);
             }

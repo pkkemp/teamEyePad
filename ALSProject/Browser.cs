@@ -36,7 +36,7 @@ namespace ALSProject
 
             mouseBox = new MouseRectangle(this);
             isFullScreen = false;
-            makeKeyboard(false);
+            SetKeyboard(new KeyboardControl2());
 
             winBrowse.Navigate(homepage);
             keyboard.ClearText_Click += Keyboard_ClearText_Click;
@@ -100,20 +100,31 @@ namespace ALSProject
             this.Controls.Add(this.winBrowse);
         }
 
-        public void makeKeyboard(bool isQwerty)
+        public void SetKeyboard(Keyboard k)
         {
             Controls.Remove(keyboard);
-            if (isQwerty)
-                keyboard = new KeyboardControl3();
-            else
-                keyboard = new KeyboardControl2();
-
-            this.Controls.Add(this.keyboard);
+            keyboard = k;
+            Controls.Add(keyboard);
             keyboard.OnPressed += Press_Key;
             keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
             keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
             keyboard.HideTextBox();
         }
+
+        //public void makeKeyboard(bool isQwerty)
+        //{
+        //    Controls.Remove(keyboard);
+        //    if (isQwerty)
+        //        keyboard = new KeyboardControl3();
+        //    else
+        //        keyboard = new KeyboardControl2();
+
+        //    this.Controls.Add(this.keyboard);
+        //    keyboard.OnPressed += Press_Key;
+        //    keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
+        //    keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
+        //    keyboard.HideTextBox();
+        //}
 
         private void Browser_Resize(object sender, EventArgs e)
         {

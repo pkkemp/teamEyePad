@@ -45,7 +45,7 @@ namespace ALSProject
             else
                 alsKeyboard = new KeyboardControl3();
 
-            this.Controls.Add(this.alsKeyboard);
+            Controls.Add(alsKeyboard);
             alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             alsKeyboard.SendToBack();
 
@@ -150,16 +150,14 @@ namespace ALSProject
             alsKeyboard.Size = new Size(Width - MainMenu.GAP * 2, Height - MainMenu.GAP * 2);
         }
 
-        public void makeKeyboard(bool isQwerty)
+        public void SetKeyboard(Keyboard k)
         {
-            this.Controls.Remove(alsKeyboard);
-            if (isQwerty)
-                alsKeyboard = new KeyboardControl3();
-            else
-                alsKeyboard = new KeyboardControl2();
+            Controls.Remove(alsKeyboard);
+            alsKeyboard = k;
+            Controls.Add(alsKeyboard);
+            alsKeyboard.setClearConfirmation(true);
             alsKeyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             TextToSpeech_Resize(this, EventArgs.Empty);
-            Invalidate();
         }
 
         protected void btnCallouts_Click(object sender, EventArgs e)

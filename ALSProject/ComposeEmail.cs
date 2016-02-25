@@ -130,8 +130,6 @@ namespace ALSProject
 
             txtBody.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight);
             keyboard.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight * 2);
-
-            MessageBox.Show(type + "");
         }
 
         private void ComposeEmail_FormClosing(object sender, FormClosingEventArgs e)

@@ -270,15 +270,27 @@ namespace ALSProject
             return new ALSButton();
         }
 
-        public void makeKeyboard(bool isQwerty)
+        //public void makeKeyboard(bool isQwerty)
+        //{
+        //    Controls.Remove(keyboard);
+        //    if (isQwerty)
+        //        keyboard = new KeyboardControl3();
+        //    else
+        //        keyboard = new KeyboardControl2();
+        //    Notepage_Resize(this, null);
+        //    Invalidate();
+        //}
+
+        public void SetKeyboard(Keyboard k)
         {
             Controls.Remove(keyboard);
-            if (isQwerty)
-                keyboard = new KeyboardControl3();
-            else
-                keyboard = new KeyboardControl2();
-            Notepage_Resize(this, null);
-            Invalidate();
+            keyboard = k;
+            Controls.Add(keyboard);
+            keyboard.setClearConfirmation(true);
+            keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
+            Notepage_Resize(this, EventArgs.Empty);
         }
+
+
     }
 }

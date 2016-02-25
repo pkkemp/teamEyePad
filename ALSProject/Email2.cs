@@ -59,19 +59,18 @@ namespace ALSProject
             frmViewEmail.Back_Click += Show;
         }
 
-        public void SetKeyboard(bool isQwerty)
+        public void SetKeyboard(Keyboard k)
         {
-            Keyboard k;
-            if (isQwerty)
-                k = new KeyboardControl3();
-            else
-                k = new KeyboardControl2();
             frmEmailLogin.SetKeyboard(k);
-            if (isQwerty)
-                k = new KeyboardControl3();
-            else
-                k = new KeyboardControl2();
-            frmComposeEmail.SetKeyboard(k);
+            try
+            {
+                k = (Keyboard)k.Clone();
+                frmComposeEmail.SetKeyboard(k);
+            }
+            catch
+            {
+                MessageBox.Show("There was an error loading the settings");
+            }
         }
 
         private void Email2_Resize(object sender, EventArgs e)
