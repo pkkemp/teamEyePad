@@ -112,6 +112,10 @@ namespace ALSProject
             if (heightCounter > this.Height)
             {
                 this.PerformClick();
+
+                //Restart button
+                heightCounter = 0;
+                dwellTimer.Start();
             }
             else
             {

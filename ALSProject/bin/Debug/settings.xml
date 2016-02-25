@@ -3,7 +3,7 @@
   <name>Settings</name>
   <keyboard>Large Button</keyboard>
   <decay>Decay</decay>
-  <dwellTime>10</dwellTime>
-  <keyboardDwellTime>0</keyboardDwellTime>
+  <dwellTime>7</dwellTime>
+  <keyboardDwellTime>10</keyboardDwellTime>
   <voiceSpeed>10</voiceSpeed>
 </item>
