@@ -112,6 +112,7 @@
             this.Controls.Add(this.alsAlarm1);
             this.Controls.Add(this.btnMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TextToSpeech";
             this.Text = "Text to Speech";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

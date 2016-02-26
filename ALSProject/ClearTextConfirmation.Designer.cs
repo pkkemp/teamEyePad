@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClearTextConfirmation));
             this.confirmation1 = new ALSProject.Confirmation();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.ClientSize = new System.Drawing.Size(658, 343);
             this.Controls.Add(this.confirmation1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ClearTextConfirmation";
             this.Text = "ClearTextConfirmation";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClearTextConfirmation_FormClosed);

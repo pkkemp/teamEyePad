@@ -176,6 +176,7 @@
             this.Controls.Add(this.btnMenu);
             this.Controls.Add(this.alsAlarm1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Browser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Browser";

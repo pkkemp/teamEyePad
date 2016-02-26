@@ -104,12 +104,13 @@ namespace ALSProject
 
             settingsScreen.SetKeyboard += SettingsScreen_SetKeyboard;
 
-            texttospeech.Icon = Properties.Resources.icon;
-            notebook.Icon = Properties.Resources.icon;
-            callout.Icon = Properties.Resources.icon;
-            settingsScreen.Icon = Properties.Resources.icon;
-            browser.Icon = Properties.Resources.icon;
-            email.Icon = Properties.Resources.icon;
+            Icon icon = Properties.Resources.eyeIcon;
+            //texttospeech.Icon = icon;
+            //notebook.Icon = icon;
+            //callout.Icon = icon;
+            //settingsScreen.Icon = icon;
+            //browser.Icon = icon;
+            //email.Icon = icon;
 
             this.VisibleChanged += UI_VisibleChanged;
             

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmailResponseType));
             this.SuspendLayout();
             // 
             // EmailResponseType
@@ -37,6 +38,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(403, 472);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EmailResponseType";
             this.Text = "EmailResponseType";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EmailResponseType_FormClosing);

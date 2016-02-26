@@ -83,6 +83,7 @@ namespace ALSProject
             this.btnBack.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +94,7 @@ namespace ALSProject
             this.Controls.Add(this.btnAlarm);
             this.Controls.Add(this.btnBack);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
