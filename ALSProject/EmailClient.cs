@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using S22.Imap;
+using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
@@ -101,12 +102,16 @@ namespace ALSProject
                 // Download mail messages from the default mailbox.
                 IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray());
                 IEnumerator<MailMessage> messageList = messages.GetEnumerator();
+                IEnumerator<uint> uidList = uids.GetEnumerator();
+
                 while (messageList.MoveNext())
                 {
-                    
+                    uidList.MoveNext();
 
                     EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
-                        messageList.Current.To[0].Address, messageList.Current.From.Address, DateTime.Now); //this datetime needs to look for the date the email was sent
+                        messageList.Current.To[0].Address, messageList.Current.From.Address, EmailClient.Date(messageList.Current),
+                        uidList.Current); 
+
                     int hash = temp.GetHashCode();
 
                     bool contains = false;
@@ -157,6 +162,36 @@ namespace ALSProject
                 
             }
 
+            MailList.Reverse();
+
+        }
+
+        private void ListFolders(ImapClient client)
+        {
+            
+                String mailboxes = "";
+
+                foreach (string s in client.ListMailboxes())
+                {
+                    mailboxes += s + "\n";
+                }
+
+                MessageBox.Show(mailboxes);
+            
+        }
+
+        public void DeleteMessage(EmailMessage email)
+        {
+            using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
+            {
+
+                try { client.MoveMessage(email.getUID(), "[Gmail]/Trash"); }
+                catch(BadServerResponseException e)
+                {
+                    //be really sad
+                }
+
+            }
         }
 
         public List<EmailMessage> getMailHistory()
@@ -164,8 +199,28 @@ namespace ALSProject
             return MailList;
         }
 
+        public static DateTime Date(MailMessage message)
+        {
+            string date = message.Headers["Date"];
+            if (String.IsNullOrEmpty(date))
+                throw new Exception("Date is null");
+            // Dates are sometimes suffixed with comments indicating the timezone, for example:
+            // Tue, 29 Mar 2005 15:11:45 -0800 (PST).
+            date = Regex.Replace(date, @"\([^\)]+\)", String.Empty);
+            try
+            {
+                return DateTime.Parse(date);
+            }
+            catch (FormatException)
+            {
+                throw new Exception("Date cannot be parsed");
+            }
+        }
+
 
     }
+
+    
 }
 
 
