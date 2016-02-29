@@ -31,6 +31,7 @@ namespace ALSProject
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Notepage));
             this.SuspendLayout();
             // 
             // Notepage
@@ -40,6 +41,7 @@ namespace ALSProject
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Notepage";
             this.Text = "Notepage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

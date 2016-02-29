@@ -13,7 +13,7 @@ namespace ALSProject
     //and draws on it according to the child class specifications. It is causing the error for keyboardControl2 design view. 
     //I'm leaving it because it isn't causing a problem and fixing it is a low priority, but for general polish and correct design
     //methodology, this should be fixed in the future
-    public abstract class Keyboard : UserControl
+    public abstract class Keyboard : UserControl, ICloneable
     {
         protected TextBox _textBox;
         protected bool _confirmClear = false;
@@ -364,6 +364,8 @@ namespace ALSProject
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
 
+        public abstract object Clone();
+        
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -375,5 +377,6 @@ namespace ALSProject
             this.ResumeLayout(false);
 
         }
+
     }
 }

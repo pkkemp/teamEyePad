@@ -234,5 +234,10 @@ namespace ALSProject
                     keyboard[i, row2 + j].Location = new Point(keyboard[i, row2 + j - 1].Right + MainMenu.GAP, keyboard[i, row2].Location.Y);
                 }
         }
+
+        public override object Clone()
+        {
+            return new KeyboardControl2();
+        }
     }
 }

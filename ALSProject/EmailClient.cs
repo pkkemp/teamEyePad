@@ -9,7 +9,7 @@ using S22.Imap;
 
 namespace ALSProject
 {
-    class EmailClient
+    public class EmailClient
     {
         SmtpClient sendClient;
         List<EmailMessage> MailList = new List<EmailMessage>();
@@ -34,18 +34,19 @@ namespace ALSProject
             this.password = password;
         }
 
-        public void StartSMTP()
+        private void StartSMTP()
         {
             sendClient = new SmtpClient(smtpHost);
             sendClient.Port = 587;
-            sendClient.Credentials =
-            new System.Net.NetworkCredential(username, password);
+
+            sendClient.Credentials = new System.Net.NetworkCredential("teameyepad", "highEyeGuy");
             sendClient.EnableSsl = true;
         }
 
-        public void sendMessage(MailMessage mail)
+        public void sendMessage(EmailMessage mail)
         {
-            sendClient.Send(mail);
+            MailMessage message = new MailMessage(mail.sourceAddress, mail.destinationAddress, mail.subject, mail.body);
+            sendClient.Send(message);
         }
 
         public void retrieveMail()

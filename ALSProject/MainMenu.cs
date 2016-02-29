@@ -75,12 +75,13 @@ namespace ALSProject
             voice.SelectVoiceByHints(VoiceGender.Male);
 
             texttospeech = new TextToSpeech(true);
-            notebook = new Notebook(true);      //TODO: change to get from settings
+            notebook = new Notebook(true);      
             callout = new Callout(true);
-            settingsScreen = new SettingsForm();
             quitScreen = new QuitForm();
             browser = new Browser();
             email = new Email2(true);
+            //Settings must be created last to update all of the other application's properties
+            settingsScreen = new SettingsForm();
 
             texttospeech.Visible = false;
             notebook.Visible = false;
@@ -101,14 +102,15 @@ namespace ALSProject
             texttospeech.Callouts_Click += Callouts_Show;
             callout.TextToSpeech_Click += TextToSpeech_Show;
 
-            settingsScreen.ToggleKeyboard += SettingsScreen_ToggleKeyboard;
+            settingsScreen.SetKeyboard += SettingsScreen_SetKeyboard;
 
-            texttospeech.Icon = Properties.Resources.icon;
-            notebook.Icon = Properties.Resources.icon;
-            callout.Icon = Properties.Resources.icon;
-            settingsScreen.Icon = Properties.Resources.icon;
-            browser.Icon = Properties.Resources.icon;
-            email.Icon = Properties.Resources.icon;
+            Icon icon = Properties.Resources.eyeIcon;
+            //texttospeech.Icon = icon;
+            //notebook.Icon = icon;
+            //callout.Icon = icon;
+            //settingsScreen.Icon = icon;
+            //browser.Icon = icon;
+            //email.Icon = icon;
 
             this.VisibleChanged += UI_VisibleChanged;
             
@@ -128,6 +130,8 @@ namespace ALSProject
                 MessageBox.Show("You are using a computer with a screen resolution less than recommended. Undesired results may incur.");
             }
 
+            settingsScreen.ApplySettings();
+
             //listen for close
             closeTimer = new Timer();
             closeTimer.Enabled = true;
@@ -135,13 +139,27 @@ namespace ALSProject
             closeTimer.Tick += new EventHandler(closeTimeEvent);
         }
         
-        private void SettingsScreen_ToggleKeyboard(bool isQwerty)
+        private void SettingsScreen_SetKeyboard(Keyboard k)
         {
-            texttospeech.makeKeyboard(isQwerty);
-            callout.GetAddCallout().makeKeyboard(isQwerty);
-            browser.makeKeyboard(isQwerty);
-            notebook.GetNotepage().makeKeyboard(isQwerty);
-            email.SetKeyboard(isQwerty);
+            try
+            {
+                Keyboard tempKeyboard = (Keyboard)k.Clone();
+                texttospeech.SetKeyboard(tempKeyboard);
+                tempKeyboard = (Keyboard)k.Clone();
+                callout.GetAddCallout().SetKeyboard(tempKeyboard);
+                tempKeyboard = (Keyboard)k.Clone();
+                browser.SetKeyboard(tempKeyboard);
+                tempKeyboard = (Keyboard)k.Clone();
+                notebook.GetNotepage().SetKeyboard(tempKeyboard);
+                tempKeyboard = (Keyboard)k.Clone();
+                email.SetKeyboard(tempKeyboard);
+
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There was an error loading the settings.");
+            }
         }
 
         private void Callouts_Show(object sender, EventArgs args)

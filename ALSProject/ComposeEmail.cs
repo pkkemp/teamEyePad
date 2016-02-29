@@ -91,7 +91,9 @@ namespace ALSProject
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
-            //Do stuff
+            EmailMessage message = new EmailMessage(txtFrom.Text, txtBody.Text, txtTo.Text, txtFrom.Text, new DateTime());
+            EmailClient Client = EmailFactory.GetEmailClient();
+            Client.sendMessage(message);
             Hide();
             if (Send_Click != null)
                 Send_Click(this, e);
@@ -130,8 +132,6 @@ namespace ALSProject
 
             txtBody.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight);
             keyboard.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight * 2);
-
-            MessageBox.Show(type + "");
         }
 
         private void ComposeEmail_FormClosing(object sender, FormClosingEventArgs e)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteEmailConfirmation));
             this.confirmation1 = new ALSProject.Confirmation();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.ClientSize = new System.Drawing.Size(658, 343);
             this.Controls.Add(this.confirmation1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeleteEmailConfirmation";
             this.Text = "DeleteEmailConfirmation";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeleteEmailConfirmation_FormClosing);

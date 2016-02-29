@@ -44,6 +44,7 @@ namespace ALSProject
             }
         }
         private static List<ALSButton> alsButtons = new List<ALSButton>();
+        private bool firstTime = true;
 
         public static Color baseColor = Color.FromArgb(224, 224, 224);
 
@@ -94,16 +95,27 @@ namespace ALSProject
             }
         }
 
-        private bool firstTime = true;
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
-            double tempHeightCounter = heightCounter + (1.0* Height) / heightDivider;
+            double tempHeightCounter = heightCounter + (1.0 * Height) / heightDivider;
 
-            this.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter - (int) heightCounter));
+            if (firstTime)
+            {
+                CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter));
+                firstTime = false;
+            }
+            else
+            {
+                CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(127, 128, 128, 128)), new Rectangle(0, this.Height - (int)tempHeightCounter, this.Width, (int)tempHeightCounter - (int)heightCounter));
+            }
 
             if (heightCounter > this.Height)
             {
                 this.PerformClick();
+
+                //Restart button
+                heightCounter = 0;
+                dwellTimer.Start();
             }
             else
             {
@@ -165,7 +177,7 @@ namespace ALSProject
             {
                 if (btn.btnType.Equals(buttonType))
                 {
-                    btn.dwellTimer.Interval = Math.Max((int)(speed * 7), 1);
+                    btn.dwellTimer.Interval = Math.Max((int)(100 - speed * 10), 1);
                     btn.decayTimer.Interval = btn.dwellTimer.Interval * 3;
                 }
             }
