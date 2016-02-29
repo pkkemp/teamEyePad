@@ -19,8 +19,6 @@ namespace ALSProject
             string smtpHost = "smtp.gmail.com";*/
         string imapHost; string username; string password; string smtpHost;
         
-
-
         public EmailClient(string imapHost, string smtpHost, string username, string password)
         {
             this.setLogin(imapHost, smtpHost, username, password);

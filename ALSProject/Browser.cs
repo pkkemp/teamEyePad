@@ -39,6 +39,7 @@ namespace ALSProject
             SetKeyboard(new KeyboardControl2());
 
             winBrowse.Navigate(homepage);
+            winBrowse.ScriptErrorsSuppressed = true;
             keyboard.ClearText_Click += Keyboard_ClearText_Click;
         }
 
@@ -110,22 +111,7 @@ namespace ALSProject
             keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
             keyboard.HideTextBox();
         }
-
-        //public void makeKeyboard(bool isQwerty)
-        //{
-        //    Controls.Remove(keyboard);
-        //    if (isQwerty)
-        //        keyboard = new KeyboardControl3();
-        //    else
-        //        keyboard = new KeyboardControl2();
-
-        //    this.Controls.Add(this.keyboard);
-        //    keyboard.OnPressed += Press_Key;
-        //    keyboard.Location = new Point(winBrowse.Location.X, winBrowse.Location.Y + winBrowse.Size.Height);
-        //    keyboard.Size = new Size(winBrowse.Width, this.Height - (winBrowse.Location.Y + winBrowse.Size.Height));
-        //    keyboard.HideTextBox();
-        //}
-
+        
         private void Browser_Resize(object sender, EventArgs e)
         {
             int numButtons = 8;
@@ -141,9 +127,9 @@ namespace ALSProject
             btnMenu.Location = new Point(MainMenu.GAP, alsAlarm1.Bottom + MainMenu.GAP);
             txtUrl.Location = new Point(MainMenu.GAP, btnMenu.Bottom + MainMenu.GAP);
             btnGo.Location = new Point(MainMenu.GAP, txtUrl.Bottom + MainMenu.GAP);
-            btnScrollDown.Location = new Point(MainMenu.GAP, btnGo.Bottom + MainMenu.GAP);
-            btnScrollUp.Location = new Point(MainMenu.GAP, btnScrollDown.Bottom + MainMenu.GAP);
-            btnKeyboard.Location = new Point(MainMenu.GAP, btnScrollUp.Bottom + MainMenu.GAP);
+            btnScrollUp.Location = new Point(MainMenu.GAP, btnGo.Bottom + MainMenu.GAP);
+            btnScrollDown.Location = new Point(MainMenu.GAP, btnScrollUp.Bottom + MainMenu.GAP);
+            btnKeyboard.Location = new Point(MainMenu.GAP, btnScrollDown.Bottom + MainMenu.GAP);
             btnBack.Location = new Point(MainMenu.GAP, btnKeyboard.Bottom + MainMenu.GAP);
 
             winBrowse.Location = new Point(alsAlarm1.Right + MainMenu.GAP, MainMenu.GAP);
