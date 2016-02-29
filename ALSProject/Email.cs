@@ -31,7 +31,7 @@ namespace ALSProject
         {
             InitializeComponent();
 
-            client = new EmailClient();
+            //client = new EmailClient();
             this.CreateLayout(new System.ComponentModel.ComponentResourceManager(typeof(Email)));
         }
 

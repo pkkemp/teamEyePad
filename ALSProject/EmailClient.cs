@@ -13,20 +13,33 @@ namespace ALSProject
     {
         SmtpClient sendClient;
         List<EmailMessage> MailList = new List<EmailMessage>();
-        
 
-        public EmailClient()
+        /*string hostname = "imap.gmail.com",
+            username = "teamEyePad@gmail.com", password = "highEyeGuy";
+            string smtpHost = "smtp.gmail.com";*/
+        string imapHost; string username; string password; string smtpHost;
+
+
+        public EmailClient(string imapHost, string smtpHost, string username, string password)
         {
-            StartSMTP();
+            this.setLogin(imapHost, smtpHost, username, password);
 
+        }
+
+        public void setLogin(string imapHost, string smtpHost, string username, string password)
+        {
+            this.imapHost = imapHost;
+            this.smtpHost = smtpHost;
+            this.username = username;
+            this.password = password;
         }
 
         public void StartSMTP()
         {
-            sendClient = new SmtpClient("smtp.gmail.com");
+            sendClient = new SmtpClient(smtpHost);
             sendClient.Port = 587;
             sendClient.Credentials =
-            new System.Net.NetworkCredential("teameyepad", "highEyeGuy");
+            new System.Net.NetworkCredential(username, password);
             sendClient.EnableSsl = true;
         }
 
@@ -37,11 +50,13 @@ namespace ALSProject
 
         public void retrieveMail()
         {
-
-            string hostname = "imap.gmail.com",
-             username = "teamEyePad@gmail.com", password = "highEyeGuy";
+            if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
+            {
+                throw new Exception("Not logged in");
+            }
+           
             // The default port for IMAP over SSL is 993.
-            using (ImapClient client = new ImapClient(hostname, 993, username, password, AuthMethod.Login, true))
+            using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
             {
                 Console.WriteLine("We are connected!");
                 // Returns a collection of identifiers of all mails matching the specified search criteria.
