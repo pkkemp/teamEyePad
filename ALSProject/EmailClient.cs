@@ -18,6 +18,7 @@ namespace ALSProject
             username = "teamEyePad@gmail.com", password = "highEyeGuy";
             string smtpHost = "smtp.gmail.com";*/
         string imapHost; string username; string password; string smtpHost;
+        
 
 
         public EmailClient(string imapHost, string smtpHost, string username, string password)
@@ -49,6 +50,39 @@ namespace ALSProject
             sendClient.Send(message);
         }
 
+        public void sendMessage(string sourceAddress, string destinationAddress, string subject, string body)
+        {
+            MailMessage message = new MailMessage(sourceAddress,destinationAddress,subject,body);
+            sendClient.Send(message);
+        }
+
+        public void sendReply(EmailMessage emailBeingRespondedTo, string body)
+        {
+            string subjectWithRe;
+            string bodyWithHistory = body + "\n\n\n" + emailBeingRespondedTo.body;
+            if(!emailBeingRespondedTo.subject.Substring(0,3).Equals("RE:"))
+                subjectWithRe = "RE: " + emailBeingRespondedTo.subject;
+            else
+                subjectWithRe = emailBeingRespondedTo.subject;
+
+
+
+            MailMessage message = new MailMessage(username, emailBeingRespondedTo.sourceAddress, subjectWithRe, bodyWithHistory);
+            sendClient.Send(message);
+        }
+
+        public void sendForward(EmailMessage forwardedEmail, string destinationAddress, string newBody)
+        {
+            string originalMessage = "Original: \n From: "+ forwardedEmail.sourceAddress + "\nTo: "+forwardedEmail.destinationAddress
+                + "\n Subject: "+forwardedEmail.subject+"\n"+forwardedEmail.body;
+
+            string combinedBody = newBody + "\n\n\n" + originalMessage;
+            string subject = "Fwd: " + forwardedEmail.subject;
+
+            MailMessage message = new MailMessage(username, destinationAddress, subject, combinedBody);
+            sendClient.Send(message);
+        }
+
         public void retrieveMail()
         {
             if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
@@ -71,12 +105,13 @@ namespace ALSProject
 
                     EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
                         messageList.Current.To[0].Address, messageList.Current.From.Address, DateTime.Now); //temp datetime
+                    int hash = temp.GetHashCode();
 
                     bool contains = false;
 
                     foreach (EmailMessage m in MailList)
                     {
-                        if (m.GetHashCode().Equals(temp.GetHashCode()))
+                        if (m.GetHashCode().Equals(hash))
                             contains = true;
                     }
 
