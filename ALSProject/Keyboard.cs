@@ -22,6 +22,8 @@ namespace ALSProject
         protected ALSKey[,] keyboard;
         protected List<string> predictionWords;
         protected string mostRecentEntry;
+        protected bool browserMode = false;
+        protected string internalBuffer;
 
         protected ClearTextConfirmation frmClearTextConfirmation;
 
@@ -30,6 +32,11 @@ namespace ALSProject
         public event Event ClearText_Click;
 
         public Keyboard()
+        {
+            this.initialSetup();
+        }
+
+        protected void initialSetup()
         {
             _textBox = new TextBox();
             _textBox.Font = new Font(_textBox.Font.FontFamily, 24);
@@ -50,6 +57,13 @@ namespace ALSProject
                 predictionKeys[i].Click += new System.EventHandler(this.Predictionkey_Click);
             }
             this.Resize += new System.EventHandler(this.Keyboard_Resize);
+        }
+
+        public Keyboard(bool browserMode)
+        {
+            this.browserMode = browserMode;
+            this.initialSetup();
+
         }
 
         private void FrmClearTextConfirmation_ClearText_Click(bool confirm)
@@ -110,7 +124,7 @@ namespace ALSProject
             }
             else
                 ClearText();
-                
+
         }
 
         public void SetText(string text)
@@ -245,10 +259,12 @@ namespace ALSProject
 
         protected void DeleteWord(object sender, EventArgs e)
         {
+            int numCharacterToDelete;
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+
+
             var match = Regex.Match(text, @"\s+\S+\s*$");
             var selectionStart = _textBox.SelectionStart;
-            int numCharacterToDelete;
             if (match.Success)
             {
                 _textBox.Text = text.Substring(0, match.Index) + " " + _textBox.Text.Substring(_textBox.SelectionStart);
@@ -267,6 +283,7 @@ namespace ALSProject
                 mostRecentEntry += "\b";
             if (OnPressed != null)
                 OnPressed(this, EventArgs.Empty);
+
 
             ResetPrediction();
             Populate_Predictkeys();
@@ -365,7 +382,7 @@ namespace ALSProject
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
 
         public abstract object Clone();
-        
+
         private void InitializeComponent()
         {
             this.SuspendLayout();

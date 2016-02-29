@@ -36,7 +36,7 @@ namespace ALSProject
 
             mouseBox = new MouseRectangle(this);
             isFullScreen = false;
-            SetKeyboard(new KeyboardControl2());
+            SetKeyboard(new KeyboardControl2(true));
 
             winBrowse.Navigate(homepage);
             keyboard.ClearText_Click += Keyboard_ClearText_Click;
