@@ -13,6 +13,7 @@ namespace ALSProject
     public partial class EmailResponseType : Form
     {
         ALSButton btnReply, btnReplyAll, btnForward;
+        private EmailMessage message;
 
         public EmailResponseType()
         {
@@ -39,6 +40,11 @@ namespace ALSProject
             Controls.Add(btnForward);
         }
 
+        public void SetEmailMessage(EmailMessage m)
+        {
+            message = m;
+        }
+
         private void BtnForward_Click(object sender, EventArgs e)
         {
             Respond(ComposeEmail.EmailType.Forward);
@@ -56,8 +62,10 @@ namespace ALSProject
 
         private void Respond(ComposeEmail.EmailType type)
         {
+
             ComposeEmail compose = EmailFactory.GetComposeEmail();
             compose.SetEmailType(type);
+            compose.SetEmailMessage(message);
             compose.Show();
             Hide();
         }

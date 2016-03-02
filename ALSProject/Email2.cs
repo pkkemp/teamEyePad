@@ -265,7 +265,13 @@ namespace ALSProject
 
         private void BtnSelect_Click(object sender, EventArgs e)
         {
-            frmViewEmail.Show();
+            if (lbEmails.Items.Count > 0)
+            {
+                if (lbEmails.SelectedIndex == -1)
+                    lbEmails.SelectedIndex = 0;
+                frmViewEmail.SetMailMessage(Messages[lbEmails.SelectedIndex]);
+                frmViewEmail.Show();
+            }
         }
 
         private void LbEmails_SelectedIndexChanged(object sender, EventArgs e)

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using S22.Imap;
 using System.Text.RegularExpressions;
@@ -22,12 +20,10 @@ namespace ALSProject
 
         string imapHost; string username; string password; string smtpHost;
         
-
-
         public EmailClient(string imapHost, string smtpHost, string username, string password)
         {
             this.setLogin(imapHost, smtpHost, username, password);
-
+            StartSMTP();
         }
 
         public void setLogin(string imapHost, string smtpHost, string username, string password)
