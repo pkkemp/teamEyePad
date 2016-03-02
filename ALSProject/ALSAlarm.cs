@@ -13,34 +13,24 @@ namespace ALSProject
         private const int APPCOMMAND_VOLUME_UP = 0xA0000;
         private const int WM_APPCOMMAND = 0x319;
 
+        private static List<ALSAlarm> alarms = new List<ALSAlarm>();
         SoundPlayer player;
-        
+
         public ALSAlarm()
         {
             this.player = new SoundPlayer(Properties.Resources.buzz);
-            //becm = new BECM(Properties.Resources.buzz);
             alarmOn = false;
             this.Text = "";
             Click += new System.EventHandler(this.ALSAlarm_Click);
             this.BackgroundImage = Properties.Resources.speaker_icon;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.VisibleChanged += ALSAlarm_VisibleChanged;
-            
+            alarms.Add(this);
+            this.Disposed += ALSAlarm_Disposed;
         }
 
-        private void ALSAlarm_VisibleChanged(object sender, EventArgs e)
+        private void ALSAlarm_Disposed(object sender, EventArgs e)
         {
-            if (Visible)
-            {
-                if (alarmOn)
-                {
-                    this.BackgroundImage = Properties.Resources.AlarmOff;
-                }
-                else
-                {
-                    this.BackgroundImage = Properties.Resources.speaker_icon;
-                }
-            }
+            alarms.Remove(this);
         }
 
         public Boolean isAlarmOn()
@@ -76,7 +66,18 @@ namespace ALSProject
 
                 alarmOn = true;
             }
-            
+            if (Visible)
+            {
+                foreach (var alarm in alarms)
+                    if (alarmOn)
+                    {
+                        alarm.BackgroundImage = Properties.Resources.AlarmOff;
+                    }
+                    else
+                    {
+                        alarm.BackgroundImage = Properties.Resources.speaker_icon;
+                    }
+            }
         }
 
         private void InitializeComponent()

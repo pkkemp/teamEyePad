@@ -9,6 +9,18 @@ namespace ALSProject
 
     public class EmailMessage
     {
+        private uint UID;
+
+        public EmailMessage(String subject, String body, String destinationAddress, String sourceAddress, DateTime date, uint UID)
+        {
+            this.subject = subject;
+            this.body = body;
+            this.destinationAddress = destinationAddress;
+            this.sourceAddress = sourceAddress;
+            this.date = date;
+            this.UID = UID;
+
+        }
 
         public EmailMessage(String subject, String body, String destinationAddress, String sourceAddress, DateTime date)
         {
@@ -70,5 +82,9 @@ namespace ALSProject
                 sourceAddress.GetHashCode() ^ date.ToShortDateString().GetHashCode());
         }
 
+        public uint getUID()
+        {
+            return UID;
+        }
     }
 }

@@ -224,10 +224,10 @@ namespace ALSProject
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            EmailClient ec = EmailFactory.GetEmailClient();
-            ec.retrieveMail();
+            Client = EmailFactory.GetEmailClient();
+            Client.retrieveMail();
 
-            Messages = ec.getMailHistory();
+            Messages = Client.getMailHistory();
             refreshMessages();
         }
 
@@ -288,6 +288,8 @@ namespace ALSProject
             int temp = lbEmails.SelectedIndex;
             if (isConfirmation)
             {
+
+                this.Client.DeleteMessage(Messages[lbEmails.SelectedIndex]);
                 lbEmails.Items.RemoveAt(lbEmails.SelectedIndex);
             }
             if (lbEmails.Items.Count == 0)
