@@ -127,6 +127,13 @@ namespace ALSProject
 
         }
 
+        public void SetBrowserMode(bool isBrowserMode)
+        {
+            browserMode = isBrowserMode;
+            Keyboard_Resize(this, EventArgs.Empty);
+            
+        }
+
         public void SetText(string text)
         {
             _textBox.Text = text;
@@ -381,8 +388,10 @@ namespace ALSProject
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
 
-        public abstract object Clone();
+        protected abstract void SetIsBrowser(bool isBrowser);
 
+        public abstract object Clone();
+        
         private void InitializeComponent()
         {
             this.SuspendLayout();

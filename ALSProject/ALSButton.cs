@@ -65,6 +65,15 @@ namespace ALSProject
             btnType = ButtonType.normal;
 
             TextChanged += ALSButton_TextChanged;
+            Disposed += ALSButton_Disposed;
+        }
+
+        private void ALSButton_Disposed(object sender, EventArgs e)
+        {
+            if (dwellTimer != null)
+                dwellTimer.Stop();
+            if (decayTimer != null)
+                decayTimer.Stop();
         }
 
         private void ALSButton_TextChanged(object sender, EventArgs e)
