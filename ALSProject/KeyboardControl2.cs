@@ -34,10 +34,23 @@ namespace ALSProject
 
         public KeyboardControl2() : base()
         {
+            initialConfiguration();
+        }
+
+        public KeyboardControl2(bool mode) : base(mode)
+        {
+            browserMode = mode;
+            initialConfiguration();
+        }
+
+        private void initialConfiguration()
+        {
+            
+
             InitializeComponent();
 
             keyboardType = KeyboardType.Lowercase;
-            
+
             string[,] letters = { { lLetters1, lLetters2, lLetters3, "?", ".", "ABC", "Space", "Backspace", "Delete Word", "Clear"},
                                   { uLetters1, uLetters2, uLetters3, "?", ".", "123", "Space", "Backspace", "Delete Word", "Clear"},
                                   { "0", "1-9", symbols1, symbols2, symbols3, "abc", "Space", "Backspace", "Delete Word", "Clear"},
@@ -74,9 +87,25 @@ namespace ALSProject
                             else if (j == 7)
                                 keyboard[i, j].Click += Backspace;
                             else if (j == 8)
-                                keyboard[i, j].Click += DeleteWord;
+                            {
+                                if (!browserMode)
+                                    keyboard[i, j].Click += DeleteWord;
+                                else
+                                {
+                                    keyboard[i, j].Enabled = false;
+                                    keyboard[i, j].Visible = false;
+                                    
+                                }
+                            }
                             else if (j == 9)
-                                keyboard[i, j].Click += Clear;
+                            {
+                                if(!browserMode)
+                                    keyboard[i, j].Click += Clear;
+                                else
+                                {
+                                    //keyboard[i, j].Location = keyboard[1, 8].Location; //move clear to delete words position
+                                }
+                            }
                             break;
                         case 2:
                             if (j == 0)
@@ -88,7 +117,16 @@ namespace ALSProject
                             else if (j == 7)
                                 keyboard[i, j].Click += Backspace;
                             else if (j == 8)
-                                keyboard[i, j].Click += DeleteWord;
+                            {
+                                if (!browserMode)
+                                    keyboard[i, j].Click += DeleteWord;
+                                else
+                                {
+                                    keyboard[i, j].Enabled = false;
+                                    keyboard[i, j].Visible = false;
+
+                                }
+                            }
                             else if (j == 9)
                                 keyboard[i, j].Click += Clear;
                             break;
@@ -100,8 +138,19 @@ namespace ALSProject
                             }
                             else
                                 keyboard[i, j].Click += NavigateKeyboard;
+
+                           
                             break;
                     }
+                }
+            }
+
+            if (browserMode)
+            {
+                foreach (ALSButton b in predictionKeys)
+                {
+                    b.Enabled = false;
+                    b.Visible = false;
                 }
             }
         }
@@ -233,6 +282,8 @@ namespace ALSProject
                     int row2 = keyboard.GetLength(1) / 2;
                     keyboard[i, row2 + j].Location = new Point(keyboard[i, row2 + j - 1].Right + MainMenu.GAP, keyboard[i, row2].Location.Y);
                 }
+
+            
         }
 
         public override object Clone()

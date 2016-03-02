@@ -18,6 +18,12 @@ namespace ALSProject
         [STAThread]
         static void Main(String[] args)
         {
+            UnsafeFail(); //for testing
+            //SafeFail(); //for release
+        }
+
+        static void SafeFail()
+        {
             try
             {
                 Application.EnableVisualStyles();
@@ -29,6 +35,14 @@ namespace ALSProject
             {
                 while (RestartProgram()) ;
             }
+        }
+
+        static void UnsafeFail()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            mainMenu = new MainMenu();
+            Application.Run(mainMenu);
         }
 
         private static bool RestartProgram()

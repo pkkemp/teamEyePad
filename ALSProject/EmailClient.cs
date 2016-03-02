@@ -13,16 +13,18 @@ namespace ALSProject
     {
         SmtpClient sendClient;
         List<EmailMessage> MailList = new List<EmailMessage>();
+        
 
         /*string hostname = "imap.gmail.com",
             username = "teamEyePad@gmail.com", password = "highEyeGuy";
             string smtpHost = "smtp.gmail.com";*/
+
         string imapHost; string username; string password; string smtpHost;
         
         public EmailClient(string imapHost, string smtpHost, string username, string password)
         {
             this.setLogin(imapHost, smtpHost, username, password);
-
+            StartSMTP();
         }
 
         public void setLogin(string imapHost, string smtpHost, string username, string password)
@@ -102,7 +104,7 @@ namespace ALSProject
                     
 
                     EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
-                        messageList.Current.To[0].Address, messageList.Current.From.Address, DateTime.Now); //temp datetime
+                        messageList.Current.To[0].Address, messageList.Current.From.Address, DateTime.Now); //this datetime needs to look for the date the email was sent
                     int hash = temp.GetHashCode();
 
                     bool contains = false;
@@ -117,24 +119,34 @@ namespace ALSProject
                     {
                         bool added = false;
                         int index = 0;
-                        while (!added && index < MailList.Count)
+                        if (MailList.Count == 0)
                         {
-                            switch (MailList[index].CompareTo(temp))
+                            MailList.Add(temp);
+                        }
+                        else
+                        {
+
+                            while (!added && index < MailList.Count)
                             {
-                                case -1:
-                                    MailList.Insert(index, temp);
-                                    added = true;
-                                    break;
-                                case 0:
-                                    MailList.Insert(index, temp);
-                                    added = true;
-                                    break;
-                                case 1:
-                                    index++;
-                                    break;
-                                case -99: //error code
-                                    break;
+                                switch (MailList[index].CompareTo(temp))
+                                {
+                                    case -1:
+                                        MailList.Insert(index, temp);
+                                        added = true;
+                                        break;
+                                    case 0:
+                                        MailList.Insert(index, temp);
+                                        added = true;
+                                        break;
+                                    case 1:
+                                        index++;
+                                        break;
+                                    case -99: //error code
+                                        break;
+                                }
                             }
+                            if (!added)
+                                MailList.Add(temp);
                         }
 
                       }

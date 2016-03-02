@@ -18,6 +18,7 @@ namespace ALSProject
         ALSButton btnCancel;
         ALSButton btnSend;
         Keyboard keyboard;
+        EmailMessage previousMessage;
 
         public enum EmailType { Compose, Reply, ReplyAll, Forward };
         private EmailType type;
@@ -44,6 +45,11 @@ namespace ALSProject
         public void SetEmailType(EmailType type)
         {
             this.type = type;
+        }
+        
+        public void SetEmailMessage(EmailMessage m)
+        {
+            previousMessage = m;
         }
 
         private void InitializeControls(bool isQwerty)
@@ -93,7 +99,21 @@ namespace ALSProject
         {
             EmailMessage message = new EmailMessage(txtFrom.Text, txtBody.Text, txtTo.Text, txtFrom.Text, new DateTime());
             EmailClient Client = EmailFactory.GetEmailClient();
-            Client.sendMessage(message);
+
+            switch (type)
+            {
+                case EmailType.Compose:
+                    Client.sendMessage(message);
+                    break;
+                case EmailType.Forward:
+                    Client.sendForward(previousMessage, txtFrom.Text, txtBody.Text);
+                    break;
+                case EmailType.Reply:
+                case EmailType.ReplyAll:
+                    Client.sendReply(previousMessage, txtBody.Text);
+                    break;
+            }
+            
             Hide();
             if (Send_Click != null)
                 Send_Click(this, e);

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,8 +15,8 @@ namespace ALSProject
     {
         ALSAlarm btnAlarm;
         ALSButton btnRespond, btnPageUp, btnUp, btnDown, btnPageDown, btnBack;
-        ALSTextbox tbEmail;
-
+        TextBox tbEmail;
+        private EmailMessage message;
         EmailResponseType frmRespond;
 
         public delegate void Event(object sender, EventArgs args);
@@ -29,6 +30,12 @@ namespace ALSProject
             frmRespond = new EmailResponseType();
         }
 
+        public void SetMailMessage(EmailMessage m)
+        {
+            message = m;
+            tbEmail.Text = message.body;
+        }
+
         private void InitializeControls()
         {
             btnAlarm = new ALSAlarm();
@@ -38,7 +45,7 @@ namespace ALSProject
             btnDown = new ALSButton();
             btnPageDown = new ALSButton();
             btnBack = new ALSButton();
-            tbEmail = new ALSTextbox();
+            tbEmail = new TextBox();
 
             btnRespond.Text = "Respond";
             btnPageUp.Text = "Page\nup";
@@ -63,6 +70,7 @@ namespace ALSProject
             Controls.Add(tbEmail);
 
             tbEmail.Multiline = true;
+            tbEmail.ReadOnly = true;
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
@@ -74,7 +82,11 @@ namespace ALSProject
 
         private void BtnDown_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //pos passed in should be positive
+            using (Control c = new Control() { Parent = tbEmail, Height = 1, Top = tbEmail.ClientSize.Height + 1 })
+            {
+                tbEmail.ScrollToCaret();
+            }
         }
 
         private void BtnUp_Click(object sender, EventArgs e)
@@ -84,11 +96,17 @@ namespace ALSProject
 
         private void BtnPageUp_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //Panel p = new Panel();
+            //p.scroll
+
+            //AutoScrollPosition = new Point(0, 1152);
+            //tbEmail.poin
+            //Change Point(0, y)
         }
 
         private void BtnRespond_Click(object sender, EventArgs e)
         {
+            frmRespond.SetEmailMessage(message);
             frmRespond.Show();
             Hide();
         }
