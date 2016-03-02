@@ -40,6 +40,8 @@ namespace ALSProject
             keyboard.HideTextBox();
             Controls.Add(keyboard);
             ComposeEmail_Resize(this, EventArgs.Empty);
+            
+            keyboard.OnPressed += Press_Key;
         }
 
         public void SetEmailType(EmailType type)
@@ -117,6 +119,11 @@ namespace ALSProject
             Hide();
             if (Send_Click != null)
                 Send_Click(this, e);
+        }
+
+        private void Press_Key(object sender, EventArgs e)
+        {
+            SendKeys.Send(keyboard.GetMostRecentEntry());
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
