@@ -359,7 +359,23 @@ namespace ALSProject
 
         public string GetMostRecentEntry()
         {
-            return mostRecentEntry;
+            string result = mostRecentEntry;
+
+            switch (result)
+            {
+                case "+":
+                case "^":
+                case "~":
+                case "(":
+                case ")":
+                case "{":
+                case "}":
+                    result = "{" + result + "}";
+                    break;
+            }
+
+
+            return result;
         }
 
         private bool needsCapitalization()
