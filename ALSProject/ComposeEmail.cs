@@ -13,8 +13,7 @@ namespace ALSProject
     public partial class ComposeEmail : Form
     {
         ALSAlarm btnAlarm;
-        Label lblTo, lblFrom, lblBody;
-        ALSTextbox txtTo, txtFrom, txtBody;
+        ALSTextbox txtTo, txtSubject, txtBody;
         ALSButton btnCancel;
         ALSButton btnSend;
         Keyboard keyboard;
@@ -57,11 +56,8 @@ namespace ALSProject
         private void InitializeControls(bool isQwerty)
         {
             btnAlarm = new ALSAlarm();
-            lblTo = new Label();
-            lblFrom = new Label();
-            lblBody = new Label();
             txtTo = new ALSTextbox();
-            txtFrom = new ALSTextbox();
+            txtSubject = new ALSTextbox();
             txtBody = new ALSTextbox();
             btnCancel = new ALSButton();
             btnSend = new ALSButton();
@@ -70,19 +66,16 @@ namespace ALSProject
                 keyboard = new KeyboardControl3();
             else
                 keyboard = new KeyboardControl2();
-
-            lblTo.Text = "To:";
-            lblFrom.Text = "From:";
-            lblBody.Text = "Body:";
+            
             btnCancel.Text = "Cancel";
             btnSend.Text = "Send";
+            txtTo.Text = "To:";
+            txtSubject.Text = "Subject:";
+            txtBody.Text = "Body:";
 
             Controls.Add(btnAlarm);
-            Controls.Add(lblTo);
-            Controls.Add(lblFrom);
-            Controls.Add(lblBody);
             Controls.Add(txtTo);
-            Controls.Add(txtFrom);
+            Controls.Add(txtSubject);
             Controls.Add(txtBody);
             Controls.Add(btnCancel);
             Controls.Add(btnSend);
@@ -90,16 +83,43 @@ namespace ALSProject
 
             btnCancel.Click += BtnCancel_Click;
             btnSend.Click += BtnSend_Click;
+            txtTo.Click += TxtTo_Click;
+            txtSubject.Click += TxtSubject_Click;
+            txtBody.Click += TxtBody_Click;
 
             keyboard.HideTextBox();
-            txtTo.Multiline = true;
-            txtFrom.Multiline = true;
             txtBody.Multiline = true;
+            
+        }
+
+        private void TxtBody_Click(object sender, EventArgs e)
+        {
+            if (txtBody.Text.Equals("Body:"))
+            {
+                txtBody.Text = "";
+            }
+
+        }
+
+        private void TxtSubject_Click(object sender, EventArgs e)
+        {
+            if(txtSubject.Text.Equals("Subject:"))
+            {
+                txtSubject.Text = "";
+            }
+        }
+
+        private void TxtTo_Click(object sender, EventArgs e)
+        {
+            if (txtTo.Text.Equals("To:"))
+            {
+                txtTo.Text = "";
+            }
         }
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
-            EmailMessage message = new EmailMessage(txtFrom.Text, txtBody.Text, txtTo.Text, txtFrom.Text, new DateTime());
+            EmailMessage message = new EmailMessage(txtSubject.Text, txtBody.Text, txtTo.Text, txtSubject.Text, new DateTime());
             EmailClient Client = EmailFactory.GetEmailClient();
 
             switch (type)
@@ -108,7 +128,7 @@ namespace ALSProject
                     Client.sendMessage(message);
                     break;
                 case EmailType.Forward:
-                    Client.sendForward(previousMessage, txtFrom.Text, txtBody.Text);
+                    Client.sendForward(previousMessage, txtSubject.Text, txtBody.Text);
                     break;
                 case EmailType.Reply:
                 case EmailType.ReplyAll:
@@ -142,20 +162,17 @@ namespace ALSProject
 
             btnAlarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             int labelHeight = (btnAlarm.Bottom - MainMenu.GAP * 2) / 2;
-            lblFrom.Location = new Point(btnAlarm.Right + MainMenu.GAP, btnAlarm.Bottom - labelHeight);
-            lblTo.Location = new Point(lblFrom.Right - lblTo.Width, btnAlarm.Top);
             btnSend.Location = new Point(Width - btnSend.Width - MainMenu.GAP, btnAlarm.Top);
             btnCancel.Location = new Point(btnSend.Left - btnCancel.Width - MainMenu.GAP, btnAlarm.Top);
-            txtTo.Location = new Point(lblTo.Right + MainMenu.GAP, btnAlarm.Top);
-            txtFrom.Location = new Point(lblFrom.Right + MainMenu.GAP, lblFrom.Top);
+            txtTo.Location = new Point(btnAlarm.Right + MainMenu.GAP, btnAlarm.Top);
+            txtSubject.Location = new Point(btnAlarm.Right + MainMenu.GAP, txtTo.Bottom + MainMenu.GAP);
 
             txtTo.Size = new Size(btnCancel.Left - txtTo.Left - MainMenu.GAP, labelHeight);
-            txtFrom.Size = txtTo.Size;
-
-            lblBody.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
-            txtBody.Location = new Point(MainMenu.GAP, lblBody.Bottom + MainMenu.GAP);
+            txtSubject.Size = txtTo.Size;
+            
+            txtBody.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
             keyboard.Location = new Point(MainMenu.GAP, txtBody.Bottom + MainMenu.GAP);
-            int bodyHeight = (Height - lblBody.Bottom - MainMenu.GAP * 3) / 3;
+            int bodyHeight = (Height - btnAlarm.Bottom - MainMenu.GAP * 3) / 3;
 
             txtBody.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight);
             keyboard.Size = new Size(Width - MainMenu.GAP * 2, bodyHeight * 2);

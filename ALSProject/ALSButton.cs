@@ -92,16 +92,17 @@ namespace ALSProject
             else
             {
                 Invalidate(new Rectangle(0, this.Height - (int)heightCounter, Width, (int)addHeight));
+                if (heightCounter <= 0)
+                {
+                    heightCounter = 0;
+                    decayTimer.Stop();
+                }
+                else
+                {
+                    heightCounter -= addHeight;
+                }
             }
-            if (heightCounter <= 0)
-            {
-                heightCounter = 0;
-                decayTimer.Stop();
-            }
-            else
-            {
-                heightCounter -= addHeight;
-            }
+            
         }
 
         protected void dwellTimeEvent(object sender, EventArgs e)
@@ -124,7 +125,7 @@ namespace ALSProject
 
                 //Restart button
                 heightCounter = 0;
-                dwellTimer.Start();
+                //dwellTimer.Start();
             }
             else
             {
@@ -209,6 +210,7 @@ namespace ALSProject
         public static void setDecay(bool isDecay)
         {
             ALSButton.isDecay = isDecay;
+            ALSTextbox.setDecay(isDecay);
         }
 
         public static void toggleDecay()
