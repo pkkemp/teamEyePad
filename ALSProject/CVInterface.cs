@@ -21,13 +21,11 @@ namespace ALSProject
         static bool cantStopDontStop = true;
         public static System.Timers.Timer timer;
 
-
         public CVInterface()
         {
             timer = new System.Timers.Timer();
-            timer.Interval = 1000;
+            timer.Interval = 10000;
             timer.Elapsed += Timer_Tick;
-            //timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -108,8 +106,7 @@ namespace ALSProject
                 ALSAlarm alarm = new ALSAlarm();
                 if (!alarm.isAlarmOn())
                 {
-                    //temp
-                    //alarm.PerformClick();
+                    alarm.PerformClick();
                 }
             }
         }
