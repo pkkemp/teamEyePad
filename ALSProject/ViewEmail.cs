@@ -20,6 +20,7 @@ namespace ALSProject
         Panel panel;
         private EmailMessage message;
         EmailResponseType frmRespond;
+        int currentHeight;
 
         enum ScrollDirection { PageUp, ScrollUp, ScrollDown, PageDown };
         public delegate void Event(object sender, EventArgs args);
@@ -114,7 +115,6 @@ namespace ALSProject
             ScrollClick(ScrollDirection.PageUp);
         }
 
-        int currentHeight;
         private void ScrollClick(ScrollDirection scrollDirection)
         {
             Control c = new Control();

@@ -45,7 +45,7 @@ namespace ALSProject
 
         public void sendMessage(EmailMessage mail)
         {
-            MailMessage message = new MailMessage(mail.sourceAddress, mail.destinationAddress, mail.subject, mail.body);
+            MailMessage message = new MailMessage(mail.destinationAddress, mail.destinationAddress, mail.subject, mail.body);
             sendClient.Send(message);
         }
 

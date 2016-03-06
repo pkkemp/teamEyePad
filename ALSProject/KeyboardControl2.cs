@@ -45,8 +45,6 @@ namespace ALSProject
 
         private void initialConfiguration()
         {
-            
-
             InitializeComponent();
 
             keyboardType = KeyboardType.Lowercase;
@@ -94,12 +92,12 @@ namespace ALSProject
                                 {
                                     keyboard[i, j].Enabled = false;
                                     keyboard[i, j].Visible = false;
-                                    
+
                                 }
                             }
                             else if (j == 9)
                             {
-                                if(!browserMode)
+                                if (!browserMode)
                                     keyboard[i, j].Click += Clear;
                                 else
                                 {
@@ -139,22 +137,15 @@ namespace ALSProject
                             else
                                 keyboard[i, j].Click += NavigateKeyboard;
 
-                           
+
                             break;
                     }
                 }
             }
 
-            if (browserMode)
-            {
-                foreach (ALSButton b in predictionKeys)
-                {
-                    b.Enabled = false;
-                    b.Visible = false;
-                }
-            }
+            SetIsBrowser(browserMode);
         }
-        
+
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
@@ -200,7 +191,7 @@ namespace ALSProject
                     keyboardType = KeyboardType.Symbols2;
                     break;
                 case "Back":
-                    switch(keyboardType)
+                    switch (keyboardType)
                     {
                         case KeyboardType.aTOi:
                         case KeyboardType.jTOr:
@@ -250,7 +241,12 @@ namespace ALSProject
                 return;
 
             //Calculate Button Height and Width
-            int buttonHeight = (Height - 2 * MainMenu.GAP - _textBox.Height) / 3;
+            int buttonHeight;
+            if (browserMode)
+                buttonHeight = (Height - MainMenu.GAP - _textBox.Height) / 2;
+            else
+                buttonHeight = (Height - 2 * MainMenu.GAP - _textBox.Height) / 3;
+
             int buttonWidth = (Width - (keyboard.GetLength(1) / 2 - 1) * MainMenu.GAP) / (keyboard.GetLength(1) / 2);
 
             //Set heights and widths
@@ -258,7 +254,13 @@ namespace ALSProject
                 button.Size = new Size(buttonWidth, buttonHeight);
 
             foreach (ALSButton button in predictionKeys)
-                button.Size = new Size(buttonWidth, buttonHeight);
+            {
+                if (browserMode)
+                    button.Size = new Size(0, 0);
+                else
+                    button.Size = new Size(buttonWidth, buttonHeight);
+
+            }
 
             //Set button locations
             predictionKeys[0].Location = new Point(0, _textBox.Bottom + MainMenu.GAP);
@@ -283,8 +285,43 @@ namespace ALSProject
                     keyboard[i, row2 + j].Location = new Point(keyboard[i, row2 + j - 1].Right + MainMenu.GAP, keyboard[i, row2].Location.Y);
                 }
 
-            
+            SetIsBrowser(browserMode);
         }
+
+        protected override void SetIsBrowser(bool isBrowser)
+        {
+            if (isBrowser)
+            {
+
+                foreach (var key in predictionKeys)
+                {
+                    key.Visible = false;
+                }
+                foreach (ALSButton button in keyboard)
+                {
+                    if (button.Text.Equals("Delete Word"))
+                    {
+                        button.Enabled = false;
+                    }
+                }
+                
+            }
+            else
+            {
+                foreach (var key in predictionKeys)
+                {
+                    key.Visible = true;
+                }
+                foreach (ALSButton button in keyboard)
+                {
+                    if (button.Text.Equals("Delete Word"))
+                    {
+                        button.Enabled = true;
+                    }
+                }
+
+            }
+        } 
 
         public override object Clone()
         {

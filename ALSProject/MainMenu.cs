@@ -22,6 +22,7 @@ namespace ALSProject
 {
     public partial class MainMenu : Form
     {
+        public static long startTime;
         /*
             main UI for our application
             maximize and quit buttons are temporary
@@ -103,15 +104,7 @@ namespace ALSProject
             callout.TextToSpeech_Click += TextToSpeech_Show;
 
             settingsScreen.SetKeyboard += SettingsScreen_SetKeyboard;
-
-            Icon icon = Properties.Resources.eyeIcon;
-            //texttospeech.Icon = icon;
-            //notebook.Icon = icon;
-            //callout.Icon = icon;
-            //settingsScreen.Icon = icon;
-            //browser.Icon = icon;
-            //email.Icon = icon;
-
+            
             this.VisibleChanged += UI_VisibleChanged;
             
             settingsScreen.btnResetCallouts.Click += new System.EventHandler(this.resetCallouts);
@@ -148,11 +141,12 @@ namespace ALSProject
                 tempKeyboard = (Keyboard)k.Clone();
                 callout.GetAddCallout().SetKeyboard(tempKeyboard);
                 tempKeyboard = (Keyboard)k.Clone();
-                browser.SetKeyboard(tempKeyboard);
-                tempKeyboard = (Keyboard)k.Clone();
                 notebook.GetNotepage().SetKeyboard(tempKeyboard);
                 tempKeyboard = (Keyboard)k.Clone();
                 email.SetKeyboard(tempKeyboard);
+                tempKeyboard = (Keyboard)k.Clone();
+                tempKeyboard.SetBrowserMode(true);
+                browser.SetKeyboard(tempKeyboard);
 
 
             }
@@ -213,6 +207,7 @@ namespace ALSProject
 
         public void OpenTTS()
         {
+
             texttospeech.Show();
         }
 

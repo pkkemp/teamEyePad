@@ -127,6 +127,13 @@ namespace ALSProject
 
         }
 
+        public void SetBrowserMode(bool isBrowserMode)
+        {
+            browserMode = isBrowserMode;
+            Keyboard_Resize(this, EventArgs.Empty);
+            
+        }
+
         public void SetText(string text)
         {
             _textBox.Text = text;
@@ -352,7 +359,23 @@ namespace ALSProject
 
         public string GetMostRecentEntry()
         {
-            return mostRecentEntry;
+            string result = mostRecentEntry;
+
+            switch (result)
+            {
+                case "+":
+                case "^":
+                case "~":
+                case "(":
+                case ")":
+                case "{":
+                case "}":
+                    result = "{" + result + "}";
+                    break;
+            }
+
+
+            return result;
         }
 
         private bool needsCapitalization()
@@ -381,8 +404,10 @@ namespace ALSProject
 
         protected abstract void Keyboard_Resize(object sender, EventArgs e);
 
-        public abstract object Clone();
+        protected abstract void SetIsBrowser(bool isBrowser);
 
+        public abstract object Clone();
+        
         private void InitializeComponent()
         {
             this.SuspendLayout();
