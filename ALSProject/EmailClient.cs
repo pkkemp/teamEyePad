@@ -82,7 +82,7 @@ namespace ALSProject
             sendClient.Send(message);
         }
 
-        public void retrieveMail()
+        public void retrieveMail(String mailbox = "[Gmail]/Inbox")
         {
             if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
             {
@@ -94,7 +94,8 @@ namespace ALSProject
             {
                 Console.WriteLine("We are connected!");
                 // Returns a collection of identifiers of all mails matching the specified search criteria.
-                IEnumerable<uint> uids = client.Search(SearchCondition.All());
+                IEnumerable<uint> uids = null;
+                try { uids = client.Search(SearchCondition.All(), mailbox); } catch { Console.WriteLine("Bad response from server"); }
                 // Download mail messages from the default mailbox.
                 IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray());
                 IEnumerator<MailMessage> messageList = messages.GetEnumerator();
@@ -152,6 +153,8 @@ namespace ALSProject
                                 MailList.Add(temp);
                         }
 
+
+
                       }
 
                     }
@@ -162,18 +165,9 @@ namespace ALSProject
 
         }
 
-        private void ListFolders(ImapClient client)
+        public string[] ListFolders(ImapClient client)
         {
-            
-                String mailboxes = "";
-
-                foreach (string s in client.ListMailboxes())
-                {
-                    mailboxes += s + "\n";
-                }
-
-                MessageBox.Show(mailboxes);
-            
+           return client.ListMailboxes();         
         }
 
         public void DeleteMessage(EmailMessage email)
