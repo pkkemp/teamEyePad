@@ -83,6 +83,12 @@
     <Compile Include="ALSKey.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ALSMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ALSMessageBox.Designer.cs">
+      <DependentUpon>ALSMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ALSTextbox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -153,6 +159,7 @@
     <Compile Include="EmailResponseType.Designer.cs">
       <DependentUpon>EmailResponseType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Factory.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ALSButton.resx">
       <DependentUpon>ALSButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ALSMessageBox.resx">
+      <DependentUpon>ALSMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ALSTextbox.resx">
       <DependentUpon>ALSTextbox.cs</DependentUpon>
