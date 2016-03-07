@@ -5,11 +5,16 @@ using System.Net.Mail;
 using System.Windows.Forms;
 using S22.Imap;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace ALSProject
+
+    
 {
     public class EmailClient
     {
+
+        String currentMailBox = "INBOX";
         SmtpClient sendClient;
         List<EmailMessage> MailList = new List<EmailMessage>();
         
@@ -84,12 +89,15 @@ namespace ALSProject
 
         public void retrieveMail(String mailbox = "INBOX")
         {
-            
+            currentMailBox = mailbox;
+            MailList.Clear();
 
             if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
             {
                 throw new Exception("Not logged in");
             }
+
+            
            
             // The default port for IMAP over SSL is 993.
             using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
@@ -100,7 +108,7 @@ namespace ALSProject
                 IEnumerable<uint> uids = null;
                 uids = client.Search(SearchCondition.All(), mailbox);
                 // Download mail messages from the default mailbox.
-                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray());
+                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true , mailbox);
                 IEnumerator<MailMessage> messageList = messages.GetEnumerator();
                 IEnumerator<uint> uidList = uids.GetEnumerator();
 
@@ -168,10 +176,12 @@ namespace ALSProject
 
         }
 
-        public string[] ListFolders(ImapClient client)
+        public string[] ListFolders()
         {
-          
-           return client.ListMailboxes();         
+            using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
+            {
+                return client.ListMailboxes();
+            }    
         }
 
         public void DeleteMessage(EmailMessage email)
@@ -211,7 +221,10 @@ namespace ALSProject
             }
         }
 
-
+        public string getCurrentFolder()
+        {
+            return currentMailBox;
+        }
     }
 
     

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,6 +34,7 @@ namespace ALSProject
         List<EmailMessage> Messages;
 
         protected int pageNum = 0;
+        private bool folderMode = false;
 
         public object Zoom { get; private set; }
 
@@ -265,13 +267,44 @@ namespace ALSProject
 
         private void BtnSelect_Click(object sender, EventArgs e)
         {
-            if (lbEmails.Items.Count > 0)
+            if (lbEmails.SelectedIndex == -1)
+                lbEmails.SelectedIndex = 0;
+
+            if (!folderMode)
             {
-                if (lbEmails.SelectedIndex == -1)
-                    lbEmails.SelectedIndex = 0;
-                frmViewEmail.SetMailMessage(Messages[lbEmails.SelectedIndex]);
-                frmViewEmail.Show();
+                if (lbEmails.Items.Count > 0)
+                {
+                    
+                    if (lbEmails.SelectedIndex == 0)
+                    {
+                        //switch Folder
+                        this.lbListFolders();
+
+                    }
+                    else if (lbEmails.SelectedIndex > 0)
+                    {
+                        frmViewEmail.SetMailMessage(Messages[lbEmails.SelectedIndex - 1]);
+                        frmViewEmail.Show();
+                    }
+                }
             }
+            else
+            {
+                Client.retrieveMail(lbEmails.SelectedItem.ToString());
+                Messages = Client.getMailHistory();
+                refreshMessages();
+            }
+        }
+
+        private void lbListFolders()
+        {
+            String[] folders = Client.ListFolders();
+            lbEmails.Items.Clear();
+            foreach(string s in folders)
+            {
+                lbEmails.Items.Add(s);
+            }
+            folderMode = true;
         }
 
         private void LbEmails_SelectedIndexChanged(object sender, EventArgs e)
@@ -285,10 +318,12 @@ namespace ALSProject
             //Show();
             frmDeleteEmail.Visible = false;
 
+            
+
             int temp = lbEmails.SelectedIndex;
             if (isConfirmation)
             {
-
+                
                 this.Client.DeleteMessage(Messages[lbEmails.SelectedIndex]);
                 lbEmails.Items.RemoveAt(lbEmails.SelectedIndex);
             }
@@ -302,14 +337,24 @@ namespace ALSProject
         
         private void refreshMessages()
         {
+            folderMode = false;
             lbEmails.Items.Clear();
+            string folderName = Client.getCurrentFolder();
+            lbEmails.Items.Add("Folder: "+folderName+ " | Select to change folder");
+            
             foreach (EmailMessage message in Messages)
             {
                 /*String line = "Subject: " + message.subject + " | From: " + message.sourceAddress +
                     " | Date:" + message.date.ToShortDateString() + //" " + message.date.ToShortTimeString() +
                     " | Body: " + message.body;*/
 
-                String line =  message.subject + " | " + message.sourceAddress +
+                string address;
+                if (folderName == "[Gmail]/Sent Mail")
+                    address = message.destinationAddress;
+                else
+                    address = message.sourceAddress;
+
+                String line =  message.subject + " | " + address +
                     " | " + message.date.ToShortDateString() + //" " + message.date.ToShortTimeString() +
                     " | " + message.body;
 
