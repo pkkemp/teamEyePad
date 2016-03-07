@@ -5,11 +5,16 @@ using System.Net.Mail;
 using System.Windows.Forms;
 using S22.Imap;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace ALSProject
+
+    
 {
     public class EmailClient
     {
+
+        String currentMailBox = "INBOX";
         SmtpClient sendClient;
         List<EmailMessage> MailList = new List<EmailMessage>();
         
@@ -45,8 +50,18 @@ namespace ALSProject
 
         public void sendMessage(EmailMessage mail)
         {
-            MailMessage message = new MailMessage(mail.destinationAddress, mail.destinationAddress, mail.subject, mail.body);
-            sendClient.Send(message);
+            try {
+                MailMessage message = new MailMessage(mail.destinationAddress, mail.destinationAddress, mail.subject, mail.body);
+                sendClient.Send(message);
+            }
+            catch(FormatException e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Invalid email format");
+                mb.Show();
+            }
+
+                
+            
         }
 
         public void sendMessage(string sourceAddress, string destinationAddress, string subject, string body)
@@ -82,21 +97,28 @@ namespace ALSProject
             sendClient.Send(message);
         }
 
-        public void retrieveMail()
+        public void retrieveMail(String mailbox = "INBOX")
         {
+            currentMailBox = mailbox;
+            MailList.Clear();
+
             if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
             {
                 throw new Exception("Not logged in");
             }
+
+            
            
             // The default port for IMAP over SSL is 993.
             using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
             {
+                //String[] folders = ListFolders(client);
                 Console.WriteLine("We are connected!");
                 // Returns a collection of identifiers of all mails matching the specified search criteria.
-                IEnumerable<uint> uids = client.Search(SearchCondition.All());
+                IEnumerable<uint> uids = null;
+                uids = client.Search(SearchCondition.All(), mailbox);
                 // Download mail messages from the default mailbox.
-                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray());
+                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true , mailbox);
                 IEnumerator<MailMessage> messageList = messages.GetEnumerator();
                 IEnumerator<uint> uidList = uids.GetEnumerator();
 
@@ -152,6 +174,8 @@ namespace ALSProject
                                 MailList.Add(temp);
                         }
 
+
+
                       }
 
                     }
@@ -162,18 +186,12 @@ namespace ALSProject
 
         }
 
-        private void ListFolders(ImapClient client)
+        public string[] ListFolders()
         {
-            
-                String mailboxes = "";
-
-                foreach (string s in client.ListMailboxes())
-                {
-                    mailboxes += s + "\n";
-                }
-
-                MessageBox.Show(mailboxes);
-            
+            using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
+            {
+                return client.ListMailboxes();
+            }    
         }
 
         public void DeleteMessage(EmailMessage email)
@@ -213,7 +231,10 @@ namespace ALSProject
             }
         }
 
-
+        public string getCurrentFolder()
+        {
+            return currentMailBox;
+        }
     }
 
     
