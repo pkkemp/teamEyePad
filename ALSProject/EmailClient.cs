@@ -50,8 +50,18 @@ namespace ALSProject
 
         public void sendMessage(EmailMessage mail)
         {
-            MailMessage message = new MailMessage(mail.destinationAddress, mail.destinationAddress, mail.subject, mail.body);
-            sendClient.Send(message);
+            try {
+                MailMessage message = new MailMessage(mail.destinationAddress, mail.destinationAddress, mail.subject, mail.body);
+                sendClient.Send(message);
+            }
+            catch(FormatException e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Invalid email format");
+                mb.Show();
+            }
+
+                
+            
         }
 
         public void sendMessage(string sourceAddress, string destinationAddress, string subject, string body)
