@@ -55,6 +55,8 @@ namespace ALSProject
 
         Timer closeTimer;
 
+        Factory factory;
+
         public MainMenu()
         {
             InitializeComponent();
@@ -75,14 +77,16 @@ namespace ALSProject
             voice.Volume = 100;
             voice.SelectVoiceByHints(VoiceGender.Male);
 
-            texttospeech = new TextToSpeech(true);
-            notebook = new Notebook(true);      
-            callout = new Callout(true);
-            quitScreen = new QuitForm();
-            browser = new Browser();
-            email = new Email2(true);
+            factory = new Factory();
+
+            texttospeech = factory.Texttospeech;
+            notebook = factory.Notebook;
+            callout = factory.Callout;
+            quitScreen = factory.QuitScreen;
+            browser = factory.Browser;
+            email = factory.Email;
             //Settings must be created last to update all of the other application's properties
-            settingsScreen = new SettingsForm();
+            settingsScreen = factory.SettingsScreen;
 
             texttospeech.Visible = false;
             notebook.Visible = false;
