@@ -32,7 +32,7 @@ namespace ALSProject
 
         }
 
-        DateTime date { get; }
+        public DateTime date { get; }
 
         public String subject
         {

@@ -305,7 +305,16 @@ namespace ALSProject
             lbEmails.Items.Clear();
             foreach (EmailMessage message in Messages)
             {
-                lbEmails.Items.Add(message.body);
+                /*String line = "Subject: " + message.subject + " | From: " + message.sourceAddress +
+                    " | Date:" + message.date.ToShortDateString() + //" " + message.date.ToShortTimeString() +
+                    " | Body: " + message.body;*/
+
+                String line =  message.subject + " | " + message.sourceAddress +
+                    " | " + message.date.ToShortDateString() + //" " + message.date.ToShortTimeString() +
+                    " | " + message.body;
+
+
+                lbEmails.Items.Add(line);
             }
         }
 

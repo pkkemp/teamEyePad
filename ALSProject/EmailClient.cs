@@ -82,8 +82,10 @@ namespace ALSProject
             sendClient.Send(message);
         }
 
-        public void retrieveMail(String mailbox = "[Gmail]/Inbox")
+        public void retrieveMail(String mailbox = "INBOX")
         {
+            
+
             if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
             {
                 throw new Exception("Not logged in");
@@ -92,10 +94,11 @@ namespace ALSProject
             // The default port for IMAP over SSL is 993.
             using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
             {
+                //String[] folders = ListFolders(client);
                 Console.WriteLine("We are connected!");
                 // Returns a collection of identifiers of all mails matching the specified search criteria.
                 IEnumerable<uint> uids = null;
-                try { uids = client.Search(SearchCondition.All(), mailbox); } catch { Console.WriteLine("Bad response from server"); }
+                uids = client.Search(SearchCondition.All(), mailbox);
                 // Download mail messages from the default mailbox.
                 IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray());
                 IEnumerator<MailMessage> messageList = messages.GetEnumerator();
@@ -167,6 +170,7 @@ namespace ALSProject
 
         public string[] ListFolders(ImapClient client)
         {
+          
            return client.ListMailboxes();         
         }
 

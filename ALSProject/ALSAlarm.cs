@@ -57,6 +57,7 @@ namespace ALSProject
                 {
                     //my ears... they bleed. Disable the following line for authentic testing environment
                     //VolUp();
+                    //throw new NotImplementedException();
                 }
                 try
                 {
