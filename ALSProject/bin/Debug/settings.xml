@@ -4,6 +4,6 @@
   <keyboard>Large Button</keyboard>
   <decay>Decay</decay>
   <dwellTime>7</dwellTime>
-  <keyboardDwellTime>8</keyboardDwellTime>
+  <keyboardDwellTime>7</keyboardDwellTime>
   <voiceSpeed>10</voiceSpeed>
 </item>

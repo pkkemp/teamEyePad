@@ -16,8 +16,9 @@ namespace ALSProject
     {
         ALSButton btnLock;
         ALSButton btnToggleKeyboard;
-        ALSButton btnToggleDecay;
+        ALSButton btnNext;
         ALSButton btnAbout;
+        SettingsPage2 nextPage;
         Slider sldrDwellTime, sldrKeyboard, sldrVoiceSpeed;
         frmAbout frmAboutPage;
         bool isQwerty;  //Shows if the program's keyboards are qwerty or large button 
@@ -54,7 +55,9 @@ namespace ALSProject
                 voiceSpeed = Convert.ToInt32(xmlnode["voiceSpeed"].InnerText);
             }
             catch (Exception) {}
-            
+
+            nextPage = new SettingsPage2(this);
+
             btnAlarm.BackgroundImageLayout = ImageLayout.Zoom;
 
             btnAlarm.setFontSize();
@@ -74,11 +77,11 @@ namespace ALSProject
             btnToggleKeyboard.Click += ChangeKeyboard_Click;
             Controls.Add(btnToggleKeyboard);
 
-            btnToggleDecay = new ALSButton();
-            btnToggleDecay.Text = isDecay ? "Prevent\nDecay" : "Allow\nDecay";
-            btnToggleDecay.Size = btnBack.Size;
-            btnToggleDecay.Click += btnDecay_Click;
-            Controls.Add(btnToggleDecay);
+            btnNext = new ALSButton();
+            btnNext.Text = "More\nSettings";
+            btnNext.Size = btnBack.Size;
+            btnNext.Click += btnNext_Click;
+            Controls.Add(btnNext);
 
             btnAbout = new ALSButton();
             btnAbout.Text = "About";
@@ -117,6 +120,12 @@ namespace ALSProject
             dwellTime = sldrDwellTime.value;
             keyboardDwellTime = sldrDwellTime.value;
             voiceSpeed = sldrVoiceSpeed.value;
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            nextPage.Show();
+            this.Hide();
         }
 
         public void ApplySettings()
@@ -195,7 +204,7 @@ namespace ALSProject
             btnAbout.Size = new Size(btnWidth, btnWidth);
             btnResetCallouts.Size = new Size(btnWidth, btnWidth);
             btnToggleKeyboard.Size = new Size(btnWidth, btnWidth);
-            btnToggleDecay.Size = new Size(btnWidth, btnWidth);
+            btnNext.Size = new Size(btnWidth, btnWidth);
             btnLock.Size = new Size(btnWidth, btnWidth);
             btnBack.Size = new Size(btnWidth, btnWidth);
 
@@ -203,8 +212,8 @@ namespace ALSProject
             btnAbout.Location = new Point(MainMenu.GAP + btnAlarm.Right, MainMenu.GAP);
             btnResetCallouts.Location = new Point(MainMenu.GAP + btnAbout.Right, MainMenu.GAP);
             btnToggleKeyboard.Location = new Point(MainMenu.GAP + btnResetCallouts.Right, MainMenu.GAP);
-            btnToggleDecay.Location = new Point(MainMenu.GAP + btnToggleKeyboard.Right, MainMenu.GAP);
-            btnLock.Location = new Point(MainMenu.GAP + btnToggleDecay.Right, MainMenu.GAP);
+            btnNext.Location = new Point(MainMenu.GAP + btnToggleKeyboard.Right, MainMenu.GAP);
+            btnLock.Location = new Point(MainMenu.GAP + btnNext.Right, MainMenu.GAP);
             btnBack.Location = new Point(MainMenu.GAP + btnLock.Right, MainMenu.GAP);
 
             int sliderHeight = (Height - MainMenu.GAP * 4 - btnAlarm.Bottom) / 3;
@@ -240,12 +249,6 @@ namespace ALSProject
             }
         }
 
-        private void btnDecay_Click(object sender, EventArgs e)
-        {
-            ALSButton.toggleDecay();
-            isDecay = !isDecay;
-            ((ALSButton)sender).Text = isDecay ? "Prevent\nDecay" : "Allow\nDecay";
-        }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {

@@ -112,7 +112,7 @@ namespace ALSProject
             // The default port for IMAP over SSL is 993.
             using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
             {
-                //String[] folders = ListFolders(client);
+                folders = client.ListMailboxes();
                 Console.WriteLine("We are connected!");
                 // Returns a collection of identifiers of all mails matching the specified search criteria.
                 IEnumerable<uint> uids = null;
@@ -186,13 +186,22 @@ namespace ALSProject
 
         }
 
+        String[] folders;
+
         public string[] ListFolders()
         {
-            using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
+            if (folders == null)
             {
-                return client.ListMailboxes();
-            }    
+                using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
+                {
+                    folders = client.ListMailboxes();
+                }
+            }
+
+            return folders;
         }
+
+        
 
         public void DeleteMessage(EmailMessage email)
         {
