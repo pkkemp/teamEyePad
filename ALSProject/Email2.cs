@@ -30,7 +30,8 @@ namespace ALSProject
         ComposeEmail frmComposeEmail;
         ViewEmail frmViewEmail;
 
-        EmailClient Client;
+        bool refreshing;
+
         List<EmailMessage> Messages;
 
         protected int pageNum = 0;
@@ -46,9 +47,9 @@ namespace ALSProject
             InitializeComponent();
             InitializeControls();
             InitializeForms(isQwerty);
-            
-            Resize += Email2_Resize;
 
+            Resize += Email2_Resize;
+            
             BtnRefresh_Click(this, EventArgs.Empty);
         }
 
@@ -143,9 +144,7 @@ namespace ALSProject
             btnRefresh.Text = "Refresh";
             btnDelete.Text = "Delete";
             btnMainMenu.Text = "Main\nMenu";
-
-            //btnMoveUp.Text = "^";
-            //btnMoveDown.Text = "V";
+            
             btnMoveUp.BackgroundImage = Properties.Resources.UpArrow;
             btnMoveUp.BackgroundImageLayout = ImageLayout.Zoom;
             btnMoveDown.BackgroundImage = Properties.Resources.DownArrow;
@@ -226,11 +225,21 @@ namespace ALSProject
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            Client = EmailFactory.GetEmailClient();
-            Client.retrieveMail();
+            if (!refreshing)
+            {
+                //refreshing = true;
+                
+                EmailClient Client = EmailFactory.GetEmailClient();
+                Client.retrieveMail();
+                Messages = Client.getMailHistory();
+                refreshMessages(lbEmails);
+                //refreshing = false;
 
-            Messages = Client.getMailHistory();
-            refreshMessages();
+                //Thread thread = new Thread(refresh);
+                //thread.IsBackground = true;
+                //thread.Start(this);
+            }
+
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -274,7 +283,7 @@ namespace ALSProject
             {
                 if (lbEmails.Items.Count > 0)
                 {
-                    
+
                     if (lbEmails.SelectedIndex == 0)
                     {
                         //switch Folder
@@ -290,17 +299,19 @@ namespace ALSProject
             }
             else
             {
+                EmailClient Client = EmailFactory.GetEmailClient();
                 Client.retrieveMail(lbEmails.SelectedItem.ToString());
                 Messages = Client.getMailHistory();
-                refreshMessages();
+                refreshMessages(lbEmails);
             }
         }
 
         private void lbListFolders()
         {
+            EmailClient Client = EmailFactory.GetEmailClient();
             String[] folders = Client.ListFolders();
             lbEmails.Items.Clear();
-            foreach(string s in folders)
+            foreach (string s in folders)
             {
                 lbEmails.Items.Add(s);
             }
@@ -318,13 +329,13 @@ namespace ALSProject
             //Show();
             frmDeleteEmail.Visible = false;
 
-            
+
 
             int temp = lbEmails.SelectedIndex;
             if (isConfirmation)
             {
-                
-                this.Client.DeleteMessage(Messages[lbEmails.SelectedIndex]);
+                EmailClient Client = EmailFactory.GetEmailClient();
+                Client.DeleteMessage(Messages[lbEmails.SelectedIndex]);
                 lbEmails.Items.RemoveAt(lbEmails.SelectedIndex);
             }
             if (lbEmails.Items.Count == 0)
@@ -334,14 +345,15 @@ namespace ALSProject
             else
                 lbEmails.SelectedIndex = temp - 1;
         }
-        
-        private void refreshMessages()
+
+        private void refreshMessages(ListBox lbEmails)
         {
+            EmailClient Client = EmailFactory.GetEmailClient();
             folderMode = false;
             lbEmails.Items.Clear();
             string folderName = Client.getCurrentFolder();
-            lbEmails.Items.Add("Folder: "+folderName+ " | Select to change folder");
-            
+            lbEmails.Items.Add("Folder: " + folderName + " | Select to change folder");
+
             foreach (EmailMessage message in Messages)
             {
                 /*String line = "Subject: " + message.subject + " | From: " + message.sourceAddress +
@@ -354,7 +366,7 @@ namespace ALSProject
                 else
                     address = message.sourceAddress;
 
-                String line =  message.subject + " | " + address +
+                String line = message.subject + " | " + address +
                     " | " + message.date.ToShortDateString() + //" " + message.date.ToShortTimeString() +
                     " | " + message.body;
 

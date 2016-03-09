@@ -87,6 +87,10 @@ namespace ALSProject
             txtSubject.Click += TxtSubject_Click;
             txtBody.Click += TxtBody_Click;
 
+            txtTo.Font = new Font(txtTo.Font.FontFamily, 20);
+            txtSubject.Font = new Font(txtSubject.Font.FontFamily, 20);
+            txtBody.Font = new Font(txtBody.Font.FontFamily, 20);
+            
             keyboard.HideTextBox();
             txtBody.Multiline = true;
             

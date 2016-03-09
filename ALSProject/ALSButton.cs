@@ -48,6 +48,8 @@ namespace ALSProject
 
         public static Color baseColor = Color.FromArgb(224, 224, 224);
 
+        public static long startTime;
+
         public ALSButton()
         {
             InitializeComponent();
@@ -158,6 +160,7 @@ namespace ALSProject
 
         private void ALSButton_Click(object sender, EventArgs e)
         {
+            startTime = DateTime.Now.ToFileTime();
             //prevents rapid clicks
             if (!clicked)
             {

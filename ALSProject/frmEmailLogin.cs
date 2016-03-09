@@ -68,6 +68,9 @@ namespace ALSProject
             btnCancel.Click += BtnCancel_Click;
             btnLogin.Click += BtnLogin_Click;
 
+            txtButton.Font = new Font(txtButton.Font.FontFamily, 20);
+            txtPassword.Font = new Font(txtPassword.Font.FontFamily, 20);
+            
             keyboard.HideTextBox();
             txtButton.Focus();
         }

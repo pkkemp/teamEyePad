@@ -58,10 +58,7 @@ namespace ALSProject
             {
                 ALSMessageBox mb = new ALSMessageBox("Invalid email format");
                 mb.Show();
-            }
-
-                
-            
+            }            
         }
 
         public void sendMessage(string sourceAddress, string destinationAddress, string subject, string body)
