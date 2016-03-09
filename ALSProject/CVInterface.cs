@@ -20,12 +20,18 @@ namespace ALSProject
     {
         static bool cantStopDontStop = true;
         public static System.Timers.Timer timer;
+        private static bool AutoAlarm = true;
 
         public CVInterface()
         {
             timer = new System.Timers.Timer();
             timer.Interval = 10000;
             timer.Elapsed += Timer_Tick;
+        }
+
+        public static void SetAutoAlarm(bool isAutoAlarm)
+        {
+            AutoAlarm = isAutoAlarm;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -86,7 +92,7 @@ namespace ALSProject
         {
             try
             {
-                if (e.Value.Equals(UserPresence.NotPresent))
+                if (AutoAlarm && e.Value.Equals(UserPresence.NotPresent))
                 {
                     StartTimer();
                 }
@@ -101,7 +107,7 @@ namespace ALSProject
 
         private void EyeXHost_EyeTrackingDeviceStatusChanged(object sender, EngineStateValue<EyeTrackingDeviceStatus> e)
         {
-            if (e.Value.Equals(EyeTrackingDeviceStatus.DeviceNotConnected))
+            if (AutoAlarm && e.Value.Equals(EyeTrackingDeviceStatus.DeviceNotConnected))
             {
                 ALSAlarm alarm = new ALSAlarm();
                 if (!alarm.isAlarmOn())
