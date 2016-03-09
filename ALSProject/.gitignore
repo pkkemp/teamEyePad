@@ -1,4 +1,4 @@
-/bin/debug
+/bin/debug/*
 
 !bin/debug/Tobii.EyeX.Client.dll
 

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<item>
-  <name>Settings</name>
-  <keyboard>Large Button</keyboard>
-  <decay>Decay</decay>
-  <dwellTime>7</dwellTime>
-  <keyboardDwellTime>7</keyboardDwellTime>
-  <voiceSpeed>10</voiceSpeed>
-</item>
