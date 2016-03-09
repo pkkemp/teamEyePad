@@ -76,9 +76,7 @@ namespace ALSProject
                             Cursor.Position = new Point(Convert.ToInt32(smoothX), Convert.ToInt32(smoothY));
                         }
                     };
-
                     while (cantStopDontStop) { Thread.Sleep(1000); }
-
                 }
             }
         }
