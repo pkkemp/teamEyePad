@@ -64,8 +64,7 @@ namespace ALSProject
         {
 
             ComposeEmail compose = EmailFactory.GetComposeEmail();
-            compose.SetEmailType(type);
-            compose.SetEmailMessage(message);
+            compose.SetEmailType(type, message);
             compose.Show();
             Hide();
         }

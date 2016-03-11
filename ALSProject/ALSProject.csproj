@@ -14,6 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -259,7 +259,7 @@
   <ItemGroup>
     <Reference Include="EyeXFramework, Version=1.5.466.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\EyeX\x86\EyeXFramework.dll</HintPath>
+      <HintPath>bin\Debug\EyeXFramework.dll</HintPath>
     </Reference>
     <Reference Include="S22.Imap, Version=2.3.4642.27187, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\S22.Imap.2.3.2\lib\net40\S22.Imap.dll</HintPath>

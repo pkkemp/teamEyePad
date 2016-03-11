@@ -47,22 +47,35 @@ namespace ALSProject
         {
             this.type = type;
         }
-        
-        public void SetEmailMessage(EmailMessage m)
+
+        public void SetEmailType(EmailType type, EmailMessage previousMessage)
         {
-            previousMessage = m;
-            string addr = previousMessage.destinationAddress;
+            this.previousMessage = previousMessage;
+
+            string addr = previousMessage.sourceAddress;
             string subj = previousMessage.subject;
-
-            if (addr != null && addr != "")
+            switch(type)
             {
-                txtTo.Text = addr;
+                case EmailType.Reply:
+                    case EmailType.ReplyAll:
+                    if (addr != null && addr != "")
+                    {
+                        txtTo.Text = addr;
+                    }
+                    if (subj != null && subj != "")
+                    {
+                        txtSubject.Text = subj;
+                    }
+                    goto case EmailType.Forward;
+                case EmailType.Forward:
+                    if (subj != null && subj != "")
+                    {
+                        txtSubject.Text = subj;
+                    }
+                    break;
             }
-            if (subj != null && subj != "")
-            {
-                txtSubject.Text = subj;
-            }
-
+            
+            
         }
 
         private void InitializeControls(bool isQwerty)
