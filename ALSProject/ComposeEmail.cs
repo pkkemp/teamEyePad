@@ -51,6 +51,18 @@ namespace ALSProject
         public void SetEmailMessage(EmailMessage m)
         {
             previousMessage = m;
+            string addr = previousMessage.destinationAddress;
+            string subj = previousMessage.subject;
+
+            if (addr != null && addr != "")
+            {
+                txtTo.Text = addr;
+            }
+            if (subj != null && subj != "")
+            {
+                txtSubject.Text = subj;
+            }
+
         }
 
         private void InitializeControls(bool isQwerty)

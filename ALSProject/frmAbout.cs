@@ -26,7 +26,7 @@ namespace ALSProject
 
             btnBack.Text = "Back";
             lblObjective.Text = "This application is an Oklahoma Christian University systems " +
-                                "design project, Team eyePad, whose team members consist of " +
+                                "design project. Team eyePad's members consist of " +
                                 "Allison Chilton, Daniel Griffin, and Drew Harris. The team mentor " +
                                 "is Professor Steve Maher, and the customer is Ash Srinivas.\n\n" +
                                 "Team eyePad’s goal is to create a series of products that increase " +
