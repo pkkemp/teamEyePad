@@ -12,16 +12,18 @@ namespace ALSProject
 {
     public partial class ALSTextbox : TextBox
     {
+        static protected bool isDecay;
 
-        Timer dwellTimer = new Timer(), decayTimer = new Timer();
-        private int heightDivider = 30;
-        double heightCounter;
-        Graphics gr;
-        bool clicked;
-        Color baseColor = Color.White;
-        bool firstTime;
-        static bool isDecay;
+        protected Timer dwellTimer = new Timer();
+        protected Timer decayTimer = new Timer();
+        protected int heightDivider = 30;
+        protected double heightCounter;
+        protected Graphics gr;
+        protected bool clicked;
+        protected Color baseColor = Color.White;
+        protected bool firstTime;
 
+        #region Constructor
         public ALSTextbox()
         {
 
@@ -36,6 +38,16 @@ namespace ALSProject
             decayTimer.Interval = 150;
         }
 
+        #endregion
+
+        #region Public Methods
+        public static void setDecay(bool isDecay)
+        {
+            ALSTextbox.isDecay = isDecay;
+        }
+        #endregion
+
+        #region Events
         protected void dwellTimeEvent(object sender, EventArgs e)
         {
             double tempHeightCounter = heightCounter + (1.0 * Height) / heightDivider;
@@ -93,35 +105,9 @@ namespace ALSProject
 
         }
 
-        //deletes rectangle, restores image if any
-        protected void ClearRect()
-        {
-            String text = Text;
-            try
-            {
-                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy)
-                gr.Clear(baseColor);
-                this.BackgroundImage = temp;
-            }
-            catch (Exception)
-            {         //this just prevents the program from crashing if there is no Background Image set
-                this.CreateGraphics().Clear(baseColor);    //clears rectangle if there is no image
-            }
-            Text = text;
-
-            heightCounter = 0;
-            clicked = false;
-        }
-
-
         private void ALSTextbox_Resize(object sender, EventArgs e)
         {
             gr = this.CreateGraphics();
-        }
-
-        public static void setDecay(bool isDecay)
-        {
-            ALSTextbox.isDecay = isDecay;
         }
 
         private void ALSTextbox_Click(object sender, EventArgs e)
@@ -142,5 +128,28 @@ namespace ALSProject
             }
 
         }
+        #endregion
+
+        #region Private Methods
+        //deletes rectangle, restores image if any
+        protected void ClearRect()
+        {
+            String text = Text;
+            try
+            {
+                Image temp = (Image)this.BackgroundImage.Clone(); //deep copy)
+                gr.Clear(baseColor);
+                this.BackgroundImage = temp;
+            }
+            catch (Exception)
+            {         //this just prevents the program from crashing if there is no Background Image set
+                this.CreateGraphics().Clear(baseColor);    //clears rectangle if there is no image
+            }
+            Text = text;
+
+            heightCounter = 0;
+            clicked = false;
+        }
+        #endregion
     }
 }

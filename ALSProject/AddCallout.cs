@@ -13,6 +13,8 @@ namespace ALSProject
 {
     public partial class AddCallout : TextToSpeech
     {
+
+        #region Constructors
         public AddCallout(bool isQwerty) : base(isQwerty)
         {
             btnSpeak.Visible = false;
@@ -32,26 +34,26 @@ namespace ALSProject
             if(isQwerty)
             alsKeyboard.setClearConfirmation(false);
         }
+        #endregion
 
-        private void AddCallout_Resize(object sender, EventArgs e)
+        #region Public Methods
+        public ALSButton getSaveButton()
         {
-
+            return btnCallouts;
         }
+        #endregion
 
-
+        #region Events
         protected override void btnMenu_Click(object sender, EventArgs e)
         {
             btnCallouts_Click(sender, e);
         }
 
-        public ALSButton getSaveButton()
-        {
-            return btnCallouts;
-        }
 
         private void AddCallout_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
+        #endregion
     }
 }

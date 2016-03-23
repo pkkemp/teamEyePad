@@ -15,23 +15,28 @@ namespace ALSProject
 {
     public partial class Callout : Form
     {
-        private List<string> phrases;
-
-        ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]
-
-        protected ALSButton[,] callouts;
-        protected const int EDIT_BUTTON_WIDTH = 100;
-        protected const int NUM_CALLOUTS = 6;
-        protected bool isEditMode;
-        protected int pageNum = 0;
-        AddCallout ac;
-
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
         public delegate void TTSClick(object sender, EventArgs args);
         public event TTSClick TextToSpeech_Click;
 
+        protected List<string> phrases;
+        protected ALSButton[] topRowButtons; //[Alarm, Add, Edit, PageLeft, PageRight, Back]
+        protected ALSButton[,] callouts;
+        protected const int EDIT_BUTTON_WIDTH = 100;
+        protected const int NUM_CALLOUTS = 6;
+        protected bool isEditMode;
+        protected int pageNum = 0;
+        protected AddCallout ac;
+        protected string[] defaultPhrases =
+        {
+            "Suction","Wipe my Eyes", "Adjust my head to the left","Adjust my head to the right",
+            "Adjust my head up","Adjust my head down","Sit my chair up","Recline my chair"
+        };
+
+
+        #region Constructor
         public Callout(bool isQwerty)
         {
             InitializeComponent();
@@ -109,7 +114,21 @@ namespace ALSProject
                 }
             refreshCalloutList();
         }
+        #endregion
 
+        #region Public Methods
+        public ALSButton[] getMenuBtns()
+        {
+            return topRowButtons;
+        }
+
+        public AddCallout GetAddCallout()
+        {
+            return ac;
+        }
+        #endregion
+
+        #region Events
         private void Ac_Callouts_Click(object sender, EventArgs args)
         {
             flipToPage(pageNum);
@@ -121,13 +140,6 @@ namespace ALSProject
             this.Visible = false;
             if (MainMenu_Click != null)
                 MainMenu_Click(this, e);
-        }
-
-        private int getNum(String str)
-        {
-            char test = str[str.Length - 1];
-            int num = Convert.ToInt16(test - '0');
-            return num;
         }
 
         private void addToList(object sender, EventArgs e)
@@ -145,11 +157,6 @@ namespace ALSProject
         {
             ALSButton btn = (ALSButton)sender;
             MainMenu.Speak(btn.Text);
-        }
-
-        private void refreshCalloutList()
-        {
-            flipToPage(pageNum);
         }
 
         private void moveItemDown(object sender, EventArgs e)
@@ -211,6 +218,64 @@ namespace ALSProject
             flipToPage(pageNum);
         }
 
+        private void btnTextToSpeech_Click(object sender, EventArgs e)
+        {
+            if (isEditMode)
+            {
+                ac.Show();
+                this.Hide();
+            }
+            else
+            {
+                Hide();
+                if (TextToSpeech_Click != null)
+                    TextToSpeech_Click(this, e);
+
+            }
+        }
+
+        private void Callout_Load(object sender, EventArgs e)
+        {
+            ResizeButtons();
+        }
+
+        private void edit_Click(object sender, EventArgs e)
+        {
+            isEditMode = !isEditMode;
+            for (int i = 0; i < callouts.GetLength(1); i++)
+            {
+                callouts[1, i].Visible = isEditMode;
+                callouts[2, i].Visible = isEditMode;
+            }
+            ResizeButtons();
+        }
+
+        private void Callout_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            StreamWriter filestream = new StreamWriter(File.Open("CalloutsPhrases.txt", FileMode.Create));
+            for (int i = 0; i < phrases.Count; i++)
+            {
+                filestream.WriteLine(phrases[i]);
+            }
+
+            filestream.Close();
+            Application.Exit();
+        }
+        #endregion
+
+        #region Private Methods
+        private int getNum(String str)
+        {
+            char test = str[str.Length - 1];
+            int num = Convert.ToInt16(test - '0');
+            return num;
+        }
+
+        private void refreshCalloutList()
+        {
+            flipToPage(pageNum);
+        }
+
         private void flipToPage(int num)
         {
             if (num < 0)
@@ -231,22 +296,6 @@ namespace ALSProject
                 catch (ArgumentOutOfRangeException) { callouts[0, i].Text = ""; }
             }
 
-        }
-
-        private void btnTextToSpeech_Click(object sender, EventArgs e)
-        {
-            if (isEditMode)
-            {
-                ac.Show();
-                this.Hide();
-            }
-            else
-            {
-                Hide();
-                if (TextToSpeech_Click != null)
-                    TextToSpeech_Click(this, e);
-
-            }
         }
 
         private void populateList()
@@ -287,27 +336,6 @@ namespace ALSProject
             }
 
             filestream.Close();
-        }
-
-        public ALSButton[] getMenuBtns()
-        {
-            return topRowButtons;
-        }
-
-        private void Callout_Load(object sender, EventArgs e)
-        {
-            ResizeButtons();
-        }
-
-        private void edit_Click(object sender, EventArgs e)
-        {
-            isEditMode = !isEditMode;
-            for (int i = 0; i < callouts.GetLength(1); i++)
-            {
-                callouts[1, i].Visible = isEditMode;
-                callouts[2, i].Visible = isEditMode;
-            }
-            ResizeButtons();
         }
 
         private void ResizeButtons()
@@ -360,28 +388,13 @@ namespace ALSProject
                 topRowButtons[4].Text = "Text to Speech";
             }
         }
+        #endregion
 
-        private string[] defaultPhrases =
-        {
-            "Suction","Wipe my Eyes", "Adjust my head to the left","Adjust my head to the right",
-            "Adjust my head up","Adjust my head down","Sit my chair up","Recline my chair"
-        };
 
-        private void Callout_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            StreamWriter filestream = new StreamWriter(File.Open("CalloutsPhrases.txt", FileMode.Create));
-            for (int i = 0; i < phrases.Count; i++)
-            {
-                filestream.WriteLine(phrases[i]);
-            }
 
-            filestream.Close();
-            Application.Exit();
-        }
 
-        public AddCallout GetAddCallout()
-        {
-            return ac;
-        }
+
+       
+        
     }
 }

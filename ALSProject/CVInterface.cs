@@ -18,32 +18,21 @@ namespace ALSProject
     //Tobii SDK: http://developer.tobii.com/documentation/
     class CVInterface
     {
-        static bool cantStopDontStop = true;
         public static System.Timers.Timer timer;
-        private static bool AutoAlarm = true;
 
+        protected static bool cantStopDontStop = true;
+        protected static bool AutoAlarm = true;
+
+        #region Constructors
         public CVInterface()
         {
             timer = new System.Timers.Timer();
             timer.Interval = 10000;
             timer.Elapsed += Timer_Tick;
         }
+        #endregion
 
-        public static void SetAutoAlarm(bool isAutoAlarm)
-        {
-            AutoAlarm = isAutoAlarm;
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            ALSAlarm alarm = new ALSAlarm();
-            if (!alarm.isAlarmOn())
-            {
-                alarm.PerformClick();
-            }
-            timer.Stop();
-        }
-
+        #region Public Methods
         public void StartEyeTracking()
         {
 
@@ -81,9 +70,26 @@ namespace ALSProject
             }
         }
 
-        private void StartTimer()
+        public static void SetAutoAlarm(bool isAutoAlarm)
         {
-            timer.Start();
+            AutoAlarm = isAutoAlarm;
+        }
+
+        public static void PleaseStop()
+        {
+            cantStopDontStop = false;
+        }
+        #endregion
+
+        #region Events
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            ALSAlarm alarm = new ALSAlarm();
+            if (!alarm.isAlarmOn())
+            {
+                alarm.PerformClick();
+            }
+            timer.Stop();
         }
 
         private void EyeXHost_UserPresenceChanged(object sender, EngineStateValue<UserPresence> e)
@@ -114,11 +120,14 @@ namespace ALSProject
                 }
             }
         }
+        #endregion
 
-        public static void PleaseStop()
+        #region Private Methods
+        private void StartTimer()
         {
-            cantStopDontStop = false;
+            timer.Start();
         }
+        #endregion
     }
 }
 

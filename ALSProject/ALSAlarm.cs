@@ -9,13 +9,14 @@ namespace ALSProject
 {
     public class ALSAlarm : ALSButton
     {
-        private static Boolean alarmOn;
-        private const int APPCOMMAND_VOLUME_UP = 0xA0000;
-        private const int WM_APPCOMMAND = 0x319;
+        protected static Boolean alarmOn;
+        protected const int APPCOMMAND_VOLUME_UP = 0xA0000;
+        protected const int WM_APPCOMMAND = 0x319;
 
-        private static List<ALSAlarm> alarms = new List<ALSAlarm>();
-        SoundPlayer player;
+        protected static List<ALSAlarm> alarms = new List<ALSAlarm>();
+        protected SoundPlayer player;
 
+        #region Contructors
         public ALSAlarm()
         {
             this.player = new SoundPlayer(Properties.Resources.buzz);
@@ -27,15 +28,19 @@ namespace ALSProject
             alarms.Add(this);
             this.Disposed += ALSAlarm_Disposed;
         }
+        #endregion
 
-        private void ALSAlarm_Disposed(object sender, EventArgs e)
-        {
-            alarms.Remove(this);
-        }
-
+        #region Public Methods
         public Boolean isAlarmOn()
         {
             return alarmOn;
+        }
+        #endregion
+
+        #region Events
+        private void ALSAlarm_Disposed(object sender, EventArgs e)
+        {
+            alarms.Remove(this);
         }
 
         public void ALSAlarm_Click(object sender, EventArgs e)
@@ -80,7 +85,10 @@ namespace ALSProject
                     }
             }
         }
+        #endregion
 
+
+        #region Private Methods
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -89,7 +97,9 @@ namespace ALSProject
             // 
             this.FlatAppearance.BorderSize = 0;
             this.ResumeLayout(false);
-
         }
+        #endregion
+
+
     }
 }

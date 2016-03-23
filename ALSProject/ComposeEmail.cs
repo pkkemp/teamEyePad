@@ -12,13 +12,6 @@ namespace ALSProject
 {
     public partial class ComposeEmail : Form
     {
-        ALSAlarm btnAlarm;
-        ALSTextbox txtTo, txtSubject, txtBody;
-        ALSButton btnCancel;
-        ALSButton btnSend;
-        Keyboard keyboard;
-        EmailMessage previousMessage;
-
         public enum EmailType { Compose, Reply, ReplyAll, Forward };
         private EmailType type;
 
@@ -26,12 +19,22 @@ namespace ALSProject
         public event Event Cancel_Click;
         public event Event Send_Click;
 
+        protected ALSAlarm btnAlarm;
+        protected ALSTextbox txtTo, txtSubject, txtBody;
+        protected ALSButton btnCancel;
+        protected ALSButton btnSend;
+        protected Keyboard keyboard;
+        protected EmailMessage previousMessage;
+
+        #region Constructors
         public ComposeEmail(bool isQwerty)
         {
             InitializeComponent();
             InitializeControls(isQwerty);
         }
+        #endregion
 
+        #region Public Methods
         public void SetKeyboard(Keyboard k)
         {
             Controls.Remove(keyboard);
@@ -39,7 +42,7 @@ namespace ALSProject
             keyboard.HideTextBox();
             Controls.Add(keyboard);
             ComposeEmail_Resize(this, EventArgs.Empty);
-            
+
             keyboard.OnPressed += Press_Key;
         }
 
@@ -54,10 +57,10 @@ namespace ALSProject
 
             string addr = previousMessage.sourceAddress;
             string subj = previousMessage.subject;
-            switch(type)
+            switch (type)
             {
                 case EmailType.Reply:
-                    case EmailType.ReplyAll:
+                case EmailType.ReplyAll:
                     if (addr != null && addr != "")
                     {
                         txtTo.Text = addr;
@@ -74,53 +77,12 @@ namespace ALSProject
                     }
                     break;
             }
-            
-            
+
+
         }
+        #endregion
 
-        private void InitializeControls(bool isQwerty)
-        {
-            btnAlarm = new ALSAlarm();
-            txtTo = new ALSTextbox();
-            txtSubject = new ALSTextbox();
-            txtBody = new ALSTextbox();
-            btnCancel = new ALSButton();
-            btnSend = new ALSButton();
-
-            if (isQwerty)
-                keyboard = new KeyboardControl3();
-            else
-                keyboard = new KeyboardControl2();
-            
-            btnCancel.Text = "Cancel";
-            btnSend.Text = "Send";
-            txtTo.Text = "To:";
-            txtSubject.Text = "Subject:";
-            txtBody.Text = "Body:";
-
-            Controls.Add(btnAlarm);
-            Controls.Add(txtTo);
-            Controls.Add(txtSubject);
-            Controls.Add(txtBody);
-            Controls.Add(btnCancel);
-            Controls.Add(btnSend);
-            Controls.Add(keyboard);
-
-            btnCancel.Click += BtnCancel_Click;
-            btnSend.Click += BtnSend_Click;
-            txtTo.Click += TxtTo_Click;
-            txtSubject.Click += TxtSubject_Click;
-            txtBody.Click += TxtBody_Click;
-
-            txtTo.Font = new Font(txtTo.Font.FontFamily, 20);
-            txtSubject.Font = new Font(txtSubject.Font.FontFamily, 20);
-            txtBody.Font = new Font(txtBody.Font.FontFamily, 20);
-            
-            keyboard.HideTextBox();
-            txtBody.Multiline = true;
-            
-        }
-
+        #region Events
         private void TxtBody_Click(object sender, EventArgs e)
         {
             if (txtBody.Text.Equals("Body:"))
@@ -132,7 +94,7 @@ namespace ALSProject
 
         private void TxtSubject_Click(object sender, EventArgs e)
         {
-            if(txtSubject.Text.Equals("Subject:"))
+            if (txtSubject.Text.Equals("Subject:"))
             {
                 txtSubject.Text = "";
             }
@@ -164,7 +126,7 @@ namespace ALSProject
                     Client.sendReply(previousMessage, txtBody.Text);
                     break;
             }
-            
+
             Hide();
             if (Send_Click != null)
                 Send_Click(this, e);
@@ -198,7 +160,7 @@ namespace ALSProject
 
             txtTo.Size = new Size(btnCancel.Left - txtTo.Left - MainMenu.GAP, labelHeight);
             txtSubject.Size = txtTo.Size;
-            
+
             txtBody.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
             keyboard.Location = new Point(MainMenu.GAP, txtBody.Bottom + MainMenu.GAP);
             int bodyHeight = (Height - btnAlarm.Bottom - MainMenu.GAP * 3) / 3;
@@ -211,5 +173,54 @@ namespace ALSProject
         {
             Application.Exit();
         }
+        #endregion
+
+        #region Private Methods
+        private void InitializeControls(bool isQwerty)
+        {
+            btnAlarm = new ALSAlarm();
+            txtTo = new ALSTextbox();
+            txtSubject = new ALSTextbox();
+            txtBody = new ALSTextbox();
+            btnCancel = new ALSButton();
+            btnSend = new ALSButton();
+
+            if (isQwerty)
+                keyboard = new KeyboardControl3();
+            else
+                keyboard = new KeyboardControl2();
+
+            btnCancel.Text = "Cancel";
+            btnSend.Text = "Send";
+            txtTo.Text = "To:";
+            txtSubject.Text = "Subject:";
+            txtBody.Text = "Body:";
+
+            Controls.Add(btnAlarm);
+            Controls.Add(txtTo);
+            Controls.Add(txtSubject);
+            Controls.Add(txtBody);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSend);
+            Controls.Add(keyboard);
+
+            btnCancel.Click += BtnCancel_Click;
+            btnSend.Click += BtnSend_Click;
+            txtTo.Click += TxtTo_Click;
+            txtSubject.Click += TxtSubject_Click;
+            txtBody.Click += TxtBody_Click;
+
+            txtTo.Font = new Font(txtTo.Font.FontFamily, 20);
+            txtSubject.Font = new Font(txtSubject.Font.FontFamily, 20);
+            txtBody.Font = new Font(txtBody.Font.FontFamily, 20);
+
+            keyboard.HideTextBox();
+            txtBody.Multiline = true;
+
+        }
+        #endregion
+
+
+        
     }
 }
