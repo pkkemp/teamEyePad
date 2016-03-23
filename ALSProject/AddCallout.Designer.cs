@@ -61,7 +61,6 @@
             this.Name = "AddCallout";
             this.Text = "Add Callout";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddCallout_FormClosing);
-            this.Resize += new System.EventHandler(this.AddCallout_Resize);
             this.ResumeLayout(false);
 
         }
