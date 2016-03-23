@@ -77,11 +77,11 @@ namespace ALSProject
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            //Do stuff
+            EmailClient client = EmailFactory.GetEmailClient();
+            client.setLogin("imap.gmail.com", "smtp.gmail.com", txtButton.Text, txtPassword.Text);
             Hide();
             if (Cancel_Click != null)
                 Cancel_Click(this, e);
-
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
