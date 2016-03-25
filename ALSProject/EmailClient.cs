@@ -13,24 +13,28 @@ namespace ALSProject
 {
     public class EmailClient
     {
-
-        String currentMailBox = "INBOX";
-        SmtpClient sendClient;
-        List<EmailMessage> MailList = new List<EmailMessage>();
-        
+        protected String[] folders;
+        protected String currentMailBox = "INBOX";
+        protected SmtpClient sendClient;
+        protected List<EmailMessage> MailList = new List<EmailMessage>();
+        protected string imapHost;
+        protected string username;
+        protected string password;
+        protected string smtpHost;
 
         /*string hostname = "imap.gmail.com",
             username = "teamEyePad@gmail.com", password = "highEyeGuy";
             string smtpHost = "smtp.gmail.com";*/
 
-        string imapHost; string username; string password; string smtpHost;
-        
+        #region Constructors
         public EmailClient(string imapHost, string smtpHost, string username, string password)
         {
             this.setLogin(imapHost, smtpHost, username, password);
             StartSMTP();
         }
+        #endregion
 
+        #region Public Methods
         public void setLogin(string imapHost, string smtpHost, string username, string password)
         {
             this.imapHost = imapHost;
@@ -39,31 +43,23 @@ namespace ALSProject
             this.password = password;
         }
 
-        private void StartSMTP()
-        {
-            sendClient = new SmtpClient(smtpHost);
-            sendClient.Port = 587;
-
-            sendClient.Credentials = new System.Net.NetworkCredential("teameyepad", "highEyeGuy");
-            sendClient.EnableSsl = true;
-        }
-
         public void sendMessage(EmailMessage mail)
         {
-            try {
+            try
+            {
                 MailMessage message = new MailMessage(mail.destinationAddress, mail.destinationAddress, mail.subject, mail.body);
                 sendClient.Send(message);
             }
-            catch(FormatException e)
+            catch (FormatException e)
             {
                 ALSMessageBox mb = new ALSMessageBox("Invalid email format");
                 mb.Show();
-            }            
+            }
         }
 
         public void sendMessage(string sourceAddress, string destinationAddress, string subject, string body)
         {
-            MailMessage message = new MailMessage(sourceAddress,destinationAddress,subject,body);
+            MailMessage message = new MailMessage(sourceAddress, destinationAddress, subject, body);
             sendClient.Send(message);
         }
 
@@ -71,7 +67,7 @@ namespace ALSProject
         {
             string subjectWithRe;
             string bodyWithHistory = body + "\n\n\n" + emailBeingRespondedTo.body;
-            if(!emailBeingRespondedTo.subject.Substring(0,3).Equals("RE:"))
+            if (!emailBeingRespondedTo.subject.Substring(0, 3).Equals("RE:"))
                 subjectWithRe = "RE: " + emailBeingRespondedTo.subject;
             else
                 subjectWithRe = emailBeingRespondedTo.subject;
@@ -84,8 +80,8 @@ namespace ALSProject
 
         public void sendForward(EmailMessage forwardedEmail, string destinationAddress, string newBody)
         {
-            string originalMessage = "Original: \n From: "+ forwardedEmail.sourceAddress + "\nTo: "+forwardedEmail.destinationAddress
-                + "\n Subject: "+forwardedEmail.subject+"\n"+forwardedEmail.body;
+            string originalMessage = "Original: \n From: " + forwardedEmail.sourceAddress + "\nTo: " + forwardedEmail.destinationAddress
+                + "\n Subject: " + forwardedEmail.subject + "\n" + forwardedEmail.body;
 
             string combinedBody = newBody + "\n\n\n" + originalMessage;
             string subject = "Fwd: " + forwardedEmail.subject;
@@ -104,8 +100,8 @@ namespace ALSProject
                 throw new Exception("Not logged in");
             }
 
-            
-           
+
+
             // The default port for IMAP over SSL is 993.
             using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
             {
@@ -115,7 +111,7 @@ namespace ALSProject
                 IEnumerable<uint> uids = null;
                 uids = client.Search(SearchCondition.All(), mailbox);
                 // Download mail messages from the default mailbox.
-                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true , mailbox);
+                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true, mailbox);
                 IEnumerator<MailMessage> messageList = messages.GetEnumerator();
                 IEnumerator<uint> uidList = uids.GetEnumerator();
 
@@ -125,7 +121,7 @@ namespace ALSProject
 
                     EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
                         messageList.Current.To[0].Address, messageList.Current.From.Address, EmailClient.Date(messageList.Current),
-                        uidList.Current); 
+                        uidList.Current);
 
                     int hash = temp.GetHashCode();
 
@@ -173,17 +169,15 @@ namespace ALSProject
 
 
 
-                      }
-
                     }
-                
+
+                }
+
             }
 
             MailList.Reverse();
 
         }
-
-        String[] folders;
 
         public string[] ListFolders()
         {
@@ -198,15 +192,13 @@ namespace ALSProject
             return folders;
         }
 
-        
-
         public void DeleteMessage(EmailMessage email)
         {
             using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
             {
 
                 try { client.MoveMessage(email.getUID(), "[Gmail]/Trash"); }
-                catch(BadServerResponseException e)
+                catch (BadServerResponseException e)
                 {
                     //be really sad
                 }
@@ -241,6 +233,19 @@ namespace ALSProject
         {
             return currentMailBox;
         }
+        #endregion
+
+        #region Private Methods
+        private void StartSMTP()
+        {
+            sendClient = new SmtpClient(smtpHost);
+            sendClient.Port = 587;
+
+            sendClient.Credentials = new System.Net.NetworkCredential("teameyepad", "highEyeGuy");
+            sendClient.EnableSsl = true;
+        }
+        #endregion
+        
     }
 
     

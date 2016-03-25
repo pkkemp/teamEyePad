@@ -11,118 +11,43 @@ using System.Windows.Forms;
 
 namespace ALSProject
 {
-    public partial class Email2 : Form
+    public partial class Email : Form
     {
-        ALSAlarm btnAlarm;
-        ALSButton btnSwitchAccount;
-        ALSButton btnCompose;
-        ALSButton btnRefresh;
-        ALSButton btnDelete;
-        ALSButton btnMainMenu;
-
-        ALSButton btnMoveUp;
-        ALSButton btnMoveDown;
-        ALSButton btnSelect;
-        ListBox lbEmails;
-
-        DeleteEmailConfirmation frmDeleteEmail;
-        frmEmailLogin frmEmailLogin;
-        ComposeEmail frmComposeEmail;
-        ViewEmail frmViewEmail;
-
-        bool refreshing;
-
-        List<EmailMessage> Messages;
-
-        protected int pageNum = 0;
-        private bool folderMode = false;
-
         public object Zoom { get; private set; }
 
-        public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
+        public delegate void MainMenuClick(object sender, EventArgs args);
 
-        public Email2(bool isQwerty)
+        protected ALSAlarm btnAlarm;
+        protected ALSButton btnSwitchAccount;
+        protected ALSButton btnCompose;
+        protected ALSButton btnRefresh;
+        protected ALSButton btnDelete;
+        protected ALSButton btnMainMenu;
+        protected ALSButton btnMoveUp;
+        protected ALSButton btnMoveDown;
+        protected ALSButton btnSelect;
+        protected ListBox lbEmails;
+        protected DeleteEmailConfirmation frmDeleteEmail;
+        protected frmEmailLogin frmEmailLogin;
+        protected ComposeEmail frmComposeEmail;
+        protected ViewEmail frmViewEmail;
+        protected bool refreshing;
+        protected int pageNum = 0;
+        protected List<EmailMessage> Messages;
+
+        private bool folderMode = false;
+
+        #region Constructors
+        public Email(bool isQwerty)
         {
             InitializeComponent();
             InitializeControls();
             InitializeForms(isQwerty);
 
             Resize += Email2_Resize;
-            
+
             BtnRefresh_Click(this, EventArgs.Empty);
-        }
-
-        private void InitializeForms(bool isQwerty)
-        {
-            frmDeleteEmail = new DeleteEmailConfirmation();
-            frmDeleteEmail.Visible = false;
-            frmDeleteEmail.DeleteEmail_Click += FrmDeleteEmail_DeleteEmail_Click;
-
-            frmEmailLogin = new frmEmailLogin(isQwerty);
-            frmEmailLogin.Visible = false;
-            frmEmailLogin.Cancel_Click += Show;
-
-            frmComposeEmail = EmailFactory.GetComposeEmail();
-            frmComposeEmail.Cancel_Click += Show;
-            frmComposeEmail.Send_Click += Show;
-
-            frmViewEmail = new ViewEmail();
-            frmViewEmail.Back_Click += Show;
-        }
-
-        public void SetKeyboard(Keyboard k)
-        {
-            frmEmailLogin.SetKeyboard(k);
-            try
-            {
-                k = (Keyboard)k.Clone();
-                frmComposeEmail.SetKeyboard(k);
-            }
-            catch
-            {
-                MessageBox.Show("There was an error loading the settings");
-            }
-        }
-
-        private void Email2_Resize(object sender, EventArgs e)
-        {
-            //Top buttons
-            int btnWidth = (Width - 7 * MainMenu.GAP) / 6;
-            btnAlarm.Size = new Size(btnWidth, btnWidth);
-            btnSwitchAccount.Size = btnAlarm.Size;
-            btnCompose.Size = btnAlarm.Size;
-            btnRefresh.Size = btnAlarm.Size;
-            btnDelete.Size = btnAlarm.Size;
-            btnMainMenu.Size = btnAlarm.Size;
-
-            btnAlarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
-            setToRightOf(btnSwitchAccount, btnAlarm);
-            setToRightOf(btnCompose, btnSwitchAccount);
-            setToRightOf(btnRefresh, btnCompose);
-            setToRightOf(btnDelete, btnRefresh);
-            setToRightOf(btnMainMenu, btnDelete);
-
-            //Right side buttons
-            int sideButtonHeight = (Height - btnMainMenu.Bottom - MainMenu.GAP * 4) / 3;
-            sideButtonHeight = Math.Min(btnWidth, sideButtonHeight);
-
-            btnMoveUp.Size = new Size(sideButtonHeight, sideButtonHeight);
-            btnMoveDown.Size = btnMoveUp.Size;
-            btnSelect.Size = btnMoveUp.Size;
-
-            btnMoveUp.Location = new Point(btnMainMenu.Right - btnMoveUp.Width, btnMainMenu.Bottom + MainMenu.GAP);
-            btnMoveDown.Location = new Point(btnMainMenu.Right - btnMoveUp.Width, btnMoveUp.Bottom + MainMenu.GAP);
-            btnSelect.Location = new Point(btnMainMenu.Right - btnMoveUp.Width, btnMoveDown.Bottom + MainMenu.GAP);
-
-            //List box
-            lbEmails.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
-            lbEmails.Size = new Size(btnMoveUp.Left - MainMenu.GAP * 2, Height - btnAlarm.Bottom - MainMenu.GAP * 2);
-        }
-
-        private void setToRightOf(ALSButton btnRight, ALSButton btnLeft)
-        {
-            btnRight.Location = new Point(btnLeft.Right + MainMenu.GAP, btnLeft.Top);
         }
 
         private void InitializeControls()
@@ -144,7 +69,7 @@ namespace ALSProject
             btnRefresh.Text = "Refresh";
             btnDelete.Text = "Delete";
             btnMainMenu.Text = "Main\nMenu";
-            
+
             btnMoveUp.BackgroundImage = Properties.Resources.UpArrow;
             btnMoveUp.BackgroundImageLayout = ImageLayout.Zoom;
             btnMoveDown.BackgroundImage = Properties.Resources.DownArrow;
@@ -177,42 +102,31 @@ namespace ALSProject
 
             lbEmails.Focus();
             lbEmails.SelectedIndexChanged += LbEmails_SelectedIndexChanged;
-
-            //temp code
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
-            lbEmails.Items.Add("1");
-            lbEmails.Items.Add("2");
-            lbEmails.Items.Add("3");
-            lbEmails.Items.Add("4");
         }
 
+        private void setToRightOf(ALSButton btnRight, ALSButton btnLeft)
+        {
+            btnRight.Location = new Point(btnLeft.Right + MainMenu.GAP, btnLeft.Top);
+        }
+        #endregion
+
+        #region Public Methods
+        public void SetKeyboard(Keyboard k)
+        {
+            frmEmailLogin.SetKeyboard(k);
+            try
+            {
+                k = (Keyboard)k.Clone();
+                frmComposeEmail.SetKeyboard(k);
+            }
+            catch
+            {
+                MessageBox.Show("There was an error loading the settings");
+            }
+        }
+        #endregion
+
+        #region Events
         private void BtnSwitchAccount_Click(object sender, EventArgs e)
         {
             frmEmailLogin.Show();
@@ -228,7 +142,7 @@ namespace ALSProject
             if (!refreshing)
             {
                 //refreshing = true;
-                
+
                 EmailClient Client = EmailFactory.GetEmailClient();
                 Client.retrieveMail();
                 Messages = Client.getMailHistory();
@@ -306,6 +220,72 @@ namespace ALSProject
             }
         }
 
+        private void Email2_Resize(object sender, EventArgs e)
+        {
+            //Top buttons
+            int btnWidth = (Width - 7 * MainMenu.GAP) / 6;
+            btnAlarm.Size = new Size(btnWidth, btnWidth);
+            btnSwitchAccount.Size = btnAlarm.Size;
+            btnCompose.Size = btnAlarm.Size;
+            btnRefresh.Size = btnAlarm.Size;
+            btnDelete.Size = btnAlarm.Size;
+            btnMainMenu.Size = btnAlarm.Size;
+
+            btnAlarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
+            setToRightOf(btnSwitchAccount, btnAlarm);
+            setToRightOf(btnCompose, btnSwitchAccount);
+            setToRightOf(btnRefresh, btnCompose);
+            setToRightOf(btnDelete, btnRefresh);
+            setToRightOf(btnMainMenu, btnDelete);
+
+            //Right side buttons
+            int sideButtonHeight = (Height - btnMainMenu.Bottom - MainMenu.GAP * 4) / 3;
+            sideButtonHeight = Math.Min(btnWidth, sideButtonHeight);
+
+            btnMoveUp.Size = new Size(sideButtonHeight, sideButtonHeight);
+            btnMoveDown.Size = btnMoveUp.Size;
+            btnSelect.Size = btnMoveUp.Size;
+
+            btnMoveUp.Location = new Point(btnMainMenu.Right - btnMoveUp.Width, btnMainMenu.Bottom + MainMenu.GAP);
+            btnMoveDown.Location = new Point(btnMainMenu.Right - btnMoveUp.Width, btnMoveUp.Bottom + MainMenu.GAP);
+            btnSelect.Location = new Point(btnMainMenu.Right - btnMoveUp.Width, btnMoveDown.Bottom + MainMenu.GAP);
+
+            //List box
+            lbEmails.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
+            lbEmails.Size = new Size(btnMoveUp.Left - MainMenu.GAP * 2, Height - btnAlarm.Bottom - MainMenu.GAP * 2);
+        }
+
+        private void LbEmails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnMoveUp.Enabled = lbEmails.SelectedIndex > 0;
+            btnMoveDown.Enabled = lbEmails.SelectedIndex < lbEmails.Items.Count - 1;
+        }
+
+        private void Show(object sender, EventArgs e)
+        {
+            Show();
+        }
+        #endregion
+
+        #region Private Methods
+        private void InitializeForms(bool isQwerty)
+        {
+            frmDeleteEmail = new DeleteEmailConfirmation();
+            frmDeleteEmail.Visible = false;
+            frmDeleteEmail.DeleteEmail_Click += FrmDeleteEmail_DeleteEmail_Click;
+
+            frmEmailLogin = new frmEmailLogin(isQwerty);
+            frmEmailLogin.Visible = false;
+            frmEmailLogin.Cancel_Click += Show;
+
+            frmComposeEmail = EmailFactory.GetComposeEmail();
+            frmComposeEmail.Cancel_Click += Show;
+            frmComposeEmail.Send_Click += Show;
+
+            frmViewEmail = new ViewEmail();
+            frmViewEmail.Back_Click += Show;
+        }
+
         private void lbListFolders()
         {
             EmailClient Client = EmailFactory.GetEmailClient();
@@ -316,12 +296,6 @@ namespace ALSProject
                 lbEmails.Items.Add(s);
             }
             folderMode = true;
-        }
-
-        private void LbEmails_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnMoveUp.Enabled = lbEmails.SelectedIndex > 0;
-            btnMoveDown.Enabled = lbEmails.SelectedIndex < lbEmails.Items.Count - 1;
         }
 
         private void FrmDeleteEmail_DeleteEmail_Click(bool isConfirmation)
@@ -374,10 +348,6 @@ namespace ALSProject
                 lbEmails.Items.Add(line);
             }
         }
-
-        private void Show(object sender, EventArgs e)
-        {
-            Show();
-        }
+        #endregion
     }
 }

@@ -18,6 +18,24 @@ namespace ALSProject
         private bool isDecay = false;
         private Form parent;
 
+
+        #region Constructors
+
+        #endregion
+
+        #region Public Methods
+
+        #endregion
+
+        #region Events
+
+        #endregion
+
+        #region Private Events
+
+        #endregion
+
+
         public SettingsPage2(Form parent)
         {
             this.parent = parent;

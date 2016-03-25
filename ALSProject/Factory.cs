@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace ALSProject
 {
-    class Factory
+    public class Factory
     {
 
         TextToSpeech texttospeech;
         Callout callout;
-        SettingsForm settingsScreen;
+        SettingsPage1 settingsScreen;
         QuitForm quitScreen;
         Browser browser;
-        Email2 email;
+        Email email;
         Notebook notebook;
 
         public Factory()
@@ -29,9 +29,9 @@ namespace ALSProject
             Callout = new Callout(true);
             QuitScreen = new QuitForm();
             Browser = new Browser();
-            Email = new Email2(true);
+            Email = new Email(true);
             //Settings must be created last to update all of the other application's properties
-            SettingsScreen = new SettingsForm();
+            SettingsScreen = new SettingsPage1();
         }
 
         public TextToSpeech Texttospeech
@@ -60,7 +60,7 @@ namespace ALSProject
             }
         }
 
-        public SettingsForm SettingsScreen
+        public SettingsPage1 SettingsScreen
         {
             get
             {
@@ -99,7 +99,7 @@ namespace ALSProject
             }
         }
 
-        public Email2 Email
+        public Email Email
         {
             get
             {

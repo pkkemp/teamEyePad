@@ -16,26 +16,25 @@ namespace ALSProject
         private double minAmount, maxAmount, increment;
         public double value;
 
-        Rectangle slideBox;
-        Rectangle bounds;
-        private ALSButton btnLeft, btnRight;
-        private Label title;
-
-        private static Color sliderColor = Color.FromArgb(220, 220, 220);
+        protected Rectangle slideBox;
+        protected Rectangle bounds;
+        protected ALSButton btnLeft, btnRight;
+        protected Label title;
+        protected static Color sliderColor = Color.FromArgb(220, 220, 220);
 
         public delegate void btnRight_Click(object sender, EventArgs e);
         public delegate void btnLeft_Click(object sender, EventArgs e);
-        // Create event
         public event btnRight_Click BtnRight_Click;
         public event btnLeft_Click BtnLeft_Click;
-
+        
+        #region Constructors
         public Slider(string title) : this(title, 5) { }
 
         public Slider(string title, double value)
         {
             InitializeComponent();
             initSlider(1, 0, 10);
-            if(value >= minAmount && value <= maxAmount)
+            if (value >= minAmount && value <= maxAmount)
                 this.value = value;
             this.title = new Label();
             this.title.Text = title;
@@ -54,22 +53,9 @@ namespace ALSProject
             Controls.Add(btnRight);
 
         }
+        #endregion
 
-
-        public void BtnLeft_Click1(object sender, EventArgs e)
-        {
-            UpdatePos(direction.LEFT);
-            if (BtnLeft_Click != null)
-                BtnLeft_Click(this, e);
-        }
-
-        private void BtnRight_Click1(object sender, EventArgs e)
-        {
-            UpdatePos(direction.RIGHT);
-            if (BtnRight_Click != null)
-                BtnRight_Click(this, e);
-        }
-
+        #region Public Methods
         public void initSlider(double inc, double min, double max)
         {
             increment = inc;
@@ -83,29 +69,21 @@ namespace ALSProject
             slideBox = new Rectangle(leftBounds, 0, this.Width / 100, this.Height);
             bounds = new Rectangle(Location.X, Location.Y, Size.Width, Size.Height);
         }
+        #endregion
 
-        private void UpdatePos(Slider.direction dir)
+        #region Events
+        public void BtnLeft_Click1(object sender, EventArgs e)
         {
-            switch (dir)
-            {
-                case direction.LEFT:
-                    if (value > minAmount)
-                        value -= increment;
-                    break;
-                case direction.RIGHT:
-                    if (value < maxAmount)
-                        value += increment;
-                    break;
-            }
-            int leftBounds;
-            if (value >= maxAmount)
-                leftBounds = bounds.Width - slideBox.Width;
-            else
-                leftBounds = (int)((value - minAmount) / (maxAmount - minAmount) * bounds.Width);
+            UpdatePos(direction.LEFT);
+            if (BtnLeft_Click != null)
+                BtnLeft_Click(this, e);
+        }
 
-            slideBox.Location = new Point(bounds.X + leftBounds, slideBox.Location.Y);
-
-            Invalidate();
+        private void BtnRight_Click1(object sender, EventArgs e)
+        {
+            UpdatePos(direction.RIGHT);
+            if (BtnRight_Click != null)
+                BtnRight_Click(this, e);
         }
 
         private void Slider_Paint(object sender, PaintEventArgs e)
@@ -137,6 +115,32 @@ namespace ALSProject
             //Update slideBox
             UpdatePos(direction.NEUTRAL);
         }
+        #endregion
+
+        #region Private Events
+        private void UpdatePos(Slider.direction dir)
+        {
+            switch (dir)
+            {
+                case direction.LEFT:
+                    if (value > minAmount)
+                        value -= increment;
+                    break;
+                case direction.RIGHT:
+                    if (value < maxAmount)
+                        value += increment;
+                    break;
+            }
+            int leftBounds;
+            if (value >= maxAmount)
+                leftBounds = bounds.Width - slideBox.Width;
+            else
+                leftBounds = (int)((value - minAmount) / (maxAmount - minAmount) * bounds.Width);
+
+            slideBox.Location = new Point(bounds.X + leftBounds, slideBox.Location.Y);
+
+            Invalidate();
+        }
 
         private void resizeText()
         {
@@ -149,5 +153,6 @@ namespace ALSProject
 
             title.Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
         }
+        #endregion
     }
 }

@@ -96,7 +96,6 @@
       <DependentUpon>ALSTextbox.cs</DependentUpon>
     </Compile>
     <Compile Include="ALS_App.cs" />
-    <Compile Include="BECM.cs" />
     <Compile Include="Browser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,16 +139,6 @@
     <Compile Include="Email.Designer.cs">
       <DependentUpon>Email.cs</DependentUpon>
     </Compile>
-    <Compile Include="Email.GUI.cs">
-      <DependentUpon>Email.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Email2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Email2.Designer.cs">
-      <DependentUpon>Email2.cs</DependentUpon>
-    </Compile>
     <Compile Include="EmailClient.cs" />
     <Compile Include="EmailMessage.cs" />
     <Compile Include="EmailFactory.cs" />
@@ -160,11 +149,11 @@
       <DependentUpon>EmailResponseType.cs</DependentUpon>
     </Compile>
     <Compile Include="Factory.cs" />
-    <Compile Include="frmAbout.cs">
+    <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAbout.Designer.cs">
-      <DependentUpon>frmAbout.cs</DependentUpon>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEmailLogin.cs">
       <SubType>Form</SubType>
@@ -316,14 +305,11 @@
     <EmbeddedResource Include="Email.resx">
       <DependentUpon>Email.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Email2.resx">
-      <DependentUpon>Email2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EmailResponseType.resx">
       <DependentUpon>EmailResponseType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAbout.resx">
-      <DependentUpon>frmAbout.cs</DependentUpon>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmailLogin.resx">
       <DependentUpon>frmEmailLogin.cs</DependentUpon>

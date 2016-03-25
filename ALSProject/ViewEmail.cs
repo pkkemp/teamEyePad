@@ -14,20 +14,22 @@ namespace ALSProject
 {
     public partial class ViewEmail : Form
     {
-        ALSAlarm btnAlarm;
-        ALSButton btnRespond, btnPageUp, btnUp, btnDown, btnPageDown, btnBack;
-        TextBox tbEmail;
-        Panel panel;
-        private EmailMessage message;
-        EmailResponseType frmRespond;
-        int currentHeight;
+        protected ALSAlarm btnAlarm;
+        protected ALSButton btnRespond, btnPageUp, btnUp, btnDown, btnPageDown, btnBack;
+        protected TextBox tbEmail;
+        protected Panel panel;
+        protected EmailMessage message;
+        protected EmailResponseType frmRespond;
+        protected int currentHeight;
 
-        enum ScrollDirection { PageUp, ScrollUp, ScrollDown, PageDown };
+        public enum ScrollDirection { PageUp, ScrollUp, ScrollDown, PageDown };
         public delegate void Event(object sender, EventArgs args);
         public event Event Back_Click;
+
         [DllImport("user32.dll")]
         static extern int SendMessage(IntPtr hWnd, uint wMsg, UIntPtr wParam, IntPtr lParam);
 
+        #region Constructors
         public ViewEmail()
         {
             InitializeComponent();
@@ -35,7 +37,9 @@ namespace ALSProject
 
             frmRespond = new EmailResponseType();
         }
+        #endregion
 
+        #region Public Methods
         public void SetMailMessage(EmailMessage m)
         {
             message = m;
@@ -43,51 +47,9 @@ namespace ALSProject
             ViewEmail_Resize(this, EventArgs.Empty);
 
         }
+        #endregion
 
-        private void InitializeControls()
-        {
-            btnAlarm = new ALSAlarm();
-            btnRespond = new ALSButton();
-            btnPageUp = new ALSButton();
-            btnUp = new ALSButton();
-            btnDown = new ALSButton();
-            btnPageDown = new ALSButton();
-            btnBack = new ALSButton();
-            tbEmail = new TextBox();
-            panel = new Panel();
-
-            btnRespond.Text = "Respond";
-            btnPageUp.Text = "Page\nup";
-            btnUp.Text = "Scroll\nUp";
-            btnDown.Text = "Scroll\nDown";
-            btnPageDown.Text = "Page\nDown";
-            btnBack.Text = "Back";
-
-            btnRespond.Click += BtnRespond_Click;
-            btnPageUp.Click += BtnPageUp_Click;
-            btnUp.Click += BtnUp_Click;
-            btnDown.Click += BtnDown_Click;
-            btnPageDown.Click += BtnPageDown_Click;
-            btnBack.Click += BtnBack_Click;
-
-            panel.Controls.Add(tbEmail);
-            Controls.Add(btnAlarm);
-            Controls.Add(btnRespond);
-            Controls.Add(btnPageUp);
-            Controls.Add(btnUp);
-            Controls.Add(btnDown);
-            Controls.Add(btnPageDown);
-            Controls.Add(btnBack);
-            Controls.Add(panel);
-
-            tbEmail.Multiline = true;
-            tbEmail.ReadOnly = true;
-            panel.AutoScroll = true;
-            tbEmail.Size = new Size(100, 700);
-
-        }
-
-
+        #region Events
         private void BtnBack_Click(object sender, EventArgs e)
         {
             Hide();
@@ -113,41 +75,6 @@ namespace ALSProject
         private void BtnPageUp_Click(object sender, EventArgs e)
         {
             ScrollClick(ScrollDirection.PageUp);
-        }
-
-        private void ScrollClick(ScrollDirection scrollDirection)
-        {
-            Control c = new Control();
-            panel.Controls.Add(c);
-            switch (scrollDirection)
-            {
-                case ScrollDirection.PageDown:
-                    c.Location = new Point(0, currentHeight + panel.Height + (2 * panel.Height) / 3);
-                    currentHeight += (2 * panel.Height) / 3;
-                    break;
-                case ScrollDirection.PageUp:
-                    c.Location = new Point(0, -(2 * panel.Height) / 3);
-                    currentHeight -= (2 * panel.Height) / 3;
-                    break;
-                case ScrollDirection.ScrollDown:
-                    c.Location = new Point(0, currentHeight + panel.Height + (1 * panel.Height) / 10);
-                    currentHeight += (1 * panel.Height) / 10;
-                    break;
-                case ScrollDirection.ScrollUp:
-                    c.Location = new Point(0, -(1 * panel.Height) / 10);
-                    currentHeight -= (1 * panel.Height) / 10;
-                    break;
-            }
-            if (currentHeight < 0)
-                currentHeight = 0;
-            int pixelsPastEdge = c.Location.Y - panel.Height - currentHeight;
-            if (pixelsPastEdge > 0)
-            {
-                currentHeight -= pixelsPastEdge;
-                c.Location = new Point(0, c.Location.Y - pixelsPastEdge);
-            }
-            panel.ScrollControlIntoView(c);
-            panel.Controls.Remove(c);
         }
 
         private void BtnRespond_Click(object sender, EventArgs e)
@@ -205,5 +132,86 @@ namespace ALSProject
         {
             right.Location = new Point(left.Right + MainMenu.GAP, left.Top);
         }
+        #endregion
+
+        #region Private Events
+        private void InitializeControls()
+        {
+            btnAlarm = new ALSAlarm();
+            btnRespond = new ALSButton();
+            btnPageUp = new ALSButton();
+            btnUp = new ALSButton();
+            btnDown = new ALSButton();
+            btnPageDown = new ALSButton();
+            btnBack = new ALSButton();
+            tbEmail = new TextBox();
+            panel = new Panel();
+
+            btnRespond.Text = "Respond";
+            btnPageUp.Text = "Page\nup";
+            btnUp.Text = "Scroll\nUp";
+            btnDown.Text = "Scroll\nDown";
+            btnPageDown.Text = "Page\nDown";
+            btnBack.Text = "Back";
+
+            btnRespond.Click += BtnRespond_Click;
+            btnPageUp.Click += BtnPageUp_Click;
+            btnUp.Click += BtnUp_Click;
+            btnDown.Click += BtnDown_Click;
+            btnPageDown.Click += BtnPageDown_Click;
+            btnBack.Click += BtnBack_Click;
+
+            panel.Controls.Add(tbEmail);
+            Controls.Add(btnAlarm);
+            Controls.Add(btnRespond);
+            Controls.Add(btnPageUp);
+            Controls.Add(btnUp);
+            Controls.Add(btnDown);
+            Controls.Add(btnPageDown);
+            Controls.Add(btnBack);
+            Controls.Add(panel);
+
+            tbEmail.Multiline = true;
+            tbEmail.ReadOnly = true;
+            panel.AutoScroll = true;
+            tbEmail.Size = new Size(100, 700);
+
+        }
+
+        private void ScrollClick(ScrollDirection scrollDirection)
+        {
+            Control c = new Control();
+            panel.Controls.Add(c);
+            switch (scrollDirection)
+            {
+                case ScrollDirection.PageDown:
+                    c.Location = new Point(0, currentHeight + panel.Height + (2 * panel.Height) / 3);
+                    currentHeight += (2 * panel.Height) / 3;
+                    break;
+                case ScrollDirection.PageUp:
+                    c.Location = new Point(0, -(2 * panel.Height) / 3);
+                    currentHeight -= (2 * panel.Height) / 3;
+                    break;
+                case ScrollDirection.ScrollDown:
+                    c.Location = new Point(0, currentHeight + panel.Height + (1 * panel.Height) / 10);
+                    currentHeight += (1 * panel.Height) / 10;
+                    break;
+                case ScrollDirection.ScrollUp:
+                    c.Location = new Point(0, -(1 * panel.Height) / 10);
+                    currentHeight -= (1 * panel.Height) / 10;
+                    break;
+            }
+            if (currentHeight < 0)
+                currentHeight = 0;
+            int pixelsPastEdge = c.Location.Y - panel.Height - currentHeight;
+            if (pixelsPastEdge > 0)
+            {
+                currentHeight -= pixelsPastEdge;
+                c.Location = new Point(0, c.Location.Y - pixelsPastEdge);
+            }
+            panel.ScrollControlIntoView(c);
+            panel.Controls.Remove(c);
+        }
+        #endregion
     }
 }
