@@ -186,9 +186,9 @@ namespace ALSProject
             btnSend = new ALSButton();
 
             if (isQwerty)
-                keyboard = new KeyboardControl3();
+                keyboard = new LargeButtonKeyboard();
             else
-                keyboard = new KeyboardControl2();
+                keyboard = new QwertyKeyboard();
 
             btnCancel.Text = "Cancel";
             btnSend.Text = "Send";

@@ -40,9 +40,9 @@ namespace ALSProject
             txtButton = new ALSTextbox();
             txtPassword = new ALSTextbox();
             if (isQwerty)
-                keyboard = new KeyboardControl3();
+                keyboard = new LargeButtonKeyboard();
             else
-                keyboard = new KeyboardControl2();
+                keyboard = new QwertyKeyboard();
 
             btnLogout.Text = "Log\nOut";
             btnCancel.Text = "Cancel";

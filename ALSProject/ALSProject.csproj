@@ -164,17 +164,17 @@
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl2.cs">
+    <Compile Include="QwertyKeyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl2.Designer.cs">
-      <DependentUpon>KeyboardControl2.cs</DependentUpon>
+    <Compile Include="QwertyKeyboard.Designer.cs">
+      <DependentUpon>QwertyKeyboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeyboardControl3.cs">
+    <Compile Include="LargeButtonKeyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl3.Designer.cs">
-      <DependentUpon>KeyboardControl3.cs</DependentUpon>
+    <Compile Include="LargeButtonKeyboard.Designer.cs">
+      <DependentUpon>LargeButtonKeyboard.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsPage2.cs">
       <SubType>Form</SubType>
@@ -215,11 +215,11 @@
     <Compile Include="QuitForm.Designer.cs">
       <DependentUpon>QuitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="SettingsPage1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <Compile Include="SettingsPage1.Designer.cs">
+      <DependentUpon>SettingsPage1.cs</DependentUpon>
     </Compile>
     <Compile Include="Slider.cs">
       <SubType>UserControl</SubType>
@@ -332,8 +332,8 @@
     <EmbeddedResource Include="QuitForm.resx">
       <DependentUpon>QuitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsPage1.resx">
+      <DependentUpon>SettingsPage1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Slider.resx">
