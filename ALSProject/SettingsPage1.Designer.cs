@@ -1,6 +1,6 @@
 namespace ALSProject
 {
-    partial class SettingsForm
+    partial class SettingsPage1
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace ALSProject
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsPage1));
             this.btnResetCallouts = new ALSProject.ALSButton();
             this.btnAlarm = new ALSProject.ALSAlarm();
             this.btnBack = new ALSProject.ALSButton();

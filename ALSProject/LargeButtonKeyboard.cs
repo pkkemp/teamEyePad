@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace ALSProject
 {
     //This is the same as User Control 1, but it is written more clearly
-    public partial class KeyboardControl3 : Keyboard
+    public partial class LargeButtonKeyboard : Keyboard
     {
         private enum KeyboardType
         {
@@ -21,7 +21,8 @@ namespace ALSProject
         private KeyboardType keyboardType;
         private const string backspace = "Backspace", space = "Space", deleteWord = "Delete\nWord", clear = "Clear";
 
-        public KeyboardControl3() : base()
+        #region Constrcutors
+        public LargeButtonKeyboard() : base()
         {
             InitializeComponent();
 
@@ -65,7 +66,16 @@ namespace ALSProject
                 }
             }
         }
+        #endregion
 
+        #region Public Methods
+        public override object Clone()
+        {
+            return new LargeButtonKeyboard();
+        }
+        #endregion
+
+        #region Events
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
@@ -150,7 +160,9 @@ namespace ALSProject
                 keyboard[i, 28].Location = new Point(keyboard[i, 29].Right + MainMenu.GAP, keyboard[i, 29].Top);
             }
         }
+        #endregion
 
+        #region Private Methods
         protected override void SetIsBrowser(bool isBrowser)
         {
             if (isBrowser)
@@ -182,10 +194,7 @@ namespace ALSProject
                 }
             }
         }
+        #endregion
 
-        public override object Clone()
-        {
-            return new KeyboardControl3();
-        }
     }
 }

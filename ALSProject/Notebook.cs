@@ -30,6 +30,7 @@ namespace ALSProject
         public delegate void MainMenuClick(object sender, EventArgs args);
         public event MainMenuClick MainMenu_Click;
 
+        #region Constructors
         public Notebook(bool isQwerty)
         {
             InitializeComponent();
@@ -108,7 +109,27 @@ namespace ALSProject
 
             flipToPage(0);
         }
+        #endregion
 
+        #region Public Methods
+        public void resetList()
+        {
+            phrases.Clear();
+            this.refreshNotes();
+        }
+
+        public ALSButton[] getMenuBtns()
+        {
+            return topRowButtons;
+        }
+        
+        public Notepage GetNotepage()
+        {
+            return notepage;
+        }
+        #endregion
+
+        #region Events
         private void Notepage_Back_Click(object sender, EventArgs args)
         {
             this.Show();
@@ -145,13 +166,6 @@ namespace ALSProject
                 MainMenu_Click(this, e);
         }
 
-        private int getNum(String str)
-        {
-            char test = str[str.Length - 1];
-            int num = Convert.ToInt16(test - '0');
-            return num;
-        }
-
         private void Notebook_Show(object sender, EventArgs e)
         {
             this.Show();
@@ -168,11 +182,6 @@ namespace ALSProject
             this.refreshNotes();
             this.Show();
             notepage.Hide();
-        }
-
-        private void refreshNotes()
-        {
-            flipToPage(pageNum);
         }
 
         private void deleteItem(object sender, EventArgs e)
@@ -209,6 +218,60 @@ namespace ALSProject
                 topRowButtons[2].Enabled = false;
         }
 
+        private void NewNote_Click(object sender, EventArgs e)
+        {
+            indexBeingEdited = 0;
+            notepage.ClearText();
+            notepage.Show();
+            this.Hide();
+        }
+
+        private void edit_Click(object sender, EventArgs e)
+        {
+            isEditMode = !isEditMode;
+            for (int i = 0; i < notes.GetLength(1); i++)
+            {
+                notes[1, i].Visible = isEditMode;
+            }
+            ResizeButtons();
+        }
+
+        private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            StreamWriter filestream = new StreamWriter(File.Open("Notes.txt", FileMode.Create));
+            for (int i = 0; i < phrases.Count; i++)
+            {
+                filestream.WriteLine(phrases[i]);
+            }
+
+            filestream.Close();
+            Application.Exit();
+        }
+
+        private void Notebook_Load(object sender, EventArgs e)
+        {
+            ResizeButtons();
+        }
+
+        private void Notebook_VisibleChanged(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Private Events
+        private int getNum(String str)
+        {
+            char test = str[str.Length - 1];
+            int num = Convert.ToInt16(test - '0');
+            return num;
+        }
+
+        private void refreshNotes()
+        {
+            flipToPage(pageNum);
+        }
+
         private void flipToPage(int num)
         {
             if (num < 0)
@@ -235,14 +298,6 @@ namespace ALSProject
 
         }
 
-        private void NewNote_Click(object sender, EventArgs e)
-        {
-            indexBeingEdited = 0;
-            notepage.ClearText();
-            notepage.Show();
-            this.Hide();
-        }
-
         private void populateList()
         {
 
@@ -260,32 +315,11 @@ namespace ALSProject
 
             file.Close();
         }
-
-        public void resetList()
-        {
-            phrases.Clear();
-            this.refreshNotes();
-        }
-
+        
         private void generateDefaultFile()
         {
             StreamWriter filestream = new StreamWriter(File.Create("Notes.txt"));
             filestream.Close();
-        }
-
-        public ALSButton[] getMenuBtns()
-        {
-            return topRowButtons;
-        }
-
-        private void edit_Click(object sender, EventArgs e)
-        {
-            isEditMode = !isEditMode;
-            for (int i = 0; i < notes.GetLength(1); i++)
-            {
-                notes[1, i].Visible = isEditMode;
-            }
-            ResizeButtons();
         }
 
         private void ResizeButtons()
@@ -336,33 +370,6 @@ namespace ALSProject
                         notes[i, j].Visible = false;
             }
         }
-
-        private void Notebook_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            StreamWriter filestream = new StreamWriter(File.Open("Notes.txt", FileMode.Create));
-            for (int i = 0; i < phrases.Count; i++)
-            {
-                filestream.WriteLine(phrases[i]);
-            }
-
-            filestream.Close();
-            Application.Exit();
-        }
-
-        private void Notebook_Load(object sender, EventArgs e)
-        {
-            ResizeButtons();
-        }
-
-        private void Notebook_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        public Notepage GetNotepage()
-        {
-            return notepage;
-        }
-
+        #endregion
     }
 }

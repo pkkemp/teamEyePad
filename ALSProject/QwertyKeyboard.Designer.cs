@@ -1,6 +1,6 @@
 ﻿namespace ALSProject
 {
-    partial class KeyboardControl3
+    partial class QwertyKeyboard
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,7 +30,16 @@
         {
             components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.SuspendLayout();
+            // 
+            // KeyboardControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Name = "KeyboardControl";
+            this.Size = new System.Drawing.Size(755, 369);
+            this.ResumeLayout(false);
         }
 
         #endregion

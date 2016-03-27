@@ -9,8 +9,29 @@ namespace ALSProject
 
     public class EmailMessage
     {
+        public DateTime date { get; }
+        public String subject
+        {
+            get;
+        }
+        public String body
+        {
+            get;
+        }
+        public String destinationAddress
+        {
+            get;
+        }
+        public String sourceAddress
+        {
+            get;
+        }
+
         private uint UID;
 
+        #region Constructors
+
+        
         public EmailMessage(String subject, String body, String destinationAddress, String sourceAddress, DateTime date, uint UID)
         {
             this.subject = subject;
@@ -31,26 +52,9 @@ namespace ALSProject
             this.date = date;
 
         }
-
-        public DateTime date { get; }
-
-        public String subject
-        {
-            get; 
-        }
-        public String body
-        {
-            get; 
-        }
-        public String destinationAddress
-        {
-            get; 
-        }
-        public String sourceAddress
-        {
-            get;
-        }
-
+        #endregion
+        
+        #region Public Methods
         public bool Equals(EmailMessage email)
         {
             if (email.GetHashCode().Equals(this.GetHashCode()))
@@ -86,5 +90,6 @@ namespace ALSProject
         {
             return UID;
         }
+        #endregion
     }
 }

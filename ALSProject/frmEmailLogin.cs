@@ -12,31 +12,23 @@ namespace ALSProject
 {
     public partial class frmEmailLogin : Form
     {
-        private ALSAlarm btnAlarm;
-        private ALSButton btnLogout;
-        private ALSButton btnCancel;
-        private ALSButton btnLogin;
-        private ALSTextbox txtButton;
-        private ALSTextbox txtPassword;
-        private Keyboard keyboard;
+        protected ALSAlarm btnAlarm;
+        protected ALSButton btnLogout;
+        protected ALSButton btnCancel;
+        protected ALSButton btnLogin;
+        protected ALSTextbox txtButton;
+        protected ALSTextbox txtPassword;
+        protected Keyboard keyboard;
 
         public delegate void Back(object sender, EventArgs args);
         public event Back Cancel_Click;
         public event Back Login_Click;
 
+        #region Constructor
         public frmEmailLogin(bool isQwerty)
         {
             InitializeComponent();
             InitializeControls(isQwerty);
-        }
-
-        public void SetKeyboard(Keyboard k)
-        {
-            Controls.Remove(keyboard);
-            keyboard = k;
-            keyboard.HideTextBox();
-            Controls.Add(keyboard);
-            frmEmailLogin_Resize(this, EventArgs.Empty);
         }
 
         private void InitializeControls(bool isQwerty)
@@ -48,9 +40,9 @@ namespace ALSProject
             txtButton = new ALSTextbox();
             txtPassword = new ALSTextbox();
             if (isQwerty)
-                keyboard = new KeyboardControl3();
+                keyboard = new LargeButtonKeyboard();
             else
-                keyboard = new KeyboardControl2();
+                keyboard = new QwertyKeyboard();
 
             btnLogout.Text = "Log\nOut";
             btnCancel.Text = "Cancel";
@@ -70,18 +62,32 @@ namespace ALSProject
 
             txtButton.Font = new Font(txtButton.Font.FontFamily, 20);
             txtPassword.Font = new Font(txtPassword.Font.FontFamily, 20);
-            
+
             keyboard.HideTextBox();
             txtButton.Focus();
         }
 
+        #endregion
+
+        #region Public Methods
+        public void SetKeyboard(Keyboard k)
+        {
+            Controls.Remove(keyboard);
+            keyboard = k;
+            keyboard.HideTextBox();
+            Controls.Add(keyboard);
+            frmEmailLogin_Resize(this, EventArgs.Empty);
+        }
+        #endregion
+
+        #region Events
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            //Do stuff
+            EmailClient client = EmailFactory.GetEmailClient();
+            client.setLogin("imap.gmail.com", "smtp.gmail.com", txtButton.Text, txtPassword.Text);
             Hide();
             if (Cancel_Click != null)
                 Cancel_Click(this, e);
-
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -122,5 +128,6 @@ namespace ALSProject
             btnLogin.Location = new Point(btnCancel.Right + MainMenu.GAP, btnAlarm.Top);
             keyboard.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
         }
+        #endregion
     }
 }

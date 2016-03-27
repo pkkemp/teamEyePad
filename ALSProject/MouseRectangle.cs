@@ -11,15 +11,17 @@ namespace ALSProject
 {
     class MouseRectangle
     {
-        private Rectangle bounds;
-        Timer timer;
-        private Form parentForm;
-        private Control parentControl;
-        const int RECT_SIZE = 100;
-        private int mouseCount = -1;
-        bool clickmode = false;
-        private const int MOUSEWAIT = 15;
+        protected const int MOUSEWAIT = 15;
+        protected const int RECT_SIZE = 100;
 
+        protected Rectangle bounds;
+        protected Timer timer;
+        protected Form parentForm;
+        protected Control parentControl;
+        protected int mouseCount = -1;
+        protected bool clickmode = false;
+
+        #region Constructors
         public MouseRectangle(Form parent)
         {
             timer = new Timer();
@@ -41,36 +43,12 @@ namespace ALSProject
             parentControl = parent;
             bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width / 2, Cursor.Position.Y - bounds.Size.Height / 2);
         }
+        #endregion
 
+        #region Public Methods
         public void setClickmode(bool mode)
         {
             clickmode = mode;
-        }
-
-        private void timerEvent(object sender, EventArgs e)
-        {
-            mouseCount++;
-            if ((parentForm != null && parentForm.Visible) || (parentControl != null && parentControl.Visible))
-            {
-
-                if (!bounds.Contains(Cursor.Position))
-                {
-                    bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width / 2, Cursor.Position.Y - bounds.Size.Height / 2);
-                    parentForm.CreateGraphics().Clear(Color.FromArgb(32, 32, 32));
-                    parentForm.CreateGraphics().FillRectangle(Brushes.SkyBlue, bounds);
-                    mouseCount = -1;
-                    
-
-                }
-
-                if (mouseCount == MOUSEWAIT && clickmode)
-                {
-                    MouseSimulator.ClickLeftMouseButton();
-                    System.Media.SystemSounds.Asterisk.Play();
-                }
-                else if (mouseCount >= MOUSEWAIT)
-                    mouseCount = -1;
-            }
         }
 
         public void UpdateRect()
@@ -97,6 +75,34 @@ namespace ALSProject
             }
             */
         }
+        #endregion
 
+        #region Events
+        private void timerEvent(object sender, EventArgs e)
+        {
+            mouseCount++;
+            if ((parentForm != null && parentForm.Visible) || (parentControl != null && parentControl.Visible))
+            {
+
+                if (!bounds.Contains(Cursor.Position))
+                {
+                    bounds.Location = new Point(Cursor.Position.X - bounds.Size.Width / 2, Cursor.Position.Y - bounds.Size.Height / 2);
+                    parentForm.CreateGraphics().Clear(Color.FromArgb(32, 32, 32));
+                    parentForm.CreateGraphics().FillRectangle(Brushes.SkyBlue, bounds);
+                    mouseCount = -1;
+                    
+
+                }
+
+                if (mouseCount == MOUSEWAIT && clickmode)
+                {
+                    MouseSimulator.ClickLeftMouseButton();
+                    System.Media.SystemSounds.Asterisk.Play();
+                }
+                else if (mouseCount >= MOUSEWAIT)
+                    mouseCount = -1;
+            }
+        }
+        #endregion
     }
 }

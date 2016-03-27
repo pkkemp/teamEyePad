@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace ALSProject
 {
-    public partial class KeyboardControl2 : Keyboard
+    public partial class QwertyKeyboard : Keyboard
     {
         private enum KeyboardType
         {
@@ -32,12 +32,14 @@ namespace ALSProject
         private const string symbols2 = "@$%^&*+-=;";
         private const string symbols3 = "()[]{}|\\/";
 
-        public KeyboardControl2() : base()
+        #region Constructors
+
+        public QwertyKeyboard() : base()
         {
             initialConfiguration();
         }
 
-        public KeyboardControl2(bool mode) : base(mode)
+        public QwertyKeyboard(bool mode) : base(mode)
         {
             browserMode = mode;
             initialConfiguration();
@@ -145,7 +147,16 @@ namespace ALSProject
 
             SetIsBrowser(browserMode);
         }
+        #endregion
 
+        #region Public Methods
+        public override object Clone()
+        {
+            return new QwertyKeyboard();
+        }
+        #endregion
+
+        #region Events
         private void NavigateKeyboard(object sender, EventArgs e)
         {
             ALSButton button = (ALSButton)sender;
@@ -287,7 +298,9 @@ namespace ALSProject
 
             SetIsBrowser(browserMode);
         }
+        #endregion
 
+        #region Private Methods
         protected override void SetIsBrowser(bool isBrowser)
         {
             if (isBrowser)
@@ -304,7 +317,7 @@ namespace ALSProject
                         button.Enabled = false;
                     }
                 }
-                
+
             }
             else
             {
@@ -321,11 +334,7 @@ namespace ALSProject
                 }
 
             }
-        } 
-
-        public override object Clone()
-        {
-            return new KeyboardControl2();
         }
+        #endregion
     }
 }

@@ -24,16 +24,23 @@ namespace ALSProject
         protected string mostRecentEntry;
         protected bool browserMode = false;
         protected string internalBuffer;
-
         protected ClearTextConfirmation frmClearTextConfirmation;
 
         public delegate void Event(object sender, EventArgs e);
         public event Event OnPressed;
         public event Event ClearText_Click;
 
+        #region Constrcutors
         public Keyboard()
         {
             this.initialSetup();
+        }
+
+        public Keyboard(bool browserMode)
+        {
+            this.browserMode = browserMode;
+            this.initialSetup();
+
         }
 
         protected void initialSetup()
@@ -58,80 +65,14 @@ namespace ALSProject
             }
             this.Resize += new System.EventHandler(this.Keyboard_Resize);
         }
+        #endregion
 
-        public Keyboard(bool browserMode)
-        {
-            this.browserMode = browserMode;
-            this.initialSetup();
-
-        }
-
-        private void FrmClearTextConfirmation_ClearText_Click(bool confirm)
-        {
-            if (confirm)
-                ClearText();
-        }
-
-        public void Predictionkey_Click(object sender, EventArgs e)
-        {
-            ALSButton key = ((ALSButton)sender);
-            if (key.Text.Length == 0)
-                return;
-
-            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
-            var match = Regex.Match(text, @"\S+\s*$");
-
-            string newWord;
-            int charactersAfterCaret = _textBox.TextLength - _textBox.SelectionStart;
-
-            if (match.Value.Contains(" "))
-            {
-                if (needsCapitalization())
-                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
-                else
-                    newWord = key.Text;
-                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
-            }
-            else
-            {
-                //Remove typed characters
-                int numCharactersToRemove = 0;
-                for (int i = 0; i < text.Length; i++)
-                    if (text.ToLower()[i].Equals(key.Text.ToLower()[i]))
-                        numCharactersToRemove++;
-                    else
-                        break;
-                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart - numCharactersToRemove) + _textBox.Text.Substring(_textBox.SelectionStart);
-
-                if (needsCapitalization())
-                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
-                else
-                    newWord = key.Text;
-
-                _textBox.Text = text.Substring(0, match.Index) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
-            }
-            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret + 1;
-
-            ResetPrediction();
-            Populate_Predictkeys();
-        }
-
-        protected void Clear(object sender, EventArgs e)
-        {
-            if (_confirmClear)
-            {
-                frmClearTextConfirmation.Show();
-            }
-            else
-                ClearText();
-
-        }
-
+        #region Public Methods
         public void SetBrowserMode(bool isBrowserMode)
         {
             browserMode = isBrowserMode;
             Keyboard_Resize(this, EventArgs.Empty);
-            
+
         }
 
         public void SetText(string text)
@@ -211,57 +152,81 @@ namespace ALSProject
             }
         }
 
-        protected void ClearText()
+        public string GetMostRecentEntry()
         {
-            _textBox.Text = "";
-            if (ClearText_Click != null)
-                ClearText_Click(this, EventArgs.Empty);
+            string result = mostRecentEntry;
+
+            switch (result)
+            {
+                case "+":
+                case "^":
+                case "~":
+                case "(":
+                case ")":
+                case "{":
+                case "}":
+                    result = "{" + result + "}";
+                    break;
+            }
+            return result;
         }
 
-        protected void Populate_Predictkeys()
+        #endregion
+
+        #region Events
+        public void Predictionkey_Click(object sender, EventArgs e)
         {
-            string lastWord = "";
+            ALSButton key = ((ALSButton)sender);
+            if (key.Text.Length == 0)
+                return;
+
             string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
-            var match = Regex.Match(text, @"[.!?][^.!?]*$");
+            var match = Regex.Match(text, @"\S+\s*$");
 
-            if (match.Success)
-                lastWord = match.Length > 1 ? text.Substring(match.Index + 1) : "";
-            else
-                lastWord = text;
+            string newWord;
+            int charactersAfterCaret = _textBox.TextLength - _textBox.SelectionStart;
 
-            //remove inaplicable words
-            match = Regex.Match(text, @"\S*$");
-            string lastWord2 = "";
-            if (match.Success)
-                lastWord2 = text.Substring(match.Index);
-            else
-                predictionWords.Clear();    //new word
-            for (int i = predictionWords.Count - 1; i >= 0; i--)
+            if (match.Value.Contains(" "))
             {
-                string temp = predictionWords.ElementAt(i);
-                if (!temp.ToLower().Contains(lastWord2.ToLower()))
-                    predictionWords.Remove(temp);
+                if (needsCapitalization())
+                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                else
+                    newWord = key.Text;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
             }
-
-            //Add new applicable words 
-            string[] predictions = presage.getPredictions(lastWord);
-            foreach (string word in predictions)
-                predictionWords.Add(word);
-
-            //Write words to buttons
-            for (int i = 0; i < predictionKeys.Length; i++)
+            else
             {
-                try
-                {
-                    string word = predictionWords.ElementAt(i);
-                    predictionKeys[i].Text = word;
-                    predictionKeys[i].setFontSize();
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    predictionKeys[i].Text = "";
-                }
+                //Remove typed characters
+                int numCharactersToRemove = 0;
+                for (int i = 0; i < text.Length; i++)
+                    if (text.ToLower()[i].Equals(key.Text.ToLower()[i]))
+                        numCharactersToRemove++;
+                    else
+                        break;
+                _textBox.Text = _textBox.Text.Substring(0, _textBox.SelectionStart - numCharactersToRemove) + _textBox.Text.Substring(_textBox.SelectionStart);
+
+                if (needsCapitalization())
+                    newWord = key.Text.Substring(0, 1).ToUpper() + key.Text.Substring(1);
+                else
+                    newWord = key.Text;
+
+                _textBox.Text = text.Substring(0, match.Index) + newWord + " " + _textBox.Text.Substring(_textBox.SelectionStart);
             }
+            _textBox.SelectionStart = _textBox.TextLength - charactersAfterCaret + 1;
+
+            ResetPrediction();
+            Populate_Predictkeys();
+        }
+
+        protected void Clear(object sender, EventArgs e)
+        {
+            if (_confirmClear)
+            {
+                frmClearTextConfirmation.Show();
+            }
+            else
+                ClearText();
+
         }
 
         protected void DeleteWord(object sender, EventArgs e)
@@ -352,30 +317,72 @@ namespace ALSProject
             }
         }
 
+        protected abstract void Keyboard_Resize(object sender, EventArgs e);
+        #endregion
+
+        #region Private Methods
+        private void FrmClearTextConfirmation_ClearText_Click(bool confirm)
+        {
+            if (confirm)
+                ClearText();
+        }
+
+        protected void ClearText()
+        {
+            _textBox.Text = "";
+            if (ClearText_Click != null)
+                ClearText_Click(this, EventArgs.Empty);
+        }
+
+        protected void Populate_Predictkeys()
+        {
+            string lastWord = "";
+            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+            var match = Regex.Match(text, @"[.!?][^.!?]*$");
+
+            if (match.Success)
+                lastWord = match.Length > 1 ? text.Substring(match.Index + 1) : "";
+            else
+                lastWord = text;
+
+            //remove inaplicable words
+            match = Regex.Match(text, @"\S*$");
+            string lastWord2 = "";
+            if (match.Success)
+                lastWord2 = text.Substring(match.Index);
+            else
+                predictionWords.Clear();    //new word
+            for (int i = predictionWords.Count - 1; i >= 0; i--)
+            {
+                string temp = predictionWords.ElementAt(i);
+                if (!temp.ToLower().Contains(lastWord2.ToLower()))
+                    predictionWords.Remove(temp);
+            }
+
+            //Add new applicable words 
+            string[] predictions = presage.getPredictions(lastWord);
+            foreach (string word in predictions)
+                predictionWords.Add(word);
+
+            //Write words to buttons
+            for (int i = 0; i < predictionKeys.Length; i++)
+            {
+                try
+                {
+                    string word = predictionWords.ElementAt(i);
+                    predictionKeys[i].Text = word;
+                    predictionKeys[i].setFontSize();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    predictionKeys[i].Text = "";
+                }
+            }
+        }
+
         private ALSKey[,] GetKeyboard()
         {
             return keyboard;
-        }
-
-        public string GetMostRecentEntry()
-        {
-            string result = mostRecentEntry;
-
-            switch (result)
-            {
-                case "+":
-                case "^":
-                case "~":
-                case "(":
-                case ")":
-                case "{":
-                case "}":
-                    result = "{" + result + "}";
-                    break;
-            }
-
-
-            return result;
         }
 
         private bool needsCapitalization()
@@ -401,9 +408,9 @@ namespace ALSProject
             if (OnPressed != null)
                 OnPressed(this, EventArgs.Empty);
         }
-
-        protected abstract void Keyboard_Resize(object sender, EventArgs e);
-
+        #endregion
+        
+        #region Abstract Methods
         protected abstract void SetIsBrowser(bool isBrowser);
 
         public abstract object Clone();
@@ -419,6 +426,6 @@ namespace ALSProject
             this.ResumeLayout(false);
 
         }
-
+        #endregion
     }
 }

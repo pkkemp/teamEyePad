@@ -22,16 +22,12 @@ namespace ALSProject
         public delegate void Clear_Click(object sender, EventArgs args);
         public event Clear_Click ClearClick;
 
+        public static long startTime;
+        public static Color baseColor = Color.FromArgb(224, 224, 224);
         public ButtonType btnType
         {
             get; set;
         }
-
-        double heightCounter;
-        private static bool isDecay;
-        protected Timer dwellTimer, decayTimer;
-        protected bool clicked = false; //prevents rapid clicks
-        private int heightDivider = 30;
         public int dwellTimeInterval
         {
             get
@@ -43,13 +39,16 @@ namespace ALSProject
                 dwellTimer.Interval = value;
             }
         }
-        private static List<ALSButton> alsButtons = new List<ALSButton>();
-        private bool firstTime = true;
 
-        public static Color baseColor = Color.FromArgb(224, 224, 224);
+        protected double heightCounter;
+        protected static bool isDecay;
+        protected Timer dwellTimer, decayTimer;
+        protected bool clicked = false; //prevents rapid clicks
+        protected int heightDivider = 30;
+        protected static List<ALSButton> alsButtons = new List<ALSButton>();
+        protected bool firstTime = true;
 
-        public static long startTime;
-
+        #region Constructors
         public ALSButton()
         {
             InitializeComponent();
@@ -69,6 +68,56 @@ namespace ALSProject
             TextChanged += ALSButton_TextChanged;
             Disposed += ALSButton_Disposed;
         }
+        #endregion
+
+        #region Public Methods
+
+        public static void setTimerSpeed(double speed, ButtonType buttonType)
+        {
+            if (speed < 0)
+                return;
+            foreach (ALSButton btn in alsButtons)
+            {
+                if (btn.btnType.Equals(buttonType))
+                {
+                    btn.dwellTimer.Interval = Math.Max((int)(100 - speed * 10), 1);
+                    btn.decayTimer.Interval = btn.dwellTimer.Interval * 3;
+                }
+            }
+        }
+
+        // This function checks the room size and your text and appropriate font for your text to fit in room
+        // Text is the string which it's bounds is more than room bounds.
+        public void setFontSize()
+        {
+            Graphics g = CreateGraphics();
+            SizeF RealSize = g.MeasureString(Text, Font);
+            float HeightScaleRatio = (Height - 18) / RealSize.Height;
+            float WidthScaleRatio = (Width - 18) / RealSize.Width;
+            float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
+            float ScaleFontSize = Font.Size * ScaleRatio;
+
+            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
+        }
+
+        public static void setDecay(bool isDecay)
+        {
+            ALSButton.isDecay = isDecay;
+            ALSTextbox.setDecay(isDecay);
+        }
+
+        public static void toggleDecay()
+        {
+            isDecay = !isDecay;
+        }
+
+        public static bool getDecay()
+        {
+            return isDecay;
+        }
+        #endregion
+
+        #region Events
 
         private void ALSButton_Disposed(object sender, EventArgs e)
         {
@@ -182,48 +231,6 @@ namespace ALSProject
             }
         }
 
-        public static void setTimerSpeed(double speed, ButtonType buttonType)
-        {
-            if (speed < 0)
-                return;
-            foreach (ALSButton btn in alsButtons)
-            {
-                if (btn.btnType.Equals(buttonType))
-                {
-                    btn.dwellTimer.Interval = Math.Max((int)(100 - speed * 10), 1);
-                    btn.decayTimer.Interval = btn.dwellTimer.Interval * 3;
-                }
-            }
-        }
-
-        //This function checks the room size and your text and appropriate font for your text to fit in room
-        //Text is the string which it's bounds is more than room bounds.
-        public void setFontSize()
-        {
-            Graphics g = CreateGraphics();
-            SizeF RealSize = g.MeasureString(Text, Font);
-            float HeightScaleRatio = (Height - 18) / RealSize.Height;
-            float WidthScaleRatio = (Width - 18) / RealSize.Width;
-            float ScaleRatio = (HeightScaleRatio < WidthScaleRatio) ? ScaleRatio = HeightScaleRatio : ScaleRatio = WidthScaleRatio;
-            float ScaleFontSize = Font.Size * ScaleRatio;
-
-            Font = new Font(Font.FontFamily, Math.Min(ScaleFontSize < 8 ? 5 : ScaleFontSize, 50));
-        }
-
-        public static void setDecay(bool isDecay)
-        {
-            ALSButton.isDecay = isDecay;
-            ALSTextbox.setDecay(isDecay);
-        }
-
-        public static void toggleDecay()
-        {
-            isDecay = !isDecay;
-        }
-
-        public static bool getDecay()
-        {
-            return isDecay;
-        }
+        #endregion
     }
 }

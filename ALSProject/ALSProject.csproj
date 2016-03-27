@@ -14,6 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -96,7 +96,6 @@
       <DependentUpon>ALSTextbox.cs</DependentUpon>
     </Compile>
     <Compile Include="ALS_App.cs" />
-    <Compile Include="BECM.cs" />
     <Compile Include="Browser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,16 +139,6 @@
     <Compile Include="Email.Designer.cs">
       <DependentUpon>Email.cs</DependentUpon>
     </Compile>
-    <Compile Include="Email.GUI.cs">
-      <DependentUpon>Email.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Email2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Email2.Designer.cs">
-      <DependentUpon>Email2.cs</DependentUpon>
-    </Compile>
     <Compile Include="EmailClient.cs" />
     <Compile Include="EmailMessage.cs" />
     <Compile Include="EmailFactory.cs" />
@@ -160,11 +149,11 @@
       <DependentUpon>EmailResponseType.cs</DependentUpon>
     </Compile>
     <Compile Include="Factory.cs" />
-    <Compile Include="frmAbout.cs">
+    <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAbout.Designer.cs">
-      <DependentUpon>frmAbout.cs</DependentUpon>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEmailLogin.cs">
       <SubType>Form</SubType>
@@ -175,17 +164,17 @@
     <Compile Include="Keyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl2.cs">
+    <Compile Include="QwertyKeyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl2.Designer.cs">
-      <DependentUpon>KeyboardControl2.cs</DependentUpon>
+    <Compile Include="QwertyKeyboard.Designer.cs">
+      <DependentUpon>QwertyKeyboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeyboardControl3.cs">
+    <Compile Include="LargeButtonKeyboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KeyboardControl3.Designer.cs">
-      <DependentUpon>KeyboardControl3.cs</DependentUpon>
+    <Compile Include="LargeButtonKeyboard.Designer.cs">
+      <DependentUpon>LargeButtonKeyboard.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsPage2.cs">
       <SubType>Form</SubType>
@@ -226,11 +215,11 @@
     <Compile Include="QuitForm.Designer.cs">
       <DependentUpon>QuitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="SettingsPage1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <Compile Include="SettingsPage1.Designer.cs">
+      <DependentUpon>SettingsPage1.cs</DependentUpon>
     </Compile>
     <Compile Include="Slider.cs">
       <SubType>UserControl</SubType>
@@ -259,7 +248,7 @@
   <ItemGroup>
     <Reference Include="EyeXFramework, Version=1.5.466.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\EyeX\x86\EyeXFramework.dll</HintPath>
+      <HintPath>bin\Debug\EyeXFramework.dll</HintPath>
     </Reference>
     <Reference Include="S22.Imap, Version=2.3.4642.27187, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\S22.Imap.2.3.2\lib\net40\S22.Imap.dll</HintPath>
@@ -316,14 +305,11 @@
     <EmbeddedResource Include="Email.resx">
       <DependentUpon>Email.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Email2.resx">
-      <DependentUpon>Email2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EmailResponseType.resx">
       <DependentUpon>EmailResponseType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAbout.resx">
-      <DependentUpon>frmAbout.cs</DependentUpon>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmailLogin.resx">
       <DependentUpon>frmEmailLogin.cs</DependentUpon>
@@ -346,8 +332,8 @@
     <EmbeddedResource Include="QuitForm.resx">
       <DependentUpon>QuitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsPage1.resx">
+      <DependentUpon>SettingsPage1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Slider.resx">

@@ -12,15 +12,16 @@ namespace ALSProject
 {
     public partial class EmailResponseType : Form
     {
-        ALSButton btnReply, btnReplyAll, btnForward;
+        protected ALSButton btnReply, btnReplyAll, btnForward;
         private EmailMessage message;
 
+        #region Constructors
         public EmailResponseType()
         {
             InitializeComponent();
             InitializeControls();
         }
-
+        
         private void InitializeControls()
         {
             btnReply = new ALSButton();
@@ -39,12 +40,16 @@ namespace ALSProject
             Controls.Add(btnReplyAll);
             Controls.Add(btnForward);
         }
+        #endregion
 
+        #region Public Methods
         public void SetEmailMessage(EmailMessage m)
         {
             message = m;
         }
+        #endregion
 
+        #region
         private void BtnForward_Click(object sender, EventArgs e)
         {
             Respond(ComposeEmail.EmailType.Forward);
@@ -58,16 +63,6 @@ namespace ALSProject
         private void BtnReply_Click(object sender, EventArgs e)
         {
             Respond(ComposeEmail.EmailType.Reply);
-        }
-
-        private void Respond(ComposeEmail.EmailType type)
-        {
-
-            ComposeEmail compose = EmailFactory.GetComposeEmail();
-            compose.SetEmailType(type);
-            compose.SetEmailMessage(message);
-            compose.Show();
-            Hide();
         }
 
         private void EmailResponseType_Resize(object sender, EventArgs e)
@@ -86,5 +81,17 @@ namespace ALSProject
         {
             Application.Exit();
         }
+        #endregion
+        
+        #region Private Methods
+        private void Respond(ComposeEmail.EmailType type)
+        {
+
+            ComposeEmail compose = EmailFactory.GetComposeEmail();
+            compose.SetEmailType(type, message);
+            compose.Show();
+            Hide();
+        }
+        #endregion
     }
 }

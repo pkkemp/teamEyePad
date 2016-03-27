@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace ALSProject
 {
-    public partial class SettingsForm : Form
+    public partial class SettingsPage1 : Form
     {
         ALSButton btnLock;
         ALSButton btnToggleKeyboard;
@@ -20,7 +20,7 @@ namespace ALSProject
         ALSButton btnAbout;
         SettingsPage2 nextPage;
         Slider sldrDwellTime, sldrKeyboard, sldrVoiceSpeed;
-        frmAbout frmAboutPage;
+        About frmAboutPage;
         bool isQwerty;  //Shows if the program's keyboards are qwerty or large button 
         bool isDecay = false;
         //The reason these are necessary is because the form closing needs them for the form closing portion
@@ -32,7 +32,9 @@ namespace ALSProject
         public delegate void ChangeKeyboardClick(Keyboard k);
         public event ChangeKeyboardClick SetKeyboard;
 
-        public SettingsForm()
+
+        #region Constructors
+        public SettingsPage1()
         {
             InitializeComponent();
 
@@ -47,14 +49,14 @@ namespace ALSProject
 
                 XmlNode xmlnode = doc.FirstChild;
                 xmlnode = xmlnode.NextSibling;
-               
+
                 isQwerty = xmlnode["keyboard"].InnerText.Equals("Qwerty");
                 isDecay = xmlnode["decay"].InnerText.Equals("Decay");
                 dwellTime = Convert.ToInt32(xmlnode["dwellTime"].InnerText);
                 keyboardDwellTime = Convert.ToInt32(xmlnode["keyboardDwellTime"].InnerText);
                 voiceSpeed = Convert.ToInt32(xmlnode["voiceSpeed"].InnerText);
             }
-            catch (Exception) {}
+            catch (Exception) { }
 
             nextPage = new SettingsPage2(this);
 
@@ -72,7 +74,7 @@ namespace ALSProject
             Controls.Add(btnLock);
 
             btnToggleKeyboard = new ALSButton();
-            btnToggleKeyboard.Text = isQwerty ? "Large\nButton\nKeyboard" :"Qwerty\nKeyboard";
+            btnToggleKeyboard.Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
             btnToggleKeyboard.Size = btnBack.Size;
             btnToggleKeyboard.Click += ChangeKeyboard_Click;
             Controls.Add(btnToggleKeyboard);
@@ -105,7 +107,7 @@ namespace ALSProject
             Controls.Add(sldrDwellTime);
             Controls.Add(sldrKeyboard);
             Controls.Add(sldrVoiceSpeed);
-            
+
             sldrDwellTime.BtnRight_Click += SldrDwellTime_Btn_Click;
             sldrDwellTime.BtnLeft_Click += SldrDwellTime_Btn_Click;
             sldrKeyboard.BtnLeft_Click += SldrKeyboard_Btn_Click;
@@ -113,21 +115,18 @@ namespace ALSProject
             sldrVoiceSpeed.BtnRight_Click += SldrVoiceSpeed_Btn_Click;
             sldrVoiceSpeed.BtnLeft_Click += SldrVoiceSpeed_Btn_Click;
 
-            frmAboutPage = new frmAbout();
+            frmAboutPage = new About();
             frmAboutPage.VisibleChanged += FrmAboutPage_VisibleChanged;
 
-            
+
             dwellTime = sldrDwellTime.value;
             keyboardDwellTime = sldrDwellTime.value;
             voiceSpeed = sldrVoiceSpeed.value;
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            nextPage.Show();
-            this.Hide();
-        }
+        #endregion
 
+        #region Public Methods
         public void ApplySettings()
         {
             updateSldrDwellTime();
@@ -135,6 +134,14 @@ namespace ALSProject
             updateVoiceSpeed();
             BroadcastKeyboard();
             ALSButton.setDecay(isDecay);
+        }
+        #endregion
+
+        #region Events
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            nextPage.Show();
+            this.Hide();
         }
 
         private void FrmAboutPage_VisibleChanged(object sender, EventArgs e)
@@ -183,17 +190,6 @@ namespace ALSProject
                 MainMenu_Click(this, e);
         }
 
-        private void updateSldrDwellTime()
-        {
-            ALSButton.setTimerSpeed(sldrDwellTime.value, ALSButton.ButtonType.normal);
-        }
-
-        private void updateVoiceSpeed()
-        {
-            MainMenu.SetVoiceSpeed((int)(voiceSpeed + .5) - 4);
-
-        }
-
         private void SettingsForm_Resize(object sender, EventArgs e)
         {
             if (btnLock == null)
@@ -226,29 +222,12 @@ namespace ALSProject
             sldrVoiceSpeed.Location = new Point(MainMenu.GAP, sldrKeyboard.Bottom + MainMenu.GAP);
         }
 
-        private void updateSldrKeyboard()
-        {
-            ALSButton.setTimerSpeed(sldrKeyboard.value, ALSButton.ButtonType.key);
-        }
-
         private void ChangeKeyboard_Click(object sender, EventArgs e)
         {
             isQwerty = !isQwerty;
             btnToggleKeyboard.Text = isQwerty ? "Large\nButton\nKeyboard" : "Qwerty\nKeyboard";
             BroadcastKeyboard();
         }
-
-        private void BroadcastKeyboard()
-        {
-            if (SetKeyboard != null)
-            {
-                if (isQwerty)
-                    SetKeyboard(new KeyboardControl3());
-                else
-                    SetKeyboard(new KeyboardControl2());
-            }
-        }
-
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -292,6 +271,36 @@ namespace ALSProject
             }
             Application.Exit();
         }
+        #endregion
+
+        #region Private Events
+        private void updateSldrDwellTime()
+        {
+            ALSButton.setTimerSpeed(sldrDwellTime.value, ALSButton.ButtonType.normal);
+        }
+
+        private void updateVoiceSpeed()
+        {
+            MainMenu.SetVoiceSpeed((int)(voiceSpeed + .5) - 4);
+
+        }
+
+        private void updateSldrKeyboard()
+        {
+            ALSButton.setTimerSpeed(sldrKeyboard.value, ALSButton.ButtonType.key);
+        }
+
+        private void BroadcastKeyboard()
+        {
+            if (SetKeyboard != null)
+            {
+                if (isQwerty)
+                    SetKeyboard(new LargeButtonKeyboard());
+                else
+                    SetKeyboard(new QwertyKeyboard());
+            }
+        }
+        #endregion
     }
 
     public class SettingsEventArgs : EventArgs

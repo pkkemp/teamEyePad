@@ -15,6 +15,7 @@ namespace ALSProject
         private ALSButton _lock;
         private ALSAlarm alarm;
 
+        #region Constructors
         public LockScreen()
         {
             InitializeComponent();
@@ -30,7 +31,9 @@ namespace ALSProject
 
             Resize += this.Resize_LockScreen;
         }
+        #endregion
 
+        #region Events
         private void Resize_LockScreen(object sender, EventArgs e)
         {
             int length = Height / 3;
@@ -50,5 +53,6 @@ namespace ALSProject
         {
             Application.Exit();
         }
+        #endregion
     }
 }

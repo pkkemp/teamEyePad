@@ -36,7 +36,7 @@ namespace ALSProject
 
             mouseBox = new MouseRectangle(this);
             isFullScreen = false;
-            SetKeyboard(new KeyboardControl2(true));
+            SetKeyboard(new QwertyKeyboard(true));
 
             winBrowse.Navigate(homepage);
             winBrowse.ScriptErrorsSuppressed = true;

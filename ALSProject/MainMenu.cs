@@ -37,31 +37,27 @@ namespace ALSProject
         private const int WM_APPCOMMAND = 0x319;
 
         public Form self { get; set; }
-        private BECM becm;
+        public const int GAP = 10;
+
+        protected TextToSpeech texttospeech;
+        protected Callout callout;
+        protected SettingsPage1 settingsScreen;
+        protected QuitForm quitScreen;
+        protected Browser browser;
+        protected Email email;
+        protected Timer closeTimer;
+        protected Factory factory;
         private CVInterface tobiiInt;
         private Notebook notebook;
         private Thread eyeTrackingThread;
         private static LockScreen lockScreen;
         private static SpeechSynthesizer voice;
 
-        public const int GAP = 10;
-
-        TextToSpeech texttospeech;
-        Callout callout;
-        SettingsForm settingsScreen;
-        QuitForm quitScreen;
-        Browser browser;
-        Email2 email;
-
-        Timer closeTimer;
-
-        Factory factory;
-
+        #region Constructors
         public MainMenu()
         {
             InitializeComponent();
             this.self = this;
-            initBECM();
             btnAlarm.Click += new System.EventHandler(alarmBut_Click);
             lockScreen = new LockScreen();
 
@@ -135,7 +131,37 @@ namespace ALSProject
             closeTimer.Interval = 1000;
             closeTimer.Tick += new EventHandler(closeTimeEvent);
         }
+        #endregion
+
+        #region Public Methods
+        public void OpenTTS()
+        {
+
+            texttospeech.Show();
+        }
         
+        public static void showLockScreen()
+        {
+            lockScreen.Show();
+            lockScreen.Focus();
+        }
+
+        public static void SetVoiceSpeed(int speed)
+        {
+            if (speed >= -10 && speed <= 10)
+            {
+                voice.Rate = speed;
+            }
+        }
+
+        public static void Speak(string text)
+        {
+            voice.SpeakAsyncCancelAll();
+            voice.SpeakAsync(text);
+        }
+        #endregion
+
+        #region Events
         private void SettingsScreen_SetKeyboard(Keyboard k)
         {
             try
@@ -158,66 +184,6 @@ namespace ALSProject
             {
                 MessageBox.Show("There was an error loading the settings.");
             }
-        }
-
-        private void Callouts_Show(object sender, EventArgs args)
-        {
-            callout.Show();
-        }
-
-        private void TextToSpeech_Show(object sender, EventArgs args)
-        {
-            texttospeech.Show();
-        }
-
-        private void MainMenu_Show(object sender, EventArgs e)
-        {
-            this.Show();
-        }
-
-        private void closeTimeEvent(object sender, EventArgs e)
-        {
-
-            if (callout != null && settingsScreen != null && texttospeech != null)
-            {
-                //this.Close();
-            }
-        }
-
-        private void resetCallouts(object sender, EventArgs e)
-        {
-            callout.resetList();
-        }
-
-        private void closeCallouts(object sender, EventArgs e)
-        {
-            if (((ALSButton)sender).Text == "Main Menu")
-            {
-                this.Show();
-                callout.Hide();
-            }
-            else if (((ALSButton)sender).Text == "Text to Speech")
-            {
-                texttospeech.Show();
-                callout.Hide();
-            }
-        }
-
-        public void openCallouts(object sender, EventArgs e)
-        {
-            callout.Show();
-            texttospeech.Hide();
-        }
-
-        public void OpenTTS()
-        {
-
-            texttospeech.Show();
-        }
-
-        public void initBECM()
-        {
-            becm = new BECM();
         }
 
         private void User_Interface_Load(object sender, EventArgs e)
@@ -296,8 +262,89 @@ namespace ALSProject
         {
             texttospeech.Show();
             this.Hide();
-       }
+        }
 
+        private void Callouts_Show(object sender, EventArgs args)
+        {
+            callout.Show();
+        }
+
+        private void TextToSpeech_Show(object sender, EventArgs args)
+        {
+            texttospeech.Show();
+        }
+
+        private void MainMenu_Show(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void closeTimeEvent(object sender, EventArgs e)
+        {
+
+            if (callout != null && settingsScreen != null && texttospeech != null)
+            {
+                //this.Close();
+            }
+        }
+
+        private void resetCallouts(object sender, EventArgs e)
+        {
+            callout.resetList();
+        }
+
+        private void closeCallouts(object sender, EventArgs e)
+        {
+            if (((ALSButton)sender).Text == "Main Menu")
+            {
+                this.Show();
+                callout.Hide();
+            }
+            else if (((ALSButton)sender).Text == "Text to Speech")
+            {
+                texttospeech.Show();
+                callout.Hide();
+            }
+        }
+
+        public void openCallouts(object sender, EventArgs e)
+        {
+            callout.Show();
+            texttospeech.Hide();
+        }
+
+        private void UI_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            CVInterface.PleaseStop();
+
+            Application.Exit();
+
+        }
+
+        private void btnBrowser_Click(object sender, EventArgs e)
+        {
+            browser.Show();
+            this.Hide();
+        }
+
+        private void btnNotebook_Click(object sender, EventArgs e)
+        {
+            showLockScreen();
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+            email.Show();
+            this.Hide();
+        }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+        #endregion
+
+        #region Private Methods
         private void resizeScreen()
         {
             int height = (this.Height - 4 * MainMenu.GAP) / 3;
@@ -334,61 +381,12 @@ namespace ALSProject
 
         }
 
-        private void UI_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            CVInterface.PleaseStop();
-            
-            Application.Exit();
-
-        }
-
-        private void btnBrowser_Click(object sender, EventArgs e)
-        {
-            browser.Show();
-            this.Hide();
-        }
-
-        private void btnNotebook_Click(object sender, EventArgs e)
-        {
-            showLockScreen();
-        }
-
-        public static void showLockScreen()
-        {
-            lockScreen.Show();
-            lockScreen.Focus();
-        }
-
-        public static void SetVoiceSpeed(int speed)
-        {
-            if (speed >= -10 && speed <= 10)
-            {
-                voice.Rate = speed;
-            }
-        }
-
-        public static void Speak(string text)
-        {
-            voice.SpeakAsyncCancelAll();
-            voice.SpeakAsync(text);
-        }
-
         private Keyboard GetNewKeyboard(bool isQwerrty)
         {
             if (isQwerrty)
-                return new KeyboardControl3();
-            return new KeyboardControl2();
+                return new LargeButtonKeyboard();
+            return new QwertyKeyboard();
         }
-
-        private void btnEmail_Click(object sender, EventArgs e)
-        {
-            email.Show();
-            this.Hide();
-        }
-
-        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
+        #endregion
     }
 }

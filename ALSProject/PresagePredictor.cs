@@ -10,10 +10,11 @@ namespace ALSProject
     public class PresagePredictor
     {
 
-        Presage presage;
-        String buffer;
-        String nextWord;
-
+        protected Presage presage;
+        protected String buffer;
+        protected String nextWord;
+        
+        #region Constructors
         public PresagePredictor()
         {
             buffer = "";
@@ -24,12 +25,13 @@ namespace ALSProject
                    callback_get_future_stream
                );
         }
+        #endregion
 
+        #region Public Methods
         public void reset()
         {
             buffer = "";
         }
-
 
         public String[] getPredictions(string inputString)
         {
@@ -47,5 +49,6 @@ namespace ALSProject
         {
             return nextWord;
         }
+        #endregion
     }
 }

@@ -14,17 +14,18 @@ namespace ALSProject
 {
     public partial class Notepage : Form
     {
-        Keyboard keyboard;
 
-        const int MENU_BUTTON_SIZE = 140;
-        const int ARROW_KEY_SIZE = 80;
-        ALSButton alarm, speak, back;
-        ALSButton up, left, right, down, backWord, forwardWord;
-        ALSButton _lock;
+        protected const int MENU_BUTTON_SIZE = 140;
+        protected const int ARROW_KEY_SIZE = 80;
+        protected Keyboard keyboard;
+        protected ALSButton alarm, speak, back;
+        protected ALSButton up, left, right, down, backWord, forwardWord;
+        protected ALSButton _lock;
 
         public delegate void BackClick(object sender, EventArgs args);
         public event BackClick Back_Click;
 
+        #region Constructors
         public Notepage(bool isQwerty)
         {
             InitializeComponent();
@@ -32,9 +33,9 @@ namespace ALSProject
             this.WindowState = FormWindowState.Maximized;
 
             if (isQwerty)
-                keyboard = new KeyboardControl3();
+                keyboard = new LargeButtonKeyboard();
             else
-                keyboard = new KeyboardControl2();
+                keyboard = new QwertyKeyboard();
 
             alarm = new ALSAlarm();
             speak = new ALSButton();
@@ -84,7 +85,63 @@ namespace ALSProject
             initControlsRecursive(this.Controls);
             keyboard.setClearConfirmation(true);
         }
+        #endregion
 
+        #region Public Methods
+        public string getText()
+        {
+            return keyboard.GetText();
+        }
+
+        public ALSButton getBackBtn()
+        {
+            return back;
+        }
+
+        public void setText(string text)
+        {
+            if (text != null)
+                keyboard.SetText(text);
+        }
+
+        public void ClearText() //erases the textbox for when a new note is to be added
+        {
+            keyboard.SetText("");
+        }
+
+        public void setCursorAtEnd()
+        {
+            keyboard.SetSelection(keyboard.GetText().Length, 0);
+        }
+
+        public ALSButton getSaveButton()
+        {
+            return new ALSButton();
+        }
+
+        //public void makeKeyboard(bool isQwerty)
+        //{
+        //    Controls.Remove(keyboard);
+        //    if (isQwerty)
+        //        keyboard = new KeyboardControl3();
+        //    else
+        //        keyboard = new KeyboardControl2();
+        //    Notepage_Resize(this, null);
+        //    Invalidate();
+        //}
+
+        public void SetKeyboard(Keyboard k)
+        {
+            Controls.Remove(keyboard);
+            keyboard = k;
+            Controls.Add(keyboard);
+            keyboard.setClearConfirmation(true);
+            keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
+            Notepage_Resize(this, EventArgs.Empty);
+        }
+        #endregion
+
+        #region Events
         private void _lock_Click(object sender, EventArgs e)
         {
             MainMenu.showLockScreen();
@@ -182,23 +239,6 @@ namespace ALSProject
             //Type printable characters in text box
         }
 
-        void initControlsRecursive(Control.ControlCollection coll)
-        {
-            foreach (Control c in coll)
-            {
-                c.MouseClick += (sender, e) =>
-                {
-                    updateCursor();
-                };
-                initControlsRecursive(c.Controls);
-            }
-        }
-
-        private void updateCursor()
-        {
-            keyboard.SetTextBoxFocus();
-        }
-
         private void Notepage_Load(object sender, EventArgs e)
         {
             alarm.Size = new Size(MENU_BUTTON_SIZE, MENU_BUTTON_SIZE);
@@ -238,59 +278,26 @@ namespace ALSProject
         {
             Application.Exit();
         }
+        #endregion
 
-        public string getText()
+        #region Private Events
+        void initControlsRecursive(Control.ControlCollection coll)
         {
-            return keyboard.GetText();
+            foreach (Control c in coll)
+            {
+                c.MouseClick += (sender, e) =>
+                {
+                    updateCursor();
+                };
+                initControlsRecursive(c.Controls);
+            }
         }
 
-        public ALSButton getBackBtn()
+        private void updateCursor()
         {
-            return back;
+            keyboard.SetTextBoxFocus();
         }
 
-        public void setText(string text)
-        {
-            if (text != null)
-                keyboard.SetText(text);
-        }
-
-        public void ClearText() //erases the textbox for when a new note is to be added
-        {
-            keyboard.SetText("");
-        }
-
-        public void setCursorAtEnd()
-        {
-            keyboard.SetSelection(keyboard.GetText().Length, 0);
-        }
-
-        public ALSButton getSaveButton()
-        {
-            return new ALSButton();
-        }
-
-        //public void makeKeyboard(bool isQwerty)
-        //{
-        //    Controls.Remove(keyboard);
-        //    if (isQwerty)
-        //        keyboard = new KeyboardControl3();
-        //    else
-        //        keyboard = new KeyboardControl2();
-        //    Notepage_Resize(this, null);
-        //    Invalidate();
-        //}
-
-        public void SetKeyboard(Keyboard k)
-        {
-            Controls.Remove(keyboard);
-            keyboard = k;
-            Controls.Add(keyboard);
-            keyboard.setClearConfirmation(true);
-            keyboard.Location = new Point(MainMenu.GAP, MainMenu.GAP);
-            Notepage_Resize(this, EventArgs.Empty);
-        }
-
-
+        #endregion
     }
 }
