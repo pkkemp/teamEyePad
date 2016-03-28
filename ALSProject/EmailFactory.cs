@@ -17,6 +17,8 @@ namespace ALSProject
         public static string username = "teamEyePad@gmail.com";
         public static string password = "highEyeGuy";
 
+        
+
         public static ComposeEmail GetComposeEmail()
         {
             if (ComposeEmail == null)

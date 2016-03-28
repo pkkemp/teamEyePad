@@ -90,6 +90,8 @@ namespace ALSProject
             sendClient.Send(message);
         }
 
+        const int DOWNLOAD_COUNT = 20;
+
         public void retrieveMail(String mailbox = "INBOX")
         {
             currentMailBox = mailbox;
@@ -111,7 +113,15 @@ namespace ALSProject
                     IEnumerable<uint> uids = null;
                     uids = client.Search(SearchCondition.All(), mailbox);
                     // Download mail messages from the default mailbox.
-                    IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true, mailbox);
+                    uint[] uidArray = uids.ToArray();
+                    Array.Reverse(uidArray);
+                    
+                    uids = uids.Reverse();
+                    
+                    if (uidArray.Length > DOWNLOAD_COUNT)
+                        Array.Resize(ref uidArray, DOWNLOAD_COUNT);
+
+                    IEnumerable<MailMessage> messages = client.GetMessages(uidArray, FetchOptions.NoAttachments, true, mailbox);
                     IEnumerator<MailMessage> messageList = messages.GetEnumerator();
                     IEnumerator<uint> uidList = uids.GetEnumerator();
 
@@ -119,8 +129,19 @@ namespace ALSProject
                     {
                         uidList.MoveNext();
 
+                        string toAddress;
+
+                        try
+                        {
+                            toAddress = messageList.Current.To[0].Address;
+                        }
+                        catch
+                        {
+                            toAddress = "None";
+                        }
+
                         EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
-                            messageList.Current.To[0].Address, messageList.Current.From.Address, EmailClient.Date(messageList.Current),
+                            toAddress, messageList.Current.From.Address, EmailClient.Date(messageList.Current),
                             uidList.Current);
 
                         int hash = temp.GetHashCode();
