@@ -101,81 +101,86 @@ namespace ALSProject
             }
 
 
-
-            // The default port for IMAP over SSL is 993.
-            using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
-            {
-                folders = client.ListMailboxes();
-                Console.WriteLine("We are connected!");
-                // Returns a collection of identifiers of all mails matching the specified search criteria.
-                IEnumerable<uint> uids = null;
-                uids = client.Search(SearchCondition.All(), mailbox);
-                // Download mail messages from the default mailbox.
-                IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true, mailbox);
-                IEnumerator<MailMessage> messageList = messages.GetEnumerator();
-                IEnumerator<uint> uidList = uids.GetEnumerator();
-
-                while (messageList.MoveNext())
+            try {
+                // The default port for IMAP over SSL is 993.
+                using (ImapClient client = new ImapClient(imapHost, 993, username, password, AuthMethod.Login, true))
                 {
-                    uidList.MoveNext();
+                    folders = client.ListMailboxes();
+                    Console.WriteLine("We are connected!");
+                    // Returns a collection of identifiers of all mails matching the specified search criteria.
+                    IEnumerable<uint> uids = null;
+                    uids = client.Search(SearchCondition.All(), mailbox);
+                    // Download mail messages from the default mailbox.
+                    IEnumerable<MailMessage> messages = client.GetMessages(uids.ToArray(), true, mailbox);
+                    IEnumerator<MailMessage> messageList = messages.GetEnumerator();
+                    IEnumerator<uint> uidList = uids.GetEnumerator();
 
-                    EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
-                        messageList.Current.To[0].Address, messageList.Current.From.Address, EmailClient.Date(messageList.Current),
-                        uidList.Current);
-
-                    int hash = temp.GetHashCode();
-
-                    bool contains = false;
-
-                    foreach (EmailMessage m in MailList)
+                    while (messageList.MoveNext())
                     {
-                        if (m.GetHashCode().Equals(hash))
-                            contains = true;
-                    }
+                        uidList.MoveNext();
 
-                    if (!contains)
-                    {
-                        bool added = false;
-                        int index = 0;
-                        if (MailList.Count == 0)
+                        EmailMessage temp = new EmailMessage(messageList.Current.Subject, messageList.Current.Body,
+                            messageList.Current.To[0].Address, messageList.Current.From.Address, EmailClient.Date(messageList.Current),
+                            uidList.Current);
+
+                        int hash = temp.GetHashCode();
+
+                        bool contains = false;
+
+                        foreach (EmailMessage m in MailList)
                         {
-                            MailList.Add(temp);
+                            if (m.GetHashCode().Equals(hash))
+                                contains = true;
                         }
-                        else
-                        {
 
-                            while (!added && index < MailList.Count)
+                        if (!contains)
+                        {
+                            bool added = false;
+                            int index = 0;
+                            if (MailList.Count == 0)
                             {
-                                switch (MailList[index].CompareTo(temp))
-                                {
-                                    case -1:
-                                        MailList.Insert(index, temp);
-                                        added = true;
-                                        break;
-                                    case 0:
-                                        MailList.Insert(index, temp);
-                                        added = true;
-                                        break;
-                                    case 1:
-                                        index++;
-                                        break;
-                                    case -99: //error code
-                                        break;
-                                }
-                            }
-                            if (!added)
                                 MailList.Add(temp);
+                            }
+                            else
+                            {
+
+                                while (!added && index < MailList.Count)
+                                {
+                                    switch (MailList[index].CompareTo(temp))
+                                    {
+                                        case -1:
+                                            MailList.Insert(index, temp);
+                                            added = true;
+                                            break;
+                                        case 0:
+                                            MailList.Insert(index, temp);
+                                            added = true;
+                                            break;
+                                        case 1:
+                                            index++;
+                                            break;
+                                        case -99: //error code
+                                            break;
+                                    }
+                                }
+                                if (!added)
+                                    MailList.Add(temp);
+                            }
+
+
+
                         }
-
-
 
                     }
 
                 }
 
+                MailList.Reverse();
             }
-
-            MailList.Reverse();
+            catch (InvalidCredentialsException)
+            {
+                
+            }
 
         }
 

@@ -2,8 +2,9 @@
 <item>
   <name>Settings</name>
   <keyboard>Large Button</keyboard>
-  <decay>Decay</decay>
-  <dwellTime>7</dwellTime>
-  <keyboardDwellTime>7</keyboardDwellTime>
-  <voiceSpeed>10</voiceSpeed>
+  <decay>No Decay</decay>
+  <autoalarm>AAEnabled</autoalarm>
+  <dwellTime>5</dwellTime>
+  <keyboardDwellTime>5</keyboardDwellTime>
+  <voiceSpeed>5</voiceSpeed>
 </item>

@@ -51,6 +51,7 @@ namespace ALSProject
                 xmlnode = xmlnode.NextSibling;
 
                 isQwerty = xmlnode["keyboard"].InnerText.Equals("Qwerty");
+                CVInterface.SetAutoAlarm(xmlnode["autoalarm"].InnerText.Equals("AAEnabled"));
                 isDecay = xmlnode["decay"].InnerText.Equals("Decay");
                 dwellTime = Convert.ToInt32(xmlnode["dwellTime"].InnerText);
                 keyboardDwellTime = Convert.ToInt32(xmlnode["keyboardDwellTime"].InnerText);
@@ -246,6 +247,10 @@ namespace ALSProject
                 decay.InnerText = isDecay ? "Decay" : "No Decay";
                 doc.DocumentElement.AppendChild(decay);
 
+                XmlElement autoAlarm = doc.CreateElement("autoalarm");
+                autoAlarm.InnerText = CVInterface.GetAutoAlarm() ? "AAEnabled" : "AADisabled";
+                doc.DocumentElement.AppendChild(autoAlarm);
+
                 XmlElement xmlDwellTime = doc.CreateElement("dwellTime");
                 xmlDwellTime.InnerText = dwellTime.ToString();
                 doc.DocumentElement.AppendChild(xmlDwellTime);
@@ -278,6 +283,8 @@ namespace ALSProject
         {
             ALSButton.setTimerSpeed(sldrDwellTime.value, ALSButton.ButtonType.normal);
         }
+
+        
 
         private void updateVoiceSpeed()
         {

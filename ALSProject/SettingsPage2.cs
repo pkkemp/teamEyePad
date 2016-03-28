@@ -17,6 +17,7 @@ namespace ALSProject
         private ALSButton btnToggleDecay;
         private bool isDecay = false;
         private Form parent;
+        private ALSButton btnAutoAlarm;
 
 
         #region Constructors
@@ -40,10 +41,15 @@ namespace ALSProject
         {
             this.parent = parent;
             InitializeComponent();
+            btnAutoAlarm = new ALSButton();
             alarm = new ALSAlarm();
             goBack = new ALSButton();
 
-            int btnWidth = (Width - MainMenu.GAP * 8) / 7; 
+            int btnWidth = (Width - MainMenu.GAP * 8) / 7;
+
+            btnAutoAlarm.Text = CVInterface.GetAutoAlarm() ? "Disable\nauto-alarm" : "Enable\nauto-alarm";
+            btnAutoAlarm.Size = new Size(btnWidth, btnWidth);
+            
 
             btnToggleDecay = new ALSButton();
             btnToggleDecay.Text = isDecay ? "Prevent\nDecay" : "Allow\nDecay";
@@ -51,6 +57,7 @@ namespace ALSProject
             btnToggleDecay.Click += btnDecay_Click;
             Controls.Add(btnToggleDecay);
 
+            Controls.Add(btnAutoAlarm);
             Controls.Add(goBack);
             Controls.Add(alarm);
 
@@ -58,6 +65,7 @@ namespace ALSProject
             goBack.Text = "Go Back";
 
             Resize += this.Resize_SettingsScreen;
+            btnAutoAlarm.Click += this.btAutoAlarm_Click;
         }
 
         private void GoBack_Click(object sender, EventArgs e)
@@ -76,6 +84,11 @@ namespace ALSProject
             goBack.Size = new Size(length, length);
             alarm.Size = new Size(length, length);
 
+            btnAutoAlarm.Location = new Point(4 * Width / 10, Height / 10);
+            btnAutoAlarm.Size = new Size(length, length);
+           
+
+
         }
 
         private void btnDecay_Click(object sender, EventArgs e)
@@ -83,6 +96,12 @@ namespace ALSProject
             ALSButton.toggleDecay();
             isDecay = !isDecay;
             ((ALSButton)sender).Text = isDecay ? "Prevent\nDecay" : "Allow\nDecay";
+        }
+
+        private void btAutoAlarm_Click(object sender, EventArgs e)
+        {
+            CVInterface.SetAutoAlarm(!CVInterface.GetAutoAlarm());
+            ((ALSButton)sender).Text = CVInterface.GetAutoAlarm() ? "Disable\nauto-alarm" : "Enable\nauto-alarm";
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)

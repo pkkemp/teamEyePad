@@ -21,7 +21,7 @@ namespace ALSProject
         public static System.Timers.Timer timer;
 
         protected static bool cantStopDontStop = true;
-        protected static bool AutoAlarm = true;
+        protected static bool AutoAlarm = false;
 
         #region Constructors
         public CVInterface()
@@ -73,6 +73,11 @@ namespace ALSProject
         public static void SetAutoAlarm(bool isAutoAlarm)
         {
             AutoAlarm = isAutoAlarm;
+        }
+
+        public static bool GetAutoAlarm()
+        {
+            return AutoAlarm;
         }
 
         public static void PleaseStop()
