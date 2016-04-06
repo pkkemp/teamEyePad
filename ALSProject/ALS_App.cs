@@ -10,6 +10,8 @@ using System.Diagnostics;
 
 namespace ALSProject
 {
+
+    //test
     static class ALS_App
     {
         private static Form mainMenu = null;
